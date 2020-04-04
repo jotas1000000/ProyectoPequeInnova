@@ -24,9 +24,6 @@
     <Folder Include="Data\Entities\" />
     <Folder Include="Data\Repository\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="Migrations\" />
-    <Folder Include="Models\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
