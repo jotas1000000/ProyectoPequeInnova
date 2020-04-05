@@ -1,0 +1,25 @@
+.rectangle3 {
+	position: absolute;
+	width: 80%;
+	height: 919px;
+	left: 10%;
+    top: 10%;
+	background: radial-gradient(50% 50% at 50% 50%, #38513B 0.05%, #A0B59B 0.06%, #63845F 0.07%, #396336 100%);
+	border-radius: 30px;
+}
+.tituloRegistro{
+    font-family: 'Montserrat';
+    font-weight: 500;
+	font-style: normal;
+	font-size: 58px;
+	line-height: 22px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+    text-transform: uppercase;
+    
+    color: #FFFFFF;
+}
+.registerLabel{
+    color: #FFFFFF;
+}
