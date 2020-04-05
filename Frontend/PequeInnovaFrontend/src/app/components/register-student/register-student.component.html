@@ -1,18 +1,53 @@
-<div class="rectangle3">
-    <form>
-    <h1 class="tituloRegistro">REGISTRARSE</h1>
-    <label for="nombres">First name: </label>
-    <input type="text" name ="nombres" placeholder="Nombre"><br>
-    <label for="apellidos">Last name: </label>
-    <input type="text" name ="apellidos"><br>
-    <input type="text" name ="usuario"><br>
- 
+<br>
+<div class="container-fluid">
+    <br>
+    <img id="logo" src="../../../assets/img/logo.png">
+    <br>
+    <br>
+    <h1 class="registerTitle">REGISTRARSE</h1>
+    <br>
+    <div class="form-group">
+        <label>Nombres</label>
+        <input type="text" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Apellidos</label>
+        <input type="text" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Nombre de Usuario</label>
+        <input type="text" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Colegio</label>
+        <select class="custom-select">
+            <option selected> Elija el colegio</option>
+            <option *ngFor="let school of schools">{{school}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label >Curso</label>
+        <select class="custom-select">
+            <option selected> Elija el curso</option>
+            <option *ngFor="let level of levels">{{level}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Fecha de Nacimiento</label>
+        <input type="date" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" class="form-control">
+    </div>
+    <br>
     
-    <input type="text" name ="colegio">
-    <input type="text" name ="curso">
-    <input type="text" name ="fechaNacimiento">
-    <input type="text" name ="contraseña">
-
-    <input type="submit" value="Submit" class = "btn">
-    </form>
+    <a class="btn btn-primary mr-5" linkRouter="/">Cancelar</a>
+       
+    <button class="btn btn-primary mr-5" type="submit">Confirmar</button>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 </div>

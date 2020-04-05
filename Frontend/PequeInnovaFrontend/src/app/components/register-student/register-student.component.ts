@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterStudentComponent implements OnInit {
 
+  levels =[6,7,8,9,10,11];
+  schools = ["A","B", "C"]
   constructor() { }
 
   ngOnInit(): void {
