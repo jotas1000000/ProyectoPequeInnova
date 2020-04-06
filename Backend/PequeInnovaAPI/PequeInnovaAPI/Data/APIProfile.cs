@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using PequeInnovaAPI.Data.Entity;
+using PequeInnovaAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,11 @@ namespace PequeInnovaAPI.Data
     {
         public APIProfile()
         {
+            this.CreateMap<AreaEntity, Area>()
+                .ReverseMap();
 
+            this.CreateMap<CourseEntity, Course>()
+                .ReverseMap();
         }
     }
 }
