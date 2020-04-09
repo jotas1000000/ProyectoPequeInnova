@@ -37,13 +37,19 @@ namespace PequeInnovaAPI
         {
             //Dependence Injection
             services.AddTransient<IUserService, UserService>();
-
+            services.AddTransient<IAreaService, AreaService>();
+            services.AddTransient<ICourseService, CourseService>();
+            services.AddTransient<ISectionService, SectionService>();
+            services.AddTransient<IPracticeService, PracticeService>();
+            services.AddTransient<ILessonService, LessonService>();
+            services.AddTransient<IPequeInnovaRepository, PequeInnovaRepository>();
 
             //Comunication DataBase
             services.AddEntityFrameworkSqlServer();
-            services.AddDbContext<ApiDbContext>(options => { options.UseSqlServer(Configuration.GetConnectionString("PequeInnovaConnection")); }
+            services.AddDbContext<ApiDbContext>(
+                options => { options.UseSqlServer(Configuration.GetConnectionString("PequeInnovaApiDatabase")); }
             );
-
+          
             //Identity Security
             services.AddIdentity<ApplicationUser, IdentityRole>(options => {
                 options.Password.RequireDigit = true;
@@ -71,26 +77,12 @@ namespace PequeInnovaAPI
             });
 
             services.AddAutoMapper(typeof(Startup));
+            services.AddCors();
 
             //MVC version
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddTransient<IAreaService, AreaService>();
-            services.AddTransient<ICourseService, CourseService>();
-            services.AddTransient<ISectionService, SectionService>();
-            services.AddTransient<IPracticeService, PracticeService>();
-            services.AddTransient<ILessonService, LessonService>();
-            services.AddTransient<IPequeInnovaRepository, PequeInnovaRepository>();
+                    
 
-            services.AddEntityFrameworkSqlServer();
-            services.AddDbContext<ApiDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("PequeInnovaApiDatabase")
-                    )
-            );
-
-            services.AddAutoMapper(typeof(Startup));
-            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

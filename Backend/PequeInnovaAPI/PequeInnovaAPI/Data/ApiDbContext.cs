@@ -2,7 +2,6 @@
 using PequeInnovaAPI.Data.Entity;
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using PequeInnovaAPI.Data.Entities;
 using PequeInnovaAPI.Models.Auth;
 using System;
 using System.Collections.Generic;
