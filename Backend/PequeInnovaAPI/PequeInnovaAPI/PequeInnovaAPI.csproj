@@ -31,11 +31,13 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.19" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Migrations\" />
+    <Folder Include="Data\Repository\" />
     <Folder Include="Exceptions\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
