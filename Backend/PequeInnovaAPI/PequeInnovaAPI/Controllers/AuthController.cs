@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PequeInnovaAPI.Models.Auth;
+using PequeInnovaAPI.Models.ModelsRequests;
 using PequeInnovaAPI.Services;
 
 namespace PequeInnovaAPI.Controllers
@@ -24,6 +25,38 @@ namespace PequeInnovaAPI.Controllers
             if (ModelState.IsValid)
             {
                 var Result = await Service.RegisterUserAsync(RegisterView);
+                if (Result.IsSuccess)
+                {
+                    return Ok(Result);
+                }
+                return BadRequest(Result);
+
+            }
+            return BadRequest("No se pudo registrar. Algo estuvo mal!");
+        }
+
+        [HttpPost("UserStudent")]
+        public async Task<IActionResult> CreateUserStudentAsync([FromBody]  RegisterStudentModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var Result = await Service.RegisterUserStudentAsync(model);
+                if (Result.IsSuccess)
+                {
+                    return Ok(Result);
+                }
+                return BadRequest(Result);
+
+            }
+            return BadRequest("No se pudo registrar. Algo estuvo mal!");
+        }
+                
+        [HttpPost("UserTeacher")]
+        public async Task<IActionResult> CreateUserTeacherAsync([FromBody] RegisterTeacherModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var Result = await Service.RegisterUserTeacherAsync(model);
                 if (Result.IsSuccess)
                 {
                     return Ok(Result);
@@ -76,6 +109,24 @@ namespace PequeInnovaAPI.Controllers
                 var result = await Service.LoginUserAsync(model);
 
                 if (result.IsSuccess)
+                {
+                    return Ok(result);
+                }
+
+                return BadRequest(result);
+            }
+
+            return BadRequest("Some properties are not valid");
+        }
+
+        [HttpGet("Users")]
+        public async Task<IActionResult> GetUsersRoles()
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await Service.GetUsersRoles();
+
+                if (result!=null)
                 {
                     return Ok(result);
                 }

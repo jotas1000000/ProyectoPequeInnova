@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using PequeInnovaAPI.Data.Entities;
+using PequeInnovaAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,8 @@ namespace PequeInnovaAPI.Data
     {
         public APIProfile()
         {
-
+            this.CreateMap<CommentEntity, CommentModel>()
+               .ReverseMap();
         }
     }
 }

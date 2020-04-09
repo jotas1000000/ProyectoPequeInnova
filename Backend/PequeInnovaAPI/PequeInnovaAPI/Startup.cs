@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PequeInnovaAPI.Data;
+using PequeInnovaAPI.Models.Auth;
 using PequeInnovaAPI.Services;
 
 namespace PequeInnovaAPI
@@ -38,11 +40,11 @@ namespace PequeInnovaAPI
 
             //Comunication DataBase
             services.AddEntityFrameworkSqlServer();
-            services.AddDbContext<ApiDbContext>(options => { options.UseSqlServer(Configuration.GetConnectionString("PequeInnovaConnection")); }
+            services.AddDbContext<ApiDbContext>(options => { options.UseMySQL(Configuration.GetConnectionString("PequeInnovaConnection")); }
             );
 
             //Identity Security
-            services.AddIdentity<IdentityUser, IdentityRole>(options => {
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => {
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
             }).AddEntityFrameworkStores<ApiDbContext>()
@@ -66,6 +68,8 @@ namespace PequeInnovaAPI
                     ValidateIssuerSigningKey = true
                 };
             });
+
+            services.AddAutoMapper(typeof(Startup));
 
             //MVC version
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
