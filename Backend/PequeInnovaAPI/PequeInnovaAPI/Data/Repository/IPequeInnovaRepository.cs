@@ -23,6 +23,26 @@ namespace PequeInnovaAPI.Data.Repository
         void UpdateCourse(CourseEntity curso);
         Task DeleteCourses(int id);
 
+        //seccion
+        Task<IEnumerable<SectionEntity>> GetSection(int courseId);
+        Task<SectionEntity> GetSectionsAsync(int id, bool mostrarCourse= false);
+        void AddSection(SectionEntity section);
+        void UpdateSection(SectionEntity section);
+        Task DeleteSection(int id);
+
+        //leccion
+        Task<IEnumerable<LessonEntity>> GetLesson(int sectionId);
+        Task<LessonEntity> GetLessonsAsync(int id, bool mostrarsection= false);
+        void AddLesson(LessonEntity lesson);
+        void UpdateLesson(LessonEntity lesson);
+        Task DeleteLesson(int id);
+
+        //practica
+        Task<IEnumerable<PracticeEntity>> GetPractice(int sectionId);
+        Task<PracticeEntity> GetPracticesAsync(int id, bool mostrarSection= false);
+        void AddPractice(PracticeEntity practice);
+        void UpdatePractice(PracticeEntity practice);
+        Task DeletePractice(int id);
 
         //esto que no recuerdo
         void DetachEntity<t>(t entity) where t : class;

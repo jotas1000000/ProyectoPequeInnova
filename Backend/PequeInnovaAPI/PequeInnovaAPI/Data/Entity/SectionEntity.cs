@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace PequeInnovaAPI.Data.Entity
 {
-    public class CourseEntity
+    public class SectionEntity
     {
         [Key]
         [Required]
         public int? Id { get; set; }
         [Required]
-        public string Name { get; set; }
-        [Required]
-        public string Description { get; set; }
+        public string LessonType { get; set; }
         public bool Active { get; set; }
         public bool Erased { get; set; }
-        [ForeignKey("AreaId")]
-        public virtual AreaEntity Area { get; set; }
-        public virtual ICollection<SectionEntity> Sections { get; set; }
+        [ForeignKey("CourseId")]
+        public virtual CourseEntity Course{ get; set; }
+        public virtual ICollection<PracticeEntity> Practices { get; set; }
+        public virtual ICollection<LessonEntity> Lessons { get; set; }
+
     }
 }

@@ -1,25 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PequeInnovaAPI.Data.Entity
+namespace PequeInnovaAPI.Models
 {
-    public class CourseEntity
+    public class Lesson
     {
-        [Key]
-        [Required]
         public int? Id { get; set; }
+        public string Document { get; set; }
         [Required]
-        public string Name { get; set; }
+        public string URLVideo { get; set; }
         [Required]
         public string Description { get; set; }
         public bool Active { get; set; }
         public bool Erased { get; set; }
-        [ForeignKey("AreaId")]
-        public virtual AreaEntity Area { get; set; }
-        public virtual ICollection<SectionEntity> Sections { get; set; }
+        public int? SectionId { get; set; }
     }
 }
