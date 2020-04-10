@@ -40,7 +40,7 @@ namespace PequeInnovaAPI
 
             //Comunication DataBase
             services.AddEntityFrameworkSqlServer();
-            services.AddDbContext<ApiDbContext>(options => { options.UseMySQL(Configuration.GetConnectionString("PequeInnovaConnection")); }
+            services.AddDbContext<ApiDbContext>(options => { options.UseSqlServer(Configuration.GetConnectionString("PequeInnovaConnection")); }
             );
 
             //Identity Security
