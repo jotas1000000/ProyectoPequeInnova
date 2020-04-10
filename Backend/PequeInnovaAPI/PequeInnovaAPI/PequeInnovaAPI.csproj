@@ -6,7 +6,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Entities\**" />
+    <Compile Remove="Migrations\**" />
+    <Content Remove="Data\Entities\**" />
+    <Content Remove="Migrations\**" />
+    <EmbeddedResource Remove="Data\Entities\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <None Remove="Data\Entities\**" />
+    <None Remove="Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Migrations\20200410015312_FirstMigration.cs" />
+    <Compile Include="Migrations\20200410015312_FirstMigration.Designer.cs" />
+    <Compile Include="Migrations\ApiDbContextModelSnapshot.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
@@ -17,6 +35,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.19" />
   </ItemGroup>
@@ -24,7 +43,6 @@
   <ItemGroup>
     <Folder Include="Data\Repository\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

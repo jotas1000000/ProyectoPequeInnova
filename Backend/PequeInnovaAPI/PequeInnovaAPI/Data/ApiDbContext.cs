@@ -1,6 +1,7 @@
+﻿using AutoMapper;
+using PequeInnovaAPI.Data.Entity;
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using PequeInnovaAPI.Data.Entities;
 using PequeInnovaAPI.Models.Auth;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,11 @@ namespace PequeInnovaAPI.Data
 {
     public class ApiDbContext:IdentityDbContext<ApplicationUser>
     {
+        public DbSet<AreaEntity> Areas { get; set; }
+        public DbSet<CourseEntity> Courses { get; set; }
+        public DbSet<SectionEntity> Sections{ get; set; }
+        public DbSet<LessonEntity> Lessons { get; set; }
+        public DbSet<PracticeEntity> Practices { get; set; }
         public DbSet<CommentEntity> Comments { get; set; }
         public DbSet<InscriptionEntity> Inscriptions { get; set; }
         public DbSet<TeachingEntity> Teachings { get; set; }
@@ -23,6 +29,33 @@ namespace PequeInnovaAPI.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<AreaEntity>().ToTable("Areas");
+            modelBuilder.Entity<AreaEntity>().HasMany(a => a.Courses).WithOne(b => b.Area);
+            modelBuilder.Entity<AreaEntity>().HasMany(a => a.Assignments).WithOne().HasForeignKey(ass=>ass.AreaId).IsRequired();//Add
+            modelBuilder.Entity<AreaEntity>().Property(a => a.Id).ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<CourseEntity>().ToTable("Courses");
+            modelBuilder.Entity<CourseEntity>().HasMany(a => a.Sections).WithOne(b => b.Course);
+            modelBuilder.Entity<CourseEntity>().HasMany(a => a.Inscriptions).WithOne().HasForeignKey(ins=>ins.CourseId).IsRequired();//Add
+            modelBuilder.Entity<CourseEntity>().HasMany(a => a.Teachings).WithOne().HasForeignKey(t => t.CourseId).IsRequired();//Add
+            modelBuilder.Entity<CourseEntity>().Property(b => b.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<CourseEntity>().HasOne(b => b.Area).WithMany(a => a.Courses);
+
+            modelBuilder.Entity<SectionEntity>().ToTable("Sections");
+            modelBuilder.Entity<SectionEntity>().HasMany(a => a.Lessons).WithOne(b => b.Section);
+            modelBuilder.Entity<SectionEntity>().HasMany(a => a.Practices).WithOne(b => b.Section);
+            modelBuilder.Entity<SectionEntity>().HasMany(a => a.Comments).WithOne().HasForeignKey(c=>c.SectionId).IsRequired();//Add
+            modelBuilder.Entity<SectionEntity>().Property(b => b.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<SectionEntity>().HasOne(b => b.Course).WithMany(a => a.Sections);
+
+            modelBuilder.Entity<LessonEntity>().ToTable("Lessons");
+            modelBuilder.Entity<LessonEntity>().Property(b => b.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<LessonEntity>().HasOne(b => b.Section).WithMany(a => a.Lessons);
+
+            modelBuilder.Entity<PracticeEntity>().ToTable("Practices");
+            modelBuilder.Entity<PracticeEntity>().Property(b => b.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<PracticeEntity>().HasOne(b => b.Section).WithMany(a => a.Practices);
 
             modelBuilder.Entity<ApplicationUser>(b =>
             {
@@ -60,7 +93,11 @@ namespace PequeInnovaAPI.Data
             modelBuilder.Entity<AssignmentEntity>().ToTable("Assingnments");
             modelBuilder.Entity<AssignmentEntity>().Property(a => a.Id).ValueGeneratedOnAdd();
 
-           
+
         }
+
+       
     }
+        
+           
 }

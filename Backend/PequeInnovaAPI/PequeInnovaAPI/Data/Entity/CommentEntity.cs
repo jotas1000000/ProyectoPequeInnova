@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PequeInnovaAPI.Data.Entities
+namespace PequeInnovaAPI.Data.Entity
 {
     public class CommentEntity
     {

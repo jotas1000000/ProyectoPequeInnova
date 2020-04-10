@@ -15,8 +15,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using PequeInnovaAPI.Data;
+using PequeInnovaAPI.Data.Repository;
+using Microsoft.IdentityModel.Tokens;
 using PequeInnovaAPI.Models.Auth;
 using PequeInnovaAPI.Services;
 
@@ -36,13 +37,19 @@ namespace PequeInnovaAPI
         {
             //Dependence Injection
             services.AddTransient<IUserService, UserService>();
-
+            services.AddTransient<IAreaService, AreaService>();
+            services.AddTransient<ICourseService, CourseService>();
+            services.AddTransient<ISectionService, SectionService>();
+            services.AddTransient<IPracticeService, PracticeService>();
+            services.AddTransient<ILessonService, LessonService>();
+            services.AddTransient<IPequeInnovaRepository, PequeInnovaRepository>();
 
             //Comunication DataBase
             services.AddEntityFrameworkSqlServer();
-            services.AddDbContext<ApiDbContext>(options => { options.UseSqlServer(Configuration.GetConnectionString("PequeInnovaConnection")); }
+            services.AddDbContext<ApiDbContext>(
+                options => { options.UseSqlServer(Configuration.GetConnectionString("PequeInnovaApiDatabase")); }
             );
-
+          
             //Identity Security
             services.AddIdentity<ApplicationUser, IdentityRole>(options => {
                 options.Password.RequireDigit = true;
@@ -70,9 +77,12 @@ namespace PequeInnovaAPI
             });
 
             services.AddAutoMapper(typeof(Startup));
+            services.AddCors();
 
             //MVC version
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                    
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

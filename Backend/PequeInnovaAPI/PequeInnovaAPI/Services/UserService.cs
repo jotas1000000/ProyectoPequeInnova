@@ -142,6 +142,14 @@ namespace PequeInnovaAPI.Services
             return false;
         }
 
+        public async Task<List<ApplicationUser>> GetUsersComments()
+        {
+            IQueryable<ApplicationUser> q = dbcontext.Users;
+            q = q.AsNoTracking();
+            q = q.Include(c => c.Comments);
+            return await q.ToListAsync();
+        }
+
         public async Task<List<GetUsersRoles>> GetUsersRoles()
         {
            // string id = "8b5cb740-8004-4d29-828b-122206aa3d39";
@@ -285,13 +293,17 @@ namespace PequeInnovaAPI.Services
                     IsSuccess = false
                 };
             }
-            if (await UserManager.FindByEmailAsync(model.Email)!=null)
+            var q = await UserManager.Users.Select(c => c.Id).AsNoTracking().ToListAsync();
+            if (q.Count!=0 )
             {
-                return new UserManagerResponse()
+                if (await UserManager.FindByEmailAsync(model.Email)!=null)
                 {
-                    Message = "Ya hay un usuario registrado con ese Email",
-                    IsSuccess = false
-                };
+                    return new UserManagerResponse()
+                    {
+                        Message = "Ya hay un usuario registrado con ese Email",
+                        IsSuccess = false
+                    };
+                }                
             }
            var applicationUser = new ApplicationUser
             {
@@ -309,7 +321,11 @@ namespace PequeInnovaAPI.Services
                 UpdateDate = DateTime.Now,
                 CreateDate = DateTime.Now
             };
-
+         /*   if (q.Count==0)
+            {
+                applicationUser.Id = "";
+                dbcontext.Users.Add(applicationUser);
+            }*/
             var result = await UserManager.CreateAsync(applicationUser, model.Password);
                                   
             if (result.Succeeded)
@@ -385,10 +401,10 @@ namespace PequeInnovaAPI.Services
                 UpdateDate = DateTime.Now,
                 CreateDate = DateTime.Now
             };
-
+            
             var result = await UserManager.CreateAsync(applicationUser, model.Password);
            
-            if (result.Succeeded)
+            if (result.Succeeded==true)
             {
                 List<AuxiliarClass> query = await (from u in dbcontext.Users
                                                    where u.Email == applicationUser.Email &&
