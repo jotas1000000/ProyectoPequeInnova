@@ -21,5 +21,7 @@ namespace PequeInnovaAPI.Data.Entity
         [ForeignKey("AreaId")]
         public virtual AreaEntity Area { get; set; }
         public virtual ICollection<SectionEntity> Sections { get; set; }
+        public virtual ICollection<InscriptionEntity> Inscriptions { get; set; }//add
+        public virtual ICollection<TeachingEntity> Teachings { get; set; }//add
     }
 }

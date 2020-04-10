@@ -20,6 +20,7 @@ namespace PequeInnovaAPI.Data.Entity
         public virtual CourseEntity Course{ get; set; }
         public virtual ICollection<PracticeEntity> Practices { get; set; }
         public virtual ICollection<LessonEntity> Lessons { get; set; }
+        public virtual ICollection<CommentEntity> Comments { get; set; }//Add
 
     }
 }

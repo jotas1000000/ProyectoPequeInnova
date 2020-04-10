@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using PequeInnovaAPI.Data.Entity;
-using PequeInnovaAPI.Data.Entities;
+//using PequeInnovaAPI.Data.Entities;
 using PequeInnovaAPI.Models;
 using System;
 using System.Collections.Generic;

@@ -136,5 +136,23 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Some properties are not valid");
         }
+
+        [HttpGet("UsersComments")]
+        public async Task<IActionResult> GetUsersComments()
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await Service.GetUsersComments();
+
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+
+                return BadRequest(result);
+            }
+
+            return BadRequest("Some properties are not valid");
+        }
     }
 }

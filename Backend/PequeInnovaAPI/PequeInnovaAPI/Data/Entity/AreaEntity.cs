@@ -18,5 +18,6 @@ namespace PequeInnovaAPI.Data.Entity
         public bool Active { get; set; }
         public bool Erased { get; set; }
         public virtual ICollection<CourseEntity> Courses { get; set; }
+        public virtual ICollection<AssignmentEntity> Assignments { get; set; }
     }
 }

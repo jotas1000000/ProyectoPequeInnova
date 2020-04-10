@@ -32,16 +32,20 @@ namespace PequeInnovaAPI.Data
 
             modelBuilder.Entity<AreaEntity>().ToTable("Areas");
             modelBuilder.Entity<AreaEntity>().HasMany(a => a.Courses).WithOne(b => b.Area);
+            modelBuilder.Entity<AreaEntity>().HasMany(a => a.Assignments).WithOne().HasForeignKey(ass=>ass.AreaId).IsRequired();//Add
             modelBuilder.Entity<AreaEntity>().Property(a => a.Id).ValueGeneratedOnAdd();
 
             modelBuilder.Entity<CourseEntity>().ToTable("Courses");
             modelBuilder.Entity<CourseEntity>().HasMany(a => a.Sections).WithOne(b => b.Course);
+            modelBuilder.Entity<CourseEntity>().HasMany(a => a.Inscriptions).WithOne().HasForeignKey(ins=>ins.CourseId).IsRequired();//Add
+            modelBuilder.Entity<CourseEntity>().HasMany(a => a.Teachings).WithOne().HasForeignKey(t => t.CourseId).IsRequired();//Add
             modelBuilder.Entity<CourseEntity>().Property(b => b.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<CourseEntity>().HasOne(b => b.Area).WithMany(a => a.Courses);
 
             modelBuilder.Entity<SectionEntity>().ToTable("Sections");
             modelBuilder.Entity<SectionEntity>().HasMany(a => a.Lessons).WithOne(b => b.Section);
             modelBuilder.Entity<SectionEntity>().HasMany(a => a.Practices).WithOne(b => b.Section);
+            modelBuilder.Entity<SectionEntity>().HasMany(a => a.Comments).WithOne().HasForeignKey(c=>c.SectionId).IsRequired();//Add
             modelBuilder.Entity<SectionEntity>().Property(b => b.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<SectionEntity>().HasOne(b => b.Course).WithMany(a => a.Sections);
 

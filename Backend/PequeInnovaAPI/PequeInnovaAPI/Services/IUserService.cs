@@ -21,6 +21,7 @@ namespace PequeInnovaAPI.Services
         Task<bool> CreateUserRoleAsync(string Id,string TypeUser);
 
         Task<List<GetUsersRoles>> GetUsersRoles();
+        Task<List<ApplicationUser>> GetUsersComments();
 
     }
 }
