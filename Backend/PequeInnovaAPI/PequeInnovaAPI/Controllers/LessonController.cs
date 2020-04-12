@@ -10,21 +10,20 @@ using System.Threading.Tasks;
 
 namespace PequeInnovaAPI.Controllers
 {
-    [Route("api/area/{areaID:int}/courses")]
-    public class CourseController : ControllerBase
+    [Route("api/area/courses/sections/{sectionID:int}/lessons")]
+    public class LessonController : ControllerBase
     {
-        private ICourseService courseService;
-        public CourseController(ICourseService courseService)
+        private ILessonService lessonService;
+        public LessonController(ILessonService lessonService)
         {
-            this.courseService = courseService;
-
+            this.lessonService = lessonService;
         }
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<Course>>> getCourses(int areaId)
+        public async Task<ActionResult<IEnumerable<Lesson>>> getLessons(int sectionId)
         {
             try
             {
-                return Ok(await courseService.GetCourse(areaId));
+                return Ok(await lessonService.GetLesson(sectionId));
             }
             catch (NotFoundException ex)
             {
@@ -34,7 +33,7 @@ namespace PequeInnovaAPI.Controllers
         }
 
         [HttpPost()]
-        public async Task<ActionResult<Course>> PostCourse(int areaId, [FromBody] Course course)
+        public async Task<ActionResult<Lesson>> PostLesson(int sectionId, [FromBody] Lesson lesson)
         {
             if (!ModelState.IsValid)
             {
@@ -43,8 +42,8 @@ namespace PequeInnovaAPI.Controllers
 
             try
             {
-                var newCourse= await courseService.AddCourseAsync(areaId, course);
-                return Created($"/api/area/{areaId}/courses/{course.Id}", newCourse);
+                var newLesson = await lessonService.AddLessonAsync(sectionId, lesson);
+                return Created($"/api/area/courses/sections/{sectionId}/lessons/{lesson.Id}", newLesson);
             }
             catch (InvalidOperationException ex)
             {
@@ -56,18 +55,17 @@ namespace PequeInnovaAPI.Controllers
             }
             catch (Exception ex)
             {
-
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
-        [HttpGet("{courseId:int}")]
-        public async Task<ActionResult<Course>> getCourse(int areaId, int courseId)
+        [HttpGet("{lessonId:int}")]
+        public async Task<ActionResult<Lesson>> getLesson(int sectionId, int lessonId)
         {
             try
             {
-                var course = await courseService.GetCourseAsync(areaId, courseId);
-                return Ok(course);
+                var lesson = await lessonService.GetLessonAsync(sectionId, lessonId);
+                return Ok(lesson);
             }
             catch (NotFoundException ex)
             {
@@ -78,13 +76,13 @@ namespace PequeInnovaAPI.Controllers
                 throw;
             }
         }
-        [HttpDelete("{courseId:int}")]
-        public async Task<ActionResult<bool>> DeleteCourse(int courseId, int areaId)
+        [HttpDelete("{lessonId:int}")]
+        public async Task<ActionResult<bool>> DeleteLesson(int lessonId, int sectionId)
         {
             try
             {
-                var NoMoreCourse = await courseService.DeleteCourse(areaId, courseId);
-                return Ok(NoMoreCourse);
+                var NoMoreSection = await lessonService.DeleteLesson(sectionId, lessonId);
+                return Ok(NoMoreSection);
             }
             catch (NotFoundException ex)
             {
@@ -98,12 +96,12 @@ namespace PequeInnovaAPI.Controllers
 
 
 
-        [HttpPut("{courseId:int}")]
-        public async Task<ActionResult<Course>> PutCourse(int areaId, int courseId, [FromBody] Course course)
+        [HttpPut("{lessonId:int}")]
+        public async Task<ActionResult<Lesson>> PutLesson(int sectionId, int lessonId, [FromBody] Lesson lesson)
         {
             try
             {
-                return Ok(await courseService.UpdateCourseAsync(areaId, courseId, course));
+                return Ok(await lessonService.UpdateLessonAsync(sectionId, lessonId, lesson));
             }
             catch
             {
