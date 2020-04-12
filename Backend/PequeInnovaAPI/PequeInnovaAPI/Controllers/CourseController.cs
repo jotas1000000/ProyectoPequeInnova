@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PequeInnovaAPI.Models;
 using PequeInnovaAPI.Services;
-using RestaurantAPI.Exceptions;
+using PequeInnovaAPI.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PequeInnovaAPI.Models;
 using PequeInnovaAPI.Services;
-using RestaurantAPI.Exceptions;
+using PequeInnovaAPI.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PequeInnovaAPI.Controllers
 {
-    [Route("api/area/courses/sections/{sectionID:int/practices")]
+    [Route("api/area/{areaID:int}/courses/{courseID:int}/sections/{sectionID:int}/practices")]
     public class PracticeController : ControllerBase
     {
         private IPracticeService practiceService;
