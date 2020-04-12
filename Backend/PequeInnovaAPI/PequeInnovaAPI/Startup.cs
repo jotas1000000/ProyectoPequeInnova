@@ -99,6 +99,7 @@ namespace PequeInnovaAPI
             }
             app.UseAuthentication();
             app.UseHttpsRedirection();
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             app.UseMvc();
         }
     }
