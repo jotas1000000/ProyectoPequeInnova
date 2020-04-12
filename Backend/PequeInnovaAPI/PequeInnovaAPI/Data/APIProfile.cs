@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PequeInnovaAPI.Data.Entity;
+//using PequeInnovaAPI.Data.Entities;
 using PequeInnovaAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,8 @@ namespace PequeInnovaAPI.Data
                 .ReverseMap();
             this.CreateMap<PracticeEntity, Practice>()
                 .ReverseMap();
+            this.CreateMap<CommentEntity, CommentModel>()
+               .ReverseMap();
         }
     }
 }

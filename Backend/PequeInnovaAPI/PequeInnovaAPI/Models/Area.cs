@@ -15,5 +15,7 @@ namespace PequeInnovaAPI.Models
         public bool Active { get; set; }
         public bool Erased { get; set; }
         public IEnumerable<Course> Courses { get; set; }
+        public IEnumerable<AssignmentModel> Assignments { get; set; }//Add 
+
     }
 }

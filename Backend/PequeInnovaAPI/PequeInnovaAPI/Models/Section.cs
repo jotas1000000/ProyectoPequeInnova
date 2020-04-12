@@ -14,5 +14,6 @@ namespace PequeInnovaAPI.Models
         public bool Active { get; set; }
         public bool Erased { get; set; }
         public int? CourseId { get; set; }
+        public IEnumerable<CommentModel> Comments { get; set; }//Add
     }
 }

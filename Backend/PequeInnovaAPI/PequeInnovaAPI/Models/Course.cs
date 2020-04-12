@@ -16,5 +16,8 @@ namespace PequeInnovaAPI.Models
         public bool Active { get; set; }
         public bool Erased { get; set; }
         public int? AreaId { get; set; }
+        public IEnumerable<InscriptionModel> Inscriptions { get; set; }//Add
+        public IEnumerable<TeachingModel> Teachings { get; set; }//Add
+
     }
 }
