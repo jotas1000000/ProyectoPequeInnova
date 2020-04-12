@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RestaurantAPI.Exceptions
+namespace PequeInnovaAPI.Exceptions
 {
     public class BadOperationRequest: Exception
     {
