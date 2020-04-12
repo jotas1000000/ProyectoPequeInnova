@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Routing;
 using PequeInnovaAPI.Models;
 using Microsoft.AspNetCore.Http;
-using RestaurantAPI.Exceptions;
+using PequeInnovaAPI.Exceptions;
 
 namespace PequeInnovaAPI.Controllers
 {
