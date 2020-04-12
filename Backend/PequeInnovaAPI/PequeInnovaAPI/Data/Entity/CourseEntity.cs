@@ -20,5 +20,8 @@ namespace PequeInnovaAPI.Data.Entity
         public bool Erased { get; set; }
         [ForeignKey("AreaId")]
         public virtual AreaEntity Area { get; set; }
+        public virtual ICollection<SectionEntity> Sections { get; set; }
+        public virtual ICollection<InscriptionEntity> Inscriptions { get; set; }//add
+        public virtual ICollection<TeachingEntity> Teachings { get; set; }//add
     }
 }

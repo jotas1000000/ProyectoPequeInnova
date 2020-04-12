@@ -10,21 +10,20 @@ using System.Threading.Tasks;
 
 namespace PequeInnovaAPI.Controllers
 {
-    [Route("api/area/{areaID:int}/courses")]
-    public class CourseController : ControllerBase
+    [Route("api/area/courses/{courseID:int}/sections")]
+    public class SectionController : ControllerBase
     {
-        private ICourseService courseService;
-        public CourseController(ICourseService courseService)
+        private ISectionService sectionService;
+        public SectionController(ISectionService sectionService)
         {
-            this.courseService = courseService;
-
+            this.sectionService = sectionService;
         }
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<Course>>> getCourses(int areaId)
+        public async Task<ActionResult<IEnumerable<Section>>> getSections(int artistaId)
         {
             try
             {
-                return Ok(await courseService.GetCourse(areaId));
+                return Ok(await sectionService.GetSection(artistaId));
             }
             catch (NotFoundException ex)
             {
@@ -34,7 +33,7 @@ namespace PequeInnovaAPI.Controllers
         }
 
         [HttpPost()]
-        public async Task<ActionResult<Course>> PostCourse(int areaId, [FromBody] Course course)
+        public async Task<ActionResult<Section>> PostSection(int coursesId, [FromBody] Section section)
         {
             if (!ModelState.IsValid)
             {
@@ -43,8 +42,8 @@ namespace PequeInnovaAPI.Controllers
 
             try
             {
-                var newCourse= await courseService.AddCourseAsync(areaId, course);
-                return Created($"/api/area/{areaId}/courses/{course.Id}", newCourse);
+                var newSection = await sectionService.AddSectionAsync(coursesId, section);
+                return Created($"/api/area/courses/{coursesId}/sections/{section.Id}", newSection);
             }
             catch (InvalidOperationException ex)
             {
@@ -55,19 +54,18 @@ namespace PequeInnovaAPI.Controllers
                 return NotFound(ex.Message);
             }
             catch (Exception ex)
-            {
-
+            { 
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
-        [HttpGet("{courseId:int}")]
-        public async Task<ActionResult<Course>> getCourse(int areaId, int courseId)
+        [HttpGet("{sectionId:int}")]
+        public async Task<ActionResult<Section>> getSection(int areaId, int sectionId)
         {
             try
             {
-                var course = await courseService.GetCourseAsync(areaId, courseId);
-                return Ok(course);
+                var section = await sectionService.GetSectionAsync(areaId, sectionId);
+                return Ok(section);
             }
             catch (NotFoundException ex)
             {
@@ -78,13 +76,13 @@ namespace PequeInnovaAPI.Controllers
                 throw;
             }
         }
-        [HttpDelete("{courseId:int}")]
-        public async Task<ActionResult<bool>> DeleteCourse(int courseId, int areaId)
+        [HttpDelete("{sectionId:int}")]
+        public async Task<ActionResult<bool>> DeleteSection(int sectionId, int areaId)
         {
             try
             {
-                var NoMoreCourse = await courseService.DeleteCourse(areaId, courseId);
-                return Ok(NoMoreCourse);
+                var NoMoreSection = await sectionService.DeleteSection(areaId, sectionId);
+                return Ok(NoMoreSection);
             }
             catch (NotFoundException ex)
             {
@@ -98,12 +96,12 @@ namespace PequeInnovaAPI.Controllers
 
 
 
-        [HttpPut("{courseId:int}")]
-        public async Task<ActionResult<Course>> PutCourse(int areaId, int courseId, [FromBody] Course course)
+        [HttpPut("{sectionId:int}")]
+        public async Task<ActionResult<Section>> PutSection(int areaId, int sectionId, [FromBody] Section section)
         {
             try
             {
-                return Ok(await courseService.UpdateCourseAsync(areaId, courseId, course));
+                return Ok(await sectionService.UpdateSectionAsync(areaId, sectionId, section));
             }
             catch
             {

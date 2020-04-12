@@ -14,6 +14,11 @@ namespace PequeInnovaAPI.Services
     {
         private IPequeInnovaRepository courseRapository;
         private readonly IMapper mapper;
+        public CourseService(IPequeInnovaRepository courseRapository, IMapper mapper)
+        {
+            this.courseRapository = courseRapository;
+            this.mapper = mapper;
+        }
         public async Task<Course> AddCourseAsync(int areaId, Course course)
         {
             if (course.AreaId != null && areaId != course.AreaId)
@@ -36,11 +41,6 @@ namespace PequeInnovaAPI.Services
             throw new Exception("There were an error with the DB");
         }
 
-        public CourseService(IPequeInnovaRepository courseRapository, IMapper mapper)
-        {
-            this.courseRapository = courseRapository;
-            this.mapper = mapper;
-        }
 
         public async Task<bool> DeleteCourse(int areaId, int id)
         {

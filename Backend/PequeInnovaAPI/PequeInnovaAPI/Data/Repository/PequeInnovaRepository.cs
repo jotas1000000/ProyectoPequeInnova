@@ -120,5 +120,107 @@ namespace PequeInnovaAPI.Data.Repository
                 throw;
             }
         }
+
+        public async Task<IEnumerable<SectionEntity>> GetSection(int courseId)
+        {
+            IQueryable<SectionEntity> query = PIDBContext.Sections;
+            query = query.AsNoTracking();
+            return await query.Where(b => b.Course.Id == courseId).ToArrayAsync();
+        }
+
+        public Task<SectionEntity> GetSectionsAsync(int id, bool mostrarCourse = false)
+        {
+            IQueryable<SectionEntity> query = PIDBContext.Sections;
+            query = query.AsNoTracking();
+            return query.SingleAsync(b => b.Id == id);
+        }
+
+        public void AddSection(SectionEntity section)
+        {
+            PIDBContext.Entry(section.Course).State = EntityState.Unchanged;
+            PIDBContext.Sections.Add(section);
+        }
+
+        public void UpdateSection(SectionEntity section)
+        {
+            var sectionPut = PIDBContext.Sections.Single(c => c.Id == section.Id);
+            sectionPut.LessonType = section.LessonType;
+        }
+
+        public async Task DeleteSection(int id)
+        {
+            var seccionEliminada = await PIDBContext.Sections.SingleAsync(d => d.Id == id);
+            PIDBContext.Sections.Remove(seccionEliminada);
+        }
+
+        public async Task<IEnumerable<LessonEntity>> GetLesson(int sectionId)
+        {
+            IQueryable<LessonEntity> query = PIDBContext.Lessons;
+            query = query.AsNoTracking();
+            return await query.Where(b => b.Section.Id == sectionId).ToArrayAsync();
+        }
+        public Task<LessonEntity> GetLessonsAsync(int id, bool mostrarsection = false)
+        {
+            IQueryable<LessonEntity> query = PIDBContext.Lessons;
+            query = query.AsNoTracking();
+            return query.SingleAsync(b => b.Id == id);
+        }
+
+        public void AddLesson(LessonEntity lesson)
+        {
+            PIDBContext.Entry(lesson.Section).State = EntityState.Unchanged;
+            PIDBContext.Lessons.Add(lesson);
+        }
+
+        public void UpdateLesson(LessonEntity lesson)
+        {
+            var lessonPut = PIDBContext.Lessons.Single(c => c.Id == lesson.Id);
+            lessonPut.URLVideo = lesson.URLVideo;
+            lessonPut.Description = lesson.Description;
+        }
+
+        public async Task DeleteLesson(int id)
+        {
+            var leccionEliminada = await PIDBContext.Lessons.SingleAsync(d => d.Id == id);
+            PIDBContext.Lessons.Remove(leccionEliminada);
+        }
+
+        public async Task<IEnumerable<PracticeEntity>> GetPractice(int sectionId)
+        {
+            IQueryable<PracticeEntity> query = PIDBContext.Practices;
+            query = query.AsNoTracking();
+            return await query.Where(b => b.Section.Id == sectionId).ToArrayAsync();
+        }
+
+
+        public Task<PracticeEntity> GetPracticesAsync(int id, bool mostrarSection = false)
+        {
+            IQueryable<PracticeEntity> query = PIDBContext.Practices;
+            query = query.AsNoTracking();
+            return query.SingleAsync(b => b.Id == id);
+        }
+
+        public void AddPractice(PracticeEntity practice)
+        {
+            PIDBContext.Entry(practice.Section).State = EntityState.Unchanged;
+            PIDBContext.Practices.Add(practice);
+        }
+
+        public void UpdatePractice(PracticeEntity practice)
+        {
+            var practicePut = PIDBContext.Practices.Single(c => c.Id == practice.Id);
+            practicePut.Question = practice.Question;
+            practicePut.TrueAnswer = practice.TrueAnswer;
+            practicePut.FalseAnswer1 = practice.FalseAnswer1;
+            practicePut.FalseAnswer2 = practice.FalseAnswer2;
+            practicePut.FalseAnswer3 = practice.FalseAnswer3;
+
+        }
+
+        public async Task DeletePractice(int id)
+        {
+            var practicaEliminada = await PIDBContext.Practices.SingleAsync(d => d.Id == id);
+            PIDBContext.Practices.Remove(practicaEliminada);
+        }
     }
 }

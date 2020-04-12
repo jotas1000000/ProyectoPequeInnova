@@ -6,18 +6,16 @@ using System.Threading.Tasks;
 
 namespace PequeInnovaAPI.Models
 {
-    public class Course
+    public class Lesson
     {
         public int? Id { get; set; }
+        public string Document { get; set; }
         [Required]
-        public string Name { get; set; }
+        public string URLVideo { get; set; }
         [Required]
         public string Description { get; set; }
         public bool Active { get; set; }
         public bool Erased { get; set; }
-        public int? AreaId { get; set; }
-        public IEnumerable<InscriptionModel> Inscriptions { get; set; }//Add
-        public IEnumerable<TeachingModel> Teachings { get; set; }//Add
-
+        public int? SectionId { get; set; }
     }
 }

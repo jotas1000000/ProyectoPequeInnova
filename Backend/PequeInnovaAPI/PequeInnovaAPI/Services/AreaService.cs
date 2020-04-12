@@ -77,11 +77,6 @@ namespace PequeInnovaAPI.Services
         public async Task<IEnumerable<Area>> GetAreasAsync(string orderBy, bool mostrarCursos)
         {
             orderBy = orderBy.ToLower();
-            //if (!allowedOrderByQueries.Contains(orderBy))
-            //{
-            //    throw new InvalidOperationException($"Invalid \" {orderBy} \" orderBy query param. The allowed values are {string.Join(",", allowedOrderByQueries)}");
-            //}
-
             var areaEntities = await areaRapository.GetAreas(orderBy, mostrarCursos);
             return mapper.Map<IEnumerable<Area>>(areaEntities);
         }
