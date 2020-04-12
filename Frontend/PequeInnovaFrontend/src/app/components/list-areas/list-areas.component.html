@@ -1,0 +1,38 @@
+<section class="text-center pb-3 my-5">
+    <!--Section heading-->
+    <button mdbBtn type="button" color="info" size="sm" block="true" mdbWavesEffect routerLink="/areas" ><h1>Areas</h1></button>
+
+    <hr class="mb-4 mt-4">
+
+    <ng-container *ngFor="let area of areas">
+        <!--media row-->
+        <div class="media">
+
+            <!--media column-->
+            <div class="col-md-12 mb-2">
+                <mdb-card style="background-image: url({{area.img}})">
+                    <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4 rounded">
+                        <div>
+                            <h3 class="green-text">
+                                <mdb-icon fas icon="book" size="lg"></mdb-icon>
+                                <strong> {{area.title}}</strong>
+                            </h3>
+                            <h2 class="py-3 ">
+                                <strong>{{area.description}}</strong>
+                            </h2>
+
+                            <h5 mdbBtn color="green" size="md" rounded="true" class="waves-light" mdbWavesEffect routerLink="/area" >
+                                <mdb-icon fas icon="book-open" class="left" ></mdb-icon> Ver Area
+                            </h5>
+                        </div>
+                    </div>
+                </mdb-card>
+            </div>
+            <!--media column-->
+
+        </div>
+        <hr class="my-4">
+        <!--media row-->
+    </ng-container>
+
+</section>
