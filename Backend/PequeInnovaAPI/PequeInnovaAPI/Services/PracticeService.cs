@@ -6,7 +6,7 @@ using AutoMapper;
 using PequeInnovaAPI.Data.Entity;
 using PequeInnovaAPI.Data.Repository;
 using PequeInnovaAPI.Models;
-using RestaurantAPI.Exceptions;
+using PequeInnovaAPI.Exceptions;
 
 namespace PequeInnovaAPI.Services
 {
