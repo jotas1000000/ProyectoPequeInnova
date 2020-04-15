@@ -3,6 +3,7 @@ import { NgModule, Component } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { RegisterStudentComponent } from './components/register-student/register-student.component';
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { InfoCarouselComponent } from './components/info-carousel/info-carousel.component';
@@ -35,7 +36,8 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     CoursesComponent,
     ListAreasComponent,
     RegisterComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    RegisterStudentComponent
   ],
   imports: [
     BrowserModule,
