@@ -17,12 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Migrations\20200410015312_FirstMigration.cs" />
-    <Compile Include="Migrations\20200410015312_FirstMigration.Designer.cs" />
-    <Compile Include="Migrations\ApiDbContextModelSnapshot.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
@@ -43,6 +37,7 @@
   <ItemGroup>
     <Folder Include="Data\Repository\" />
     <Folder Include="Exceptions\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

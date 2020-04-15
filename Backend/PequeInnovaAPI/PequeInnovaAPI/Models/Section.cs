@@ -11,8 +11,16 @@ namespace PequeInnovaAPI.Models
         public int? Id { get; set; }
         [Required]
         public string LessonTpye { get; set; }
-        public bool Active { get; set; }
-        public bool Erased { get; set; }
+        // [Required]
+        public string Uid { get; set; }
+        //   [Required]
+        public bool State { get; set; }
+        //  [Required]
+        public bool Status { get; set; }
+        //  [Required]
+        public DateTime UpdateDate { get; set; }
+        //  [Required]
+        public DateTime CreateDate { get; set; }
         public int? CourseId { get; set; }
         public IEnumerable<CommentModel> Comments { get; set; }//Add
     }

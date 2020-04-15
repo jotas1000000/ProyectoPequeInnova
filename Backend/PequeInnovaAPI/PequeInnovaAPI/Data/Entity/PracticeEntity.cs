@@ -22,8 +22,16 @@ namespace PequeInnovaAPI.Data.Entity
         public string FalseAnswer2 { get; set; }
         [Required]
         public string FalseAnswer3 { get; set; }
-        public bool Active { get; set; }
-        public bool Erased { get; set; }
+        // [Required]
+        public string Uid { get; set; }
+        //   [Required]
+        public bool State { get; set; }
+        //  [Required]
+        public bool Status { get; set; }
+        //  [Required]
+        public DateTime UpdateDate { get; set; }
+        //  [Required]
+        public DateTime CreateDate { get; set; }
         [ForeignKey("SectionId")]
         public virtual SectionEntity Section { get; set; }
     }
