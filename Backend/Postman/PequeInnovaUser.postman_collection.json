@@ -1,0 +1,181 @@
+{
+	"info": {
+		"_postman_id": "1d57a33b-af4a-4046-9cd5-a40f10c06a82",
+		"name": "PequeInnovaUser",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PostRole",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Name\":\"Estudiante\",\n\t\"NormalizedName\":\"Estudiante\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44386/api/Auth/Role",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44386",
+					"path": [
+						"api",
+						"Auth",
+						"Role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostUserRole",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"UserId\":\"8b5cb740-8004-4d29-828b-122206aa3d39\",\n\t\"RoleId\":\"5999b16c-7897-422f-a8e3-efa5b9d9fda5\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44386/api/Auth/UserRole",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44386",
+					"path": [
+						"api",
+						"Auth",
+						"UserRole"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostLogin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Email\":\"Lucas@hotmail.com\",\n\t\"Password\":\"ElSalesiano1!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44386/api/Auth/Login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44386",
+					"path": [
+						"api",
+						"Auth",
+						"Login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostStudent",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"userName\": \"Lucas400\",\r\n        \"email\": \"Lucas@hotmail.com\",\r\n        \"Name\": \"Lucas A\",\r\n        \"LastName\": \"Amado\",\r\n        \"Age\": 10,\r\n        \"Birthday\": \"1988-10-10T00:00:00\",\r\n        \"School\": \"Don Bosco\",\r\n        \"Grade\": \"Quinto secundaria!\",\r\n        \"Password\": \"ElSalesiano1!\",\r\n        \"ConfirmPassword\": \"ElSalesiano1!\",\r\n        \"Uid\": \"1234567\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44386/api/Auth/UserStudent",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44386",
+					"path": [
+						"api",
+						"Auth",
+						"UserStudent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostTeacher",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"userName\": \"teacher200\",\r\n        \"email\": \"teacherB@hotmail.com\",\r\n        \"Name\": \"teacher B\",\r\n        \"LastName\": \"xz\",\r\n        \"Birthday\": \"2020-10-10T00:00:00\",\r\n        \"Degree\": \"Licenciado en Ingenieria\",\r\n        \"Password\": \"ElSalesiano1!\",\r\n        \"ConfirmPassword\": \"ElSalesiano1!\",\r\n        \"Uid\": \"1234567\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44386/api/Auth/UserTeacher",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44386",
+					"path": [
+						"api",
+						"Auth",
+						"UserTeacher"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUsersRoles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44386/api/Auth/Users",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44386",
+					"path": [
+						"api",
+						"Auth",
+						"Users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
