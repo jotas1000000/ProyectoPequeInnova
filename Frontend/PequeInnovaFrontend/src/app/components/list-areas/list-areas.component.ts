@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { M}
 
 @Component({
   selector: 'app-list-areas',
@@ -7,8 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListAreasComponent implements OnInit {
 
-  constructor() { }
-  areas = [
+  constructor(private http: HttpClient) { }
+
+  
+
+  
+
+ /*  areas = [
     {
       title: 'Matematica',
       description: 'Descripcion Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla ble bli blo blu.',
@@ -46,9 +53,12 @@ export class ListAreasComponent implements OnInit {
     }
   ];
 
-  slides: any = [];
+  slides: any = []; */
 
   ngOnInit(): void {
-    this.slides = this.areas;
+
+    this.http.get("").subscribe((resp:any) =>);
+
+    /* this.slides = this.areas; */
   }
 }

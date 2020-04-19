@@ -1,3 +1,4 @@
+import { AreaService } from './services/area.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
 
@@ -20,6 +21,7 @@ import { ListAreasComponent } from './components/list-areas/list-areas.component
 import { HttpClientModule } from '@angular/common/http';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { TestComponent } from './pages/test/test.component';
+
 
 
 @NgModule({
@@ -46,7 +48,7 @@ import { TestComponent } from './pages/test/test.component';
     BrowserAnimationsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AreaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
