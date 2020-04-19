@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { RegisterStudentComponent } from './components/register-student/register-student.component';
+import { NavigationBarLoggedInComponent } from './components/navigation-bar-logged-in/navigation-bar-logged-in.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,9 @@ const routes: Routes = [
   { path: 'course', component:  CourseComponent},
   { path: 'lesson', component:  LessonComponent},
   { path: 'test', component:  TestComponent},
+  { path: 'logOutTest', component:  NavigationBarLoggedInComponent},
   { path: '**', component: NotFoundComponent }
+
 ];
 
 
