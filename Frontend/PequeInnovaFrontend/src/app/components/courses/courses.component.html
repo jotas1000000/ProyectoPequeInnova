@@ -1,6 +1,10 @@
 <section class="my-5">
   <!-- Section heading -->
-  <h2 class="h1-responsive font-weight-bold text-center my-3">Area - MATEMATICA</h2>
+  <h2 class="h1-responsive font-weight-bold text-center my-3">
+      <a href="#!" class="green-text">
+              <h3 class="font-weight-bold">
+                <mdb-icon fas size= "lg" icon="book-open" class="pr-2"></mdb-icon>Matematica</h3>
+      </a></h2>
   
 
   <ng-container *ngFor="let course of courses">
@@ -10,7 +14,7 @@
       <div class="media">
 
         <!-- Grid column -->
-        <div class="col-lg-6">
+        <div class="col-lg-5">
 
           <!-- Course image -->
           <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4 waves-light" mdbWavesEffect>
@@ -33,7 +37,8 @@
             <!-- Post title -->
             <h3 class="font-weight-bold mb-3"><strong>{{course.title}}</strong></h3>
             <!-- Excerpt -->
-            <p>{{course.description}}</p>
+            <p>Descripcion del curso: {{course.description}}</p>
+            <p>Conocimientos Previos del curso: {{course.preview}}</p>
             <!-- Post data -->
             <p>by <a><strong>Carine Fox</strong></a>, 19/08/2018</p>
             <!-- Read more button -->
@@ -59,7 +64,8 @@
           <!-- Post title -->
           <h3 class="font-weight-bold mb-3"><strong>{{course.title}}</strong></h3>
           <!-- Excerpt -->
-          <p>{{course.description}}</p>
+          <p>Descripcion del curso: {{course.description}}</p>
+            <p>Conocimientos Previos del curso: {{course.preview}}</p>
           <!-- Post data -->
           <p>by <a><strong>Carine Fox</strong></a>, 19/08/2018</p>
           <!-- Read more button -->

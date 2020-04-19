@@ -3,6 +3,7 @@ import { NgModule, Component } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { RegisterStudentComponent } from './components/register-student/register-student.component';
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { InfoCarouselComponent } from './components/info-carousel/info-carousel.component';
@@ -17,8 +18,8 @@ import { CoursesComponent } from './components/courses/courses.component';
 import { LessonComponent } from './pages/lesson/lesson.component';
 import { ListAreasComponent } from './components/list-areas/list-areas.component';
 import { HttpClientModule } from '@angular/common/http';
-import { RegisterComponent } from './components/register/register.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { TestComponent } from './pages/test/test.component';
 
 
 @NgModule({
@@ -34,8 +35,9 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     LessonComponent,
     CoursesComponent,
     ListAreasComponent,
-    RegisterComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    RegisterStudentComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,

@@ -10,28 +10,28 @@ export class InfoCarouselComponent implements OnInit {
   constructor() { }
   banners = [
     {
-      title: 'aaaaaaaaaaaaaaaaaaaaa',
-      description: 'Primer text',
+      title: 'BIENVENIDO A PEQUEINNOVA!',
+      description: 'Descripcion',
       img: 'assets/images/banner/banner_1.jpg'
     },
     {
-      title: 'eeeeeeeeeeeeeeeeeeeee',
-      description: 'Segundo text',
+      title: 'Enseñemos a nuestros PEQUES!',
+      description: 'Descripcion',
       img: 'assets/images/banner/banner_2.jpg'
     },
     {
-      title: 'iiiiiiiiiiiiiiiiiiiiii',
-      description: 'Tercer text',
+      title: 'Dime y lo olvido, enséñame y lo recuerdo, involucrarme y lo aprendo',
+      description: 'Descripcion',
       img: 'assets/images/banner/banner_3.jpg'
     },
     {
-      title: 'ooooooooooooooooooo',
-      description: 'Cuarto text',
+      title: 'El acceso a información veraz es un elemento fundamental en el proceso de aplanar la curva.',
+      description: 'Descripcion',
       img: 'assets/images/banner/banner_4.jpg'
     },
     {
-      title: 'uuuuuuuuuuuuuuuuuuuuu',
-      description: 'Quinto text',
+      title: 'La información es un derecho, hagamos uso de ello y juntos cuidemos a los más chicos.',
+      description: 'Descripcion',
       img: 'assets/images/banner/banner_5.jpg'
     }
   ];

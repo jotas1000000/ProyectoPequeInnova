@@ -8,41 +8,35 @@ import { Component, OnInit } from '@angular/core';
 export class CourseComponent implements OnInit {
 
   constructor() { }
-  courses = [
+  lessons = [
     {
       title: 'Titulo de la Leccion 1',
-      description: 'Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus et aut officiis debitis.',
-      video: 'https://www.youtube.com/embed/upY5RrDLxgk',
+      description: 'Descripcion Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla ble bli blo blu.',
+      video: 'https://www.youtube.com/embed/0dTfNF6iMDo',
       date: '27/02/2018'
     },
     {
       title: 'Titulo de la Leccion 2',
-      description: 'Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus et aut officiis debitis.',
-      video: 'https://www.youtube.com/embed/upY5RrDLxgk',
+      description: 'Descripcion Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla ble bli blo blu.',
+      video: 'https://www.youtube.com/embed/0dTfNF6iMDo',
       date: '27/10/2018'
     },
     {
       title: 'Titulo de la Leccion 3',
-      description: 'Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus et aut officiis debitis.',
+      description: 'Descripcion Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla ble bli blo blu.',
       video: 'https://www.youtube.com/embed/upY5RrDLxgk',
       date: '27/11/2018'
     },
     {
       title: 'Titulo de la Leccion 4',
-      description: 'Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus et aut officiis debitis.',
+     description: 'Descripcion Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla ble bli blo blu.',
       video: 'https://www.youtube.com/embed/upY5RrDLxgk',
       date: '27/07/2018'
-    },
-    {
-      title: 'Titulo de la Leccion 5',
-      description: 'Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus et aut officiis debitis.',
-      video: 'https://www.youtube.com/embed/upY5RrDLxgk',
-      date: '27/02/2018'
     }
   ];
 
   slides: any = [];
   ngOnInit(): void {
-    this.slides = this.courses;
+    this.slides = this.lessons;
   }
 }

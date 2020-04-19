@@ -11,32 +11,37 @@ export class CoursesComponent implements OnInit {
   courses = [
     {
       id: 1,
-      title: 'Titulo del Curso 1',
-      description: 'Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus et aut officiis debitis.',
+      title: 'Alimentacion de Patos',
+      description: 'Bla bla bla bla bla bla bla bla bla bla bla ',
+      preview: 'Bla bla bla bla bla bla bla bla bla bla bla ',
       img: 'assets/images/areas/math.jpg'
     },
     {
       id: 2,
       title: 'Titulo del Curso 2',
-      description: 'Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus et aut officiis debitis.',
+      description: 'Bla bla bla bla bla bla bla bla bla bla bla ',
+      preview: 'Bla bla bla bla bla bla bla bla bla bla bla ',
       img: 'assets/images/areas/math.jpg'
     },
     {
       id: 3,
       title: 'Titulo del Curso 3',
-      description: 'Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus et aut officiis debitis.',
+      description: 'Bla bla bla bla bla bla bla bla bla bla bla ',
+      preview: 'Bla bla bla bla bla bla bla bla bla bla bla ',
       img: 'assets/images/areas/math.jpg'
     },
     {
       id: 4,
       title: 'Titulo del Curso 4',
-      description: 'Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus et aut officiis debitis.',
+      description: 'Bla bla bla bla bla bla bla bla bla bla bla ',
+      preview: 'Bla bla bla bla bla bla bla bla bla bla bla ',
       img: 'assets/images/areas/math.jpg'
     },
     {
       id: 5,
       title: 'Titulo del Curso 5',
-      description: 'Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus et aut officiis debitis.',
+      description: 'Bla bla bla bla bla bla bla bla bla bla bla ',
+      preview: 'Bla bla bla bla bla bla bla bla bla bla bla ',
       img: 'assets/images/areas/math.jpg'
     }
   ];
