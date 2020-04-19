@@ -21,6 +21,7 @@ import { ListAreasComponent } from './components/list-areas/list-areas.component
 import { HttpClientModule } from '@angular/common/http';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { TestComponent } from './pages/test/test.component';
+import { NavigationBarLoggedInComponent } from './components/navigation-bar-logged-in/navigation-bar-logged-in.component';
 
 
 
@@ -39,7 +40,8 @@ import { TestComponent } from './pages/test/test.component';
     ListAreasComponent,
     NotFoundComponent,
     RegisterStudentComponent,
-    TestComponent
+    TestComponent,
+    NavigationBarLoggedInComponent
   ],
   imports: [
     BrowserModule,

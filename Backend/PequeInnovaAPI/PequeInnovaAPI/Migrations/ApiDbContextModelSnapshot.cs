@@ -135,14 +135,22 @@ namespace PequeInnovaAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Active");
+                    b.Property<DateTime>("CreateDate");
 
                     b.Property<string>("Description");
 
-                    b.Property<bool>("Erased");
+                    b.Property<string>("Image");
 
                     b.Property<string>("Name")
                         .IsRequired();
+
+                    b.Property<bool>("State");
+
+                    b.Property<bool>("Status");
+
+                    b.Property<string>("Uid");
+
+                    b.Property<DateTime>("UpdateDate");
 
                     b.HasKey("Id");
 
@@ -219,17 +227,25 @@ namespace PequeInnovaAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Active");
-
                     b.Property<int?>("AreaId");
+
+                    b.Property<DateTime>("CreateDate");
 
                     b.Property<string>("Description")
                         .IsRequired();
 
-                    b.Property<bool>("Erased");
+                    b.Property<string>("Image");
 
                     b.Property<string>("Name")
                         .IsRequired();
+
+                    b.Property<bool>("State");
+
+                    b.Property<bool>("Status");
+
+                    b.Property<string>("Uid");
+
+                    b.Property<DateTime>("UpdateDate");
 
                     b.HasKey("Id");
 
@@ -274,19 +290,25 @@ namespace PequeInnovaAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Active");
+                    b.Property<DateTime>("CreateDate");
 
                     b.Property<string>("Description")
                         .IsRequired();
 
                     b.Property<string>("Document");
 
-                    b.Property<bool>("Erased");
-
                     b.Property<int?>("SectionId");
+
+                    b.Property<bool>("State");
+
+                    b.Property<bool>("Status");
 
                     b.Property<string>("URLVideo")
                         .IsRequired();
+
+                    b.Property<string>("Uid");
+
+                    b.Property<DateTime>("UpdateDate");
 
                     b.HasKey("Id");
 
@@ -301,9 +323,7 @@ namespace PequeInnovaAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Active");
-
-                    b.Property<bool>("Erased");
+                    b.Property<DateTime>("CreateDate");
 
                     b.Property<string>("FalseAnswer1")
                         .IsRequired();
@@ -319,8 +339,16 @@ namespace PequeInnovaAPI.Migrations
 
                     b.Property<int?>("SectionId");
 
+                    b.Property<bool>("State");
+
+                    b.Property<bool>("Status");
+
                     b.Property<string>("TrueAnswer")
                         .IsRequired();
+
+                    b.Property<string>("Uid");
+
+                    b.Property<DateTime>("UpdateDate");
 
                     b.HasKey("Id");
 
@@ -335,14 +363,20 @@ namespace PequeInnovaAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Active");
-
                     b.Property<int?>("CourseId");
 
-                    b.Property<bool>("Erased");
+                    b.Property<DateTime>("CreateDate");
 
                     b.Property<string>("LessonType")
                         .IsRequired();
+
+                    b.Property<bool>("State");
+
+                    b.Property<bool>("Status");
+
+                    b.Property<string>("Uid");
+
+                    b.Property<DateTime>("UpdateDate");
 
                     b.HasKey("Id");
 
