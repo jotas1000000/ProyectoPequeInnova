@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Area} from 'src/app/models/Area-model';
+import {Area} from 'src/app/models/Area';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class AreaService {
 
-  constructor( private http:HttpClient) { }
+  constructor( private http: HttpClient) { }
   readonly APIUrl ="https://localhost:44386/api";
 
   getAreaList(): Observable<Area[]>{

@@ -1,3 +1,4 @@
+import { CourseService } from './services/course.service';
 import { AreaService } from './services/area.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
@@ -50,7 +51,7 @@ import { NavigationBarLoggedInComponent } from './components/navigation-bar-logg
     BrowserAnimationsModule,
     HttpClientModule
   ],
-  providers: [AreaService],
+  providers: [AreaService, CourseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

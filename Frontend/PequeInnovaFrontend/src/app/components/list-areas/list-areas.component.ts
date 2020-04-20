@@ -1,6 +1,8 @@
+import { AreaService } from './../../services/area.service';
+import { Area } from 'src/app/models/Area';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { M}
+
+
 
 @Component({
   selector: 'app-list-areas',
@@ -9,11 +11,14 @@ import { M}
 })
 export class ListAreasComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private areaService: AreaService) { }
 
-  
+  public areas = [];
 
-  
+  ngOnInit(): void {
+    this.areaService.getAreaList()
+      .subscribe(data => this.areas = data);
+  }
 
  /*  areas = [
     {
@@ -55,10 +60,7 @@ export class ListAreasComponent implements OnInit {
 
   slides: any = []; */
 
-  ngOnInit(): void {
-
-    this.http.get("").subscribe((resp:any) =>);
-
-    /* this.slides = this.areas; */
-  }
+  /* ngOnInit(): void {
+    /* this.slides = this.areas;
+  } */
 }

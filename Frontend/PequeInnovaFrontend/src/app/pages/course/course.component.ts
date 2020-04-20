@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CourseComponent implements OnInit {
 
-  constructor() { }
+  areaId: number;
+  courseId: number;
+
+  constructor(private activatedRoute: ActivatedRoute) { }
   lessons = [
     {
       title: 'Titulo de la Leccion 1',
@@ -37,6 +41,12 @@ export class CourseComponent implements OnInit {
 
   slides: any = [];
   ngOnInit(): void {
+    //getting routes
+    this.activatedRoute.params.subscribe(params => {
+      this.areaId = params['areaId'];
+      this.courseId = params['courseId'];
+    });
+
     this.slides = this.lessons;
   }
 }

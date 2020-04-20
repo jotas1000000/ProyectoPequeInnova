@@ -16,12 +16,13 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent },
   { path: 'areas', component: AreasComponent },
-  { path: 'area', component:  AreaComponent},
-  { path: 'course', component:  CourseComponent},
+  { path: 'areas/:areaId/courses', component:  AreaComponent},
+  { path: 'areas/:areaId/courses/:courseId', component:  CourseComponent},
   { path: 'lesson', component:  LessonComponent},
   { path: 'test', component:  TestComponent},
   { path: 'logOutTest', component:  NavigationBarLoggedInComponent},
-  { path: '**', component: NotFoundComponent }
+  { path: 'areas/:areaId', redirectTo: 'areas/:areaId/courses', pathMatch:'full'},
+  { path: '**', component: NotFoundComponent },
 
 ];
 
