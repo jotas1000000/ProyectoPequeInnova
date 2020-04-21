@@ -10,12 +10,16 @@ import { HomeComponent } from './pages/home/home.component';
 import { RegisterStudentComponent } from './components/register-student/register-student.component';
 import { NavigationBarLoggedInComponent } from './components/navigation-bar-logged-in/navigation-bar-logged-in.component';
 
+import {AuthGuard} from './guards/AuthGuard/auth.guard';
+import {AdminGuard} from './guards/AdminGuard/admin.guard';
+import {TeacherGuard} from './guards/TeacherGuard/teacher.guard';
+import {StudentGuard} from './guards/StudentGuard/student.guard';
 
 const routes: Routes = [
   { path: 'register', component:RegisterStudentComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent },
-  { path: 'areas', component: AreasComponent },
+  { path: 'areas', component: AreasComponent, canActivate: [AuthGuard] },
   { path: 'area', component:  AreaComponent},
   { path: 'course', component:  CourseComponent},
   { path: 'lesson', component:  LessonComponent},

@@ -17,11 +17,15 @@ import { CourseComponent } from './pages/course/course.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { LessonComponent } from './pages/lesson/lesson.component';
 import { ListAreasComponent } from './components/list-areas/list-areas.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { TestComponent } from './pages/test/test.component';
 import { NavigationBarLoggedInComponent } from './components/navigation-bar-logged-in/navigation-bar-logged-in.component';
 
+import { ModalModule, TooltipModule, PopoverModule, ButtonsModule } from 'angular-bootstrap-md';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JwtInterceptor } from './core/services/interceptors/jwt.interceptor';
+import { ErrorInterceptor } from './core/services/interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -46,9 +50,20 @@ import { NavigationBarLoggedInComponent } from './components/navigation-bar-logg
     AppRoutingModule,
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+
+    ModalModule,
+    TooltipModule,
+    PopoverModule,
+    ButtonsModule,
+
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
