@@ -1,7 +1,7 @@
-export interface User 
-{
-    Name: String;
-    LastName: String;
-    Password: String;
-    Token: String;
+export interface User {
+    name: string;
+    lastName: string;
+    role: string;
+    password: string;
+    token: string;
 }

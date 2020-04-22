@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import {User} from './core/models/User.model';
 
 @Component({
   selector: 'app-root',

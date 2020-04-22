@@ -185,27 +185,33 @@ namespace PequeInnovaAPI.Services
         }
 
        
-        public async Task<UserManagerResponse> LoginUserAsync(LoginViewModel model)
+        public async Task<UserTokenResponse> LoginUserAsync(LoginViewModel model)
         {
             var user = await UserManager.FindByEmailAsync(model.Email);
 
             if (user == null)
             {
-                return new UserManagerResponse
-                {
-                    Message = "No hay un usuario registrado con ese Email",
-                    IsSuccess = false,
-                };
+                throw new Exception("No se enviaron datos");
+                /* return new UserManagerResponse
+                 {
+                     Message = "No hay un usuario registrado con ese Email",
+                     IsSuccess = false,
+                 };*/
             }
 
             var result = await UserManager.CheckPasswordAsync(user, model.Password);
 
             if (!result)
-                return new UserManagerResponse
-                {
-                    Message = "Algo anda mal en el Email o contraseña",
-                    IsSuccess = false,
-                };
+            {
+                /* return new UserManagerResponse
+                 {
+                     Message = "Algo anda mal en el Email o contraseña",
+                     IsSuccess = false,
+                 };*/
+
+                throw new Exception("El correo o la contraseña son incorrectos");
+
+            }
 
             var roles = await UserManager.GetRolesAsync(user);
 
@@ -232,12 +238,22 @@ namespace PequeInnovaAPI.Services
 
             string tokenAsString = new JwtSecurityTokenHandler().WriteToken(token);
 
-            return new UserManagerResponse
+            /*   return new UserManagerResponse
+               {
+                   Message = tokenAsString,
+                   IsSuccess = true,
+                   ExpireDate = token.ValidTo
+               };*/
+
+            return new UserTokenResponse
             {
-                Message = tokenAsString,
-                IsSuccess = true,
-                ExpireDate = token.ValidTo
+                Name = user.Name,
+                LastName = user.LastName,
+                Role = roles.FirstOrDefault(),
+                Password = user.PasswordHash,
+                Token = tokenAsString
             };
+
         }
 
         public async Task<UserManagerResponse> RegisterUserAsync(RegisterViewModel model)

@@ -15,8 +15,8 @@ namespace PequeInnovaAPI.Services
 
         Task<UserManagerResponse> CreateRoleAsync(CreateRoleViewModel model);
 
-        Task<UserManagerResponse> LoginUserAsync(LoginViewModel model);
-
+        //Task<UserManagerResponse> LoginUserAsync(LoginViewModel model);
+        Task<UserTokenResponse> LoginUserAsync(LoginViewModel model);
         Task<UserManagerResponse> CreateUserRoleAsync(CreateUserRoleViewModel model);
         Task<bool> CreateUserRoleAsync(string Id,string TypeUser);
 
