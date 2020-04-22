@@ -108,7 +108,7 @@ namespace PequeInnovaAPI.Controllers
             {
                 var result = await Service.LoginUserAsync(model);
 
-                if (result.IsSuccess)
+                if (result.Name != "")
                 {
                     return Ok(result);
                 }
