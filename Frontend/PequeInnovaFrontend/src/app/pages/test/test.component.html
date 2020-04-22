@@ -1,0 +1,54 @@
+<section class="my-5">
+    <!-- Section heading -->
+    <h2 class="h1-responsive font-weight-bold text-center my-5">
+        <a href="#!" class="green-text">
+                <h4 class="font-weight-bold">
+                  <mdb-icon fas size= "lg" icon="book-open" class="pr-2"></mdb-icon>Matematica - Alimentacion de Patos</h4>
+        </a>Evaluacion de Como Alimentar un Patito</h2>
+  <!-- Grid row -->
+<div class="media">
+
+    <!-- Grid column -->
+    <div class="col-md-10 col-lg-9 col-xl-12 mb-r">
+        <h3 class="card-header cyan white-text text-uppercase text-center">Preguntas</h3>
+      <!--Panel-->
+   
+      <ng-container *ngFor = "let question of questions">
+        <div class="card card-body mb-3">
+            <div class="media d-block d-md-flex">
+            <div class="media-body text-center text-md-left ml-md-3 ml-0">
+                <h2>{{question.question}}</h2>
+                <div class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input" id="defaultUnchecked{{question.id}}" name="defaultExampleRadios{{question.id}}" checked mdbInput>
+                        <label class="custom-control-label" for="defaultUnchecked{{question.id}}">{{question.answer1}}</label>
+                    </div>
+                    
+                    <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="defaultChecked{{question.id}}" name="defaultExampleRadios{{question.id}}" checked mdbInput>
+                            <label class="custom-control-label" for="defaultChecked{{question.id}}">{{question.answer2}}</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="defaultUnchecked2{{question.id}}" name="defaultExampleRadios{{question.id}}" checked mdbInput>
+                                <label class="custom-control-label" for="defaultUnchecked2{{question.id}}">{{question.answer3}}</label>
+                            </div>
+                
+                    
+                
+            </div>
+            </div>
+        </div>
+      </ng-container>
+            
+      
+      <!--/.Panel-->
+  
+      
+  
+    </div>
+    
+    
+    <!-- Grid column -->
+  
+  </div>
+  <!-- Grid row -->
+</section>

@@ -13,8 +13,20 @@ namespace PequeInnovaAPI.Models
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }
-        public bool Active { get; set; }
-        public bool Erased { get; set; }
+        public string Image { get; set; }
+        // [Required]
+        public string Uid { get; set; }
+        //   [Required]
+        public bool State { get; set; }
+        //  [Required]
+        public bool Status { get; set; }
+        //  [Required]
+        public DateTime UpdateDate { get; set; }
+        //  [Required]
+        public DateTime CreateDate { get; set; }
         public int? AreaId { get; set; }
+        public IEnumerable<InscriptionModel> Inscriptions { get; set; }//Add
+        public IEnumerable<TeachingModel> Teachings { get; set; }//Add
+
     }
 }

@@ -15,8 +15,18 @@ namespace PequeInnovaAPI.Data.Entity
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
-        public bool Active { get; set; }
-        public bool Erased { get; set; }
+        public string Image { get; set; }
+        // [Required]
+        public string Uid { get; set; }
+        //   [Required]
+        public bool State { get; set; }
+        //  [Required]
+        public bool Status { get; set; }
+        //  [Required]
+        public DateTime UpdateDate { get; set; }
+        //  [Required]
+        public DateTime CreateDate { get; set; }
         public virtual ICollection<CourseEntity> Courses { get; set; }
+        public virtual ICollection<AssignmentEntity> Assignments { get; set; }
     }
 }
