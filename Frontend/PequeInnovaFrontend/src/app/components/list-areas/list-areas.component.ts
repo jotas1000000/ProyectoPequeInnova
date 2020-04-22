@@ -1,4 +1,8 @@
+import { AreaService } from './../../services/area.service';
+import { Area } from 'src/app/models/Area';
 import { Component, OnInit } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-list-areas',
@@ -7,8 +11,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListAreasComponent implements OnInit {
 
-  constructor() { }
-  areas = [
+  constructor(private areaService: AreaService) { }
+
+  public areas = [];
+
+  ngOnInit(): void {
+    this.areaService.getAreaList()
+      .subscribe(data => this.areas = data);
+  }
+
+ /*  areas = [
     {
       title: 'Matematica',
       description: 'Descripcion Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla ble bli blo blu.',
@@ -46,9 +58,9 @@ export class ListAreasComponent implements OnInit {
     }
   ];
 
-  slides: any = [];
+  slides: any = []; */
 
-  ngOnInit(): void {
-    this.slides = this.areas;
-  }
+  /* ngOnInit(): void {
+    /* this.slides = this.areas;
+  } */
 }

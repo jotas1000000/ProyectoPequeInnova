@@ -10,18 +10,18 @@
 
             <!--media column-->
             <div class="col-md-12 mb-2">
-                <mdb-card style="background-image: url({{area.img}})">
+                <mdb-card style="background-image: url({{area.image}})">
                     <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4 rounded">
                         <div>
                             <h3 class="green-text">
                                 <mdb-icon fas icon="book" size="lg"></mdb-icon>
-                                <strong> {{area.title}}</strong>
+                                <strong> {{area.name}}</strong>
                             </h3>
                             <h2 class="py-3 ">
                                 <strong>{{area.description}}</strong>
                             </h2>
 
-                            <h5 mdbBtn color="green" size="md" rounded="true" class="waves-light" mdbWavesEffect routerLink="/area" >
+                            <h5 mdbBtn color="green" size="md" rounded="true" class="waves-light" mdbWavesEffect routerLink="/areas/{{area.id}}" >
                                 <mdb-icon fas icon="book-open" class="left" ></mdb-icon> Ver Area
                             </h5>
                         </div>
