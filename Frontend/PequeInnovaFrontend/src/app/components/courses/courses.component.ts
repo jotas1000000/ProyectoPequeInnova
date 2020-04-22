@@ -1,3 +1,4 @@
+import { Area } from './../../models/Area';
 import { CourseService } from './../../services/course.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -10,73 +11,46 @@ import { AreaService } from 'src/app/services/area.service';
 })
 export class CoursesComponent implements OnInit {
 
-  constructor(private areasService: AreaService, private coursesServices: CourseService, private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private areasService: AreaService,
+    private coursesServices: CourseService,
+    private activatedRoute: ActivatedRoute){ }
 
   public courses = [];
   public areas = [];
 
-  //Route vars
+  // Route vars
   areaId: number;
+  // Area vars
+  areaName: string;
 
   ngOnInit(): void {
     this.setRouteVariables();
-    this.coursesServices.getCourseList(this.areaId)
-      .subscribe(data => this.courses = data);
-    this.areasService.getAreaList()
-      .subscribe(data => this.areas = data);
+    this.setCoursesData();
+    this.setAreaData();
   }
-
-
 
   private setRouteVariables(): void {
     this.activatedRoute.params.subscribe(params => {
-      console.log(params);
       this.areaId = params['areaId'];
     });
   }
 
+  private setCoursesData(): void {
+    this.coursesServices.getCourseList(this.areaId)
+      .subscribe(data => this.courses = data);
+  }
 
- /*  courses = [
-    {
-      id: 1,
-      title: 'Alimentacion de Patos',
-      description: 'Bla bla bla bla bla bla bla bla bla bla bla ',
-      preview: 'Bla bla bla bla bla bla bla bla bla bla bla ',
-      img: 'assets/images/areas/math.jpg'
-    },
-    {
-      id: 2,
-      title: 'Titulo del Curso 2',
-      description: 'Bla bla bla bla bla bla bla bla bla bla bla ',
-      preview: 'Bla bla bla bla bla bla bla bla bla bla bla ',
-      img: 'assets/images/areas/math.jpg'
-    },
-    {
-      id: 3,
-      title: 'Titulo del Curso 3',
-      description: 'Bla bla bla bla bla bla bla bla bla bla bla ',
-      preview: 'Bla bla bla bla bla bla bla bla bla bla bla ',
-      img: 'assets/images/areas/math.jpg'
-    },
-    {
-      id: 4,
-      title: 'Titulo del Curso 4',
-      description: 'Bla bla bla bla bla bla bla bla bla bla bla ',
-      preview: 'Bla bla bla bla bla bla bla bla bla bla bla ',
-      img: 'assets/images/areas/math.jpg'
-    },
-    {
-      id: 5,
-      title: 'Titulo del Curso 5',
-      description: 'Bla bla bla bla bla bla bla bla bla bla bla ',
-      preview: 'Bla bla bla bla bla bla bla bla bla bla bla ',
-      img: 'assets/images/areas/math.jpg'
-    }
-  ];
-
-  slides: any = [];
-  ngOnInit(): void {
-    this.slides = this.courses;
-  } */
-
+  private setAreaData(): void {
+    this.areasService.getAreaList()
+      .subscribe(data => {
+          this.areas = data;
+          for (const area of data) {
+            if (area.id == this.areaId) {
+              this.areaName = area.name;
+              break;
+            }
+          }
+        });
+  }
 }
