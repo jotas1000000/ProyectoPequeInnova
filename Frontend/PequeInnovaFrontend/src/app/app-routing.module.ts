@@ -20,11 +20,11 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent },
   { path: 'areas', component: AreasComponent, canActivate: [AuthGuard] },
-  { path: 'area', component:  AreaComponent},
-  { path: 'course', component:  CourseComponent},
-  { path: 'lesson', component:  LessonComponent},
-  { path: 'test', component:  TestComponent},
-  { path: 'logOutTest', component:  NavigationBarLoggedInComponent},
+  { path: 'area', component:  AreaComponent, canActivate: [AuthGuard]},
+  { path: 'course', component:  CourseComponent, canActivate: [AuthGuard]},
+  { path: 'lesson', component:  LessonComponent, canActivate: [AuthGuard]},
+  { path: 'test', component:  TestComponent, canActivate: [AuthGuard]},
+  { path: 'logOutTest', component:  NavigationBarLoggedInComponent, canActivate: [AuthGuard]},
   { path: '**', component: NotFoundComponent }
 
 ];

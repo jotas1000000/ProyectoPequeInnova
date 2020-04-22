@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from './../../core/services/authentication/authentication.service';
-
+import {User} from './../../core//models/User.model';
 @Component({
   selector: 'app-navigation-bar',
   templateUrl: './navigation-bar.component.html',
@@ -19,22 +19,26 @@ export class NavigationBarComponent implements OnInit {
   returnUrl: string;
   error = '';
 
+  user:User= null;
+  nameUserCurrent:string=null;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService) {
       if (this.authenticationService.currentUserValue) {
-        this.router.navigate(['/areas']);
+        this.router.navigate(['/home']);
     }
   }
 
   ngOnInit(): void {
+    this.user = this.authenticationService.currentUserValue;
+    this.nameUserCurrent= this.user.name + ' ' +this.user.lastName;
     this.validatingForm = new FormGroup({
       loginFormModalEmail: new FormControl('', Validators.email),
       loginFormModalPassword: new FormControl('', Validators.required)
     });
 
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/areas';
+    this.returnUrl = this.route.snapshot.queryParams['/home'] || '/home';
   }
 
   get f() { return this.validatingForm.controls; }
@@ -49,6 +53,8 @@ export class NavigationBarComponent implements OnInit {
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/home']);
+    this.user=null;
+    //window.location.reload();
   }
 
   onSubmit() {
@@ -60,12 +66,13 @@ export class NavigationBarComponent implements OnInit {
     }
 
     this.loading = true;
-   //  this.authenticationService.login('Lucas1@hotmail.com', 'ElSalesiano1!')
+    //  this.authenticationService.login('Lucas1@hotmail.com', 'ElSalesiano1!')
     this.authenticationService.login(this.validatingForm.get('loginFormModalEmail').value ,
                                      this.validatingForm.get('loginFormModalPassword').value)
         .pipe(first())
         .subscribe(
             data => {
+                this.user=data;
                 this.router.navigate([this.returnUrl]);
             },
             error => {
