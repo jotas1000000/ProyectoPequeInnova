@@ -32,7 +32,11 @@ export class NavigationBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.authenticationService.currentUserValue;
-    this.nameUserCurrent= this.user.name + ' ' +this.user.lastName;
+    if(this.user)
+    {
+      this.nameUserCurrent= this.user.name + ' ' +this.user.lastName;
+
+    }
     this.validatingForm = new FormGroup({
       loginFormModalEmail: new FormControl('', Validators.email),
       loginFormModalPassword: new FormControl('', Validators.required)
@@ -73,6 +77,7 @@ export class NavigationBarComponent implements OnInit {
         .subscribe(
             data => {
                 this.user=data;
+                this.nameUserCurrent= this.user.name + ' ' +this.user.lastName;
                 this.router.navigate([this.returnUrl]);
             },
             error => {
