@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
+import {LayoutModule} from '@angular/cdk/layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,13 +23,15 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { TestComponent } from './pages/test/test.component';
 import { NavigationBarLoggedInComponent } from './components/navigation-bar-logged-in/navigation-bar-logged-in.component';
 
-import { ModalModule, TooltipModule, PopoverModule, ButtonsModule } from 'angular-bootstrap-md';
+
+import { ModalModule, TooltipModule, PopoverModule, ButtonsModule,CollapseModule,WavesModule } from 'angular-bootstrap-md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './core/services/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './core/services/interceptors/error.interceptor';
 //import { WavesModule } from 'ng-uikit-pro-standard'
 import {AreaService} from './services/area.service';
 import {CourseService} from './services/course.service';
+import { MainPageAdminComponent } from './pages/Admin/main-page-admin/main-page-admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +48,8 @@ import {CourseService} from './services/course.service';
     NotFoundComponent,
     RegisterStudentComponent,
     TestComponent,
-    NavigationBarLoggedInComponent
+    NavigationBarLoggedInComponent,
+    MainPageAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +64,11 @@ import {CourseService} from './services/course.service';
     ButtonsModule,
 
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
+    LayoutModule,
+    CollapseModule,
+    WavesModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

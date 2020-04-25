@@ -1,0 +1,114 @@
+.carousel-multi-item.multi-animation{
+    margin: 0px 20px;
+}
+.carousel{
+    height: 600px;
+
+}
+
+.container{
+    max-width: 100%;
+    height: 500px;
+    border: 1px solid blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.userbox{
+    /* max-width: 75%;
+    height: 75%; */
+    width: 75vw;
+    height: 75%;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(144,196,89);
+   // background-color: rgb(0,153,204);
+}
+
+.user{
+    width: 33%;
+    height: 95%;
+    border: 2px solid red;
+}
+
+.photo{
+    width:75%;
+    height: 75%;
+}
+.user.userdata{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.u{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:15%;
+    width: 75%;
+    border: 1px solid blue;
+}
+.areas{
+    margin:15px;
+   // background-color:  rgb(144,196,89);
+    /* border: 2px solid rgb(144,196,89);
+    border-radius: 10px; */
+}
+h1{
+    position: relative;
+    left: 50px;
+    color: rgb(0,153,204);
+    font-weight: 900;
+    //box-sizing: border-box;
+}
+.buttonAreas{
+    font-weight: 900;
+    font-size: 35px;
+}
+.user.userfunctions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.view{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ /*    height:15%;
+    width: 75%;
+    border: 1px solid blue; */
+}
+.u{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+p.textUser{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 900;
+    font-size: 20px;
+}
+
+@media (max-width: 600px) {
+    .container{
+        height: 600px;
+        margin:0px 0px 40px 0px;
+    }
+    .userbox.z-depth-5{
+        flex-direction: column;
+        height: 95%;
+        width: 80%;
+        //flex-wrap: wrap;
+    }
+    .user{
+        width: 85%;
+    }
+}

@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="userbox z-depth-5">
+        <div class="user userphoto">
+           <!--  <img class="photo rounded-circle"src="./../../../../assets/images/logos/logo_1.png" alt="">
+         -->
+        </div>
+        <div class="user userdata">
+            <div class="u role">
+                <p class="textUser">Administrador</p>
+            </div>
+            <div class="u name">
+                <p class="textUser">Annelis Torre Daza</p>
+            </div>
+            <div class="u editfunction">
+                <button type="button" mdbBtn color="secondary" mdbWavesEffect>Editar</button>
+            </div>
+        </div>
+        <div class="user userfunctions">
+            <div class="view viewOne">
+                <button type="button" mdbBtn color="info" mdbWavesEffect>Maestros</button>
+            </div>
+            <div class="view viewTwo">
+                <button type="button" mdbBtn color="info" mdbWavesEffect>Colegios</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="areas">
+    <!-- <h1 class="areatitle">Areas</h1>
+ -->
+ <button mdbBtn class="buttonAreas" type="button" color="info" rounded="true" outline="true" mdbWavesEffect>Areas</button>
+
+</div>
+<mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'"
+              [animation]="'slide'">
+  <mdb-carousel-item *ngFor="let item of slides; let i = index">
+    <div class="col-md-4" *ngFor="let card of item; let cardIndex = index">
+      <mdb-card class="my-1">
+        <mdb-card-img [src]="card.img" alt="Card image cap"></mdb-card-img>
+        <mdb-card-body>
+          <mdb-card-title>
+            <h4>{{card.title}}</h4>
+          </mdb-card-title>
+          <p>{{card.description}}</p>
+          <a href="#" mdbBtn color="primary" class="waves-light" mdbWavesEffect>{{card.buttonText}}</a>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+  </mdb-carousel-item>
+</mdb-carousel>

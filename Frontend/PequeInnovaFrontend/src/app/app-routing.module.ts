@@ -9,6 +9,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { RegisterStudentComponent } from './components/register-student/register-student.component';
 import { NavigationBarLoggedInComponent } from './components/navigation-bar-logged-in/navigation-bar-logged-in.component';
+import {MainPageAdminComponent} from './pages/Admin/main-page-admin/main-page-admin.component';
 
 import {AuthGuard} from './guards/AuthGuard/auth.guard';
 import {AdminGuard} from './guards/AdminGuard/admin.guard';
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'test', component:  TestComponent, canActivate: [AuthGuard]},
   { path: 'logOutTest', component:  NavigationBarLoggedInComponent, canActivate: [AuthGuard]},
   { path: 'areas/:areaId', redirectTo: 'areas/:areaId/courses', pathMatch:'full', canActivate:[AuthGuard]},
+  { path: 'mainAdmin', component:  MainPageAdminComponent},
   { path: '**', component: NotFoundComponent },
 
 ];
