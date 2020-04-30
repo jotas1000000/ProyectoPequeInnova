@@ -17,10 +17,10 @@
         </div>
         <div class="user userfunctions">
             <div class="view viewOne">
-                <button type="button" mdbBtn color="info" mdbWavesEffect>Maestros</button>
+                <button type="button" routerLink="/teacherControl" mdbBtn color="info" mdbWavesEffect>Maestros</button>
             </div>
             <div class="view viewTwo">
-                <button type="button" mdbBtn color="info" mdbWavesEffect>Colegios</button>
+                <button type="button" routerLink="/schoolControl" mdbBtn color="info" mdbWavesEffect>Colegios</button>
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@
 <div class="areas">
     <!-- <h1 class="areatitle">Areas</h1>
  -->
- <button mdbBtn class="buttonAreas" type="button" color="info" rounded="true" outline="true" mdbWavesEffect>Areas</button>
+ <button mdbBtn class="buttonAreas" type="button" routerLink="/areaControl" color="info" rounded="true" outline="true" mdbWavesEffect>Areas</button>
 
 </div>
 <mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'"

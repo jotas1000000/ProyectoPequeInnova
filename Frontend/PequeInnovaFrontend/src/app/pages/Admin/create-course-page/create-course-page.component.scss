@@ -1,0 +1,119 @@
+.containerS{
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.container-right{
+    width: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container-left{
+    width: 55%;
+    height: auto;
+}
+
+mdb-card{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+mdb-card-body{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+mdb-card-img{
+    width: 60%;
+    height: 60%;
+}
+td{
+    width: auto;
+    padding: 5px;
+}
+
+.newTd{
+    padding: 5px;
+    width: 150px;
+
+}
+
+.Sorts{
+    padding: 5px;
+    width: 50px;
+}
+.buttons-actions{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.table-editable{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.card-body{
+    padding:10px;
+
+}
+
+.table.table-bordered.table-responsive-md.table-striped.text-center{
+    //height: 450px;
+}
+
+form{
+   width: 90%;
+
+}
+
+.card-body{
+  //  width: 90%;
+
+}
+.modify
+{
+    margin: 10px;
+}
+
+.buttons-navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.buttonsDown-OkCancel{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    border: 2px solid rgb(51,181,229);
+    border-radius: 10px;
+}
+
+.buttonsDown{
+    margin: 8px 15px;
+}
+/* .form-control.Description{
+    height: 150px;
+} */
+@media all and (min-width: 768px) {
+    tr  {
+      td {
+        vertical-align: middle !important;
+      }
+      span {
+        &:not([class]) {
+          padding: 1rem 1rem;
+        }
+      }
+    }
+  }
