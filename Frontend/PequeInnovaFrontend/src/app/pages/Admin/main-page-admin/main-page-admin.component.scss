@@ -3,9 +3,13 @@
 }
 .carousel{
     height: 600px;
-
+    display: flex !important;
 }
-
+/* .carousel-multi-item ,.multi-animation{
+     display: flex !important;
+    align-items: center !important;
+    justify-content: center !important; 
+} */
 .container{
     max-width: 100%;
     height: 500px;
@@ -13,6 +17,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    position: relative;
+
 }
 
 .userbox{
@@ -112,3 +119,50 @@ p.textUser{
         width: 85%;
     }
 }
+/* .owl-carousel>div{
+    height: 450px;
+} */
+ /* :host{
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+
+}  */
+:host{
+    
+}
+.containerCarousel{
+    width: 90%;
+/*     display: flex;
+    align-items: center;
+    justify-content: center; */
+   margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.swiper-container {
+    width: 100%;
+    height: 100%;
+  }
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+   // margin:0px !important;
+   // width: 33.3vw !important;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }

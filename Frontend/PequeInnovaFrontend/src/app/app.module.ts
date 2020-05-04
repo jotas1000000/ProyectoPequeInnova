@@ -37,6 +37,9 @@ import { SchoolControlPageComponent } from './pages/Admin/school-control-page/sc
 import { AreaControlPageComponent } from './pages/Admin/area-control-page/area-control-page.component';
 import { CourseControlPageComponent } from './pages/Admin/course-control-page/course-control-page.component';
 import { CreateCoursePageComponent } from './pages/Admin/create-course-page/create-course-page.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { FilterStatusPipe } from './Pipes/pipeFilter/filter-status.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +62,8 @@ import { CreateCoursePageComponent } from './pages/Admin/create-course-page/crea
     SchoolControlPageComponent,
     AreaControlPageComponent,
     CourseControlPageComponent,
-    CreateCoursePageComponent
+    CreateCoursePageComponent,
+    FilterStatusPipe
   ],
   imports: [
     BrowserModule,
@@ -81,13 +85,16 @@ import { CreateCoursePageComponent } from './pages/Admin/create-course-page/crea
     WavesModule,
 
     TableModule,
-    InputsModule
+    InputsModule,
+
+    CarouselModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
       AreaService,
-      CourseService
+      CourseService,
+      FilterStatusPipe
   ],
   bootstrap: [AppComponent]
 })

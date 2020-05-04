@@ -25,8 +25,8 @@
                     <th class="text-center">Sort</th>
                     <th class="text-center">Remove</th>
                   </tr>
-                  <tr *ngFor="let person of personList; let id = index">
-                    <td>
+                  <tr *ngFor="let person of personList; let id = index" >
+                    <td (click)="FunctionShow(person)">
                       <span (keyup)="changeValue(id, 'name', $event)" (blur)="updateList(id, 'name', $event)" contenteditable="true">{{person.name}}</span>
                     </td>
                     <!-- <td>
@@ -42,7 +42,18 @@
                       <span contenteditable="true" (keyup)="changeValue(id, 'city', $event)" (blur)="updateList(id, 'city', $event)">{{person.city}}</span>
                     </td> -->
                     <td class="newTd Sorts">
-                      <span class="table-up">
+                      <button mdbBtn type="button" color="light-blue" (click)="FunctionButtonUp(person)" mdbWavesEffect>
+                        <a class="indigo-text">
+                         <mdb-icon fas icon="long-arrow-alt-up"></mdb-icon>
+                        </a>
+                      </button>
+                      <button mdbBtn type="button" color="light-blue" (click)="FunctionButtonDown(person)" mdbWavesEffect>
+                        <a class="indigo-text">
+                         <mdb-icon fas icon="long-arrow-alt-down"></mdb-icon>
+                        </a>
+                      </button>
+
+                     <!--  <span class="table-up">
                         <a class="indigo-text">
                           <mdb-icon fas icon="long-arrow-alt-up"></mdb-icon>
                         </a>
@@ -51,11 +62,11 @@
                         <a class="indigo-text">
                           <mdb-icon fas icon="long-arrow-alt-down"></mdb-icon>
                         </a>
-                      </span>
+                      </span> -->
                     </td>
                     <td class="newTd">
                       <span class="table-remove">
-                        <button type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" (click)="remove(id)">Remove</button>
+                        <button type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" (click)="remove(person)">Remove</button>
                       </span>
                     </td>
                   </tr>
@@ -65,7 +76,7 @@
           </div>
     </div>
     <div class="container-right">
-        <mdb-card>
+        <mdb-card [style.background-color]="ColorEditable">
             <!--Card image-->
             <mdb-card-img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="Card image cap"></mdb-card-img>
             <!--Card content-->
@@ -84,25 +95,26 @@
                 <!-- Material input -->
                 <div class="modify">
                     <label for="formGroupExampleInputMD">Titulo de la leccion</label>
-                  <input mdbInput type="text" class="form-control" id="formGroupExampleInputMD" placeholder="">
-                </div>
+                  <input mdbInput type="text" [(ngModel)]="titleLesson" [ngModelOptions]="{standalone: true}" class="form-control" id="formGroupExampleInputMD"  placeholder="">
+                  <!-- {{titleLesson}} -->
+               </div>
                 <!-- Material input -->
                 <div class="modify">
                     <label for="formGroupExampleInput2MD">URL del video</label>
-                  <input mdbInput type="text" class="form-control" id="formGroupExampleInput2MD" placeholder="">
+                  <input mdbInput type="text" [(ngModel)]="urlVideo" [ngModelOptions]="{standalone: true}" class="form-control" id="formGroupExampleInput2MD" placeholder="">
                 </div>
                 <div class="modify">
                     <label for="formGroupExampleInput2MD">Conocimientos previos</label>
-                    <input mdbInput type="text" class="form-control" id="formGroupExampleInput2MD" placeholder="">
+                  <input mdbInput type="text" [(ngModel)]="knowledgePrevious" [ngModelOptions]="{standalone: true}" class="form-control" id="formGroupExampleInput2MD" placeholder="">
                   </div>
                 <div class="modify">
                   <label for="form7">Descripcion de la Leccion</label>  
-                  <textarea type="text" id="form7" class="md-textarea md-textarea-auto form-control" mdbInput></textarea>
+                  <textarea type="text" [(ngModel)]="Description" [ngModelOptions]="{standalone: true}" id="form7" class="md-textarea md-textarea-auto form-control" mdbInput></textarea>
                 </div>
               </form>
             <div class="buttons-actions">
-                <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
-                <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
+                <a href="#" mdbBtn color="primary" mdbWavesEffect>Cancelar</a>
+                <a mdbBtn (click)="AceptButtonLessonCard()" color="primary" mdbWavesEffect>Aceptar</a>
                 
             </div>
             
