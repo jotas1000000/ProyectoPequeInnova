@@ -25,12 +25,12 @@ const routes: Routes = [
   { path: 'register', component:RegisterStudentComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent },
-  { path: 'areas', component: AreasComponent, canActivate:[AuthGuard] },
-  { path: 'areas/:areaId/courses', component:  AreaComponent, canActivate: [AuthGuard]},
+  { path: 'areas', component: AreasComponent , canActivate:[AuthGuard]},
+  { path: 'areas/:areaId/courses', component:  AreaComponent, canActivate:[AuthGuard]},
   { path: 'areas/:areaId/courses/:courseId', component:  CourseComponent, canActivate:[AuthGuard]},
-  { path: 'lesson', component:  LessonComponent, canActivate: [AuthGuard]},
-  { path: 'test', component:  TestComponent, canActivate: [AuthGuard]},
-  { path: 'logOutTest', component:  NavigationBarLoggedInComponent, canActivate: [AuthGuard]},
+  { path: 'lesson', component:  LessonComponent, canActivate:[AuthGuard]},
+  { path: 'test', component:  TestComponent, canActivate:[AuthGuard]},
+  { path: 'logOutTest', component:  NavigationBarLoggedInComponent, canActivate:[AuthGuard]},
   { path: 'areas/:areaId', redirectTo: 'areas/:areaId/courses', pathMatch:'full', canActivate:[AuthGuard]},
   { path: 'mainAdmin', component:  MainPageAdminComponent},
   { path: 'teacherControl', component:  TeacherContolPageComponent},
@@ -39,7 +39,7 @@ const routes: Routes = [
   { path: 'courseControl', component:  CourseControlPageComponent},
   { path: 'createCourse', component:  CreateCoursePageComponent},
 
-  { path: '**', component: NotFoundComponent },
+  { path: 'error', component: NotFoundComponent },
 
 ];
 

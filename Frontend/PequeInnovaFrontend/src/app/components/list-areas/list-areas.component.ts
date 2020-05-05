@@ -11,12 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListAreasComponent implements OnInit {
 
-  constructor(private areaService: AreaService) { }
+  constructor(private areasService: AreaService) { }
 
   public areas = [];
 
   ngOnInit(): void {
-    this.areaService.getAreaList()
+    this.areasService.getAreaList()
       .subscribe(data => this.areas = data);
   }
 

@@ -1,21 +1,21 @@
 <section class="my-5">
+
   <!-- Section heading -->
-  
   <h2 class="h1-responsive font-weight-bold text-center my-3">
-      <a href="#!" class="green-text">
-              <h3 class="font-weight-bold">
-                <mdb-icon fas size= "lg" icon="book-open" class="pr-2"></mdb-icon>Matematica</h3>
-      </a></h2>
+    <a href="#!" class="green-text">
+            <h3 class="font-weight-bold">
+              <mdb-icon fas size= "lg" icon="book-open" class="pr-2"></mdb-icon>{{areaName}}</h3>
+    </a>
+  </h2>
 
-  <ng-container *ngFor="let course of courses">
+  <!-- List Courses -->
+  <ng-container *ngFor="let course of courses, index as i">
     <hr class="my-4">
-    <ng-container *ngIf="course.id % 2 == 1">
-      <!-- Grid media -->
+    <ng-container *ngIf="i % 2 == 0">
+      <!-- Media Grid -->
       <div class="media">
-
-        <!-- Grid column -->
+        <!-- Column Grid -->
         <div class="col-lg-6">
-
           <!-- Course image -->
           <div class="view overlay z-depth-0 mb-lg-0 mb-4 waves-light" mdbWavesEffect>
             <img class="img-fluid" [src]="course.image" alt="Sample image">
@@ -23,74 +23,57 @@
                 <div class="mask rgba-white-slight"></div>
               </a>
           </div>
-
         </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
+        <!-- Column Grid -->
         <div class="col-lg-6">
-
           <!-- Course Data -->
-            <a href="#!" class="green-text">
-              <h6 class="font-weight-bold mb-3"><mdb-icon fas icon="graduation-cap" class="pr-2"></mdb-icon>Matematica</h6>
-            </a>
-            <!-- Post title -->
-            <h3 class="font-weight-bold mb-3"><strong>{{course.name}}</strong></h3>
-            <!-- Excerpt -->
-            <p>Descripcion del curso: {{course.description}}</p>
-            <p>Conocimientos Previos del curso: {{course.preview}}</p>
-            <!-- Post data -->
-            <p>by <a><strong>Carine Fox</strong></a>, 19/08/2018</p>
-            <!-- Read more button -->
-            <a mdbBtn color="success" mdbWavesEffect routerLink="/areas/{{course.areaId}}/courses/{{course.id}}">Ver Curso</a>
-
-        </div>
-        <!-- Grid column -->
-
-      </div>
-    </ng-container>
-
-    <ng-container *ngIf="course.id % 2 == 0">
-      <!-- Grid row -->
-      <div class="media">
-
-        <!-- Grid column -->
-        <div class="col-lg-6">
-
-        <!-- Course Data -->
           <a href="#!" class="green-text">
-            <h6 class="font-weight-bold mb-3"><mdb-icon fas icon="graduation-cap" class="pr-2"></mdb-icon>Matematica</h6>
+            <h6 class="font-weight-bold mb-3"><mdb-icon fas icon="graduation-cap" class="pr-2"></mdb-icon>{{areaName}}</h6>
           </a>
-          <!-- Post title -->
+          <!-- Name -->
           <h3 class="font-weight-bold mb-3"><strong>{{course.name}}</strong></h3>
-          <!-- Excerpt -->
+          <!-- Description -->
           <p>Descripcion del curso: {{course.description}}</p>
-            <p>Conocimientos Previos del curso: {{course.preview}}</p>
           <!-- Post data -->
           <p>by <a><strong>Carine Fox</strong></a>, 19/08/2018</p>
-          <!-- Read more button -->
+          <!-- View Area button -->
           <a mdbBtn color="success" mdbWavesEffect routerLink="/areas/{{course.areaId}}/courses/{{course.id}}">Ver Curso</a>
-
         </div>
-        <!-- Grid column -->
+      </div>
+    </ng-container>
 
-        <!-- Grid column -->
+    <ng-container *ngIf="i % 2 == 1">
+      <!-- Media Grid -->
+      <div class="media">
+        <!-- Column Grid -->
         <div class="col-lg-6">
+          <!-- Course Data -->
+          <a href="#!" class="green-text">
+            <h6 class="font-weight-bold mb-3"><mdb-icon fas icon="graduation-cap" class="pr-2"></mdb-icon>{{areaName}}</h6>
+          </a>
+          <!-- Name -->
+          <h3 class="font-weight-bold mb-3"><strong>{{course.name}}</strong></h3>
+          <!-- Description -->
+          <p>Descripcion del curso: {{course.description}}</p>
+          <!-- Post data -->
+          <p>by <a><strong>Carine Fox</strong></a>, 19/08/2018</p>
+          <!-- View Area button -->
+          <a mdbBtn color="success" mdbWavesEffect routerLink="/areas/{{course.areaId}}/courses/{{course.id}}">Ver Curso</a>
+        </div>
 
+        <!-- Column Grid -->
+        <div class="col-lg-6">
           <!-- Course image -->
           <div class="view overlay z-depth-0 mb-lg-0 mb-4 waves-light" mdbWavesEffect>
             <img class="img-fluid" [src]="course.image" alt="Sample image">
               <a>
                 <div class="mask rgba-white-slight"></div>
               </a>
-            </div>
-
           </div>
-          <!-- Grid column -->
-
+          </div>
       </div>
-
     </ng-container>
+    
   </ng-container>
 
 </section>

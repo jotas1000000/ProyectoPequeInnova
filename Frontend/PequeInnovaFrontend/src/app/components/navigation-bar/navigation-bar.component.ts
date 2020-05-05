@@ -32,14 +32,12 @@ export class NavigationBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.authenticationService.currentUserValue;
-    if(this.user)
-    {
+    if(this.user){
       this.nameUserCurrent= this.user.name + ' ' +this.user.lastName;
-
     }
     this.validatingForm = new FormGroup({
-      loginFormModalEmail: new FormControl('', Validators.email),
-      loginFormModalPassword: new FormControl('', Validators.required)
+    loginFormModalEmail: new FormControl('', Validators.email),
+    loginFormModalPassword: new FormControl('', Validators.required)
     });
 
     this.returnUrl = this.route.snapshot.queryParams['/home'] || '/home';

@@ -28,6 +28,10 @@ import { ModalModule, TooltipModule, PopoverModule, ButtonsModule,CollapseModule
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './core/services/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './core/services/interceptors/error.interceptor';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { AreaCarouselComponent } from './components/area-carousel/area-carousel.component';
+
+
 //import { WavesModule } from 'ng-uikit-pro-standard'
 import {AreaService} from './services/area.service';
 import {CourseService} from './services/course.service';
@@ -63,7 +67,9 @@ import { FilterStatusPipe } from './Pipes/pipeFilter/filter-status.pipe';
     AreaControlPageComponent,
     CourseControlPageComponent,
     CreateCoursePageComponent,
-    FilterStatusPipe
+    FilterStatusPipe,
+    BreadcrumbComponent,
+    AreaCarouselComponent
   ],
   imports: [
     BrowserModule,
@@ -92,6 +98,7 @@ import { FilterStatusPipe } from './Pipes/pipeFilter/filter-status.pipe';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
       AreaService,
       CourseService,
       FilterStatusPipe
