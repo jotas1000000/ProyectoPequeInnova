@@ -2,7 +2,6 @@ import { Component, OnInit, AfterViewInit} from '@angular/core';
 //import {MediaMatcher} from '@angular/cdk/layout';
 
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import Swiper from 'swiper';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 @Component({
   selector: 'app-main-page-admin',
@@ -40,7 +39,6 @@ export class MainPageAdminComponent implements OnInit, AfterViewInit {
 
 
   constructor(public breakpointObserver: BreakpointObserver) { }
-  swiper: Swiper;
   cards = [
     {
       title: 'Card Title 1',
@@ -111,23 +109,7 @@ export class MainPageAdminComponent implements OnInit, AfterViewInit {
   
 
 
-     this.swiper = new Swiper('.swiper-container', {
-      slidesPerView: 3,
-      spaceBetween: 30,
-      preloadImages: true,
-      slidesPerGroup: 3,
-      updateOnWindowResize: true,
-      loop: true,
-      loopFillGroupWithBlank: true,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-    });
+
      /*   this.breakpointObserver
       .observe(['(max-width: 600px)'])
       .subscribe((state: BreakpointState) => {
