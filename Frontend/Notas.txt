@@ -41,3 +41,12 @@ webpack                           4.42.0
 Ejecutar para ir a la ultima version
 
 ng update @angular/cli@^9 @angular/core@^9
+
+
+
+
+
+NPM utilizados
+*Para carrusel
+npm install ngx-owl-carousel-o
+npm install jquery@3.5.0

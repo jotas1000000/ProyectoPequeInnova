@@ -17,6 +17,7 @@
     align-items: center;
     justify-content: center;
     margin: 20px;
+    flex-wrap: wrap;
 }
 
 .areas-navbar{
@@ -30,36 +31,43 @@
     margin-right: 15px;
 }
 
-.card-deck{
-    display: flex;
-   // flex-flow: column wrap;
-   flex-wrap: wrap;
-   align-items: center;
-   justify-content: center;
+.one-card{
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
 }
 
-mdb-card{
-    height: auto;
-    width: 350px;
-    flex-basis: auto;
-    margin-bottom: 15px;
-}
-
-/* @media (min-width: 576px)
-{
-.card-deck.card {
-     flex: 1 0 0%; 
-    margin-right: 15px;
-    margin-bottom: 15px;
-    margin-left: 15px;
-}
-} */
-
-/* @media (max-width: 1200px)
-{
-    mdb-card{
-        height: 400px;
-        width: 400px;
-        flex-basis: auto;
+@media screen  and (max-width: 479px) { //@media screen  and (max-width: 479px) and (min-width: 320px)
+    .one-card{
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
     }
-} */
+    .areas-navbar{
+        width: 100vw;
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+@media screen and (min-width: 480px) and (max-width: 599px) {
+    .one-card{
+        width: 40%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+    }
+}
+@media screen and (min-width: 600px) and (max-width: 799px) {
+    
+}
+@media screen and (min-width: 800px) and (max-width: 867px) {
+    
+}
+@media screen and (min-width: 868px) and (max-width: 1023px) {
+    
+}
+@media screen and (min-width: 1024px) {
+
+}
