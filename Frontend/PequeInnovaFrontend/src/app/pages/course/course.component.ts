@@ -39,6 +39,12 @@ export class CourseComponent implements OnInit {
     }
   ];
 
+  getThumb(lesson):string{
+    var thumb = lesson.video.slice(30)
+    var url = 'http://img.youtube.com/vi/' + thumb + '/default.jpg';
+    return url
+  }
+
   slides: any = [];
   ngOnInit(): void {
     //getting routes

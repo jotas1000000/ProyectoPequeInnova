@@ -20,6 +20,7 @@ namespace PequeInnovaAPI.Data.Repository
             var areaPut = PIDBContext.Areas.Single(c => c.Id == area.Id);
             areaPut.Name = area.Name;
             areaPut.Description = area.Description;
+            areaPut.Image = area.Image;
         }
 
         public void UpdateCourse(CourseEntity curso)

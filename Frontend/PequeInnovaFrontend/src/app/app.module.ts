@@ -1,5 +1,3 @@
-import { CourseService } from './services/course.service';
-import { AreaService } from './services/area.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
 
@@ -28,8 +26,13 @@ import { ModalModule, TooltipModule, PopoverModule, ButtonsModule } from 'angula
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './core/services/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './core/services/interceptors/error.interceptor';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { AreaCarouselComponent } from './components/area-carousel/area-carousel.component';
 
 
+//import { WavesModule } from 'ng-uikit-pro-standard'
+import {AreaService} from './services/area.service';
+import {CourseService} from './services/course.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +49,9 @@ import { ErrorInterceptor } from './core/services/interceptors/error.interceptor
     NotFoundComponent,
     RegisterStudentComponent,
     TestComponent,
-    NavigationBarLoggedInComponent
+    NavigationBarLoggedInComponent,
+    BreadcrumbComponent,
+    AreaCarouselComponent
   ],
   imports: [
     BrowserModule,
@@ -66,8 +71,8 @@ import { ErrorInterceptor } from './core/services/interceptors/error.interceptor
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    AreaService, CourseService,
   ],
-  providers: [AreaService, CourseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

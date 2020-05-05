@@ -21,10 +21,10 @@ namespace PequeInnovaAPI.Services
         }
         public async Task<Area> UpdateAreaAsync(int id, Area nuevaArea)
         {
-            if (id != nuevaArea.Id)
-            {
-                throw new InvalidOperationException("URL id needs to be the same as Author id");
-            }
+            //if (id != nuevaArea.Id)
+           // {
+            //    throw new InvalidOperationException("URL id needs to be the same as Author id");
+           // }
             await ValidateArea(id);
 
             nuevaArea.Id = id;

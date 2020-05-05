@@ -9,7 +9,7 @@
                     <mdb-icon fas size= "lg" icon="book-open" class="pr-2"></mdb-icon>Matematica</h4>
           </a>Alimentacion de Patos</h2>
   
-  <!-- Section description -->
+  <!-- Section description -->	
   <p class="text-center dark-grey-text w-responsive mx-auto mb-5">Este es un curso super divertido.</p>
 
   <hr class="my-4">
@@ -60,14 +60,14 @@
         <div class="row">
 
           <!-- Grid column -->
-          <div class="col-md-3">
+          <div class="col-md-3 ">
               
 
             <!--Image-->
-            <div class="view overlay rounded z-depth-1 mb-4">
-                  <div class="embed-responsive embed-responsive-16by9">
-                      <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/0dTfNF6iMDo" allowfullscreen></iframe>
-                  </div>
+            <div class="view overlay zoom">
+                  
+                    <img class="img-fluid" src={{getThumb(lesson)}} alt="zoom" width="150%" height="200%">
+            
               <a>
                 <div class="mask rgba-white-slight waves-light" mdbWavesEffect></div>
               </a>
@@ -105,7 +105,7 @@
       </div>
       <!-- Small news -->
       </ng-container>
-      <a mdbBtn position="center" color="success" mdbWavesEffect>Ver Mas</a>
+      <a mdbBtn position="center" color="success" mdbWavesEffect routerLink="/test">Ver Mas</a>
     </div>
   
     <!--Grid column-->
