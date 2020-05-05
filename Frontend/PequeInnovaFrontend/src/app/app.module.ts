@@ -71,7 +71,7 @@ import {CourseService} from './services/course.service';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    AreaService, CourseService,
+
   ],
   bootstrap: [AppComponent]
 })
