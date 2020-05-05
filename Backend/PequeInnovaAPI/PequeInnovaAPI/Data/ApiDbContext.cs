@@ -92,8 +92,6 @@ namespace PequeInnovaAPI.Data
             
             modelBuilder.Entity<AssignmentEntity>().ToTable("Assingnments");
             modelBuilder.Entity<AssignmentEntity>().Property(a => a.Id).ValueGeneratedOnAdd();
-
-
         }
 
        

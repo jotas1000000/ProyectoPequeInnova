@@ -76,10 +76,10 @@ namespace PequeInnovaAPI.Services
         public async Task<Section> UpdateSectionAsync(int courseId, int id, Section section)
         {
             var course = await validateCourseId(courseId);
-            if (id != section.Id && section.Id != null)
-            {
-                throw new Exception("Id of the cancion in URL needs to be the same that the object");
-            }
+            //if (id != section.Id && section.Id != null)
+            //{
+            //    throw new Exception("Id of the cancion in URL needs to be the same that the object");
+            //}
             if (courseId != course.Id)
             {
                 throw new Exception("The id of Artist isn't correct");
@@ -87,7 +87,7 @@ namespace PequeInnovaAPI.Services
 
             section.Id = id;
             var sectionEntity = mapper.Map<SectionEntity>(section);
-            sectionRapository.UpdateSection(sectionEntity);
+            await sectionRapository.UpdateSection(sectionEntity);
             if (await sectionRapository.SaveChangesAsync())
                 return mapper.Map<Section>(sectionEntity);
             throw new Exception("There were an error with the DB");

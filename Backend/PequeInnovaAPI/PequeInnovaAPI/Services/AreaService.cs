@@ -21,15 +21,15 @@ namespace PequeInnovaAPI.Services
         }
         public async Task<Area> UpdateAreaAsync(int id, Area nuevaArea)
         {
-            if (id != nuevaArea.Id)
-            {
-                throw new InvalidOperationException("URL id needs to be the same as Author id");
-            }
+            //if (id != nuevaArea.Id)
+            //{
+            //    throw new InvalidOperationException("URL id needs to be the same as Author id");
+            //}
             await ValidateArea(id);
 
             nuevaArea.Id = id;
             var areaEntity = mapper.Map<AreaEntity>(nuevaArea);
-            areaRapository.UpdateAreaAsync(areaEntity);
+            await areaRapository.UpdateAreaAsync(areaEntity);
             if (await areaRapository.SaveChangesAsync())
             {
                 return mapper.Map<Area>(areaEntity);

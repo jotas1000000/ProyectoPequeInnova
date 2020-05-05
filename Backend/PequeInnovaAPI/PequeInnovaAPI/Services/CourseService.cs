@@ -83,10 +83,10 @@ namespace PequeInnovaAPI.Services
         public async Task<Course> UpdateCourseAsync(int areaId, int id, Course course)
         {
             var area = await validateAreaId(areaId);
-            if (id != course.Id && course.Id != null)
-            {
-                throw new Exception("Id of the cancion in URL needs to be the same that the object");
-            }
+            //if (id != course.Id && course.Id != null)
+            //{
+            //    throw new Exception("Id of the cancion in URL needs to be the same that the object");
+            //}
             if (areaId != area.Id)
             {
                 throw new Exception("The id of Artist isn't correct");
@@ -94,7 +94,7 @@ namespace PequeInnovaAPI.Services
 
             course.Id = id;
             var courseEntity = mapper.Map<CourseEntity>(course);
-            courseRapository.UpdateCourse(courseEntity);
+            await courseRapository.UpdateCourse(courseEntity);
             if (await courseRapository.SaveChangesAsync())
                 return mapper.Map<Course>(courseEntity);
 

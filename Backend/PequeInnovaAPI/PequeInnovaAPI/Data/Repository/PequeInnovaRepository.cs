@@ -15,18 +15,20 @@ namespace PequeInnovaAPI.Data.Repository
         {
             this.PIDBContext = PIDBContext;
         }
-        public void UpdateAreaAsync(AreaEntity area)
+        public async Task UpdateAreaAsync(AreaEntity area)
         {
-            var areaPut = PIDBContext.Areas.Single(c => c.Id == area.Id);
+            var areaPut = await PIDBContext.Areas.SingleAsync(c => c.Id == area.Id);
             areaPut.Name = area.Name;
             areaPut.Description = area.Description;
+            areaPut.Image = area.Image;
         }
 
-        public void UpdateCourse(CourseEntity curso)
+        public async Task UpdateCourse(CourseEntity curso)
         {
-            var cursoPut = PIDBContext.Courses.Single(c => c.Id == curso.Id);
+            var cursoPut = await PIDBContext.Courses.SingleAsync(c => c.Id == curso.Id);
             cursoPut.Name = curso.Name;
             cursoPut.Description = curso.Description;
+            cursoPut.Image = curso.Image;
         }
 
         public void AddAreaAsync(AreaEntity area)
@@ -141,9 +143,9 @@ namespace PequeInnovaAPI.Data.Repository
             PIDBContext.Sections.Add(section);
         }
 
-        public void UpdateSection(SectionEntity section)
+        public async Task UpdateSection(SectionEntity section)
         {
-            var sectionPut = PIDBContext.Sections.Single(c => c.Id == section.Id);
+            var sectionPut = await PIDBContext.Sections.SingleAsync(c => c.Id == section.Id);
             sectionPut.LessonType = section.LessonType;
         }
 
@@ -172,9 +174,9 @@ namespace PequeInnovaAPI.Data.Repository
             PIDBContext.Lessons.Add(lesson);
         }
 
-        public void UpdateLesson(LessonEntity lesson)
+        public async Task UpdateLesson(LessonEntity lesson)
         {
-            var lessonPut = PIDBContext.Lessons.Single(c => c.Id == lesson.Id);
+            var lessonPut = await PIDBContext.Lessons.SingleAsync(c => c.Id == lesson.Id);
             lessonPut.URLVideo = lesson.URLVideo;
             lessonPut.Description = lesson.Description;
         }
@@ -206,9 +208,9 @@ namespace PequeInnovaAPI.Data.Repository
             PIDBContext.Practices.Add(practice);
         }
 
-        public void UpdatePractice(PracticeEntity practice)
+        public async Task UpdatePractice(PracticeEntity practice)
         {
-            var practicePut = PIDBContext.Practices.Single(c => c.Id == practice.Id);
+            var practicePut = await PIDBContext.Practices.SingleAsync(c => c.Id == practice.Id);
             practicePut.Question = practice.Question;
             practicePut.TrueAnswer = practice.TrueAnswer;
             practicePut.FalseAnswer1 = practice.FalseAnswer1;
