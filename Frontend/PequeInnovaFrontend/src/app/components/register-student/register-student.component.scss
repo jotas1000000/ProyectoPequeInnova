@@ -1,0 +1,65 @@
+.container-fluid {
+	background: radial-gradient(50% 50% at 50% 50%, #38513B 0.05%, #A0B59B 0.06%, #63845F 0.07%, #396336 100%);
+    border-radius: 30px;
+    width: 60%;
+}
+.form-group{
+    color: #FFFFFF;
+    font-family: 'Montserrat';
+}
+#logo{
+    width: 25%;
+}
+.registerTitle{
+    font-family: 'Montserrat';
+    display: inline-block;
+    font-weight: 500;
+	font-style: normal;
+	font-size: x-large;
+	line-height: 22px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+    text-transform: uppercase;
+    
+    color: #FFFFFF;
+}
+.registerLabel{
+    color: #FFFFFF;
+    font-family: 'Montserrat';
+    display: inline-block;
+    width: 180px;
+    text-align: right;
+    height: 30px;
+}
+input{
+    align-items: center;
+    align-content: center;
+}
+h1{
+    text-align: center;
+    display: inline-block;
+    width: 500px;
+    
+
+}
+
+form{
+    align-content: center;
+}
+#level{
+    width: 147px;
+}
+#birthdate{
+    width: 141px;
+}
+.btn{
+    color: #FFFFFF;
+    font-family: 'Montserrat';
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: 1px solid #FFFFFF;
+    background-color: Transparent;
+    box-sizing: border-box;
+    border-radius: 20px;
+    
+}

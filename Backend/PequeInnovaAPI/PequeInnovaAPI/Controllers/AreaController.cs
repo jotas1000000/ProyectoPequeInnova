@@ -12,6 +12,7 @@ using PequeInnovaAPI.Exceptions;
 
 namespace PequeInnovaAPI.Controllers
 {
+    //Algun cambio
     [Route("api/[controller]")]
     public class AreaController : ControllerBase
     {
