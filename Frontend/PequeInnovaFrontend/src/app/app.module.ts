@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
+import {LayoutModule} from '@angular/cdk/layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,13 +23,23 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { TestComponent } from './pages/test/test.component';
 import { NavigationBarLoggedInComponent } from './components/navigation-bar-logged-in/navigation-bar-logged-in.component';
 
-import { ModalModule, TooltipModule, PopoverModule, ButtonsModule } from 'angular-bootstrap-md';
+
+import { ModalModule, TooltipModule, PopoverModule, ButtonsModule,CollapseModule,WavesModule,TableModule,InputsModule } from 'angular-bootstrap-md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './core/services/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './core/services/interceptors/error.interceptor';
 //import { WavesModule } from 'ng-uikit-pro-standard'
 import {AreaService} from './services/area.service';
 import {CourseService} from './services/course.service';
+import { MainPageAdminComponent } from './pages/Admin/main-page-admin/main-page-admin.component';
+import { TeacherContolPageComponent } from './pages/Admin/teacher-contol-page/teacher-contol-page.component';
+import { SchoolControlPageComponent } from './pages/Admin/school-control-page/school-control-page.component';
+import { AreaControlPageComponent } from './pages/Admin/area-control-page/area-control-page.component';
+import { CourseControlPageComponent } from './pages/Admin/course-control-page/course-control-page.component';
+import { CreateCoursePageComponent } from './pages/Admin/create-course-page/create-course-page.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { FilterStatusPipe } from './Pipes/pipeFilter/filter-status.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +56,14 @@ import {CourseService} from './services/course.service';
     NotFoundComponent,
     RegisterStudentComponent,
     TestComponent,
-    NavigationBarLoggedInComponent
+    NavigationBarLoggedInComponent,
+    MainPageAdminComponent,
+    TeacherContolPageComponent,
+    SchoolControlPageComponent,
+    AreaControlPageComponent,
+    CourseControlPageComponent,
+    CreateCoursePageComponent,
+    FilterStatusPipe
   ],
   imports: [
     BrowserModule,
@@ -60,13 +78,23 @@ import {CourseService} from './services/course.service';
     ButtonsModule,
 
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
+    LayoutModule,
+    CollapseModule,
+    WavesModule,
+
+    TableModule,
+    InputsModule,
+
+    CarouselModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
       AreaService,
-      CourseService
+      CourseService,
+      FilterStatusPipe
   ],
   bootstrap: [AppComponent]
 })

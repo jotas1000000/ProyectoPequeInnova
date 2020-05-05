@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="userbox z-depth-5">
+        <div class="user userphoto">
+           <!--  <img class="photo rounded-circle"src="./../../../../assets/images/logos/logo_1.png" alt="">
+         -->
+        </div>
+        <div class="user userdata">
+            <div class="u role">
+                <p class="textUser">Administrador</p>
+            </div>
+            <div class="u name">
+                <p class="textUser">Annelis Torre Daza</p>
+            </div>
+            <div class="u editfunction">
+                <button type="button" mdbBtn color="secondary" mdbWavesEffect>Editar</button>
+            </div>
+        </div>
+        <div class="user userfunctions">
+            <div class="view viewOne">
+                <button type="button" routerLink="/teacherControl" mdbBtn color="info" mdbWavesEffect>Maestros</button>
+            </div>
+            <div class="view viewTwo">
+                <button type="button" routerLink="/schoolControl" mdbBtn color="info" mdbWavesEffect>Colegios</button>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+<div class="areas">
+    <!-- <h1 class="areatitle">Areas</h1>
+ -->
+ <button mdbBtn class="buttonAreas" type="button" routerLink="/areaControl" color="info" rounded="true" outline="true" mdbWavesEffect>Areas</button>
+</div>
+
+<div class="containerCarousel">
+  
+  <owl-carousel-o [options]="customOptions">
+    <ng-template carouselSlide *ngFor="let slide of cards">
+      <mdb-card>
+        <!--Card image-->
+        <mdb-card-img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="Card image cap"></mdb-card-img>
+        <!--Card content-->
+        <mdb-card-body>
+      
+          <!--Title-->
+          <mdb-card-title>
+            <h4>{{slide.title}}</h4>
+          </mdb-card-title>
+      
+          <!--Text-->
+          <mdb-card-text> Some quick example text to build on the card title and make up the bulk of the card's
+            content.
+          </mdb-card-text>
+      
+          <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
+        </mdb-card-body>
+      </mdb-card>
+        <!-- <div class="slide">
+            <img src="https://i.picsum.photos/id/905/400/300.jpg">
+        </div> -->
+    </ng-template>  
+  </owl-carousel-o>
+
+
+</div>

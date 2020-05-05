@@ -1,0 +1,39 @@
+<div class="containerS">
+
+    <div class="areas-navbar"> 
+        <button class="button-navbar" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Cursos del Area</button>
+        <button class="button-navbar" routerLink="/mainAdmin" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Atras</button>
+    </div>
+    
+    <div class="Add-Area"> 
+        <button class="button-AddArea" mdbBtn type="button" color="default" rounded="true" mdbWavesEffect>+ Añadir Curso</button>
+    </div>
+
+    <div class="container-deck">
+      <div class="one-card" *ngFor="let cardone of courseCards">
+        <mdb-card >
+          <!--Card image-->
+          <mdb-card-img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="Card image cap"></mdb-card-img>
+          <!--Card content-->
+          <mdb-card-body>
+        
+            <!--Title-->
+            <mdb-card-title>
+              <h4>{{cardone.title}}</h4>
+            </mdb-card-title>
+        
+            <!--Text-->
+            <mdb-card-text> 
+              {{cardone.Description}}
+            </mdb-card-text>
+        
+            <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
+          </mdb-card-body>
+        </mdb-card>         
+      </div>
+       
+          
+  
+    </div>
+
+</div>
