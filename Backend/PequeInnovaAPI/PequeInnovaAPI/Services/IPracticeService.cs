@@ -12,6 +12,7 @@ namespace PequeInnovaAPI.Services
         Task<Practice> GetPracticeAsync(int sectionId, int id);
         Task<Practice> AddPracticeAsync(int sectionId, Practice practice);
         Task<Practice> UpdatePracticeAsync(int sectionId, int id, Practice practice);
+        Task<bool> UpdateStatusAsync(int precticeId);
         Task<bool> DeletePractice(int sectionId, int id);
     }
 }

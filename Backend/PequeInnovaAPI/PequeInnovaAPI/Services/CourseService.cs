@@ -128,5 +128,26 @@ namespace PequeInnovaAPI.Services
 
             return true;
         }
+
+        private async Task ValidateCourse(int id)
+        {
+            var author = await courseRapository.GetCoursesAsync(id);
+            if (author == null)
+            {
+                throw new NotFoundException("invalid course to delete");
+            }
+            courseRapository.DetachEntity(author);
+        }
+
+        public async Task<bool> UpdateStatusAsync(int courseId)
+        {
+            await ValidateCourse(courseId);
+
+            courseRapository.UpdateStatusCourse(courseId);
+            if (await courseRapository.SaveChangesAsync())
+                return true;
+
+            throw new Exception("There were an error with the DB");
+        }
     }
 }

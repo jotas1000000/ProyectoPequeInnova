@@ -76,22 +76,30 @@ namespace PequeInnovaAPI.Controllers
                 throw;
             }
         }
-        [HttpDelete("{sectionId:int}")]
+        [HttpPut("{sectionId:int}/status")]
         public async Task<ActionResult<bool>> DeleteSection(int sectionId, int areaId)
         {
             try
             {
-                var NoMoreSection = await sectionService.DeleteSection(areaId, sectionId);
-                return Ok(NoMoreSection);
+                return Ok(await areaService.UpdateStatusAsync(areaID));
             }
-            catch (NotFoundException ex)
+            catch
             {
-                return NotFound(ex.Message);
+                throw new Exception("Not possible to show");
             }
-            catch (Exception ex)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Something bad happened: {ex.Message}");
-            }
+            //try
+            //{
+            //    var NoMoreSection = await sectionService.DeleteSection(areaId, sectionId);
+            //    return Ok(NoMoreSection);
+            //}
+            //catch (NotFoundException ex)
+            //{
+            //    return NotFound(ex.Message);
+            //}
+            //catch (Exception ex)
+            //{
+            //    return this.StatusCode(StatusCodes.Status500InternalServerError, $"Something bad happened: {ex.Message}");
+            //}
         }
 
 

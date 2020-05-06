@@ -12,6 +12,7 @@ namespace PequeInnovaAPI.Services
         Task<Lesson> GetLessonAsync(int sectionId, int id);
         Task<Lesson> AddLessonAsync(int sectionId, Lesson lesson);
         Task<Lesson> UpdateLessonAsync(int sectionId, int id, Lesson lesson);
+        Task<bool> UpdateStatusAsync(int lessonId);
         Task<bool> DeleteLesson(int sectionId, int id);
     }
 }

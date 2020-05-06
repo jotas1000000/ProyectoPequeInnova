@@ -85,7 +85,7 @@ namespace PequeInnovaAPI.Services
             var author = await areaRapository.GetAreaAsync(id);
             if (author == null)
             {
-                throw new NotFoundException("invalid author to delete");
+                throw new NotFoundException("invalid area to delete");
             }
             areaRapository.DetachEntity(author);
         }
