@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class AreaService {
 
   constructor( private http: HttpClient) { }
-  readonly APIUrl ="https://localhost:44386/api";
+  readonly APIUrl ="https://localhost:5001/api";
 
   getAreaList(): Observable<Area[]>{
     return this.http.get<Area[]>(this.APIUrl + '/area');

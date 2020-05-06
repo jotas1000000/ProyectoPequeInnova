@@ -41,7 +41,7 @@ export class BreadcrumbComponent implements OnInit {
   private setRouteVariables(): void {
     this.activatedRoute.params.subscribe(params => {
       this.areaId = params['areaId'];
-      
+      console.log(params);
     });
   }
 

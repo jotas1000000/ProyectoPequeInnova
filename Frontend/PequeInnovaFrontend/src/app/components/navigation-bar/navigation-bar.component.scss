@@ -9,3 +9,7 @@
         flex-direction: column;
     }
 }
+
+.navbar:not(.top-nav-collapse) {
+    background: transparent !important;
+  }

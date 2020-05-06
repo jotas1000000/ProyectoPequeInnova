@@ -26,7 +26,7 @@ export class NavigationBarComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService) {
       if (this.authenticationService.currentUserValue) {
-        this.router.navigate(['/home']);
+        //this.router.navigate(['/home']);
     }
   }
 
