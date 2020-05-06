@@ -12,6 +12,8 @@ namespace PequeInnovaAPI.Data.Entity
         [Key]
         [Required]
         public int? Id { get; set; }
+        [Required]
+        public string Title { get; set; }
         public string Document { get; set; }
         [Required]
         public string URLVideo { get; set; }

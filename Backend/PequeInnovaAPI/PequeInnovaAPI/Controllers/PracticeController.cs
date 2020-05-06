@@ -78,11 +78,11 @@ namespace PequeInnovaAPI.Controllers
             }
         }
         [HttpPut("{lessonId:int}/status")]
-        public async Task<ActionResult<bool>> DeletePractice(int practiceId, int sectionId)
+        public async Task<ActionResult<bool>> DeletePractice(int practiceId)
         {
             try
             {
-                return Ok(await areaService.UpdateStatusAsync(areaID));
+                return Ok(await practiceService.UpdateStatusAsync(practiceId));
             }
             catch
             {
