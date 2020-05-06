@@ -89,5 +89,16 @@ namespace PequeInnovaAPI.Services
             }
             areaRapository.DetachEntity(author);
         }
+
+        public async Task<bool> UpdateStatusAsync(int areaId)
+        {
+            await ValidateArea(areaId);
+
+            areaRapository.UpdateStatus(areaId);
+            if (await areaRapository.SaveChangesAsync())
+                return true;
+
+            throw new Exception("There were an error with the DB");
+        }
     }
 }

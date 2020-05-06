@@ -14,6 +14,7 @@ namespace PequeInnovaAPI.Data.Repository
         Task DeleteAreaAsync(int id);
         Task UpdateAreaAsync(AreaEntity area);
         void AddAreaAsync(AreaEntity area);
+        void UpdateStatus(int areaId);
 
         //cursos
         Task<IEnumerable<CourseEntity>> GetCourse(int areaId);

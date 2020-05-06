@@ -20,11 +20,11 @@ namespace PequeInnovaAPI.Controllers
 
         }
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<Practice>>> getPractice(int sectionId)
+        public async Task<ActionResult<IEnumerable<Practice>>> getPractice(int sectionID)
         {
             try
             {
-                return Ok(await practiceService.GetPractice(sectionId));
+                return Ok(await practiceService.GetPractice(sectionID));
             }
             catch (NotFoundException ex)
             {
@@ -34,7 +34,7 @@ namespace PequeInnovaAPI.Controllers
         }
 
         [HttpPost()]
-        public async Task<ActionResult<Practice>> PostPractice(int sectionId, [FromBody] Practice practice)
+        public async Task<ActionResult<Practice>> PostPractice(int sectionID, [FromBody] Practice practice)
         {
             if (!ModelState.IsValid)
             {
@@ -43,8 +43,8 @@ namespace PequeInnovaAPI.Controllers
 
             try
             {
-                var newPractice = await practiceService.AddPracticeAsync(sectionId, practice);
-                return Created($"/api/area/courses/sections/{sectionId}/practices/{practice.Id}", newPractice);
+                var newPractice = await practiceService.AddPracticeAsync(sectionID, practice);
+                return Created($"/api/area/courses/sections/{sectionID}/practices/{practice.Id}", newPractice);
             }
             catch (InvalidOperationException ex)
             {
