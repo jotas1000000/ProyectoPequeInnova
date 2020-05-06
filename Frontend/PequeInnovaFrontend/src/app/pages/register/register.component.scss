@@ -1,0 +1,28 @@
+.card-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 65%;
+    border: 2px solid;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 35px
+}
+
+.card-content-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.microContainer{
+    width: 40vw;
+}
+
+.input-Field{
+    width: 100%;
+}

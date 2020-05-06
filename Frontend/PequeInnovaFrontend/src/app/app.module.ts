@@ -43,6 +43,13 @@ import { CourseControlPageComponent } from './pages/Admin/course-control-page/co
 import { CreateCoursePageComponent } from './pages/Admin/create-course-page/create-course-page.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { FilterStatusPipe } from './Pipes/pipeFilter/filter-status.pipe';
+import { RegisterComponent } from './pages/register/register.component';
+
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatCardModule} from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -69,7 +76,8 @@ import { FilterStatusPipe } from './Pipes/pipeFilter/filter-status.pipe';
     CreateCoursePageComponent,
     FilterStatusPipe,
     BreadcrumbComponent,
-    AreaCarouselComponent
+    AreaCarouselComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -93,7 +101,13 @@ import { FilterStatusPipe } from './Pipes/pipeFilter/filter-status.pipe';
     TableModule,
     InputsModule,
 
-    CarouselModule
+    CarouselModule,
+
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatCardModule,
+    MatNativeDateModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

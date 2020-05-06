@@ -20,6 +20,7 @@ import {AuthGuard} from './guards/AuthGuard/auth.guard';
 import {AdminGuard} from './guards/AdminGuard/admin.guard';
 import {TeacherGuard} from './guards/TeacherGuard/teacher.guard';
 import {StudentGuard} from './guards/StudentGuard/student.guard';
+import {RegisterComponent} from './pages/register/register.component';
 
 const routes: Routes = [
   { path: 'register', component:RegisterStudentComponent},
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'areaControl', component:  AreaControlPageComponent},
   { path: 'courseControl', component:  CourseControlPageComponent},
   { path: 'createCourse', component:  CreateCoursePageComponent},
+  { path: 'registerStudent', component:  RegisterComponent},
 
   { path: 'error', component: NotFoundComponent },
 
