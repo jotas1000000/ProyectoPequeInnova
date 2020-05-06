@@ -50,7 +50,6 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatCardModule} from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -115,7 +114,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 
       AreaService,
       CourseService,
-      FilterStatusPipe
+      FilterStatusPipe,
+    //  {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
   ],
   bootstrap: [AppComponent]
 })

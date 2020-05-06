@@ -34,9 +34,10 @@
         <div class="microContainer">
             <mat-form-field class="input-Field">
                 <mat-label>Fecha de nacimiento</mat-label>
-                    <input matInput formControlName="Birthday" [matDatepicker]="picker1" ><!-- [formControl]="date" -->
+                    <input matInput formControlName="Birthday" [matDatepicker]="picker1" disabled><!-- [formControl]="date" -->
+                   
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
+                    <mat-datepicker #picker1 disabled="false"></mat-datepicker>
                <!--  <input placeholder="Nombre" formControlName="Birthday" matInput type="text"> -->
             </mat-form-field>
         </div>
@@ -88,11 +89,12 @@
 
       </mat-card-content>
       <mat-card-actions>
-<!--         <button [disabled]="form.invalid" mat-raised-button type="submit">Guardar</button>
- -->        
-</mat-card-actions>
+        <button type="button" (click)="FunctionEscape()" mdbBtn color="danger" mdbWavesEffect>Cancelar</button>
+        <button [disabled]="form.invalid" type="submit" mdbBtn color="info" mdbWavesEffect>Aceptar</button>
+       <!--  <button [disabled]="form.invalid" mat-raised-button type="submit">Guardar</button> -->
+      </mat-card-actions>
 </mat-card>
 
 </form>
 
-<button (click)="pruebas()" >Palabra</button>
+<!-- <button (click)="pruebas()" >Palabra</button> -->

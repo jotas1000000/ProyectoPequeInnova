@@ -84,4 +84,8 @@ export class NavigationBarComponent implements OnInit {
             });
   }
 
+  FunctionRegisterNavigate(){
+    this.router.navigate(['./registerStudent']);
+  }
+
 }

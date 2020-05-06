@@ -5,15 +5,17 @@ import { MyValidators } from './../../utils/validators';
 import { RegisterStudent } from '../../core/models/RegisterStudent.model';
 import {StudentService} from './../../core/services/student/student.service';
 import {FormControl} from '@angular/forms';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
-})
+  styleUrls: ['./register.component.scss'],
+/*   providers: [ DatePipe ]
+ */})
 export class RegisterComponent implements OnInit {
 
-  date = new FormControl(new Date('2017, 0, 1'));
+  date = new FormControl(new Date(2017, 0, 1));
   serializedDate = new FormControl((new Date()).toISOString());  form: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
@@ -32,6 +34,7 @@ export class RegisterComponent implements OnInit {
       const student: RegisterStudent = this.form.value;
       student.Age = 10;
       student.Uid='123';
+      student.Birthday = formatDate(student.Birthday, 'yyyy-MM-ddTHH:mm:ss', 'en-US', 'undefined');//'+0430'
       this.studentService.registerStudent(student)
       .subscribe((result) => {
         console.log(result);
@@ -64,16 +67,23 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  get priceField() {
-    return this.form.get('price');
-  }
+ /*  get priceField() {
+    return this.form.get('Birthday');
+  } */
 
   pruebas(){
     const student: RegisterStudent = this.form.value;
+    student.Birthday = formatDate(student.Birthday, 'yyyy-MM-ddTHH:mm:ss', 'en-US', 'undefined');//
     student.Age = 10;
     student.Uid='123';
 
     console.log(student);
   }
+  FunctionEscape(){
+    this.router.navigate(['./home']);
+  }
 
 }
+
+
+//formatDate(value: string | number | Date, format: string, locale: string, timezone?: string): string
