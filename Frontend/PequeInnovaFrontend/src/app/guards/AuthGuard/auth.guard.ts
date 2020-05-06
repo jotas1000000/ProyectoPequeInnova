@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
       const booler = this.authenticationService.getBoolRoleUSer;
    /*    const sttg='Data';
       console.log(sttg); */
-      return true;
+      
       if(currentUser.role==='Estudiante')
       {
         /* if(localStorage.currentUser.role)*/

@@ -6,21 +6,20 @@
     <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink = "/areas" ><mdb-icon fas icon="book"></mdb-icon></a>
   </li>
   <li class="list-inline-item">
-    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink = "/areas/1/courses" ><mdb-icon fas icon="book-open"></mdb-icon></a>
+    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink = "/areas/{{areaId}}/courses" ><mdb-icon fas icon="book-open"></mdb-icon></a>
   </li>
   <li class="list-inline-item">
     <a mdbBtn size="lg" color="default" class="  waves-light" disablemdbWavesEffect > TItulo del Curso <mdb-icon fas icon="pen"></mdb-icon></a>
   </li>
 </ul>
-<section class=" my-4">
 
-  
+<section class=" my-4">
 
   <div class="col-md-12 mb-4 text-default text-center">
     <h1 class="h1-reponsive text-uppercase font-weight-bold mb-0 pt-md-0 pt-0">
-      <strong><mdb-icon fas size= "lg" icon="pen" class="pr-2"></mdb-icon>Titulo Del Curso</strong></h1>
+      <strong><mdb-icon fas size= "lg" icon="pen" class="pr-2"></mdb-icon>Multiplicacion</strong></h1>
     <hr class="hr-black my-4">
-    <h5 class="text-uppercase mb-4 black-text "><strong>DESCRIPCION DEL CURSO</strong></h5>
+    <h5 class="text-uppercase mb-4 black-text "><strong> Descripcion del Curso 1 Bla bla bla bla bla bla bla</strong></h5>
    
   </div>
 
@@ -29,7 +28,8 @@
   <!-- Grid row -->
   <div class="row">
       
-
+    <ng-container *ngFor="let lesson of lessons, index as i">
+     
     <!-- Grid column -->
     <div class="col-lg-6 ">
        
@@ -38,32 +38,35 @@
         <!-- video -->
         <div class="view overlay rounded z-depth-1-half mb-4">
           <div class="embed-responsive embed-responsive-16by9">
-              <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/0dTfNF6iMDo" allowfullscreen></iframe>
+              <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/RgSwokeu4xI" allowfullscreen></iframe>
           </div>
           <a>
-            <div class="mask rgba-white-slight waves-light" mdbWavesEffect routerLink="/lesson"></div>
+            <div class="mask rgba-white-slight waves-light" mdbWavesEffect routerLink="/areas/{{areaId}}/courses/{{courseId}}/sections/1/lessons/{{lesson.id}}"></div>
           </a>
         </div>
 
         <!-- Excerpt -->
-        <h3 class="font-weight-bold dark-grey-text mb-3">
+        <h3 class="font-weight-bold dark-grey-text mb-3 text-center">
               <a>Titulo de la leccion</a>
             </h3>
        <p class="font-weight-bold dark-grey-text">
-        <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4">Descripcion Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla ble bli blo blu.</p>
+        <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4 text-center">Descripcion Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla ble bli blo blu.</p>
 
       </div>
       
       <!-- Featured news -->
     
     </div>
+
+    </ng-container>
  
     <!-- Grid column -->
 
     <!-- Grid column -->
     <div class="col-lg-6 ">
 
-      <ng-container *ngFor="let lesson of lessons">
+      
+        <ng-container *ngIf="i > 0">
       <!-- Small news -->
       <div class="single-news mb-4">
 
@@ -80,13 +83,13 @@
                     <img class="img-fluid" src={{getThumb(lesson)}} alt="zoom" width="150%" height="200%">
             
               <a>
-                <div class="mask rgba-white-slight waves-light" mdbWavesEffect></div>
+                <div class="mask rgba-white-slight waves-light" mdbWavesEffect  routerLink="/areas/{{areaId}}/courses/{{courseId}}/sections/1/lessons/{{lesson.id}}"></div>
               </a>
             </div>
 
           </div>
           <!-- Grid column -->
-
+          
           <!-- Grid column -->
           <div class="col-md-8">
             
@@ -113,8 +116,8 @@
 
       </div>
       <!-- Small news -->
-      </ng-container>
-      <a mdbBtn position="center" color="default" mdbWavesEffect routerLink="/test">Ver Mas</a>
+    </ng-container>
+      <a mdbBtn position="center" color="default" mdbWavesEffect  routerLink="/areas/{{areaId}}/courses/{{courseId}}/sections/1/lessons/">Ver Mas</a>
     </div>
   
     <!--Grid column-->
@@ -122,5 +125,8 @@
   </div>
   <hr class="my-4">
   <!-- Grid row -->
-
 </section>
+</ng-container>
+
+
+

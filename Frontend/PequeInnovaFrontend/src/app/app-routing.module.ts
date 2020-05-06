@@ -28,9 +28,9 @@ const routes: Routes = [
 
   { path: 'areas', component: AreasComponent},
   { path: 'areas/:areaId/courses', component:  AreaComponent},
-  { path: 'areas/:areaId/courses/:courseId', component:  CourseComponent},
-  { path: 'lesson', component:  LessonComponent},
-  { path: 'test', component:  TestComponent},
+  { path: 'areas/:areaId/courses/:courseId/sections', component:  CourseComponent},
+  { path: 'areas/:areaId/courses/:courseId/sections/:sectionId/lessons/:lessonId', component:  LessonComponent},
+  { path: 'areas/:areaId/courses/:courseId/sections/:sectionId/tests/:testId', component:  TestComponent},
   { path: 'logOutTest', component:  NavigationBarLoggedInComponent},
   { path: 'areas/:areaId', redirectTo: 'areas/:areaId/courses', pathMatch:'full'},
 

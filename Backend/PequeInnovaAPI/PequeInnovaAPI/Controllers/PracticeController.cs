@@ -82,7 +82,8 @@ namespace PequeInnovaAPI.Controllers
         {
             try
             {
-                return Ok(await areaService.UpdateStatusAsync(areaID));
+                return true;
+                //return Ok(await practiceId.UpdateStatusAsync(sectionId));
             }
             catch
             {

@@ -8,11 +8,10 @@ import { HttpClient } from '@angular/common/http';
 export class LessonService {
 
   constructor(private http: HttpClient) { }
-  readonly APIUrl = "https://localhost:3000";
+  readonly APIUrl ="https://localhost:5001/api";
 
-  getLessonsList(areaId: number,courseId: number): Observable<Lesson[]>{
-    /* const href = `${this.APIUrl}/area/${areaId}/courses`; */
-    const href = `${this.APIUrl}/courses/${courseId}/lessons`;
+  getLessonList(areaId: number, courseId : number, sectionId: number): Observable<Lesson[]>{
+    const href = `${this.APIUrl}/area/${areaId}/courses/${courseId}/sections/${sectionId}/lessons`;
     return this.http.get<Lesson[]>(href);
   }
 }
