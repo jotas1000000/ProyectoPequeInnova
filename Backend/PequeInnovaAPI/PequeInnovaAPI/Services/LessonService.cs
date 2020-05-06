@@ -103,5 +103,24 @@ namespace PequeInnovaAPI.Services
             lessonRapository.DetachEntity(section);
             return section;
         }
+        private async Task ValidateLesson(int id)
+        {
+            var author = await lessonRapository.GetLessonsAsync(id);
+            if (author == null)
+            {
+                throw new NotFoundException("invalid lesson to delete");
+            }
+            lessonRapository.DetachEntity(author);
+        }
+        public async Task<bool> UpdateStatusAsync(int lessonId)
+        {
+            await ValidateLesson(lessonId);
+
+            lessonRapository.UpdateStatusLesson(lessonId);
+            if (await lessonRapository.SaveChangesAsync())
+                return true;
+
+            throw new Exception("There were an error with the DB");
+        }
     }
 }

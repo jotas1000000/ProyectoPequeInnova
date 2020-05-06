@@ -13,6 +13,7 @@ namespace PequeInnovaAPI.Services
         Task<IEnumerable<Course>> GetAllCourses();
         Task<Course> AddCourseAsync(int areaId, Course course);
         Task<Course> UpdateCourseAsync(int areaId, int id, Course course);
+        Task<bool> UpdateStatusAsync(int courseId);
         Task<bool> DeleteCourse(int areaId, int id);
     }
 }

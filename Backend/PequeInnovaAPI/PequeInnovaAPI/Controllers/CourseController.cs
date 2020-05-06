@@ -34,7 +34,7 @@ namespace PequeInnovaAPI.Controllers
         }
 
         [HttpPost()]
-        public async Task<ActionResult<Course>> PostCourse(int areaId, [FromBody] Course course)
+        public async Task<ActionResult<Course>> PostCourse(int areaID, [FromBody] Course course)
         {
             if (!ModelState.IsValid)
             {
@@ -43,8 +43,8 @@ namespace PequeInnovaAPI.Controllers
 
             try
             {
-                var newCourse= await courseService.AddCourseAsync(areaId, course);
-                return Created($"/api/area/{areaId}/courses/{course.Id}", newCourse);
+                var newCourse= await courseService.AddCourseAsync(areaID, course);
+                return Created($"/api/area/{areaID}/courses/{course.Id}", newCourse);
             }
             catch (InvalidOperationException ex)
             {
@@ -62,11 +62,11 @@ namespace PequeInnovaAPI.Controllers
         }
 
         [HttpGet("{courseId:int}")]
-        public async Task<ActionResult<Course>> getCourse(int areaId, int courseId)
+        public async Task<ActionResult<Course>> getCourse(int areaID, int courseId)
         {
             try
             {
-                var course = await courseService.GetCourseAsync(areaId, courseId);
+                var course = await courseService.GetCourseAsync(areaID, courseId);
                 return Ok(course);
             }
             catch (NotFoundException ex)
@@ -78,22 +78,30 @@ namespace PequeInnovaAPI.Controllers
                 throw;
             }
         }
-        [HttpDelete("{courseId:int}")]
-        public async Task<ActionResult<bool>> DeleteCourse(int courseId, int areaId)
+        [HttpDelete("{courseId:int}/status")]
+        public async Task<ActionResult<bool>> DeleteCourse(int courseId, int areaID)
         {
             try
             {
-                var NoMoreCourse = await courseService.DeleteCourse(areaId, courseId);
-                return Ok(NoMoreCourse);
+                return Ok(await courseService.UpdateStatusAsync(areaID));
             }
-            catch (NotFoundException ex)
+            catch
             {
-                return NotFound(ex.Message);
+                throw new Exception("Not possible to show");
             }
-            catch (Exception ex)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Something bad happened: {ex.Message}");
-            }
+            //try
+            //{
+            //    var NoMoreCourse = await courseService.DeleteCourse(areaId, courseId);
+            //    return Ok(NoMoreCourse);
+            //}
+            //catch (NotFoundException ex)
+            //{
+            //    return NotFound(ex.Message);
+            //}
+            //catch (Exception ex)
+            //{
+            //    return this.StatusCode(StatusCodes.Status500InternalServerError, $"Something bad happened: {ex.Message}");
+            //}
         }
 
 

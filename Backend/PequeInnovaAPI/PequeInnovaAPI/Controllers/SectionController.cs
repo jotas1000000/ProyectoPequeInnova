@@ -19,11 +19,11 @@ namespace PequeInnovaAPI.Controllers
             this.sectionService = sectionService;
         }
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<Section>>> getSections(int artistaId)
+        public async Task<ActionResult<IEnumerable<Section>>> getSections(int courseID)
         {
             try
             {
-                return Ok(await sectionService.GetSection(artistaId));
+                return Ok(await sectionService.GetSection(courseID));
             }
             catch (NotFoundException ex)
             {
@@ -33,7 +33,7 @@ namespace PequeInnovaAPI.Controllers
         }
 
         [HttpPost()]
-        public async Task<ActionResult<Section>> PostSection(int coursesId, [FromBody] Section section)
+        public async Task<ActionResult<Section>> PostSection(int courseID, [FromBody] Section section)
         {
             if (!ModelState.IsValid)
             {
@@ -42,8 +42,8 @@ namespace PequeInnovaAPI.Controllers
 
             try
             {
-                var newSection = await sectionService.AddSectionAsync(coursesId, section);
-                return Created($"/api/area/courses/{coursesId}/sections/{section.Id}", newSection);
+                var newSection = await sectionService.AddSectionAsync(courseID, section);
+                return Created($"/api/area/courses/{courseID}/sections/{section.Id}", newSection);
             }
             catch (InvalidOperationException ex)
             {
@@ -76,22 +76,30 @@ namespace PequeInnovaAPI.Controllers
                 throw;
             }
         }
-        [HttpDelete("{sectionId:int}")]
+        [HttpPut("{sectionId:int}/status")]
         public async Task<ActionResult<bool>> DeleteSection(int sectionId, int areaId)
         {
             try
             {
-                var NoMoreSection = await sectionService.DeleteSection(areaId, sectionId);
-                return Ok(NoMoreSection);
+                return Ok(await areaService.UpdateStatusAsync(areaID));
             }
-            catch (NotFoundException ex)
+            catch
             {
-                return NotFound(ex.Message);
+                throw new Exception("Not possible to show");
             }
-            catch (Exception ex)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Something bad happened: {ex.Message}");
-            }
+            //try
+            //{
+            //    var NoMoreSection = await sectionService.DeleteSection(areaId, sectionId);
+            //    return Ok(NoMoreSection);
+            //}
+            //catch (NotFoundException ex)
+            //{
+            //    return NotFound(ex.Message);
+            //}
+            //catch (Exception ex)
+            //{
+            //    return this.StatusCode(StatusCodes.Status500InternalServerError, $"Something bad happened: {ex.Message}");
+            //}
         }
 
 

@@ -103,5 +103,24 @@ namespace PequeInnovaAPI.Services
             sectionRapository.DetachEntity(course);
             return course;
         }
+        private async Task ValidateSection(int id)
+        {
+            var author = await sectionRapository.GetSectionsAsync(id);
+            if (author == null)
+            {
+                throw new NotFoundException("invalid section to delete");
+            }
+            sectionRapository.DetachEntity(author);
+        }
+        public async Task<bool> UpdateStatusAsync(int sectionId)
+        {
+            await ValidateSection(sectionId);
+
+            sectionRapository.UpdateStatusSection(sectionId);
+            if (await sectionRapository.SaveChangesAsync())
+                return true;
+
+            throw new Exception("There were an error with the DB");
+        }
     }
 }

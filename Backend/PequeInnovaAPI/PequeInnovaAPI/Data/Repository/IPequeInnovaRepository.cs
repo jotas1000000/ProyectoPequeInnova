@@ -14,6 +14,7 @@ namespace PequeInnovaAPI.Data.Repository
         Task DeleteAreaAsync(int id);
         Task UpdateAreaAsync(AreaEntity area);
         void AddAreaAsync(AreaEntity area);
+        void UpdateStatus(int areaId);
 
         //cursos
         Task<IEnumerable<CourseEntity>> GetCourse(int areaId);
@@ -22,6 +23,8 @@ namespace PequeInnovaAPI.Data.Repository
         void AddCourse(CourseEntity curso);
         Task UpdateCourse(CourseEntity curso);
         Task DeleteCourses(int id);
+        void UpdateStatusCourse(int courseId);
+
 
         //seccion
         Task<IEnumerable<SectionEntity>> GetSection(int courseId);
@@ -29,6 +32,8 @@ namespace PequeInnovaAPI.Data.Repository
         void AddSection(SectionEntity section);
         Task UpdateSection(SectionEntity section);
         Task DeleteSection(int id);
+        void UpdateStatusSection(int secctionId);
+
 
         //leccion
         Task<IEnumerable<LessonEntity>> GetLesson(int sectionId);
@@ -36,6 +41,8 @@ namespace PequeInnovaAPI.Data.Repository
         void AddLesson(LessonEntity lesson);
         Task UpdateLesson(LessonEntity lesson);
         Task DeleteLesson(int id);
+        void UpdateStatusLesson(int lessonId);
+
 
         //practica
         Task<IEnumerable<PracticeEntity>> GetPractice(int sectionId);
@@ -43,6 +50,8 @@ namespace PequeInnovaAPI.Data.Repository
         void AddPractice(PracticeEntity practice);
         Task UpdatePractice(PracticeEntity practice);
         Task DeletePractice(int id);
+        void UpdateStatusPractice(int practiceId);
+
 
         //esto que no recuerdo
         void DetachEntity<t>(t entity) where t : class;

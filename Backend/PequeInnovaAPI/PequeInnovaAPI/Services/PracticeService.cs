@@ -102,5 +102,24 @@ namespace PequeInnovaAPI.Services
             practiceRapository.DetachEntity(section);
             return section;
         }
+        private async Task ValidatePractice(int id)
+        {
+            var author = await practiceRapository.GetPracticesAsync(id);
+            if (author == null)
+            {
+                throw new NotFoundException("invalid practice to delete");
+            }
+            practiceRapository.DetachEntity(author);
+        }
+        public async Task<bool> UpdateStatusAsync(int precticeId)
+        {
+            await ValidatePractice(precticeId);
+
+            practiceRapository.UpdateStatusPractice(precticeId);
+            if (await practiceRapository.SaveChangesAsync())
+                return true;
+
+            throw new Exception("There were an error with the DB");
+        }
     }
 }

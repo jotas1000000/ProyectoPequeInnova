@@ -224,5 +224,35 @@ namespace PequeInnovaAPI.Data.Repository
             var practicaEliminada = await PIDBContext.Practices.SingleAsync(d => d.Id == id);
             PIDBContext.Practices.Remove(practicaEliminada);
         }
+
+        public void UpdateStatus(int areaId)
+        {
+            var area= PIDBContext.Areas.Single(c => c.Id == areaId);
+            area.Status = false;
+        }
+
+        public void UpdateStatusCourse(int courseId)
+        {
+            var course = PIDBContext.Courses.Single(c => c.Id == courseId);
+            course.Status = false;
+        }
+
+        public void UpdateStatusSection(int secctionId)
+        {
+            var section = PIDBContext.Sections.Single(c => c.Id == secctionId);
+            section.Status = false;
+        }
+
+        public void UpdateStatusLesson(int lessonId)
+        {
+            var lesosn = PIDBContext.Lessons.Single(c => c.Id == lessonId);
+            lesosn.Status = false;
+        }
+
+        public void UpdateStatusPractice(int practiceId)
+        {
+            var practice = PIDBContext.Practices.Single(c => c.Id == practiceId);
+            practice.Status = false;
+        }
     }
 }
