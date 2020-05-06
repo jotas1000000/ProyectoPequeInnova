@@ -14,6 +14,7 @@ namespace PequeInnovaAPI.Controllers
     public class LessonController : ControllerBase
     {
         private ILessonService lessonService;
+        //private ISectionService sectionService;
         public LessonController(ILessonService lessonService)
         {
             this.lessonService = lessonService;
@@ -39,7 +40,6 @@ namespace PequeInnovaAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             try
             {
                 var newLesson = await lessonService.AddLessonAsync(sectionID, lesson);

@@ -26,7 +26,6 @@ namespace PequeInnovaAPI.Services
                 throw new InvalidOperationException("URL artisttt id and artistId should be equal");
             }
             course.AreaId = areaId;
-
             var areaEntity = await validateAreaId(areaId);
 
             var courseEntity = mapper.Map<CourseEntity>(course);

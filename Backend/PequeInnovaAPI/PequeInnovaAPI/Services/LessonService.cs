@@ -29,6 +29,11 @@ namespace PequeInnovaAPI.Services
 
             var sectionEntity = await validateSectionId(sectionId);
 
+            var sectiontype = await lessonRapository.GetSectionsAsync(sectionId);
+            if (sectiontype.LessonType!="Lesson" && sectiontype.LessonType != "lesson")
+            {          
+                throw new Exception("Una leccion no puede formar parte de seccion de practicas");
+            }
             var lessonEntity = mapper.Map<LessonEntity>(lesson);
             lessonEntity.Section = sectionEntity;
 
