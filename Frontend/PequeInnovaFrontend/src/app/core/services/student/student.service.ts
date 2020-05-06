@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient,HttpErrorResponse } from '@angular/common/http';
 import {RegisterStudent} from './../../models/RegisterStudent.model';
 import {environment} from './../../../../environments/environment';
-
+/* import 'rxjs/add/operator/catch'; 
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/empty';
+import 'rxjs/add/operator/retry';  */
 @Injectable({
   providedIn: 'root'
 })

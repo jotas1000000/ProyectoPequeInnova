@@ -45,7 +45,7 @@ namespace PequeInnovaAPI.Controllers
                 {
                     return Ok(Result);
                 }
-                return BadRequest(Result);
+                return Ok(Result);
 
             }
             return BadRequest("No se pudo registrar. Algo estuvo mal!");
