@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: 'areas/:areaId/courses', component:  AreaComponent, canActivate:[AuthGuard]},
   { path: 'areas/:areaId/courses/:courseId', component:  CourseComponent, canActivate:[AuthGuard]},
   { path: 'lesson', component:  LessonComponent, canActivate:[AuthGuard]},
-  { path: 'test', component:  TestComponent, canActivate:[AuthGuard]},
+  { path: 'test', component:  TestComponent/* , canActivate:[AuthGuard] */},
   { path: 'logOutTest', component:  NavigationBarLoggedInComponent, canActivate:[AuthGuard]},
   { path: 'areas/:areaId', redirectTo: 'areas/:areaId/courses', pathMatch:'full', canActivate:[AuthGuard]},
   { path: 'mainAdmin', component:  MainPageAdminComponent},

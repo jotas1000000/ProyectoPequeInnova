@@ -16,25 +16,28 @@
       <ng-container *ngFor = "let question of questions">
         <div class="card card-body mb-3">
             <div class="media d-block d-md-flex">
-            <div class="media-body text-center text-md-left ml-md-3 ml-0">
-                <h2>{{question.question}}</h2>
-                <div class="custom-control custom-radio">
-                        <input type="radio" class="custom-control-input" id="defaultUnchecked{{question.id}}" name="defaultExampleRadios{{question.id}}" checked mdbInput>
-                        <label class="custom-control-label" for="defaultUnchecked{{question.id}}">{{question.answer1}}</label>
-                    </div>
-                    
-                    <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="defaultChecked{{question.id}}" name="defaultExampleRadios{{question.id}}" checked mdbInput>
-                            <label class="custom-control-label" for="defaultChecked{{question.id}}">{{question.answer2}}</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="defaultUnchecked2{{question.id}}" name="defaultExampleRadios{{question.id}}" checked mdbInput>
-                                <label class="custom-control-label" for="defaultUnchecked2{{question.id}}">{{question.answer3}}</label>
-                            </div>
+              <div class="media-body text-center text-md-left ml-md-3 ml-0">
+
+                  <h2>{{question.question}}</h2>
+                  
+                  <div class="custom-control custom-radio">
+                          <input type="radio" class="custom-control-input" id="defaultUnchecked{{question.id}}" name="defaultExampleRadios{{question.id}}" checked mdbInput>
+                          <label class="custom-control-label" for="defaultUnchecked{{question.id}}">{{question.answer1}}</label>
+                  </div>
+                      
+                  <div class="custom-control custom-radio">
+                          <input type="radio" class="custom-control-input" id="defaultChecked{{question.id}}" name="defaultExampleRadios{{question.id}}" checked mdbInput>
+                          <label class="custom-control-label" for="defaultChecked{{question.id}}">{{question.answer2}}</label>
+                  </div>
+
+                  <div class="custom-control custom-radio">
+                          <input type="radio" class="custom-control-input" id="defaultUnchecked2{{question.id}}" name="defaultExampleRadios{{question.id}}" checked mdbInput>
+                          <label class="custom-control-label" for="defaultUnchecked2{{question.id}}">{{question.answer3}}</label>
+                  </div>
                 
                     
                 
-            </div>
+              </div>
             </div>
         </div>
       </ng-container>

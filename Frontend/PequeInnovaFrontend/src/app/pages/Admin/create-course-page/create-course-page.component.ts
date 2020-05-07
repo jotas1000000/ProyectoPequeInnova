@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterStatusPipe } from './../../../Pipes/pipeFilter/filter-status.pipe';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormControl} from '@angular/forms';
+import {Question} from './../../../core/models/Question.model';
 @Component({
   selector: 'app-create-course-page',
   templateUrl: './create-course-page.component.html',
@@ -7,11 +10,28 @@ import { FilterStatusPipe } from './../../../Pipes/pipeFilter/filter-status.pipe
 })
 export class CreateCoursePageComponent implements OnInit {
 
+  form: FormGroup;
+
   ColorEditable: any = 'white';
 
+  typePractice: boolean;
+  typeLesson: boolean;
   StateEdit: boolean;
   StateAdd: boolean;
   StateSleep: boolean;
+
+  get stateSleep(): boolean{
+    return this.StateSleep;
+  }
+
+  get stateAdd(): boolean{
+    return this.stateAdd;
+  }
+
+  get stateEdit(): boolean{
+    return this.stateEdit;
+  }
+
 
   titleLesson: string;
   urlVideo: string;
@@ -26,6 +46,67 @@ export class CreateCoursePageComponent implements OnInit {
   editFieldComparative: string;
 
   personDeleted: Array<any> =[];
+
+  questions: Question[] = [
+    {
+      Question: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 
+      trueanswer: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 
+      falseanswer1: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 
+      falseanswer2: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 
+      falseanswer3: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+    },
+    {
+      Question: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', 
+      trueanswer: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', 
+      falseanswer1: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', 
+      falseanswer2: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', 
+      falseanswer3: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
+    },
+    {
+      Question: 'ccccccccccccccccccccccccccccccccccccccc', 
+      trueanswer: 'ccccccccccccccccccccccccccccccccccccccc', 
+      falseanswer1: 'ccccccccccccccccccccccccccccccccccccccc', 
+      falseanswer2: 'ccccccccccccccccccccccccccccccccccccccc', 
+      falseanswer3: 'ccccccccccccccccccccccccccccccccccccccc'
+    },
+    {
+      Question: 'dddddddddddddddddddddddddddddddddddddddddddd', 
+      trueanswer: 'dddddddddddddddddddddddddddddddddddddddddddd', 
+      falseanswer1: 'dddddddddddddddddddddddddddddddddddddddddddd', 
+      falseanswer2: 'dddddddddddddddddddddddddddddddddddddddddddd', 
+      falseanswer3: 'dddddddddddddddddddddddddddddddddddddddddddd'
+    },
+    {
+      Question: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 
+      trueanswer: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 
+      falseanswer1: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 
+      falseanswer2: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 
+      falseanswer3: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+    },
+    {
+      Question: 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', 
+      trueanswer: 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', 
+      falseanswer1: 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', 
+      falseanswer2: 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', 
+      falseanswer3: 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
+    },
+    {
+      Question: 'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm', 
+      trueanswer: 'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm', 
+      falseanswer1: 'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm', 
+      falseanswer2: 'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm', 
+      falseanswer3: 'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm'
+    },
+    {
+      Question: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 
+      trueanswer: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 
+      falseanswer1: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 
+      falseanswer2: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 
+      falseanswer3: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+    },
+  
+  ];
+
   personList: Array<any> = [
     { id: 1, name: 'Aurelia Vega', order: 0 , status: true},
     { id: 2, name: 'Guerra Cortez', order: 1 , status: true},
@@ -94,10 +175,6 @@ export class CreateCoursePageComponent implements OnInit {
 
   }
 
-  changeValue(id: number, property: string, event: any) {
-    this.editField = event.target.textContent;
-  }
-
   FunctionShow(value: any){
 
     this.StateAdd = false;
@@ -116,6 +193,11 @@ export class CreateCoursePageComponent implements OnInit {
     this.urlVideoComparative = value.name;
     this.knowledgePreviousComparative = value.order;
     this.DescriptionComparative = value.status;
+  }
+
+  
+  changeValue(id: number, property: string, event: any) {
+    this.editField = event.target.textContent;
   }
 
   FunctionButtonUp(value: any){
@@ -177,7 +259,13 @@ export class CreateCoursePageComponent implements OnInit {
 
         this.personList.push({id: this.titleLesson, name:  this.urlVideo , order: this.knowledgePrevious , status: true});
         this.ColorEditable = 'white';
-        
+
+        this.titleLesson = '';
+        this.urlVideo = '';
+        this.knowledgePrevious = '';
+        this.Description = '';
+
+
     }
 
     this.StateAdd = false;
@@ -185,11 +273,63 @@ export class CreateCoursePageComponent implements OnInit {
     this.StateSleep = true;
 
   }
-  constructor() { }
+  
+  CancelButtonLessonCard(){
+    this.StateAdd = false;
+    this.StateEdit = false;
+    this.StateSleep = true;
+    this.ColorEditable = 'white';
+    this.titleLesson = '';
+    this.urlVideo = '';
+    this.knowledgePrevious = '';
+    this.Description = '';
+    this.typeLesson = false;
+    this.typePractice = false;
 
+  }
+
+/*   navigateToPracticeBuilder(){
+    setTimeout(() => {
+      location.hash = '#' + 'elem';
+    }, 1000);
+  } */
 
   ngOnInit(): void {
   }
+
+  constructor(
+    private formBuilder: FormBuilder,
+  ) {
+
+    this.StateEdit = false;
+    this.StateAdd = false;
+    this.StateSleep = true;
+
+    this.typePractice = false;
+    this.typeLesson = false;
+    this.buildForm();
+
+  }
+
+  private buildForm() {
+    this.form = this.formBuilder.group({
+      Question: ['', [Validators.required]],
+      trueanswer: ['', [Validators.required]],
+      falseanswer1: ['', [Validators.required]],
+      falseanswer2: ['', [Validators.required]],
+      falseanswer3: ['', [Validators.required]],
+    });
+  }
+
+  saveQuestion(event: Event) {
+    event.preventDefault();
+    if (this.form.valid) {
+      const question: Question = this.form.value;
+
+
+    }
+  }
+
 
 }
 
