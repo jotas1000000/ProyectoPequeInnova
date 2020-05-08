@@ -142,6 +142,27 @@ namespace PequeInnovaAPI.Services
             return false;
         }
 
+        public async Task<List<GetTeachersModel>> GetTeachers()
+        {
+            var query = await (from u in dbcontext.Users
+                               join ur in dbcontext.UserRoles on u.Id equals ur.UserId
+                               join r in dbcontext.Roles on ur.RoleId equals r.Id
+                               where r.NormalizedName == "PROFESOR"
+                               select new GetTeachersModel
+                               {
+                                   Id = u.Id,
+                                   Name = u.Name,
+                                   LastName = u.LastName,
+                                   RoleName = r.Name,
+                                   City = u.City,
+                                   Degree = u.Degree,
+                                   Email = u.Email
+                               }
+                               ).AsNoTracking().ToListAsync();
+
+            return query;
+        }
+
         public async Task<List<ApplicationUser>> GetUsersComments()
         {
             IQueryable<ApplicationUser> q = dbcontext.Users;
@@ -410,6 +431,8 @@ namespace PequeInnovaAPI.Services
                 LastName = model.LastName,
                 UserName = model.UserName,
                 Birthday = model.Birthday,
+                Degree = model.Degree,
+                City = model.City,
                 Email = model.Email,
                 Uid = model.Uid,
                 State = true,
