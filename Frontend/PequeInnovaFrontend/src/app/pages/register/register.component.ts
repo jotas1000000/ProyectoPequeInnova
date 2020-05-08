@@ -19,7 +19,8 @@ export class RegisterComponent implements OnInit {
   messageBinding: string=null;
   stateRequest:boolean=false;
   date = new FormControl(new Date(2017, 0, 1));
-  serializedDate = new FormControl((new Date()).toISOString());  form: FormGroup;
+  serializedDate = new FormControl((new Date()).toISOString());
+  form: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
     private studentService: StudentService,
@@ -32,7 +33,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  saveProduct(event: Event) {
+  saveStudent(event: Event) {
     event.preventDefault();
     if (this.form.valid) {
       const student: RegisterStudent = this.form.value;
