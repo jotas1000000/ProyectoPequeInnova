@@ -26,10 +26,16 @@ namespace PequeInnovaAPI.Services
                 throw new InvalidOperationException("URL artisttt id and artistId should be equal");
             }
             practice.SectionId = sectionId;
-
+           
             var sectionEntity = await validateSectionId(sectionId);
 
+            var sectiontype = await practiceRapository.GetSectionsAsync(sectionId);
+            if (sectiontype.LessonType != "Practice" && sectiontype.LessonType != "practice")
+            {
+                throw new Exception("Una practica no puede formar parte de seccion de lecciones");
+            }
             var practiceEntity = mapper.Map<PracticeEntity>(practice);
+            practiceEntity.FalseAnswer2 = "Falso";
             practiceEntity.Section = sectionEntity;
 
             practiceRapository.AddPractice(practiceEntity);

@@ -14,6 +14,7 @@ namespace PequeInnovaAPI.Controllers
     public class LessonController : ControllerBase
     {
         private ILessonService lessonService;
+        //private ISectionService sectionService;
         public LessonController(ILessonService lessonService)
         {
             this.lessonService = lessonService;
@@ -39,7 +40,6 @@ namespace PequeInnovaAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             try
             {
                 var newLesson = await lessonService.AddLessonAsync(sectionID, lesson);
@@ -77,11 +77,12 @@ namespace PequeInnovaAPI.Controllers
             }
         }
         [HttpPut("{lessonId:int}/status")]
-        public async Task<ActionResult<bool>> DeleteLesson(int lessonId, int sectionId)
+        public async Task<ActionResult<bool>> DeleteLesson(int lessonId)
         {
             try
             {
                 return Ok(await lessonService.UpdateStatusAsync(sectionId));
+                //return Ok(await lessonService.UpdateStatusAsync(lessonId)); Cambios de Pablo
             }
             catch
             {

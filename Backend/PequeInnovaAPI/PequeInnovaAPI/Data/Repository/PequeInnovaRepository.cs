@@ -177,6 +177,7 @@ namespace PequeInnovaAPI.Data.Repository
         public async Task UpdateLesson(LessonEntity lesson)
         {
             var lessonPut = await PIDBContext.Lessons.SingleAsync(c => c.Id == lesson.Id);
+            lessonPut.Title = lessonPut.Title;
             lessonPut.URLVideo = lesson.URLVideo;
             lessonPut.Description = lesson.Description;
         }
@@ -211,6 +212,7 @@ namespace PequeInnovaAPI.Data.Repository
         public async Task UpdatePractice(PracticeEntity practice)
         {
             var practicePut = await PIDBContext.Practices.SingleAsync(c => c.Id == practice.Id);
+            practicePut.Title = practice.Title;
             practicePut.Question = practice.Question;
             practicePut.TrueAnswer = practice.TrueAnswer;
             practicePut.FalseAnswer1 = practice.FalseAnswer1;

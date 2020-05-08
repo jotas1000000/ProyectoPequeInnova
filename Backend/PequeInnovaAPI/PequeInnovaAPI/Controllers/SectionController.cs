@@ -77,11 +77,12 @@ namespace PequeInnovaAPI.Controllers
             }
         }
         [HttpPut("{sectionId:int}/status")]
-        public async Task<ActionResult<bool>> DeleteSection(int sectionId, int areaId)
+        public async Task<ActionResult<bool>> DeleteSection(int sectionId)
         {
             try
             {
                 return Ok(await sectionService.UpdateStatusAsync(areaId));
+                //return Ok(await sectionService.UpdateStatusAsync(sectionId)); Cambios de Pablo
             }
             catch
             {
