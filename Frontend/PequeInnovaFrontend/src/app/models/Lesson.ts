@@ -1,6 +1,6 @@
 export class Lesson{
     id:number;
-    name:string;
-    description:string;
-    video: string;
+    document:string;
+    urlVideo:string;
+    description: string;
 }

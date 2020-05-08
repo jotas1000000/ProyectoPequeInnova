@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterStudentComponent } from './components/register-student/register-student.component';
 
+
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { InfoCarouselComponent } from './components/info-carousel/info-carousel.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -29,7 +30,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './core/services/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './core/services/interceptors/error.interceptor';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
-import { AreaCarouselComponent } from './components/area-carousel/area-carousel.component';
 
 
 //import { WavesModule } from 'ng-uikit-pro-standard'
@@ -51,6 +51,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatCardModule} from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
+import { CardsAreasComponent } from './components/cards-areas/cards-areas.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     FilterStatusPipe,
     BreadcrumbComponent,
     AreaCarouselComponent,
-    RegisterComponent
+    RegisterComponent,
+    CardsAreasComponent
   ],
   imports: [
     BrowserModule,

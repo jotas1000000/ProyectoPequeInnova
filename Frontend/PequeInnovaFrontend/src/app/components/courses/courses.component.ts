@@ -23,6 +23,7 @@ export class CoursesComponent implements OnInit {
   areaId: number;
   // Area vars
   areaName: string;
+  areaDescription : string;
 
   ngOnInit(): void {
     this.setRouteVariables();
@@ -48,6 +49,7 @@ export class CoursesComponent implements OnInit {
           for (const area of data) {
             if (area.id == this.areaId) {
               this.areaName = area.name;
+              this.areaDescription = area.description;
               break;
             }
           }

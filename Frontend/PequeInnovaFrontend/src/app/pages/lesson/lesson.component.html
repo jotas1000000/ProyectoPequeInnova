@@ -1,24 +1,42 @@
-<section class="my-5">
-  <!-- Section heading -->
-  <h2 class="h1-responsive font-weight-bold text-center my-3">
-      <a href="#!" class="green-text">
-              <h4 class="font-weight-bold">
-                <mdb-icon fas size= "lg" icon="book-open" class="pr-2"></mdb-icon>Matematica - Alimentacion de Patos</h4>
-      </a>Titulo de la leccion</h2>
+<ul class="list-unstyled list-inline ">
+  <li class="list-inline-item">
+    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink = "/home"> <mdb-icon fas icon="home" ></mdb-icon></a>
+  </li>
+  <li class="list-inline-item">
+    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink = "/areas" ><mdb-icon fas icon="book"></mdb-icon></a>
+  </li>
+  <li class="list-inline-item">
+    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink = "/areas/{{areaId}}/courses" ><mdb-icon fas icon="book-open"></mdb-icon></a>
+  </li>
+  <li class="list-inline-item">
+    <a mdbBtn size="lg" color="default" class="  waves-light" disablemdbWavesEffect routerLink = "/areas/{{areaId}}/courses/{{courseId}}/sections"><mdb-icon fas icon="pen"></mdb-icon></a>
+  </li>
+  <li class="list-inline-item">
+    <a mdbBtn size="lg" color="default" class="  waves-light" disablemdbWavesEffect >Titulo de La Leccion<mdb-icon fas icon="video"></mdb-icon></a>
+  </li>
+</ul>
 
-<!-- Grid row -->
+<section class="my-4">
+  <div class="col-md-12 mb-4 text-default text-center">
+    <h1 class="h1-reponsive text-uppercase font-weight-bold mb-0 pt-md-0 pt-0">
+      <strong><mdb-icon fas size= "lg" icon="video" class="pr-2"></mdb-icon>Titulo De La Leccion</strong></h1>
+    <hr class="hr-black my-4">
+    <h5 class="text-uppercase mb-4 black-text "><strong>Descripcion Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla ble bli blo blu.</strong></h5>
+  </div>
+ 
 <div class="media">
 
-  <!-- Grid column -->
+
   <div class="col-md-10 col-lg-9 col-xl-8 mb-r">
 
-    <!--Panel-->
+
     <div class="card card-body mb-3">
       <div class="media d-block d-md-flex">
-          <!-- 16:9 aspect ratio -->
+        
           <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/0dTfNF6iMDo" allowfullscreen ></iframe>
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/RgSwokeu4xI" allowfullscreen ></iframe>
           </div>
+        
       </div>
 
       <div class="media-body text-center text-md-left ml-md-5 ">
@@ -27,21 +45,18 @@
         bla bla ble bli blo blu.
 
       </div>
-
+    
     </div>
-    <!--/.Panel-->
     
 
   </div>
-  <!-- Grid column -->
 
-  <!-- Grid column -->
   <div class="col-md-10 col-lg-9 col-xl-4">
 
-    <!--Panel-->
+ 
     <div class="card mb-3">
       <h3 class="card-header green white-text text-uppercase text-center">Comentarios</h3>
-      <!-- Grid column -->
+  
       <ng-container *ngFor = "let comment of comments">
           <hr class="my-2">
     <div class="media d-block d-md-flex">
@@ -54,24 +69,8 @@
    
     </div>
     
-  </ng-container>
-    <hr class="mb-1 mt-3">
-    <div class="media d-block d-md-flex mt-2 shadow-textarea">
-      <div class="media-body text-center text-md-left ml-md-3 ml-0">
-        <div class="form-group basic-textarea rounded-corners mb-md-0 mb-4">
-          <textarea class="form-control z-depth-1" id="exampleFormControlTextarea3" rows="3" placeholder="Escribe un Comentario..."></textarea>
-        </div>
-      </div>
-    </div>
 
-  </div>
-  <!-- Grid column -->
-
-    <!--/.Panel-->
-
-  </div>
-  <!-- Grid column -->
-
-</div>
-<!-- Grid row -->
 </section>
+</ng-container>
+
+

@@ -1,79 +1,135 @@
-<section class="my-5">
-
-  <!-- Section heading -->
-  <h2 class="h1-responsive font-weight-bold text-center my-3">
-    <a href="#!" class="green-text">
-            <h3 class="font-weight-bold">
-              <mdb-icon fas size= "lg" icon="book-open" class="pr-2"></mdb-icon>{{areaName}}</h3>
+<ul class="list-unstyled list-inline ">
+  <li class="list-inline-item">
+    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink="/home">
+      <mdb-icon fas icon="home"></mdb-icon>
     </a>
-  </h2>
+  </li>
+  <li class="list-inline-item">
+    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink="/areas">
+      <mdb-icon fas icon="book"></mdb-icon>
+    </a>
+  </li>
+  <li class="list-inline-item">
+    <a mdbBtn size="lg" color="default" class="  waves-light" disabled mdbWavesEffect> {{areaName}}<mdb-icon fas
+        icon="book-open"></mdb-icon></a>
+  </li>
+</ul>
+<section class="my-4">
 
-  <!-- List Courses -->
+
+  <div class="col-md-12 mb-4 text-default text-center">
+    <h1 class="h1-reponsive text-uppercase font-weight-bold mb-0 pt-md-0 pt-0">
+      <strong>
+        <mdb-icon fas size="lg" icon="book-open" class="pr-2"></mdb-icon>{{areaName}}
+      </strong></h1>
+    <hr class="hr-black my-4">
+    <h5 class="text-uppercase mb-4 black-text "><strong>{{areaDescription}}</strong></h5>
+
+  </div>
+
   <ng-container *ngFor="let course of courses, index as i">
-    <hr class="my-4">
-    <ng-container *ngIf="i % 2 == 0">
-      <!-- Media Grid -->
-      <div class="media">
-        <!-- Column Grid -->
-        <div class="col-lg-6">
-          <!-- Course image -->
-          <div class="view overlay z-depth-0 mb-lg-0 mb-4 waves-light" mdbWavesEffect>
-            <img class="img-fluid" [src]="course.image" alt="Sample image">
-              <a>
-                <div class="mask rgba-white-slight"></div>
-              </a>
+    <hr class="my-4" >
+    <!--Card image-->
+    <div class="card-group">
+      <div class="col-md-4">
+        <mdb-card>
+          <div class="  waves-light " mdbWavesEffect>
+            <mdb-card-img [src]="course.image"></mdb-card-img>
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
           </div>
-        </div>
-        <!-- Column Grid -->
-        <div class="col-lg-6">
-          <!-- Course Data -->
-          <a href="#!" class="green-text">
-            <h6 class="font-weight-bold mb-3"><mdb-icon fas icon="graduation-cap" class="pr-2"></mdb-icon>{{areaName}}</h6>
-          </a>
-          <!-- Name -->
-          <h3 class="font-weight-bold mb-3"><strong>{{course.name}}</strong></h3>
-          <!-- Description -->
-          <p>Descripcion del curso: {{course.description}}</p>
-          <!-- Post data -->
-          <p>by <a><strong>Carine Fox</strong></a>, 19/08/2018</p>
-          <!-- View Area button -->
-          <a mdbBtn color="success" mdbWavesEffect routerLink="/areas/{{course.areaId}}/courses/{{course.id}}">Ver Curso</a>
-        </div>
-      </div>
-    </ng-container>
+          <!--/Card image-->
 
-    <ng-container *ngIf="i % 2 == 1">
-      <!-- Media Grid -->
-      <div class="media">
-        <!-- Column Grid -->
-        <div class="col-lg-6">
-          <!-- Course Data -->
-          <a href="#!" class="green-text">
-            <h6 class="font-weight-bold mb-3"><mdb-icon fas icon="graduation-cap" class="pr-2"></mdb-icon>{{areaName}}</h6>
-          </a>
-          <!-- Name -->
-          <h3 class="font-weight-bold mb-3"><strong>{{course.name}}</strong></h3>
-          <!-- Description -->
-          <p>Descripcion del curso: {{course.description}}</p>
-          <!-- Post data -->
-          <p>by <a><strong>Carine Fox</strong></a>, 19/08/2018</p>
-          <!-- View Area button -->
-          <a mdbBtn color="success" mdbWavesEffect routerLink="/areas/{{course.areaId}}/courses/{{course.id}}">Ver Curso</a>
-        </div>
+          <!-- Card content -->
+          <mdb-card-body class="text-center">
 
-        <!-- Column Grid -->
-        <div class="col-lg-6">
-          <!-- Course image -->
-          <div class="view overlay z-depth-0 mb-lg-0 mb-4 waves-light" mdbWavesEffect>
-            <img class="img-fluid" [src]="course.image" alt="Sample image">
-              <a>
-                <div class="mask rgba-white-slight"></div>
+            <mdb-card-text>
+              <a class="green-text ">
+                <h6 class="font-weight-bold mb-3 ">
+                  <mdb-icon fas icon="graduation-cap" class="pr-2"></mdb-icon>{{areaName}}
+                </h6>
               </a>
-          </div>
-          </div>
+              <!-- Name -->
+              <h3 class="font-weight-bold mb-3 black-text"><strong>{{course.name}} 1</strong></h3>
+              <!-- Description -->
+              <p>Descripcion del curso: {{course.description}}</p>
+              <!-- View Area button -->
+              <a mdbBtn color="default" mdbWavesEffect
+                routerLink="/areas/{{course.areaId}}/courses/{{course.id}}/sections">Ver Curso</a>
+            </mdb-card-text>
+
+
+          </mdb-card-body>
+        </mdb-card>
       </div>
-    </ng-container>
-    
+
+      <div class="col-md-4">
+        <mdb-card>
+          <div class="  waves-light " mdbWavesEffect>
+            <mdb-card-img [src]="course.image"></mdb-card-img>
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+          <!--/Card image-->
+
+          <!-- Card content -->
+          <mdb-card-body class="text-center">
+
+            <mdb-card-text>
+              <a class="green-text ">
+                <h6 class="font-weight-bold mb-3 ">
+                  <mdb-icon fas icon="graduation-cap" class="pr-2"></mdb-icon>{{areaName}}
+                </h6>
+              </a>
+              <!-- Name -->
+              <h3 class="font-weight-bold mb-3 black-text"><strong>{{course.name}} 2</strong></h3>
+              <!-- Description -->
+              <p>Descripcion del curso: {{course.description}}</p>
+              <!-- View Area button -->
+              <a mdbBtn color="default" mdbWavesEffect
+                routerLink="/areas/{{course.areaId}}/courses/{{course.id}}/sections">Ver Curso</a>
+            </mdb-card-text>
+
+
+          </mdb-card-body>
+        </mdb-card>
+      </div>
+
+      <div class="col-md-4">
+        <mdb-card>
+          <div class="  waves-light " mdbWavesEffect>
+            <mdb-card-img [src]="course.image"></mdb-card-img>
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+          <!--/Card image-->
+
+          <!-- Card content -->
+          <mdb-card-body class="text-center">
+
+            <mdb-card-text>
+              <a class="green-text ">
+                <h6 class="font-weight-bold mb-3 ">
+                  <mdb-icon fas icon="graduation-cap" class="pr-2"></mdb-icon>{{areaName}}
+                </h6>
+              </a>
+              <!-- Name -->
+              <h3 class="font-weight-bold mb-3 black-text"><strong>{{course.name}} 3</strong></h3>
+              <!-- Description -->
+              <p>Descripcion del curso: {{course.description}}</p>
+              <!-- View Area button -->
+              <a mdbBtn color="default" mdbWavesEffect
+                routerLink="/areas/{{course.areaId}}/courses/{{course.id}}/sections">Ver Curso</a>
+            </mdb-card-text>
+
+
+          </mdb-card-body>
+        </mdb-card>
+      </div>
+    </div>
   </ng-container>
 
 </section>
