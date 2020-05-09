@@ -53,6 +53,13 @@ namespace PequeInnovaAPI.Data.Repository
         void UpdateStatusPractice(int practiceId);
 
 
+        //colegio
+        Task<SchoolEntity> GetSchoolAsync(int id);
+        Task<IEnumerable<SchoolEntity>> GetSchools(string orderBy = "id");
+        Task UpdateSchoolAsync(SchoolEntity school);
+        void AddSchoolAsync(SchoolEntity school);
+        void UpdateStatusSchool(int schoolId);
+
         //esto que no recuerdo
         void DetachEntity<t>(t entity) where t : class;
         Task<bool> SaveChangesAsync();

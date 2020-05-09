@@ -79,7 +79,7 @@ namespace PequeInnovaAPI.Data.Repository
                 case "id":
                     query = query.OrderBy(a => a.Id);
                     break;
-                case "nombre":
+                case "name":
                     query = query.OrderBy(a => a.Name);
                     break;
                 default:
@@ -255,6 +255,54 @@ namespace PequeInnovaAPI.Data.Repository
         {
             var practice = PIDBContext.Practices.Single(c => c.Id == practiceId);
             practice.Status = false;
+        }
+
+        public async Task<SchoolEntity> GetSchoolAsync(int id)
+        {
+            IQueryable<SchoolEntity> query = PIDBContext.Schools;
+            query = query.AsNoTracking();
+
+            return await query.SingleOrDefaultAsync(a => a.Id == id);
+        }
+
+        public async Task<IEnumerable<SchoolEntity>> GetSchools(string orderBy = "id")
+        {
+            IQueryable<SchoolEntity> query = PIDBContext.Schools;
+
+            switch (orderBy)
+            {
+                case "id":
+                    query = query.OrderBy(a => a.Id);
+                    break;
+                case "name":
+                    query = query.OrderBy(a => a.Name);
+                    break;
+                case "city":
+                    query = query.OrderBy(a => a.Name);
+                    break;
+                default:
+                    break;
+            }
+
+            return await query.ToArrayAsync();
+        }
+
+        public async Task UpdateSchoolAsync(SchoolEntity school)
+        {
+            var schoolPut = await PIDBContext.Schools.SingleAsync(c => c.Id == school.Id);
+            schoolPut.Name = school.Name;
+            schoolPut.City = school.City;
+        }
+
+        public void AddSchoolAsync(SchoolEntity school)
+        {
+            var saveSchool= PIDBContext.Schools.Add(school);
+        }
+
+        public void UpdateStatusSchool(int schoolId)
+        {
+            var school = PIDBContext.Schools.Single(c => c.Id == schoolId);
+            school.Status = false;
         }
     }
 }
