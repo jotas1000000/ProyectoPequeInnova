@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterStudentComponent } from './components/register-student/register-student.component';
 
+
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { InfoCarouselComponent } from './components/info-carousel/info-carousel.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -29,7 +30,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './core/services/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './core/services/interceptors/error.interceptor';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
-import { AreaCarouselComponent } from './components/area-carousel/area-carousel.component';
 
 
 //import { WavesModule } from 'ng-uikit-pro-standard'
@@ -43,6 +43,15 @@ import { CourseControlPageComponent } from './pages/Admin/course-control-page/co
 import { CreateCoursePageComponent } from './pages/Admin/create-course-page/create-course-page.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { FilterStatusPipe } from './Pipes/pipeFilter/filter-status.pipe';
+import { RegisterComponent } from './pages/register/register.component';
+
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatCardModule} from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatDialogModule} from '@angular/material/dialog';
+import { CardsAreasComponent } from './components/cards-areas/cards-areas.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +78,9 @@ import { FilterStatusPipe } from './Pipes/pipeFilter/filter-status.pipe';
     CreateCoursePageComponent,
     FilterStatusPipe,
     BreadcrumbComponent,
-    AreaCarouselComponent
+    AreaCarouselComponent,
+    RegisterComponent,
+    CardsAreasComponent
   ],
   imports: [
     BrowserModule,
@@ -93,7 +104,14 @@ import { FilterStatusPipe } from './Pipes/pipeFilter/filter-status.pipe';
     TableModule,
     InputsModule,
 
-    CarouselModule
+    CarouselModule,
+
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatCardModule,
+    MatNativeDateModule,
+    MatDialogModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -101,7 +119,8 @@ import { FilterStatusPipe } from './Pipes/pipeFilter/filter-status.pipe';
 
       AreaService,
       CourseService,
-      FilterStatusPipe
+      FilterStatusPipe,
+    //  {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
   ],
   bootstrap: [AppComponent]
 })

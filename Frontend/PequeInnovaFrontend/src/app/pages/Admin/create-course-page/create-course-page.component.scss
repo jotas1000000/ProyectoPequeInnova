@@ -1,9 +1,27 @@
 .containerS{
-    width: 100vw;
+    width: 98vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
+
+.containerQ{
+    width: 95vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-top: 20px;
+
+    margin-left: auto;
+    margin-right: auto;
+    //border: 2px solid red;
+    //border-radius: 5px;
+}
+
 .container-right{
     width: 45%;
     display: flex;
@@ -65,7 +83,9 @@ td{
 }
 
 .table.table-bordered.table-responsive-md.table-striped.text-center{
-    //height: 450px;
+    width: 100%;
+    //overflow-x: hidden;
+
 }
 
 form{
@@ -73,10 +93,6 @@ form{
 
 }
 
-.card-body{
-  //  width: 90%;
-
-}
 .modify
 {
     margin: 10px;
@@ -102,6 +118,94 @@ form{
 .buttonsDown{
     margin: 8px 15px;
 }
+
+.modal-footer{
+    display: flex;
+    justify-content: space-between !important;
+}
+.container-Questions{
+    width: 65%;
+    padding-left: 5px;
+    padding-right: 5px;
+   // border:2px solid red;
+}
+.card-element{
+    width: 100%;
+    margin:10px 0px 10px 0px;
+   // border: 2px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+}
+.question.rightside{
+    width: 20%;
+   // border: 2px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+}
+.question.leftside{
+    width: 80%;
+  //  border: 2px solid red;
+    
+}
+
+.container-form{
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  //  border: 2px solid red;
+}
+
+.form-Q{
+    width: 95%;
+}
+
+.card-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   // border: 2px solid red;
+    flex-direction: column;
+    width: 100%;
+}
+
+textarea{
+   // border: 1px solid gray;
+}
+
+.card-content-container{
+    width: 100%;
+}
+
+.microContainer{
+    width: 100%;
+
+}
+
+.input-Field{
+    width: 100%;
+
+}
+
+.md-textarea.md-textarea-auto.form-control{
+    height: 65px;
+    border: 1px solid gray;
+
+}
+/* .question-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+} */
 /* .form-control.Description{
     height: 150px;
 } */

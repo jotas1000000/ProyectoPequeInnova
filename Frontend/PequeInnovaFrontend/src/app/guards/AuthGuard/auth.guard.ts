@@ -18,12 +18,13 @@ export class AuthGuard implements CanActivate {
       const booler = this.authenticationService.getBoolRoleUSer;
    /*    const sttg='Data';
       console.log(sttg); */
-      if(currentUser.role==='Estudiante')
+      if(currentUser.role ==='Estudiante')
       {
         /* if(localStorage.currentUser.role)*/
         return true;
       }
-      this.router.navigate(['/home'], {queryParams: {returnUrl: state.url}});
+      //this.router.navigate(['/home'], {queryParams: {returnUrl: state.url}});
+      this.router.navigate(['/home']);
       return false;
     }
 

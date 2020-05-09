@@ -26,7 +26,7 @@ export class NavigationBarComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService) {
       if (this.authenticationService.currentUserValue) {
-        this.router.navigate(['/home']);
+      //  this.router.navigate(['/home']);
     }
   }
 
@@ -40,7 +40,7 @@ export class NavigationBarComponent implements OnInit {
     loginFormModalPassword: new FormControl('', Validators.required)
     });
 
-    this.returnUrl = this.route.snapshot.queryParams['/home'] || '/home';
+    this.returnUrl = this.route.snapshot.queryParams['/home'] || '/home';//REturn to home
   }
 
   get f() { return this.validatingForm.controls; }
@@ -82,6 +82,10 @@ export class NavigationBarComponent implements OnInit {
                 this.error = error;
                 this.loading = false;
             });
+  }
+
+  FunctionRegisterNavigate(){
+    this.router.navigate(['./registerStudent']);
   }
 
 }

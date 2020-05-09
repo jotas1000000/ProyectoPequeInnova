@@ -35,13 +35,13 @@ export class BreadcrumbComponent implements OnInit {
     this.setRouteVariables();
     this.setCoursesData();
     this.setAreaData();
-    this.setLessonData();
+
   }
 
   private setRouteVariables(): void {
     this.activatedRoute.params.subscribe(params => {
       this.areaId = params['areaId'];
-      
+      console.log(params);
     });
   }
 
@@ -50,10 +50,6 @@ export class BreadcrumbComponent implements OnInit {
       .subscribe(data => this.courses = data);
   }
 
-  private setLessonData(): void {
-    this.lessonsService.getLessonsList(this.areaId, this.courseId)
-      .subscribe(data => this.lessons = data);
-  }
 
   private setAreaData(): void {
     this.areasService.getAreaList()

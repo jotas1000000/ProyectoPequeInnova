@@ -81,7 +81,8 @@ namespace PequeInnovaAPI.Controllers
         {
             try
             {
-                return Ok(await lessonService.UpdateStatusAsync(lessonId));
+                return Ok(await lessonService.UpdateStatusAsync(sectionId));
+                //return Ok(await lessonService.UpdateStatusAsync(lessonId)); Cambios de Pablo
             }
             catch
             {

@@ -23,5 +23,7 @@ namespace PequeInnovaAPI.Services
         Task<List<GetUsersRoles>> GetUsersRoles();
         Task<List<ApplicationUser>> GetUsersComments();
 
+        Task<List<GetTeachersModel>> GetTeachers();
+
     }
 }
