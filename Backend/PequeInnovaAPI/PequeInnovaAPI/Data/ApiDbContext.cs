@@ -22,7 +22,7 @@ namespace PequeInnovaAPI.Data
         public DbSet<TeachingEntity> Teachings { get; set; }
         public DbSet<AssignmentEntity> Assignments { get; set; }
         public DbSet<QuestionEntity> Questions { get; set; }
-
+        public DbSet<SchoolEntity> Schools{ get; set; }
         public ApiDbContext(DbContextOptions<ApiDbContext> options)
             : base(options)
         {
@@ -100,6 +100,9 @@ namespace PequeInnovaAPI.Data
             
             modelBuilder.Entity<AssignmentEntity>().ToTable("Assingnments");
             modelBuilder.Entity<AssignmentEntity>().Property(a => a.Id).ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<SchoolEntity>().ToTable("Schools");
+            modelBuilder.Entity<SchoolEntity>().Property(a => a.Id).ValueGeneratedOnAdd();
         }
 
        
