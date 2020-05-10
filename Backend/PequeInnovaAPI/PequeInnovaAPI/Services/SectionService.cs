@@ -19,6 +19,7 @@ namespace PequeInnovaAPI.Services
             this.sectionRapository = sectionRapository;
             this.mapper = mapper;
         }
+        /*
         public async Task<Section> AddSectionAsync(int courseId, Section section)
         {
             if (section.CourseId != null && courseId != section.CourseId)
@@ -122,5 +123,6 @@ namespace PequeInnovaAPI.Services
 
             throw new Exception("There were an error with the DB");
         }
+        */
     }
 }

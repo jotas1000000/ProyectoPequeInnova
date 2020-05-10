@@ -19,6 +19,7 @@ namespace PequeInnovaAPI.Controllers
             this.practiceService = practiceService;
 
         }
+        /*
         [HttpGet()]
         public async Task<ActionResult<IEnumerable<Practice>>> getPractice(int sectionID)
         {
@@ -119,5 +120,6 @@ namespace PequeInnovaAPI.Controllers
                 throw new Exception("Not possible to show");
             }
         }
+        */
     }
 }

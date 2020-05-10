@@ -9,6 +9,7 @@ namespace PequeInnovaAPI.Data.Entity
 {
     public class LessonEntity
     {
+         
         [Key]
         [Required]
         public int? Id { get; set; }
@@ -19,6 +20,10 @@ namespace PequeInnovaAPI.Data.Entity
         public string URLVideo { get; set; }
         [Required]
         public string Description { get; set; }
+
+        public string Type { get; set; }
+
+        public int Order { get; set; }
         // [Required]
         public string Uid { get; set; }
         //   [Required]
@@ -29,7 +34,11 @@ namespace PequeInnovaAPI.Data.Entity
         public DateTime UpdateDate { get; set; }
         //  [Required]
         public DateTime CreateDate { get; set; }
-        [ForeignKey("SectionId")]
-        public virtual SectionEntity Section { get; set; }
+        [ForeignKey("CourseId")]
+        public virtual CourseEntity Course { get; set; }
+
+        public virtual ICollection<CommentEntity> Comments { get; set; }
+
+        public virtual ICollection<QuestionEntity> Questions { get; set; }
     }
 }

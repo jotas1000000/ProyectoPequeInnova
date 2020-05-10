@@ -42,7 +42,7 @@ namespace PequeInnovaAPI.Controllers
             }
         }
         [HttpGet("allCuorses")]
-        public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
+        public async Task<ActionResult<IEnumerable<CourseModel>>> GetCourses()
         {
             try
             {
@@ -85,7 +85,7 @@ namespace PequeInnovaAPI.Controllers
             }
 
             var newArea= await this.areaService.CreateAreaAsync(area);
-            return Created($"/api/areas/{newArea.Id}", newArea);
+            return Created($"/api/Area/{newArea.Id}", newArea);
         }
 
         [HttpPut("{areaID:int}/status")]

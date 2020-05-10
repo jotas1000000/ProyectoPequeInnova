@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Remotion.Linq.Parsing.ExpressionVisitors.MemberBindings;
+using PequeInnovaAPI.Exceptions;
 
 namespace PequeInnovaAPI.Data.Repository
 {
@@ -62,8 +64,12 @@ namespace PequeInnovaAPI.Data.Repository
         public async Task<AreaEntity> GetAreaAsync(int id, bool mostrarCursos = true)
         {
             IQueryable<AreaEntity> query = PIDBContext.Areas;
+            if (mostrarCursos)
+            {
+                query = query.Include(r => r.Courses);
+            }
+            query = query.Where(a => a.Status == true);
             query = query.AsNoTracking();
-
             return await query.SingleOrDefaultAsync(a => a.Id == id);
         }
 
@@ -85,13 +91,15 @@ namespace PequeInnovaAPI.Data.Repository
                 default:
                     break;
             }
-
+            query = query.Where(a => a.Status==true);
+            query.AsNoTracking();
             return await query.ToArrayAsync();
         }
 
         public async Task<IEnumerable<CourseEntity>> GetCourse(int areaId)
         {
             IQueryable<CourseEntity> query = PIDBContext.Courses;
+            query = query.Where(c => c.Status == true);
             query = query.AsNoTracking();
             return await query.Where(b => b.Area.Id == areaId).ToArrayAsync();
         }
@@ -99,6 +107,7 @@ namespace PequeInnovaAPI.Data.Repository
         public Task<CourseEntity> GetCoursesAsync(int id, bool mostrarArea = false)
         {
             IQueryable<CourseEntity> query = PIDBContext.Courses;
+            query = query.Where(c => c.Status == true);
             query = query.AsNoTracking();
             return query.SingleAsync(b => b.Id == id);
         }
@@ -130,9 +139,9 @@ namespace PequeInnovaAPI.Data.Repository
             return await query.Where(b => b.Course.Id == courseId).ToArrayAsync();
         }
 
-        public Task<SectionEntity> GetSectionsAsync(int id, bool mostrarCourse = false)
+        public Task<CourseEntity> GetCourseAsync(int id, bool mostrarCourse = false)
         {
-            IQueryable<SectionEntity> query = PIDBContext.Sections;
+            IQueryable<CourseEntity> query = PIDBContext.Courses;
             query = query.AsNoTracking();
             return query.SingleAsync(b => b.Id == id);
         }
@@ -154,26 +163,46 @@ namespace PequeInnovaAPI.Data.Repository
             var seccionEliminada = await PIDBContext.Sections.SingleAsync(d => d.Id == id);
             PIDBContext.Sections.Remove(seccionEliminada);
         }
-
-        public async Task<IEnumerable<LessonEntity>> GetLesson(int sectionId)
+        
+        public async Task<LessonEntity> GetLessonAsync(int lessonId, int courseId, int areaId, bool showComments, bool showQuestions)
         {
             IQueryable<LessonEntity> query = PIDBContext.Lessons;
+            query = query.Where(b => b.Course.Id == courseId && b.Id == lessonId && b.Course.Area.Id == areaId);
+            query = query.Include(l =>l.Course);
+            if (showQuestions)
+            {
+                query = query.Include(q => q.Questions);
+            }
+            if (showComments)
+            {
+                query = query.Include(q => q.Comments);
+            }
             query = query.AsNoTracking();
-            return await query.Where(b => b.Section.Id == sectionId).ToArrayAsync();
+            return await query.SingleOrDefaultAsync();
         }
-        public Task<LessonEntity> GetLessonsAsync(int id, bool mostrarsection = false)
+        
+        public async Task<IEnumerable<LessonEntity>> GetLessonsAsync(int courseId, int areaId, bool showComments, bool showQuestions)
         {
             IQueryable<LessonEntity> query = PIDBContext.Lessons;
+            query = query.Where(l =>l.Course.Id==courseId && l.Status==true && l.Course.Area.Id == areaId);
+            if (showQuestions)
+            {
+                query = query.Include(q => q.Questions);
+            }
+            if (showComments)
+            {
+                query = query.Include(q => q.Comments);
+            }
             query = query.AsNoTracking();
-            return query.SingleAsync(b => b.Id == id);
+            return await query.ToArrayAsync();
         }
-
-        public void AddLesson(LessonEntity lesson)
+        
+        public void AddLessonAsync(LessonEntity lesson)
         {
-            PIDBContext.Entry(lesson.Section).State = EntityState.Unchanged;
+            PIDBContext.Entry(lesson.Course).State = EntityState.Unchanged;
             PIDBContext.Lessons.Add(lesson);
         }
-
+        
         public async Task UpdateLesson(LessonEntity lesson)
         {
             var lessonPut = await PIDBContext.Lessons.SingleAsync(c => c.Id == lesson.Id);
@@ -255,6 +284,88 @@ namespace PequeInnovaAPI.Data.Repository
         {
             var practice = PIDBContext.Practices.Single(c => c.Id == practiceId);
             practice.Status = false;
+        }
+
+        public async Task<IEnumerable<QuestionEntity>> getQuestionAsync(int areaId, int courseId, int lessonId)
+        {
+            IQueryable<QuestionEntity> query = PIDBContext.Questions;
+
+            query = query.Where(q => 
+                                q.Status == true && 
+                                q.Lesson.Id == lessonId &&
+                                q.Lesson.Course.Id == courseId &&
+                                q.Lesson.Course.Area.Id == areaId);
+            query = query.Include(q => q.Lesson);
+            query = query.AsNoTracking();
+
+            return await query.ToArrayAsync();
+        }
+
+        public void postQuestionAsync(int areaId, int courseId, int lessonId, QuestionEntity question)
+        {
+            question.State = true;
+            question.Status = true;
+            question.CreateDate = DateTime.Now;
+            question.UpdateDate = DateTime.Now;
+            PIDBContext.Entry(question.Lesson).State = EntityState.Unchanged;
+            PIDBContext.Questions.Add(question);            
+        }
+
+        public async Task putQuestionAsync(int areaId, int courseId, int lessonId, QuestionEntity question, int questionId)
+        {
+            var questionPut = await PIDBContext.Questions
+                                             .SingleAsync(  q => 
+                                                            q.Id == question.Id &&
+                                                            q.Status == true &&
+                                                            q.Lesson.Id == lessonId &&
+                                                            q.Lesson.Course.Id == courseId &&
+                                                            q.Lesson.Course.Area.Id == areaId);
+
+            questionPut.Title = question.Title;
+            questionPut.TrueAnswer = question.TrueAnswer;
+            questionPut.FalseAnswer1 = question.FalseAnswer1;
+            questionPut.FalseAnswer2 = question.FalseAnswer2;
+            questionPut.FalseAnswer3 = question.FalseAnswer3;
+            questionPut.UpdateDate = DateTime.Now;
+        }
+
+        public async Task DeleteQuestionAsync(int areaId, int courseId, int lessonId, int questionId)
+        {
+            var questionPut = await PIDBContext.Questions
+                                                .SingleAsync(q =>
+                                                                q.Status == true &&
+                                                                q.Lesson.Id == lessonId &&
+                                                                q.Lesson.Course.Id == courseId &&
+                                                                q.Lesson.Course.Area.Id == areaId);
+
+            questionPut.Status = false;
+        }
+
+        public async Task ValidateArea(int areaId)
+        {
+            var area = await GetAreaAsync(areaId, false);
+            if (area == null)
+            {
+                throw new NotFoundException("No se encontro el Area indicada");
+            }
+        }
+
+        public async Task ValidateCourse(int courseId)
+        {
+            var course = await GetCourseAsync(courseId);
+            if (course == null)
+            {
+                throw new NotFoundException($"No se pudo encontrar el curso con id: {courseId}");
+            }
+        }
+
+        public async Task ValidateLesson(int lessonId, int courseId, int areaId)
+        {
+            var lesson = await GetLessonAsync(lessonId, courseId, areaId, false, false);
+            if (lesson == null)
+            {
+                throw new NotFoundException("No se encontro la leccion.");
+            }
         }
     }
 }

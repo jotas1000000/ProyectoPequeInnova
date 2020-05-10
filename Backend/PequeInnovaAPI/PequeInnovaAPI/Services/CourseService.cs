@@ -19,7 +19,7 @@ namespace PequeInnovaAPI.Services
             this.courseRapository = courseRapository;
             this.mapper = mapper;
         }
-        public async Task<Course> AddCourseAsync(int areaId, Course course)
+        public async Task<CourseModel> AddCourseAsync(int areaId, CourseModel course)
         {
             if (course.AreaId != null && areaId != course.AreaId)
             {
@@ -35,7 +35,7 @@ namespace PequeInnovaAPI.Services
             courseRapository.AddCourse(courseEntity);
             if (await courseRapository.SaveChangesAsync())
             {
-                return mapper.Map<Course>(courseEntity);
+                return mapper.Map<CourseModel>(courseEntity);
             }
             throw new Exception("There were an error with the DB");
         }
@@ -50,23 +50,23 @@ namespace PequeInnovaAPI.Services
             return false;
         }
 
-        public Task<IEnumerable<Course>> GetAllCourses()
+        public Task<IEnumerable<CourseModel>> GetAllCourses()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Course>> GetCourse(int areaId)
+        public async Task<IEnumerable<CourseModel>> GetCourse(int areaId)
         {
             var res = await courseRapository.GetCourse(areaId);
-            var cancioness = mapper.Map<IEnumerable<Course>>(res);
-            foreach (Course d in cancioness)
+            var cancioness = mapper.Map<IEnumerable<CourseModel>>(res);
+            foreach (CourseModel d in cancioness)
             {
                 d.AreaId = areaId;
             }
             return cancioness;
         }
 
-        public async Task<Course> GetCourseAsync(int areaId, int id)
+        public async Task<CourseModel> GetCourseAsync(int areaId, int id)
         {
             var res = await validateAreaId(areaId);
             var cacionEntity = await courseRapository.GetCoursesAsync(id);
@@ -74,12 +74,12 @@ namespace PequeInnovaAPI.Services
             {
                 throw new Exception("Not Found");
             }
-            var songe = mapper.Map<Course>(cacionEntity);
+            var songe = mapper.Map<CourseModel>(cacionEntity);
             songe.AreaId = areaId;
             return songe;
         }
 
-        public async Task<Course> UpdateCourseAsync(int areaId, int id, Course course)
+        public async Task<CourseModel> UpdateCourseAsync(int areaId, int id, CourseModel course)
         {
             var area = await validateAreaId(areaId);
             //if (id != course.Id && course.Id != null)
@@ -95,7 +95,7 @@ namespace PequeInnovaAPI.Services
             var courseEntity = mapper.Map<CourseEntity>(course);
             await courseRapository.UpdateCourse(courseEntity);
             if (await courseRapository.SaveChangesAsync())
-                return mapper.Map<Course>(courseEntity);
+                return mapper.Map<CourseModel>(courseEntity);
 
             throw new Exception("There were an error with the DB");
         }

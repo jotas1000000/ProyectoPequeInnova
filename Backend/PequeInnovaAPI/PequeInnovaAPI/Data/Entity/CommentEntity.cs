@@ -10,10 +10,13 @@ namespace PequeInnovaAPI.Data.Entity
     public class CommentEntity
     {
         public int Id { get; set; }
-        /*[ForeignKey("UserId")]
+       /* [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }*/
         public string UserId { get; set; }
-        public int SectionId { get; set; }
+
+        [ForeignKey("LessonId")]
+        public virtual LessonEntity Lesson { get; set; }
+
         public string Description { get; set; }
         public DateTime CommentDate { get; set; }
 

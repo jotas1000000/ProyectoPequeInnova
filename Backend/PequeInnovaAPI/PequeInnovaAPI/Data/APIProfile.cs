@@ -15,15 +15,17 @@ namespace PequeInnovaAPI.Data
         {
             this.CreateMap<AreaEntity, Area>()
                 .ReverseMap();
-            this.CreateMap<CourseEntity, Course>()
+            this.CreateMap<CourseEntity, CourseModel>()
                 .ReverseMap();
             this.CreateMap<SectionEntity, Section>()
                 .ReverseMap();
-            this.CreateMap<LessonEntity, Lesson>()
+            this.CreateMap<LessonEntity, LessonModel>()
                 .ReverseMap();
             this.CreateMap<PracticeEntity, Practice>()
                 .ReverseMap();
             this.CreateMap<CommentEntity, CommentModel>()
+               .ReverseMap();
+            this.CreateMap<QuestionEntity, QuestionModel>()
                .ReverseMap();
         }
     }

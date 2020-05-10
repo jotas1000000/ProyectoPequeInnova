@@ -19,6 +19,7 @@ namespace PequeInnovaAPI.Services
             this.practiceRapository = practiceRapository;
             this.mapper = mapper;
         }
+        /*
         public async Task<Practice> AddPracticeAsync(int sectionId, Practice practice)
         {
             if (practice.SectionId != null && sectionId != practice.SectionId)
@@ -126,6 +127,6 @@ namespace PequeInnovaAPI.Services
                 return true;
 
             throw new Exception("There were an error with the DB");
-        }
+        }*/
     }
 }

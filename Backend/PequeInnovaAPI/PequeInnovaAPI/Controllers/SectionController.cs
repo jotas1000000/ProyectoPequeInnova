@@ -18,6 +18,7 @@ namespace PequeInnovaAPI.Controllers
         {
             this.sectionService = sectionService;
         }
+        /*
         [HttpGet()]
         public async Task<ActionResult<IEnumerable<Section>>> getSections(int courseID)
         {
@@ -81,8 +82,8 @@ namespace PequeInnovaAPI.Controllers
         {
             try
             {
-                return Ok(await sectionService.UpdateStatusAsync(areaId));
-                //return Ok(await sectionService.UpdateStatusAsync(sectionId)); Cambios de Pablo
+                //return Ok(await sectionService.UpdateStatusAsync(areaId));
+                return Ok(await sectionService.UpdateStatusAsync(sectionId)); //Cambios de Pablo
             }
             catch
             {
@@ -117,5 +118,6 @@ namespace PequeInnovaAPI.Controllers
                 throw new Exception("Not possible to show");
             }
         }
+        */
     }
 }

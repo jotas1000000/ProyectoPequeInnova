@@ -6,13 +6,21 @@ using System.Threading.Tasks;
 
 namespace PequeInnovaAPI.Models
 {
-    public class Area
+    public class QuestionModel
     {
-        public int Id { get; set; }
-        [Required(ErrorMessage = "El nombre es requerido")]
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Image { get; set; }
+        public int? Id { get; set; }
+        [Required]
+        public string Title { get; set; }
+        [Required]
+        public string Question { get; set; }
+        [Required]
+        public string TrueAnswer { get; set; }
+        [Required]
+        public string FalseAnswer1 { get; set; }
+        [Required]
+        public string FalseAnswer2 { get; set; }
+        [Required]
+        public string FalseAnswer3 { get; set; }
         // [Required]
         public string Uid { get; set; }
         //   [Required]
@@ -23,8 +31,6 @@ namespace PequeInnovaAPI.Models
         public DateTime UpdateDate { get; set; }
         //  [Required]
         public DateTime CreateDate { get; set; }
-        public IEnumerable<CourseModel> Courses { get; set; }
-        public IEnumerable<AssignmentModel> Assignments { get; set; }//Add 
-
+        public int? LessonId { get; set; }
     }
 }

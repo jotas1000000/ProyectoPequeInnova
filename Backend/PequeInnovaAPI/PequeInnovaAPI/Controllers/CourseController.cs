@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PequeInnovaAPI.Controllers
 {
-    [Route("api/area/{areaID:int}/courses")]
+    [Route("api/Area/{areaID:int}/[Controller]")]
     public class CourseController : ControllerBase
     {
         private ICourseService courseService;
@@ -20,7 +20,7 @@ namespace PequeInnovaAPI.Controllers
 
         }
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<Course>>> getCourses(int areaId)
+        public async Task<ActionResult<IEnumerable<CourseModel>>> getCourses(int areaId)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace PequeInnovaAPI.Controllers
         }
 
         [HttpPost()]
-        public async Task<ActionResult<Course>> PostCourse(int areaID, [FromBody] Course course)
+        public async Task<ActionResult<CourseModel>> PostCourse(int areaID, [FromBody] CourseModel course)
         {
             if (!ModelState.IsValid)
             {
@@ -44,7 +44,7 @@ namespace PequeInnovaAPI.Controllers
             try
             {
                 var newCourse= await courseService.AddCourseAsync(areaID, course);
-                return Created($"/api/area/{areaID}/courses/{course.Id}", newCourse);
+                return Created($"/api/Area/{areaID}/Course/{newCourse.Id}", newCourse);
             }
             catch (InvalidOperationException ex)
             {
@@ -62,7 +62,7 @@ namespace PequeInnovaAPI.Controllers
         }
 
         [HttpGet("{courseId:int}")]
-        public async Task<ActionResult<Course>> getCourse(int areaID, int courseId)
+        public async Task<ActionResult<CourseModel>> getCourse(int areaID, int courseId)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace PequeInnovaAPI.Controllers
 
 
         [HttpPut("{courseId:int}")]
-        public async Task<ActionResult<Course>> PutCourse(int areaId, int courseId, [FromBody] Course course)
+        public async Task<ActionResult<CourseModel>> PutCourse(int areaId, int courseId, [FromBody] CourseModel course)
         {
             try
             {

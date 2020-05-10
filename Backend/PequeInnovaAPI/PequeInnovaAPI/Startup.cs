@@ -20,6 +20,7 @@ using PequeInnovaAPI.Data.Repository;
 using Microsoft.IdentityModel.Tokens;
 using PequeInnovaAPI.Models.Auth;
 using PequeInnovaAPI.Services;
+using Ubiety.Dns.Core;
 
 namespace PequeInnovaAPI
 {
@@ -42,6 +43,7 @@ namespace PequeInnovaAPI
             services.AddTransient<ISectionService, SectionService>();
             services.AddTransient<IPracticeService, PracticeService>();
             services.AddTransient<ILessonService, LessonService>();
+            services.AddTransient<IQuestionService, QuestionService>();
             services.AddTransient<IPequeInnovaRepository, PequeInnovaRepository>();
 
             //Comunication DataBase
