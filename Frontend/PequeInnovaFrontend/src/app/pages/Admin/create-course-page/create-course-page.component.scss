@@ -127,16 +127,26 @@ form{
     width: 65%;
     padding-left: 5px;
     padding-right: 5px;
+    display: flex;
+    flex-direction: column;
+}
    // border:2px solid red;
+.text-success{
+    margin-left: 15px;
 }
 .card-element{
     width: 100%;
+   // height: 300px;//a
     margin:10px 0px 10px 0px;
    // border: 2px solid red;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
+
+}
+.question-title{
+   // height: 100px;//a
 
 }
 .question.rightside{

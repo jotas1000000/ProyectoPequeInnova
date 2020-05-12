@@ -2,6 +2,8 @@
 <div class="buttons-navbar"> 
     <button class="button-navbar" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Areas</button>
     <button class="button-navbar" routerLink="/mainAdmin" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Atras</button>
+    <button class="button-navbar" (click)="showCourse()" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>show</button>
+
 </div>
 <!-- Editable table -->
 <div class="containerS">
@@ -22,12 +24,12 @@
                     <th class="text-center">Company Name</th>
                     <th class="text-center">Country</th>
                     <th class="text-center">City</th> -->
-                    <th class="text-center">Sort</th>
-                    <th class="text-center">Remove</th>
+                    <th class="text-center">Posicionar</th>
+                    <th class="text-center">Remover</th>
                   </tr>
-                  <tr *ngFor="let person of personList; let id = index" >
-                    <td (click)="FunctionShow(person)">
-                      <span (keyup)="changeValue(id, 'name', $event)" (blur)="updateList(id, 'name', $event)" contenteditable="true">{{person.name}}</span>
+                  <tr *ngFor="let lesson of course.lessons; let id = index" >
+                    <td (click)="FunctionShow(lesson)">
+                      <span contenteditable="true">{{lesson.title}}</span> <!-- (keyup)="changeValue(id, 'name', $event)" (blur)="updateList(id, 'name', $event)" -->
                     </td>
                     <!-- <td>
                       <span contenteditable="true" (keyup)="changeValue(id, 'age', $event)" (blur)="updateList(id, 'age', $event)">{{person.age}}</span>
@@ -42,12 +44,12 @@
                       <span contenteditable="true" (keyup)="changeValue(id, 'city', $event)" (blur)="updateList(id, 'city', $event)">{{person.city}}</span>
                     </td> -->
                     <td class="newTd Sorts">
-                      <button mdbBtn type="button" color="light-blue" (click)="FunctionButtonUp(person)" mdbWavesEffect>
+                      <button mdbBtn type="button" color="light-blue" (click)="FunctionButtonUp(lesson)" mdbWavesEffect>
                         <a class="indigo-text">
                          <mdb-icon fas icon="long-arrow-alt-up"></mdb-icon>
                         </a>
                       </button>
-                      <button mdbBtn type="button" color="light-blue" (click)="FunctionButtonDown(person)" mdbWavesEffect>
+                      <button mdbBtn type="button" color="light-blue" (click)="FunctionButtonDown(lesson)" mdbWavesEffect>
                         <a class="indigo-text">
                          <mdb-icon fas icon="long-arrow-alt-down"></mdb-icon>
                         </a>
@@ -66,7 +68,7 @@
                     </td>
                     <td class="newTd">
                       <span class="table-remove">
-                        <button type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" (click)="remove(person)">Remove</button>
+                        <button type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" (click)="remove(lesson)">Remove</button>
                       </span>
                     </td>
                   </tr>
@@ -106,7 +108,7 @@
                 <div class="modify">
                     <label for="formGroupExampleInput2MD">Conocimientos previos</label>
                   <input mdbInput type="text" [disabled]="stateSleep" [(ngModel)]="knowledgePrevious" [ngModelOptions]="{standalone: true}" class="form-control" id="formGroupExampleInput3MD" placeholder="">
-                  </div>
+                </div>
                 <div class="modify">
                   <label for="form7">Descripcion de la Leccion</label>  
                   <textarea type="text" [disabled]="stateSleep" [(ngModel)]="Description" [ngModelOptions]="{standalone: true}" id="form7" class="md-textarea md-textarea-auto form-control" mdbInput></textarea>
@@ -128,29 +130,30 @@
 
 <div class="containerQ z-depth-2">
     <div class="container-Questions">
-      <table mdbTable mdbTableScroll scrollY="true" maxHeight="650" bordered="true" class="table table-bordered table-responsive-md table-striped text-center">
+      <span class="table-add float-right mb-3 mr-2" (click)="AddQuestion()">
+        <a class="text-success">
+          <mdb-icon fas icon="plus" size="2x"></mdb-icon>
+        </a>
+      </span>
+      <table mdbTable mdbTableScroll  scrollY="true" maxHeight="650" bordered="true" class="table table-bordered table-responsive-md table-striped text-center">
         
-        <mdb-card class="card-element" *ngFor="let ques of questions">
-  
-            <div class="question leftside">
-              <mdb-card-title>
-                <h4>{{ques.Question}}</h4>
+
+          <mdb-card class="card-element" *ngFor="let ques of questions;let id = index">
+    
+            <div class="question leftside" (click)="functionShowQuestion(ques)">
+              <mdb-card-title class="question-title" >
+                <h4>{{ques.Question | slice:0:50}}</h4>
               </mdb-card-title>
           
-              <mdb-card-text> Some quick example text to build on the card title and make up the bulk of the card's
-                content.
+              <mdb-card-text> {{ques.trueanswer}}
               </mdb-card-text>
   
             </div>
             
             <div class="question rightside">
-  <!--             <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
-   -->        <button type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0">Remove</button>
+              <button type="button" (click)="RemoveQuestion(ques)" mdbBtn color="danger" rounded="true" size="sm" class="my-0">Remove</button>
             </div>
-
-        </mdb-card>
-  
-
+          </mdb-card> 
 
       </table>
 
@@ -158,11 +161,11 @@
 
     <div class="container-form">
       <form class="form-Q" [formGroup]="form" (ngSubmit)="saveQuestion($event)" >
-        <mat-card class="card-container">
+        <mat-card class="card-container" [style.background-color]="ColorformQ">
           <mat-card-header>
             <mat-card-title>Registro</mat-card-title>
           </mat-card-header>
-          <mat-card-content class="card-content-container">
+          <mat-card-content class="card-content-container" >
     
            <!--  <div class="microContainer">
               
@@ -176,7 +179,7 @@
               <mat-form-field class="input-Field">
 
                 <label for="form7">Escriba la pregunta</label>  
-                <textarea type="text" [(ngModel)]="Description" formControlName="Question"  class="md-textarea md-textarea-auto form-control" matInput></textarea>
+                <textarea type="text" [style.background-color]="colorw" [(ngModel)]="Question" formControlName="Question"  class="md-textarea md-textarea-auto form-control" matInput></textarea>
 
               </mat-form-field>
             </div>
@@ -190,7 +193,7 @@
               <mat-form-field class="input-Field">
 
                 <label for="form7">Respuesta correcta</label>  
-                <textarea type="text" [(ngModel)]="Description" formControlName="trueanswer"  class="md-textarea md-textarea-auto form-control" matInput></textarea>
+                <textarea type="text" [style.background-color]="colorw" [(ngModel)]="trueanswer" formControlName="trueanswer"  class="md-textarea md-textarea-auto form-control" matInput></textarea>
 
               </mat-form-field>
             </div>
@@ -204,7 +207,7 @@
               <mat-form-field class="input-Field">
 
                 <label for="form7">Primera respuesta incorrecta</label>  
-                <textarea type="text" [(ngModel)]="Description" formControlName="falseanswer1"  class="md-textarea md-textarea-auto form-control" matInput></textarea>
+                <textarea type="text" [style.background-color]="colorw" [(ngModel)]="falseanswer1" formControlName="falseanswer1"  class="md-textarea md-textarea-auto form-control" matInput></textarea>
 
               </mat-form-field>
             </div>
@@ -219,7 +222,7 @@
               <mat-form-field class="input-Field">
 
                 <label for="form7">Segunda respuesta incorrecta</label>  
-                <textarea type="text" [(ngModel)]="Description" formControlName="falseanswer2"  class="md-textarea md-textarea-auto form-control" matInput></textarea>
+                <textarea type="text" [style.background-color]="colorw" [(ngModel)]="falseanswer2" formControlName="falseanswer2"  class="md-textarea md-textarea-auto form-control" matInput></textarea>
 
               </mat-form-field>
             </div>
@@ -233,7 +236,7 @@
               <mat-form-field class="input-Field">
 
                 <label for="form7">Tercera respuesta incorrecta</label>  
-                <textarea type="text" [(ngModel)]="Description" formControlName="falseanswer3"  class="md-textarea md-textarea-auto form-control" matInput></textarea>
+                <textarea type="text" [style.background-color]="colorw" [(ngModel)]="falseanswer3" formControlName="falseanswer3" class="md-textarea md-textarea-auto form-control" matInput></textarea>
 
               </mat-form-field>
             </div>
@@ -242,8 +245,8 @@
 
           </mat-card-content>
           <mat-card-actions>
-            <button type="button" mdbBtn color="danger" mdbWavesEffect>Cancelar</button>
-            <button [disabled]="form.invalid" type="submit" (click)="basicModal.show()" mdbBtn color="info" mdbWavesEffect>Aceptar</button>
+            <button type="button" (click)="DeclineCreateQuestion()" mdbBtn color="danger" mdbWavesEffect>Cancelar</button>
+            <button [disabled]="form.invalid" type="submit" mdbBtn color="info" mdbWavesEffect>Aceptar</button>
            <!--  <button [disabled]="form.invalid" mat-raised-button type="submit">Guardar</button> -->
           </mat-card-actions>
     </mat-card>
@@ -256,8 +259,8 @@
 
 
 <div class="buttonsDown-OkCancel"> 
-    <button class="buttonsDown Cancel" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Cancelar</button>
-    <button class="buttonsDown Ok" routerLink="/mainAdmin" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Aceptar</button>
+    <button class="buttonsDownQ Cancel" (click)="FunctionDeclinePractice()" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Cancelar</button>
+    <button class="buttonsDownQ Ok" (click)="FunctionSavePractice()" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Aceptar</button>
 </div>
 <!--md-form form-group mt-5  -->
 
@@ -280,8 +283,8 @@
         ¿Que desea añadir?
       </div>
       <div class="modal-footer">
-        <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Practica o examen</button>
-        <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.hide();add()" mdbWavesEffect>Leccion Video</button>
+        <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide();addPractice()" mdbWavesEffect>Practica o examen</button>
+        <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.hide();addLessonVideo()" mdbWavesEffect>Leccion Video</button>
       </div>
     </div>
   </div>

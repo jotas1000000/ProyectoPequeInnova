@@ -78,7 +78,7 @@ import { CardsAreasComponent } from './components/cards-areas/cards-areas.compon
     CreateCoursePageComponent,
     FilterStatusPipe,
     BreadcrumbComponent,
-    AreaCarouselComponent,
+    //AreaCarouselComponent,
     RegisterComponent,
     CardsAreasComponent
   ],

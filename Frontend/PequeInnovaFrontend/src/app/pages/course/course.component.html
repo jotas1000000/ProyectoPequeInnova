@@ -1,4 +1,4 @@
-<ul class="list-unstyled list-inline ">
+<!-- <ul class="list-unstyled list-inline ">
   <li class="list-inline-item">
     <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink = "/home"> <mdb-icon fas icon="home" ></mdb-icon></a>
   </li>
@@ -25,17 +25,14 @@
 
   <hr class="my-4">
 
-  <!-- Grid row -->
   <div class="row">
       
     <ng-container *ngFor="let lesson of lessons, index as i">
      
-    <!-- Grid column -->
     <div class="col-lg-6 ">
        
       <div class="single mb-lg-0 mb-4">
 
-        <!-- video -->
         <div class="view overlay rounded z-depth-1-half mb-4">
           <div class="embed-responsive embed-responsive-16by9">
               <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/RgSwokeu4xI" allowfullscreen></iframe>
@@ -45,7 +42,6 @@
           </a>
         </div>
 
-        <!-- Excerpt -->
         <h3 class="font-weight-bold dark-grey-text mb-3 text-center">
               <a>Titulo de la leccion</a>
             </h3>
@@ -54,30 +50,23 @@
 
       </div>
       
-      <!-- Featured news -->
     
     </div>
 
     </ng-container>
  
-    <!-- Grid column -->
 
-    <!-- Grid column -->
     <div class="col-lg-6 ">
 
       
         <ng-container *ngIf="i > 0">
-      <!-- Small news -->
       <div class="single-news mb-4">
 
-        <!-- Grid row -->
         <div class="row">
 
-          <!-- Grid column -->
           <div class="col-md-3 ">
               
 
-            <!--Image-->
             <div class="view overlay zoom">
                   
                     <img class="img-fluid" src={{getThumb(lesson)}} alt="zoom" width="150%" height="200%">
@@ -88,9 +77,7 @@
             </div>
 
           </div>
-          <!-- Grid column -->
           
-          <!-- Grid column -->
           <div class="col-md-8">
             
             <div class="d-flex justify-content-between">
@@ -109,24 +96,20 @@
             </div>
             
           </div>
-          <!-- Grid column -->
 
         </div>
-        <!-- Grid row -->
 
       </div>
-      <!-- Small news -->
     </ng-container>
       <a mdbBtn position="center" color="default" mdbWavesEffect  routerLink="/areas/{{areaId}}/courses/{{courseId}}/sections/1/lessons/">Ver Mas</a>
     </div>
   
-    <!--Grid column-->
 
   </div>
   <hr class="my-4">
-  <!-- Grid row -->
 </section>
-</ng-container>
 
 
 
+
+ -->
