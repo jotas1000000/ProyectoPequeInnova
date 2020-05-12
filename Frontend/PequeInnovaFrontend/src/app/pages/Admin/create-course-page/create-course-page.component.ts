@@ -36,6 +36,8 @@ export class CreateCoursePageComponent implements OnInit {
   questions: Question[] = null;
   questionAux: Question;
 
+  StateRequest: string = '';
+  StateProcesing: string = '';
 
   get stateSleep(): boolean{
     return this.StateSleep;
@@ -55,9 +57,9 @@ export class CreateCoursePageComponent implements OnInit {
 
   course: Course = {
     id: 1,
-    name: 'Calculo',
-    description: 'Esta es una materia Universitaria',
-    image: 'Aqui viene una image',
+    name: '',
+    description: '',
+    image: '',
     uid: '123',
     state: true,
     status: true,
@@ -103,7 +105,7 @@ export class CreateCoursePageComponent implements OnInit {
       }
 */
     ]
-  }
+  };
 
   titleLesson: string;
   urlVideo: string;
@@ -119,79 +121,31 @@ export class CreateCoursePageComponent implements OnInit {
 
   Question: string ;
   trueanswer: string ;
-  falseanswer1: string ; 
-  falseanswer2: string ; 
-  falseanswer3: string ; 
+  falseanswer1: string ;
+  falseanswer2: string ;
+  falseanswer3: string ;
 
   QuestionCompare: string ;
   trueanswerCompare: string ;
-  falseanswer1Compare: string ; 
-  falseanswer2Compare: string ; 
-  falseanswer3Compare: string ; 
+  falseanswer1Compare: string ;
+  falseanswer2Compare: string ;
+  falseanswer3Compare: string ;
 
   lessonAux: LessonN;
-
-
-
-  personList: Array<any> = [
-    { id: 1, name: 'Aurelia Vega', order: 0 , status: true},
-    { id: 2, name: 'Guerra Cortez', order: 1 , status: true},
-    { id: 3, name: 'Guadalupe House', order: 2, status: true},
-    { id: 4, name: 'Tomatas Vega', order: 3, status: true},
-    { id: 5, name: 'Elisa Gallagher', order: 4 , status: true},
-  ];
-
-  awaitingPersonList: Array<any> = [
-    { id: 6, name: 'George Vega', order:5,status:true},
-    { id: 7, name: 'Mike Low', order:6 ,status:true},
-    { id: 8, name: 'John Derp', order:7 ,status:true},
-    { id: 9, name: 'Anastasia John', order:8,status:true },
-    { id: 10, name: 'John Maklowicz', order:9,status:true},
-  ];
-
-  updateList(id: number, property: string, event: any) {
-    const editField = event.target.textContent;
-    this.personList[id][property] = editField;
-  }
 
   remove(value: LessonN) {
 
     const pos = this.course.lessons.indexOf(value);
     this.course.lessons[pos].status = false;
     this.course.lessons.splice(pos, 1);
-  /*   this.titleLesson = '';
-    this.urlVideo = '';
-    this.knowledgePrevious = '';
-    this.Description = ''; */
+
     this.questions = null;
     this.questionAux = null;
     this.functionCleanAllInputs();
-
-
-   /* const pos = this.personList.indexOf(value);
-    this.personList[pos].status = false;
-    this.personDeleted.push(this.personList[pos]);
-    this.personList.splice(pos, 1);
-    console.log(this.personDeleted);
-    this.titleLesson = "";
-    this.urlVideo = "";
-    this.knowledgePrevious = "";
-    this.Description = "";*/
-    
-   /*  this.awaitingPersonList.push(this.personList[id]);
-    this.personList.splice(id, 1); */
-   /*  const pos = this.personList.indexOf(value);
-    this.personList[pos].status = false;
-
-    console.log(value); */
   }
 
   addLessonVideo() {
-   /*  if (this.awaitingPersonList.length > 0) {
-      const person = this.awaitingPersonList[0];
-      this.personList.push(person);
-      this.awaitingPersonList.splice(0, 1);
-    } */
+
     this.questionAux = null;
     this.questions = null;
     this.StateAdd = true;
@@ -208,19 +162,8 @@ export class CreateCoursePageComponent implements OnInit {
     this.ColorformQContainer = 'white';
 
     this.functionCleanAllInputs();
-/*     this.titleLesson = "";
-    this.urlVideo = "";
-    this.knowledgePrevious = "";
-    this.Description = "";
-
-    this.titleLessonComparative ="";
-    this.urlVideoComparative = "";
-    this.knowledgePreviousComparative = "";
-    this.DescriptionComparative = ""; */
-
-
-
   }
+
   addPractice(){
     this.functionCleanAllInputs();
     this.questions = null;
@@ -250,17 +193,17 @@ export class CreateCoursePageComponent implements OnInit {
 
   FunctionShow(value: LessonN){
     this.functionCleanAllInputs();
-    if(this.StateAdd !== true){
-      
+    if (this.StateAdd !== true){
+
       this.StateAdd = false;
       this.StateEdit = true;
       this.StateSleep = false;
-  
+
       if (value.type === 'lesson')
       {
         this.typeLesson = true;
         this.typePractice = false;
-  
+
         this.QuestionAdd = false;
         this.QuestionEdit  = false;
 
@@ -272,7 +215,7 @@ export class CreateCoursePageComponent implements OnInit {
         this.urlVideo = value.urlVideo;
         this.knowledgePrevious = value.id.toString();
         this.Description = value.description;
-    
+
         this.titleLessonComparative = value.title;
         this.urlVideoComparative = value.urlVideo;
         this.knowledgePreviousComparative = value.id.toString();
@@ -286,14 +229,13 @@ export class CreateCoursePageComponent implements OnInit {
         this.questions = value.questions;
         this.typeLesson = false;
         this.typePractice = true;
-  
+
         this.QuestionAdd = false;
         this.QuestionEdit  = false;
 
         this.ColorEditable = 'white';
       }
-  
-    //  this.ColorEditable = 'rgba(130,177,255,0.6)';
+
     }
 
     console.log(`${value.id} ${value.order}`);
@@ -308,24 +250,24 @@ export class CreateCoursePageComponent implements OnInit {
     this.ColorformQ = 'rgba(130,177,255,0.6)';
     this.Question = value.Question;
     this.trueanswer = value.trueanswer;
-    this.falseanswer1 = value.falseanswer1; 
-    this.falseanswer2 = value.falseanswer2; 
-    this.falseanswer3 = value.falseanswer3; 
+    this.falseanswer1 = value.falseanswer1;
+    this.falseanswer2 = value.falseanswer2;
+    this.falseanswer3 = value.falseanswer3;
 
     this.QuestionCompare = value.Question;
     this.trueanswerCompare = value.trueanswer;
-    this.falseanswer1Compare = value.falseanswer1; 
-    this.falseanswer2Compare = value.falseanswer2; 
-    this.falseanswer3Compare = value.falseanswer3; 
+    this.falseanswer1Compare = value.falseanswer1;
+    this.falseanswer2Compare = value.falseanswer2;
+    this.falseanswer3Compare = value.falseanswer3;
 
     console.log(value);
-   
+
   }
 
   showCourse(){
     console.log(this.course);
   }
-  
+
   changeValue(id: number, property: string, event: any) {
     this.editField = event.target.textContent;
   }
@@ -341,17 +283,10 @@ export class CreateCoursePageComponent implements OnInit {
       this.course.lessons[pos - 1] = this.course.lessons[pos];
       this.course.lessons[pos - 1].order = ordermenor;
       this.course.lessons[pos] = aux;
-    }else{console.log('no pee')}
-     /* const pos = this.personList.indexOf(value);
-      if (pos > 0){
+    }else{
+      console.log('no pee');
+    }
 
-        const aux = this.personList[pos - 1];
-        const ordermenor = this.personList[pos - 1].order;
-        aux.order = this.personList[pos].order;
-        this.personList[pos - 1] = this.personList[pos];
-        this.personList[pos - 1].order = ordermenor;
-        this.personList[pos] = aux;
-      }else{console.log('no pee')}*/
   }
 
   FunctionButtonDown(value: LessonN){
@@ -365,18 +300,10 @@ export class CreateCoursePageComponent implements OnInit {
       this.course.lessons[pos + 1] = this.course.lessons[pos];
       this.course.lessons[pos + 1].order = ordermenor;
       this.course.lessons[pos] = aux;
-    }else{console.log('no pee')}
+    }else{
+      console.log('no pee');
+    }
 
-    /*const pos = this.personList.indexOf(value);
-      if (this.personList.length !== pos + 1){
-
-        const aux = this.personList[pos + 1];
-        const ordermenor = this.personList[pos + 1].order;
-        aux.order = this.personList[pos].order;
-        this.personList[pos + 1] = this.personList[pos];
-        this.personList[pos + 1].order = ordermenor;
-        this.personList[pos] = aux;
-      }else{console.log('no pee')} */
   }
 
 
@@ -443,7 +370,7 @@ export class CreateCoursePageComponent implements OnInit {
     this.QuestionEdit = false;
 
   }
-  
+
   CancelButtonLessonCard(){
 
     this.StateAdd = false;
@@ -564,11 +491,6 @@ export class CreateCoursePageComponent implements OnInit {
     this.DescriptionComparative = '';
 
   }
-/*   navigateToPracticeBuilder(){
-    setTimeout(() => {
-      location.hash = '#' + 'elem';
-    }, 1000);
-  } */
 
   ngOnInit(): void {
     
@@ -692,6 +614,22 @@ export class CreateCoursePageComponent implements OnInit {
     this.falseanswer1 = '';
     this.falseanswer2 = '';
     this.falseanswer3 = '';
+  }
+
+  Validate(){
+    if (this.course.name === '' || this.course.description === ''){
+      this.StateRequest = 'Agrege datos al curso';
+      this.StateProcesing = 'Datos Faltantes';
+    } else if (this.course.lessons.length === 0){
+      this.StateRequest = 'Agrege lecciones al curso';
+      this.StateProcesing = 'Datos Faltantes';
+    } else if (this.course.lessons.length > 0 && this.course.lessons[this.course.lessons.length - 1].type === 'lesson'){
+      this.StateRequest = 'El curso debe tener un examen final';
+      this.StateProcesing = 'Datos Faltantes';
+    } else{
+      this.StateRequest = '......';
+      this.StateProcesing = 'Procesando.....';
+    }
   }
 
 }
