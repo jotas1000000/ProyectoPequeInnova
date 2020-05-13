@@ -52,6 +52,7 @@ import {MatCardModule} from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CardsAreasComponent } from './components/cards-areas/cards-areas.component';
+import { RegisterTeacherComponent } from './pages/registerTeacher/register-teacher/register-teacher.component';
 
 @NgModule({
   declarations: [
@@ -78,9 +79,10 @@ import { CardsAreasComponent } from './components/cards-areas/cards-areas.compon
     CreateCoursePageComponent,
     FilterStatusPipe,
     BreadcrumbComponent,
-    AreaCarouselComponent,
+    //AreaCarouselComponent,
     RegisterComponent,
-    CardsAreasComponent
+    CardsAreasComponent,
+    RegisterTeacherComponent
   ],
   imports: [
     BrowserModule,
