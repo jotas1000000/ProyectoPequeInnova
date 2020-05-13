@@ -28,6 +28,7 @@ namespace PequeInnovaAPI.Services
             course.AreaId = areaId;
             course.Id = null;
             course.Lessons = null;
+            course.Image = "assets/images/areas/chemistry.jpg";
             var areaEntity = await validateAreaId(areaId);
 
             var courseEntity = mapper.Map<CourseEntity>(course);

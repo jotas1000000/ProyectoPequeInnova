@@ -14,4 +14,8 @@ export class CourseService {
   registerNewCourse(newCourse: Course){
     return this.http.post<ResponseId>(`${environment.apiUrl}/Area/${newCourse.areaId}/Course/CreateCourse`, newCourse);
   }
+
+  getCoursesByArea(areaId: number){
+    return this.http.get<Array<Course>>(`${environment.apiUrl}/Area/${areaId}/Course`);
+  }
 }

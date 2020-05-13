@@ -585,8 +585,8 @@ export class CreateCoursePageComponent implements OnInit {
             this.questions[pos].falseanswer3 = this.falseanswer3;
         }
     }
-    if(this.QuestionEdit || this.QuestionAdd){
-      
+    if (this.QuestionEdit || this.QuestionAdd){
+
       this.QuestionAdd = false;
       this.QuestionEdit = false;
       this.ColorformQ = 'white';
@@ -631,7 +631,7 @@ export class CreateCoursePageComponent implements OnInit {
 
     if (this.StateRequestBoolean){
 
-      this.router.navigate(['./home'])
+      this.router.navigate(['./mainAdmin']);
     }
   }
   Validate(){
@@ -667,7 +667,7 @@ export class CreateCoursePageComponent implements OnInit {
             this.StateRequest = 'Curso Creado con Exito!!';
             this.StateProcesing = 'Proceso finalizado.';
             this.StateRequestBoolean = true;
-           
+
       });
 
     }

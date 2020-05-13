@@ -25,7 +25,7 @@ import { TestComponent } from './pages/test/test.component';
 import { NavigationBarLoggedInComponent } from './components/navigation-bar-logged-in/navigation-bar-logged-in.component';
 
 
-import { ModalModule, TooltipModule, PopoverModule, ButtonsModule,CollapseModule,WavesModule,TableModule,InputsModule } from 'angular-bootstrap-md';
+import { ModalModule, TooltipModule, PopoverModule, ButtonsModule,CollapseModule,WavesModule,TableModule,InputsModule,CardsModule} from 'angular-bootstrap-md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './core/services/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './core/services/interceptors/error.interceptor';
@@ -111,7 +111,9 @@ import { CardsAreasComponent } from './components/cards-areas/cards-areas.compon
     MatDatepickerModule,
     MatCardModule,
     MatNativeDateModule,
-    MatDialogModule
+    MatDialogModule,
+
+    CardsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit} from '@angular/core';
 //import {MediaMatcher} from '@angular/cdk/layout';
-
+import {Area} from './../../../core/models/Area.model';
+import {AreaService} from './../../../core/services/area/area.service';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 @Component({
@@ -34,67 +35,15 @@ export class MainPageAdminComponent implements OnInit, AfterViewInit {
       }
     },
     nav: true
-  }
-  
+  };
 
 
-  constructor(public breakpointObserver: BreakpointObserver) { }
-  cards = [
-    {
-      title: 'Card Title 1',
-      description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-      buttonText: 'Button',
-      img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    },
-    {
-      title: 'Card Title 2',
-      description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-      buttonText: 'Button',
-      img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    },
-    {
-      title: 'Card Title 3',
-      description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-      buttonText: 'Button',
-      img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    },
-    {
-      title: 'Card Title 4',
-      description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-      buttonText: 'Button',
-      img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    },
-    {
-      title: 'Card Title 5',
-      description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-      buttonText: 'Button',
-      img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    },
-    {
-      title: 'Card Title 6',
-      description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-      buttonText: 'Button',
-      img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    },
-    {
-      title: 'Card Title 7',
-      description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-      buttonText: 'Button',
-      img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    },
-    {
-      title: 'Card Title 8',
-      description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-      buttonText: 'Button',
-      img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    },
-    {
-      title: 'Card Title 9',
-      description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-      buttonText: 'Button',
-      img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    },
-  ];
+  areas: Array<Area>;
+  constructor(public breakpointObserver: BreakpointObserver,
+              private areaService: AreaService) 
+              { }
+
+   
   slides: any = [[]];
   
   chunk(arr, chunkSize): any {
@@ -106,7 +55,10 @@ export class MainPageAdminComponent implements OnInit, AfterViewInit {
   }
   ngOnInit() {
 
-  
+    this.areaService.getAreas('Id', 'false').subscribe(AreasResponse => {
+      this.areas = AreasResponse;
+      console.log(this.areas);
+    });
 
 
 

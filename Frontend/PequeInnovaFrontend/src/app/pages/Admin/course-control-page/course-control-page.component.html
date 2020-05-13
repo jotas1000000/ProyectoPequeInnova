@@ -9,25 +9,22 @@
         <button class="button-AddArea" mdbBtn type="button" color="default" rounded="true" mdbWavesEffect>+ Añadir Curso</button>
     </div>
 
-    <div class="container-deck">
+    <div class="container-deck" *ngIf="courseCards">
       <div class="one-card" *ngFor="let cardone of courseCards">
         <mdb-card >
-          <!--Card image-->
-          <mdb-card-img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="Card image cap"></mdb-card-img>
-          <!--Card content-->
+          <mdb-card-img [src]="cardone.image" alt="Card image cap"></mdb-card-img>
           <mdb-card-body>
         
-            <!--Title-->
             <mdb-card-title>
-              <h4>{{cardone.title}}</h4>
+              <h4>{{cardone.name}}</h4>
             </mdb-card-title>
         
-            <!--Text-->
             <mdb-card-text> 
-              {{cardone.Description}}
+              {{cardone.description}}
             </mdb-card-text>
         
-            <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
+            <a href="#" mdbBtn color="primary" mdbWavesEffect>Ver Curso</a>
+            <a href="#" mdbBtn color="primary" mdbWavesEffect>Editar Curso</a>
           </mdb-card-body>
         </mdb-card>         
       </div>

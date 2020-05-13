@@ -36,24 +36,24 @@
 <div class="containerCarousel">
   
   <owl-carousel-o [options]="customOptions">
-    <ng-template carouselSlide *ngFor="let slide of cards">
+    <ng-template carouselSlide *ngFor="let slide of areas">
       <mdb-card>
         <!--Card image-->
-        <mdb-card-img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="Card image cap"></mdb-card-img>
+        <mdb-card-img [src]="slide.image" alt="Card image cap"></mdb-card-img>
         <!--Card content-->
         <mdb-card-body>
       
           <!--Title-->
           <mdb-card-title>
-            <h4>{{slide.title}}</h4>
+            <h4>{{slide.name}}</h4>
           </mdb-card-title>
       
           <!--Text-->
-          <mdb-card-text> Some quick example text to build on the card title and make up the bulk of the card's
-            content.
+          <mdb-card-text> 
+            {{slide.description}}
           </mdb-card-text>
       
-          <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
+          <a href="#" mdbBtn color="primary" mdbWavesEffect>ver Area</a>
         </mdb-card-body>
       </mdb-card>
         <!-- <div class="slide">
