@@ -78,7 +78,7 @@ export class RegisterTeacherComponent implements OnInit {
   ResetBinding(){
     if(this.stateRequest)
     {
-        this.router.navigate(['./home']);
+        this.router.navigate(['./teacherControl']);
     }else{
 
       this.messageBinding=null;
