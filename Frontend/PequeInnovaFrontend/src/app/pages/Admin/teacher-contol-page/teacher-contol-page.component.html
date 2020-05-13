@@ -3,10 +3,13 @@
     <button class="button-navbar" routerLink="/mainAdmin" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Atras</button>
 </div>
 
+
+
 <div class="container">
     <div class="row">
       <div class="col-md-12 mx-auto">
-        <div class="md-form">
+        <br>
+        <!-- <div class="md-form">
           <input
             type="text"
             [(ngModel)]="searchText"
@@ -15,7 +18,7 @@
             mdbInput
           />
           <label for="search">Buscar</label>
-        </div>
+        </div> -->
       </div>
     </div>
     <table mdbTable class="z-depth-1">
@@ -30,10 +33,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let el of elements; let i = index">
-          <th scope="row">{{el.id}}</th>
-          <td class="red-text">{{el.Maestro}}</td>
-          <td>{{el.Area}}</td>
+        <tr *ngFor="let el of teachers; let i = index">
+          <th scope="row">{{i+1}}</th>
+          <td class="red-text">{{el.name}}</td>
+          <td>{{el.degree}}</td>
           <!-- <td>{{el.Functions}}</td> -->
           <td class="field-functions">
             <button mdbBtn color="" size="sm" (click)="basicModal1.show()" mdbWavesEffect type="button" class="button-color">Editar</button>
