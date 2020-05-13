@@ -5,7 +5,12 @@ import {FormControl} from '@angular/forms';
 import {Question} from './../../../core/models/Question.model';
 import {Course} from './../../../core/models/Course.model';
 import {LessonN} from './../../../core/models/LessonN.model';
-import { CourseService } from 'src/app/services/course.service';
+import {CourseService} from './../../../core/services/course/course.service';
+import {LessonService} from './../../../core/services/lesson/lesson.service';
+import {QuestionService} from './../../../core/services/question/question.service';
+import {ResponseId} from './../../../core/models/ResponseId.model';
+import { Router } from '@angular/router';
+
 import { Lesson } from 'src/app/models/Lesson';
 //import {DOCUMENT} from '@angular/common';
 
@@ -39,6 +44,8 @@ export class CreateCoursePageComponent implements OnInit {
   StateRequest: string = '';
   StateProcesing: string = '';
 
+  StateRequestBoolean: boolean = false;
+
   get stateSleep(): boolean{
     return this.StateSleep;
   }
@@ -66,8 +73,8 @@ export class CreateCoursePageComponent implements OnInit {
     updateDate: '1988-10-10T00:00:00',
     createDate: '1988-10-10T00:00:00',
     areaId: 1,
-    inscriptions: [],
-    teachings: [],
+    inscriptions: null,
+    teachings: null,
     lessons: [/*
       {
         id: 2,
@@ -496,8 +503,12 @@ export class CreateCoursePageComponent implements OnInit {
     
   }
 
-  constructor(
-    private formBuilder: FormBuilder,
+  constructor( private courseService: CourseService,
+               private lessonService: LessonService,
+               private questionService: QuestionService,
+               private formBuilder: FormBuilder,
+               private router: Router,
+
   ) {
 
     this.StateEdit = false;
@@ -616,6 +627,13 @@ export class CreateCoursePageComponent implements OnInit {
     this.falseanswer3 = '';
   }
 
+  FunctionAceptRequest(){
+
+    if (this.StateRequestBoolean){
+
+      this.router.navigate(['./home'])
+    }
+  }
   Validate(){
     if (this.course.name === '' || this.course.description === ''){
       this.StateRequest = 'Agrege datos al curso';
@@ -629,6 +647,29 @@ export class CreateCoursePageComponent implements OnInit {
     } else{
       this.StateRequest = '......';
       this.StateProcesing = 'Procesando.....';
+      console.log(this.course);
+      this.courseService.registerNewCourse(this.course).subscribe((respCourseId: ResponseId) => {
+            console.log(respCourseId.id);
+
+            this.course.lessons.forEach(Lessonelement => {
+
+                this.lessonService.registerNewLesson(Lessonelement, this.course.areaId, respCourseId.id)
+                .subscribe((respLessonId: ResponseId) => {
+                  if (Lessonelement.type === 'practice'){
+                    Lessonelement.questions.forEach(Questionelement => {
+                      this.questionService.registerNewQuestion(Questionelement, this.course.areaId, respCourseId.id, respLessonId.id)
+                      .subscribe(() => {});
+                    });
+                  }
+              });
+
+            });
+            this.StateRequest = 'Curso Creado con Exito!!';
+            this.StateProcesing = 'Proceso finalizado.';
+            this.StateRequestBoolean = true;
+           
+      });
+
     }
   }
 

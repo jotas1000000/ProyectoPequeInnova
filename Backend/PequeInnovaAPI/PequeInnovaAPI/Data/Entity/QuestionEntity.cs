@@ -10,7 +10,6 @@ namespace PequeInnovaAPI.Data.Entity
     public class QuestionEntity
     {
         public int? Id { get; set; }
-        [Required]
         public string Title { get; set; }
         [Required]
         public string Question { get; set; }

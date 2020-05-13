@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ubiety.Dns.Core;
 
 namespace PequeInnovaAPI.Data.Repository
 {
@@ -25,6 +26,9 @@ namespace PequeInnovaAPI.Data.Repository
         Task DeleteCourses(int id);
         void UpdateStatusCourse(int courseId);
 
+        void PostCourseComplete(CourseEntity courseComplete);
+        void PostLessonComplete(LessonEntity lessonComplete);
+        void PostQuestionComplete(QuestionEntity questionComplete);
 
         //seccion
         Task<IEnumerable<SectionEntity>> GetSection(int courseId);
@@ -33,6 +37,7 @@ namespace PequeInnovaAPI.Data.Repository
         Task UpdateSection(SectionEntity section);
         Task DeleteSection(int id);
         void UpdateStatusSection(int secctionId);
+
 
 
         //leccion

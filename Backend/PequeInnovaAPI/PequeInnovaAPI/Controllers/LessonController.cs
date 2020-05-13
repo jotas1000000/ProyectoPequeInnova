@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PequeInnovaAPI.Models.ModelsRequests;
 
 namespace PequeInnovaAPI.Controllers
 {
@@ -76,7 +77,34 @@ namespace PequeInnovaAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-
+        [HttpPost("CreateLesson")]
+        public async Task<ActionResult<LessonModel>> PostLessonCreated(int areaId, int courseId, [FromBody] LessonModel lesson)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var newLesson = await lessonService.AddLessonAsync(courseId, lesson);
+                ResponseIdModel rsp = new ResponseIdModel();
+                rsp.id = newLesson.Id.GetValueOrDefault();
+                //return Created($"/api/area/courses/sections/{courseId}/lessons/{lesson.Id}", newLesson);
+                return Created($"api/Area/{areaId:int}/Course/{courseId:int}/Lesson/{newLesson.Id}", rsp);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
         [HttpPut("{lessonId:int}")]
         public async Task<ActionResult<bool>> DeleteLesson(int lessonId, int courseId, int areaId)
         {

@@ -40,6 +40,11 @@ namespace PequeInnovaAPI.Data.Repository
 
         public void AddCourse(CourseEntity curso)
         {
+            curso.Status = true;
+            curso.State = true;
+            curso.UpdateDate = DateTime.Now;
+            curso.CreateDate = DateTime.Now;
+            curso.Uid = "123";
             PIDBContext.Entry(curso.Area).State = EntityState.Unchanged;
             PIDBContext.Courses.Add(curso);
         }
@@ -199,6 +204,11 @@ namespace PequeInnovaAPI.Data.Repository
         
         public void AddLessonAsync(LessonEntity lesson)
         {
+            lesson.State = true;
+            lesson.Status = true;
+            lesson.UpdateDate = DateTime.Now;
+            lesson.CreateDate = DateTime.Now;
+            lesson.Uid = "123";
             PIDBContext.Entry(lesson.Course).State = EntityState.Unchanged;
             PIDBContext.Lessons.Add(lesson);
         }
@@ -414,6 +424,24 @@ namespace PequeInnovaAPI.Data.Repository
         {
             var school = PIDBContext.Schools.Single(c => c.Id == schoolId);
             school.Status = false;
+        }
+
+        public void PostCourseComplete(CourseEntity courseComplete)
+        {
+            PIDBContext.Entry(courseComplete.Area).State = EntityState.Unchanged;
+            PIDBContext.Courses.Add(courseComplete);
+        }
+
+        public void PostLessonComplete(LessonEntity lessonComplete)
+        {
+            PIDBContext.Entry(lessonComplete.Course).State = EntityState.Unchanged;
+            PIDBContext.Lessons.Add(lessonComplete);
+        }
+
+        public void PostQuestionComplete(QuestionEntity questionComplete)
+        {
+            PIDBContext.Entry(questionComplete.Lesson).State = EntityState.Unchanged;
+            PIDBContext.Questions.Add(questionComplete);
         }
     }
 }

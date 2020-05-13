@@ -26,6 +26,8 @@ namespace PequeInnovaAPI.Services
                 throw new InvalidOperationException("URL artisttt id and artistId should be equal");
             }
             course.AreaId = areaId;
+            course.Id = null;
+            course.Lessons = null;
             var areaEntity = await validateAreaId(areaId);
 
             var courseEntity = mapper.Map<CourseEntity>(course);
@@ -148,5 +150,113 @@ namespace PequeInnovaAPI.Services
 
             throw new Exception("There were an error with the DB");
         }
+        public CourseModel CleanCourse(CourseModel courseC)
+        {
+            CourseModel courseAux = new CourseModel();
+            courseAux.Id = null;
+            courseAux.Image = courseC.Image;
+            courseAux.Name = courseC.Name;
+            courseAux.Description = courseC.Description;
+            courseAux.Uid = courseC.Uid;
+            courseAux.State = true;
+            courseAux.Status = true;
+            courseAux.UpdateDate = DateTime.Now;
+            courseAux.CreateDate = DateTime.Now;
+            courseAux.AreaId = courseC.AreaId;
+            courseAux.Lessons = null;
+            courseAux.Teachings = null;
+            courseAux.Inscriptions = null;
+            return courseAux;
+        }
+
+        public LessonModel CleanLesson(LessonModel lesson, int courseId)
+        {
+            LessonModel lessonAux = new LessonModel();
+            lessonAux.Id = null;
+            lessonAux.Title = lesson.Title;
+            lessonAux.Document = lesson.Document;
+            lessonAux.URLVideo = lesson.URLVideo;
+            lessonAux.Description = lesson.Description;
+            lessonAux.Type = lesson.Type;
+            lessonAux.Uid = lesson.Uid;
+            lessonAux.State = true;
+            lessonAux.Status = true;
+            lessonAux.UpdateDate = DateTime.Now;
+            lessonAux.CreateDate = DateTime.Now;
+            lessonAux.CourseId = courseId;
+            lessonAux.Comments = null;
+            lessonAux.Questions = null;
+            return lessonAux;
+        }
+
+        public QuestionModel CleanQuestion(QuestionModel question, int lessonId)
+        {
+            QuestionModel questionAux = new QuestionModel();
+            questionAux.Id = null;
+            questionAux.Title = question.Title;
+            questionAux.Question = question.Question;
+            questionAux.TrueAnswer = question.TrueAnswer;
+            questionAux.FalseAnswer1 = question.FalseAnswer1;
+            questionAux.FalseAnswer2 = question.FalseAnswer2;
+            questionAux.FalseAnswer3 = question.FalseAnswer3;
+            questionAux.Uid = question.Uid;
+            questionAux.State = true;
+            questionAux.Status = true;
+            questionAux.UpdateDate = DateTime.Now;
+            questionAux.CreateDate = DateTime.Now;
+            questionAux.LessonId = lessonId;
+            return questionAux;
+        }
+        public async Task<bool> PostCourseComplete(CourseModel courseComplete)
+        {            
+            if(courseComplete != null)
+            {
+                courseComplete.Id = null;
+                if(courseComplete.Lessons != null)
+                {
+                    if (courseComplete.Lessons.Count() > 0)
+                    {
+                        foreach (var el in courseComplete.Lessons)
+                        {
+                            el.Id = null;
+                            el.CourseId = null;
+                            if (el.Type == "practice")
+                            {
+                                foreach (var q in el.Questions)
+                                {
+                                    q.Id = null;
+                                    //q.LessonId = null;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            var CourseEntity = mapper.Map<CourseEntity>(CleanCourse(courseComplete));
+            courseRapository.PostCourseComplete(CourseEntity);
+            await courseRapository.SaveChangesAsync();
+            int courseId = CourseEntity.Id.GetValueOrDefault();
+            CourseEntity = null;
+            foreach (var lesson in courseComplete.Lessons)//devolvio null
+            {
+                var lessonEntity = mapper.Map<LessonEntity>(CleanLesson(lesson,courseId));
+                courseRapository.PostLessonComplete(lessonEntity);
+                await courseRapository.SaveChangesAsync();
+                if (lessonEntity.Type == "practice") 
+                {
+                    foreach (var question in lesson.Questions) 
+                    {
+                        var questionEntity = mapper.Map<QuestionEntity>(CleanQuestion(question,lessonEntity.Id.GetValueOrDefault()));
+                        courseRapository.PostQuestionComplete(questionEntity);
+                        await courseRapository.SaveChangesAsync();
+                    }
+                }
+            }
+            /*
+                        throw new Exception("There were an error with the DB");*/
+            return true;
+        }
+    
     }
 }
