@@ -56,6 +56,7 @@ import { SearchLocalPipe } from './pipes/search-local.pipe';
 import { ShufflePipe } from './pipes/shuffle.pipe';
 import { SafeVideoPipe } from './pipes/safe-video.pipe';
 import { SearchLessonPipe } from './pipes/search-lesson.pipe';
+import { RegisterTeacherComponent } from './pages/registerTeacher/register-teacher/register-teacher.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { SearchLessonPipe } from './pipes/search-lesson.pipe';
     ShufflePipe,
     SafeVideoPipe,
     SearchLessonPipe
+    RegisterTeacherComponent
   ],
   imports: [
     BrowserModule,

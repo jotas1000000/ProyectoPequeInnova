@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import {MdbTableDirective} from 'angular-bootstrap-md';
 import {Router} from '@angular/router';
+import {TeacherService} from '../../../core/services/teacher/teacher.service';
 @Component({
   selector: 'app-teacher-contol-page',
   templateUrl: './teacher-contol-page.component.html',
@@ -10,34 +11,30 @@ export class TeacherContolPageComponent implements OnInit {
 
   @ViewChild(MdbTableDirective, { static: true })
   mdbTable: MdbTableDirective; 
-  elements: any = [];
-  headElements = ['ID', 'Maestro', 'Area', 'Funciones']; 
+  headElements = ['ID', 'Nombre', 'Titulo', 'Funciones']; 
   searchText: string = '';
   previous: string;
-
-  constructor() { }
-  
+  public teachers: any = [];
+  constructor(private teacherService: TeacherService) { }
   @HostListener('input') oninput() { this.searchItems();
   }
   ngOnInit(): void {
-    for (let i = 1; i <= 10; i++) {
-      this.elements.push({ id:
-      i.toString(), Maestro: 'Wpis' + (Math.floor(Math.random() * i * 10))
-      .toString(), Area: 'Last' + (Math.floor(Math.random() * i * 10))
-      .toString(), Functions: 'Actions' + (Math.floor(Math.random() * i * 10))
-      .toString() });
-    }
-    this.mdbTable.setDataSource(this.elements);
+    this.teacherService.getAllTeachers().subscribe(data => this.teachers = data);
+    this.mdbTable.setDataSource(this.teachers);
     this.previous = this.mdbTable.getDataSource(); 
+
   }
 
   searchItems() {
     const prev = this.mdbTable.getDataSource();
     if (!this.searchText) {
-      this.mdbTable.setDataSource(this.previous); this.elements = this.mdbTable.getDataSource();
+
+
+      this.mdbTable.setDataSource(this.previous); 
+      this.teachers = this.mdbTable.getDataSource();
     }
     if (this.searchText) {
-      this.elements = this.mdbTable.searchLocalDataByMultipleFields(this.searchText, ['Maestro', 'Area']);
+      this.teachers = this.mdbTable.searchLocalDataByMultipleFields(this.searchText, ['name', 'degree']);
       this.mdbTable.setDataSource(prev);
     }
   }

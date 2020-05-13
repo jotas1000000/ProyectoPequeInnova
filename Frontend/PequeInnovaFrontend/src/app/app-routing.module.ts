@@ -21,6 +21,7 @@ import {AdminGuard} from './guards/AdminGuard/admin.guard';
 import {TeacherGuard} from './guards/TeacherGuard/teacher.guard';
 import {StudentGuard} from './guards/StudentGuard/student.guard';
 import {RegisterComponent} from './pages/register/register.component';
+import { RegisterTeacherComponent } from './pages/registerTeacher/register-teacher/register-teacher.component';
 
 const routes: Routes = [
   { path: 'register', component:RegisterStudentComponent},
