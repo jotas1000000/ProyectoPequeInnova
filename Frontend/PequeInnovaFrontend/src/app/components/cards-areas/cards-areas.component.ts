@@ -11,6 +11,8 @@ export class CardsAreasComponent implements OnInit {
   constructor(private areasService: AreaService) { }
 
   public areas = [];
+   
+  public searchText:any;
 
   ngOnInit(): void {
     this.areasService.getAreaList()

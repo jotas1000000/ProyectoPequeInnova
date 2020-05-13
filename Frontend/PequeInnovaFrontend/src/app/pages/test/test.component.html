@@ -9,51 +9,58 @@
     <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink = "/areas/{{areaId}}/courses" ><mdb-icon fas icon="book-open"></mdb-icon></a>
   </li>
   <li class="list-inline-item">
-    <a mdbBtn size="lg" color="default" class="  waves-light" disablemdbWavesEffect routerLink = "/areas/{{areaId}}/courses"><mdb-icon fas icon="pen"></mdb-icon></a>
+    <a mdbBtn size="lg" color="default" class="  waves-light" disablemdbWavesEffect routerLink = "/areas/{{areaId}}/courses/{{courseId}}/lessons"><mdb-icon fas icon="pen" class="pr-1"></mdb-icon>{{courseName}}</a>
   </li>
-  <li class="list-inline-item">
-    <a mdbBtn size="lg" color="default" class="  waves-light" disablemdbWavesEffect routerLink = "/areas/{{areaId}}/courses">Titulo del Examen <mdb-icon fas icon="check"></mdb-icon></a>
-  </li>
+ 
 </ul>
 
 <section class="my-4">
-
+ 
   <div class="col-md-12 mb-4 text-default text-center">
     <h1 class="h1-reponsive text-uppercase font-weight-bold mb-0 pt-md-0 pt-0">
-      <strong><mdb-icon fas size= "lg" icon="check" class="pr-2"></mdb-icon>Titulo del Examen </strong></h1>
+      <strong><mdb-icon fas size= "lg" icon="check" class="pr-2"></mdb-icon>{{lesson.title}} </strong></h1>
     <hr class="hr-black my-4">
-    <h5 class="text-uppercase mb-4 black-text "><strong>DESCRIPCION DEl  EXAMEN</strong></h5>
+    <h5 class="text-uppercase mb-4 black-text "><strong>{{lesson.description}}</strong></h5>
+   
   </div>
+
   <!-- Grid row -->
-<div class="media">
+<div class = "background-container">
+  <hr class="hr-black my-4">
+<div class="media">  
 
     <!-- Grid column -->
-    <div class="col-md-10 col-lg-9 col-xl-12 mb-r">
-        <h3 class="card-header cyan white-text text-uppercase text-center">Preguntas</h3>
+    
+    <div class="col-md-10 col-lg-9 col-xl-8 mb-r">
+        <h4 class="card-header cyan white-text text-uppercase text-center">Preguntas</h4>
       <!--Panel-->
    
-      <ng-container *ngFor = "let question of questions">
+      <ng-container *ngFor = "let question of questions | shuffle">
         <div class="card card-body mb-3">
             <div class="media d-block d-md-flex">
               <div class="media-body text-center text-md-left ml-md-3 ml-0">
 
-                  <h2>{{question.question}}</h2>
+                  <h3>{{question.question}}</h3>
                   
                   <div class="custom-control custom-radio">
                           <input type="radio" class="custom-control-input" id="defaultUnchecked{{question.id}}" name="defaultExampleRadios{{question.id}}" checked mdbInput>
-                          <label class="custom-control-label" for="defaultUnchecked{{question.id}}">{{question.answer1}}</label>
+                          <label class="custom-control-label" for="defaultUnchecked{{question.id}}"><h5>{{question.trueAnswer}}</h5></label>
                   </div>
                       
                   <div class="custom-control custom-radio">
                           <input type="radio" class="custom-control-input" id="defaultChecked{{question.id}}" name="defaultExampleRadios{{question.id}}" checked mdbInput>
-                          <label class="custom-control-label" for="defaultChecked{{question.id}}">{{question.answer2}}</label>
+                          <label class="custom-control-label" for="defaultChecked{{question.id}}"><h5>{{question.falseAnswer1}}</h5></label>
                   </div>
 
                   <div class="custom-control custom-radio">
                           <input type="radio" class="custom-control-input" id="defaultUnchecked2{{question.id}}" name="defaultExampleRadios{{question.id}}" checked mdbInput>
-                          <label class="custom-control-label" for="defaultUnchecked2{{question.id}}">{{question.answer3}}</label>
+                          <label class="custom-control-label" for="defaultUnchecked2{{question.id}}"><h5>{{question.falseAnswer2}}</h5></label>
                   </div>
                 
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="defaultUnchecked2{{question.id}}" name="defaultExampleRadios{{question.id}}" checked mdbInput>
+                    <label class="custom-control-label" for="defaultUnchecked2{{question.id}}"><h5>{{question.falseAnswer3}}</h5></label>
+                  </div>
                     
                 
               </div>
@@ -64,13 +71,16 @@
       
       <!--/.Panel-->
   
-      
-      <a mdbBtn position="text-center" color="default" mdbWavesEffect routerLink="/test">Enviar</a>
+      <div class = "d-flex justify-content-center">
+        <a mdbBtn position="text-center" color="default" mdbWavesEffect routerLink="/test">Terminar</a>
+      </div>
     </div>
     
     
     <!-- Grid column -->
   
   </div>
+
   <!-- Grid row -->
+</div>
 </section>

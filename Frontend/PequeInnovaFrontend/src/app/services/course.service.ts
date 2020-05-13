@@ -12,7 +12,7 @@ export class CourseService {
   readonly APIUrl ="https://localhost:5001/api";
 
   getCourseList(areaId: number): Observable<Course[]>{
-    const href = `${this.APIUrl}/area/${areaId}/courses`;
+    const href = `${this.APIUrl}/area/${areaId}/course`;
     return this.http.get<Course[]>(href);
   }
 }

@@ -1,10 +1,12 @@
 <div class = "background-container">
+    
 <section class="text-center pb-3 my-5">
     <!--Section heading-->
-    <button mdbBtn type="button" color="info" size="sm" block="true" mdbWavesEffect routerLink="/areas" ><h1>Areas</h1></button>
-
-
-
+   
+    
+    <div class = "col-md-12 d-flex ">
+        <button mdbBtn type="button" color="info" size="lg" block="true" mdbWavesEffect routerLink="/areas" ><h1>Areas</h1></button>
+    </div>
 
 
     <hr class="mb-4 mt-4">
@@ -16,19 +18,20 @@
             <!--media column-->
             <div class=" rounded col-md-11 mb-2">
                 <mdb-card style="background-image: url({{area.image}})">
-                    <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4 rounded">
-                        <div>
-                            <h3 class="green-text">
-                                <mdb-icon fas icon="book" size="lg"></mdb-icon>
-                                <strong> {{area.name}}</strong>
-                            </h3>
-                            <h2 class="py-3 ">
-                                <strong>{{area.description}}</strong>
+                    <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4 ">
+                        <div class="col-md-12 mb-0  text-center">
+                            <h2 class="h1-reponsive text-uppercase font-weight mb-0 pt-md-0 pt-0">
+                                <strong><mdb-icon fas size= "lg" icon="book" class="pr-2"></mdb-icon>{{area.name}}</strong>
                             </h2>
+                
+                            <h4 class="text-uppercase py-4 ">
+                                <strong>{{area.description}}</strong>
+                            </h4>
 
-                            <h5 mdbBtn color="green" size="md" rounded="true" class="waves-light" mdbWavesEffect routerLink="/areas/{{area.id}}" >
+                            <h5 mdbBtn color="green" size="lg" rounded="true" class="waves-light" mdbWavesEffect routerLink="/areas/{{area.id}}" >
                                 <mdb-icon fas icon="book-open" class="left" ></mdb-icon> Ver Area
                             </h5>
+                              
                         </div>
                     </div>
                 </mdb-card>

@@ -3,7 +3,9 @@ import { AreaService } from 'src/app/services/area.service';
 import { CourseService } from 'src/app/services/course.service';
 import { SectionService } from 'src/app/services/section.service';
 import { LessonService } from 'src/app/services/lesson.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Lesson } from 'src/app/models/Lesson';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-lesson',
@@ -11,22 +13,23 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./lesson.component.scss']
 })
 export class LessonComponent implements OnInit {
+  
 
   constructor(  private areasService: AreaService,
     private coursesService: CourseService,
-    private sectionsService: SectionService,
     private lessonsService: LessonService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    public sanitizer: DomSanitizer,
+    private router: Router) { }
 
   public courses = [];
   public areas = [];
-  public sections = [];
   public lessons = [];
+  public mainLesson : any;
 
   // Route vars
   areaId: number;
   courseId: number;
-  sectionId: number;
   lessonId: number;
 
   // Area vars
@@ -35,47 +38,75 @@ export class LessonComponent implements OnInit {
   lessonName: string;
   slides: any = [];
 
+  //Lesson vars
+  page : number;
+  lessonPage: number;
+  sanitizer2: any;
+
+
+  
   ngOnInit(): void {
+    
+    this.lessonPage=1;
     this.slides = this.comments;
     this.setRouteVariables();
-   /*  this.setCourseData();
-    this.setAreaData();
+    this.setCourseData();
+    /*this.setAreaData();
     this.setSectionData(); */
-   // this.setLessonsData();
+    this.getLessonsData();
+    this.getLessonData();
+    this.page = 0;
+    console.log("BBBBBBBB" + this.courseId);
+    console.log("YYYYYYYYY" + this.lessonId);
   }
 
   private setRouteVariables(): void {
     this.activatedRoute.params.subscribe(params => {
       this.areaId = params['areaId'];
       this.courseId = params['courseId'];
-      this.sectionId = params ['sectionId'];
       this.lessonId = params['lessonId'];
       console.log(params);
       console.log("AAAAAAAA" + this.areaId);
       console.log("BBBBBBBB" + this.courseId);
+      console.log("CCCCCCCC" + this.lessonId);
     });
+   
   }
 
-  private setLessonsData(): void {
-    this.lessonsService.getLessonList(this.areaId,this.courseId,this.sectionId)
+  private getLessonsData(): void {
+    this.lessonsService.getLessonList(this.areaId,this.courseId)
       .subscribe(data => this.lessons = data);
   }
 
-  private setSectionData(): void {
-    this.sectionsService.getSectionList(this.areaId, this.courseId)
-      .subscribe(data => {
-        this.sections = data;
-        console.log("CCCCCCCCCC" + this.sections);
-      });
+  getLessonData(): void {
+    this.lessonsService.getLesson(this.areaId,this.courseId,this.lessonId)
+      .subscribe(data => this.mainLesson = data);
   }
+
+  nextPage(id:number): void {
+    console.log("ttttttttt" + id);
+    this.router.navigate([` areas/${this.areaId}/courses/${this.courseId}/lessons/${id}/theoretical`]);
+    this.page++;
+  }
+  refresh(): void {
+    window.location.reload();
+  }
+  previousPage():void{
+    this.page--;
+  }
+  
+  getTrustedYouTubeUrl(linkedVideo:Lesson) {
+    return this.sanitizer2.bypassSecurityTrustResourceUrl(linkedVideo.urlVideo);
+  }    
+
 
   private setCourseData(): void {
     this.coursesService.getCourseList(this.areaId)
       .subscribe(data => {
         this.courses = data;
         for (const course of data) {
-          if (course.Id == this.areaId) {
-            this.courseName = course.Name;
+          if (course.id == this.areaId) {
+            this.courseName = course.name;
             break;
           }
         }

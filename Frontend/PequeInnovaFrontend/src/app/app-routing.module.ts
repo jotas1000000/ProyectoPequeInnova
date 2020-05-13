@@ -29,9 +29,9 @@ const routes: Routes = [
 
   { path: 'areas', component: AreasComponent},
   { path: 'areas/:areaId/courses', component:  AreaComponent},
-  { path: 'areas/:areaId/courses/:courseId/sections', component:  CourseComponent},
-  { path: 'areas/:areaId/courses/:courseId/sections/:sectionId/lessons/:lessonId', component:  LessonComponent},
-  { path: 'areas/:areaId/courses/:courseId/sections/:sectionId/tests/:testId', component:  TestComponent},
+  { path: 'areas/:areaId/courses/:courseId/lessons', component:  CourseComponent},
+  { path: 'areas/:areaId/courses/:courseId/lessons/:lessonId/theoretical', component:  LessonComponent},
+  { path: 'areas/:areaId/courses/:courseId/lessons/:lessonId/practice', component:  TestComponent},
   { path: 'logOutTest', component:  NavigationBarLoggedInComponent},
   { path: 'areas/:areaId', redirectTo: 'areas/:areaId/courses', pathMatch:'full'},
 
@@ -51,7 +51,7 @@ const routes: Routes = [
   { path: 'createCourse', component:  CreateCoursePageComponent},
   { path: 'registerStudent', component:  RegisterComponent},
 
-  { path: 'error', component: NotFoundComponent },
+  { path: '**', component: NotFoundComponent },
 
 ];
 

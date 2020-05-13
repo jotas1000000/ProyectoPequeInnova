@@ -19,6 +19,9 @@ export class CoursesComponent implements OnInit {
   public courses = [];
   public areas = [];
 
+  public searchText: string;
+
+
   // Route vars
   areaId: number;
   // Area vars

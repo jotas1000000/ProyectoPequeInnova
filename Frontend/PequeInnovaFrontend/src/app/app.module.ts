@@ -52,6 +52,10 @@ import {MatCardModule} from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CardsAreasComponent } from './components/cards-areas/cards-areas.component';
+import { SearchLocalPipe } from './pipes/search-local.pipe';
+import { ShufflePipe } from './pipes/shuffle.pipe';
+import { SafeVideoPipe } from './pipes/safe-video.pipe';
+import { SearchLessonPipe } from './pipes/search-lesson.pipe';
 
 @NgModule({
   declarations: [
@@ -78,9 +82,12 @@ import { CardsAreasComponent } from './components/cards-areas/cards-areas.compon
     CreateCoursePageComponent,
     FilterStatusPipe,
     BreadcrumbComponent,
-    AreaCarouselComponent,
     RegisterComponent,
-    CardsAreasComponent
+    CardsAreasComponent,
+    SearchLocalPipe,
+    ShufflePipe,
+    SafeVideoPipe,
+    SearchLessonPipe
   ],
   imports: [
     BrowserModule,
