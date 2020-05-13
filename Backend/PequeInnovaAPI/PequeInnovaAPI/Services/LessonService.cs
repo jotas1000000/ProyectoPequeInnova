@@ -22,8 +22,9 @@ namespace PequeInnovaAPI.Services
         
         public async Task<LessonModel> AddLessonAsync(int courseId, LessonModel lesson)
         {
-          
+            lesson.Id = null;
             lesson.CourseId = courseId;
+            lesson.Questions = null;
             var coursevalidate = await validateCourse(courseId);
             var lessonEntity = mapper.Map<LessonEntity>(lesson);
 

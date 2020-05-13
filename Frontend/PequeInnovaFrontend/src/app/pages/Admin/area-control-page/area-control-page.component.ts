@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, NgModule } from '@angular/core';
+import {Area} from './../../../core/models/Area.model';
+import {AreaService} from './../../../core/services/area/area.service';
 @Component({
   selector: 'app-area-control-page',
   templateUrl: './area-control-page.component.html',
@@ -7,22 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AreaControlPageComponent implements OnInit {
 
-  courseCards: Array<any> = [
-    {id: 1, title: 'Curso 1', Description: 'Some quick example text to build on the card title and make up the bulk of the card content'},
-    {id: 2, title: 'Curso 2', Description: 'Some quick example text to build on the card title and make up the bulk of the card content'},
-    {id: 3, title: 'Curso 3', Description: 'Some quick example text to build on the card title and make up the bulk of the card content'},
-    {id: 4, title: 'Curso 4', Description: 'Some quick example text to build on the card title and make up the bulk of the card content'},
-    {id: 5, title: 'Curso 5', Description: 'Some quick example text to build on the card title and make up the bulk of the card content'},
-    {id: 6, title: 'Curso 6', Description: 'Some quick example text to build on the card title and make up the bulk of the card content'},
-    {id: 7, title: 'Curso 7', Description: 'Some quick example text to build on the card title and make up the bulk of the card content'},
-    {id: 8, title: 'Curso 8', Description: 'Some quick example text to build on the card title and make up the bulk of the card content'},
-    {id: 9, title: 'Curso 9', Description: 'Some quick example text to build on the card title and make up the bulk of the card content'},
-    {id: 10, title: 'Curso 10', Description: 'Some quick example text to build on the card title and make up the bulk of the card content'},
-    
-  ];
-  constructor() { }
+  areas: Array<Area>;
+  constructor(private areaService: AreaService) { }
 
   ngOnInit(): void {
+    this.areaService.getAreas('Id', 'false').subscribe(AreasResponse => {
+      this.areas = AreasResponse;
+      console.log(this.areas);
+    });
   }
 
 }

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PequeInnovaAPI.Models.ModelsRequests;
 
 namespace PequeInnovaAPI.Controllers
 {
@@ -61,6 +62,68 @@ namespace PequeInnovaAPI.Controllers
             }
         }
 
+        [HttpPost("CreateCourse")]
+        public async Task<ActionResult<CourseModel>> PostCourseCreate(int areaID, [FromBody] CourseModel course)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var newCourse = await courseService.AddCourseAsync(areaID, course);
+                ResponseIdModel rsp = new ResponseIdModel();
+                rsp.id = newCourse.Id.GetValueOrDefault();
+                return Created($"/api/Area/{areaID}/Course/{newCourse.Id}", rsp);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+        /*
+        [HttpPost("CreateCourse")]
+        public async Task<ActionResult<string>> CreateCourse([FromBody] CourseModel CourseComplete)
+        {
+
+            
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                bool state = await courseService.PostCourseComplete(CourseComplete);
+                return Created($"/api/CreatedCourse", state);
+                // return Created($"/api/Area/{newCourse.AreaId}/Course/{newCourse.Id}", newCourse);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+            
+        }
+        */
         [HttpGet("{courseId:int}")]
         public async Task<ActionResult<CourseModel>> getCourse(int areaID, int courseId)
         {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PequeInnovaAPI.Exceptions;
 using PequeInnovaAPI.Models;
+using PequeInnovaAPI.Models.ModelsRequests;
 using PequeInnovaAPI.Services;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,26 @@ namespace PequeInnovaAPI.Controllers
                 }
                 var resp = await service.postQuestionAsync(areaId, courseId, lessonId, question);
                 return Created($"api/Area/{areaId:int}/Course/{courseId:int}/Lesson/{lessonId:int}/Question/{resp.Id:int}",resp);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("CreateQuestion")]
+        public async Task<ActionResult<IEnumerable<QuestionModel>>> postQuestionCreate(int areaId, int courseId, int lessonId, [FromBody] QuestionModel question)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                var resp = await service.postQuestionAsync(areaId, courseId, lessonId, question);
+                ResponseIdModel rsp = new ResponseIdModel();
+                rsp.id = resp.Id.GetValueOrDefault();
+                return Created($"api/Area/{areaId:int}/Course/{courseId:int}/Lesson/{lessonId:int}/Question/{resp.Id:int}", rsp);
             }
             catch (Exception ex)
             {

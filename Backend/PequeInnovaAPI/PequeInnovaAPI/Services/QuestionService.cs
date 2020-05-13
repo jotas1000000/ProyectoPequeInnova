@@ -46,7 +46,10 @@ namespace PequeInnovaAPI.Services
             await repository.ValidateArea(areaId);
             await repository.ValidateCourse(courseId);
             await repository.ValidateLesson(lessonId, courseId, areaId);
+            question.Id = null;
             question.LessonId = lessonId;
+            question.Uid = "123";
+            question.Title = "Titulo";
             var questionEntity = mapper.Map<QuestionEntity>(question);
             repository.postQuestionAsync(areaId, courseId, lessonId, questionEntity);
             if (await repository.SaveChangesAsync())
