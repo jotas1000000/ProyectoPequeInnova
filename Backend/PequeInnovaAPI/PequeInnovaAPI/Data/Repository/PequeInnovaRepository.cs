@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Remotion.Linq.Parsing.ExpressionVisitors.MemberBindings;
 using PequeInnovaAPI.Exceptions;
+using PequeInnovaAPI.Models.ModelsRequests;
 
 namespace PequeInnovaAPI.Data.Repository
 {
@@ -198,6 +199,7 @@ namespace PequeInnovaAPI.Data.Repository
             {
                 query = query.Include(q => q.Comments);
             }
+            query = query.OrderBy(x => x.Order);
             query = query.AsNoTracking();
             return await query.ToArrayAsync();
         }
@@ -442,6 +444,67 @@ namespace PequeInnovaAPI.Data.Repository
         {
             PIDBContext.Entry(questionComplete.Lesson).State = EntityState.Unchanged;
             PIDBContext.Questions.Add(questionComplete);
+        }
+
+
+        public async Task<List<QuestionLessonMutedEntity>> GetQuestionsOnly(int lessonId, int courseId, int areaId)
+        {
+            var query = await (from q in PIDBContext.Questions
+                              where q.Lesson.Id == lessonId
+                              select new QuestionLessonMutedEntity
+                              {
+                                  Question = q.Question,
+                                  answers = new List<Tuple<string, bool>> {
+                                        Tuple.Create(q.TrueAnswer,true),
+                                        Tuple.Create(q.FalseAnswer1,false),
+                                        Tuple.Create(q.FalseAnswer2,true),
+                                        Tuple.Create(q.FalseAnswer3,true),
+                                    }
+                              }
+                              ).AsNoTracking().ToListAsync();
+            return query;
+        }
+
+        public void postAssignment(AssignmentEntity assignment)
+        {
+            PIDBContext.Assignments.Add(assignment);
+        }
+
+        public async Task deleteAssginment(int id)
+        {
+            var assignment = await PIDBContext.Assignments.SingleAsync(a => a.Id == id);
+            assignment.Status = false;
+        }
+
+        public async Task<IEnumerable<AssignmentRequestModel>> GetAssignments()
+        {
+            var query = await (from a in PIDBContext.Assignments
+                               join ar in PIDBContext.Areas on a.AreaId equals ar.Id
+                               join u in PIDBContext.Users on a.UserId equals u.Id
+                               where a.Status == true && ar.Status == true && u.Status == true
+                               select new AssignmentRequestModel
+                               {
+                                   id = a.Id.GetValueOrDefault(),
+                                   nameArea = ar.Name,
+                                   nameUser = u.Name+" "+u.LastName
+                               }
+                               ).AsNoTracking().ToListAsync();
+            return query;
+        }
+
+        public void postComment(CommentEntity comment)
+        {
+            PIDBContext.Entry(comment.Lesson).State = EntityState.Unchanged;
+            PIDBContext.Comments.Add(comment);
+        }
+
+        public async Task deleteComment(string userId, int commentId)
+        {
+            var comment = await PIDBContext.Comments.SingleAsync(c =>  c.Id == commentId);
+            comment.Status = false;
+            comment.UpdateDate = DateTime.Now;
+            comment.Uid = userId;
+            
         }
     }
 }

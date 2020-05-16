@@ -1,4 +1,5 @@
 ﻿using PequeInnovaAPI.Models;
+using PequeInnovaAPI.Models.ModelsRequests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,7 @@ namespace PequeInnovaAPI.Services
         //Task<LessonModel> UpdateLessonAsync(int sectionId, int id, LessonModel lesson);
         Task<bool> UpdateStatusAsync(int lessonId, int courseId, int areaId);
         //Task<bool> DeleteLesson(int sectionId, int id);
+        Task<List<QuestionLessonMutedModel>> GetQuestionsOnly(int lessonId, int courseId, int areaId);
+
     }
 }

@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using PequeInnovaAPI.Data;
+using PequeInnovaAPI.Data.Entity;
+using PequeInnovaAPI.Data.Repository;
+using PequeInnovaAPI.Models;
 using PequeInnovaAPI.Models.Auth;
 using PequeInnovaAPI.Models.ModelsRequests;
 using System;
@@ -27,15 +31,19 @@ namespace PequeInnovaAPI.Services
         private RoleManager<IdentityRole> RoleManager;
         private ApiDbContext dbcontext;
         private IConfiguration configuration;
+        private IPequeInnovaRepository repository;
+        private IMapper mapper;
 
         
         public UserService(UserManager<ApplicationUser> UserManager, RoleManager<IdentityRole> RoleManager, IConfiguration configuration,
-            ApiDbContext Dbcontext)
+            ApiDbContext Dbcontext, IPequeInnovaRepository repository, IMapper mapper)
         {
             this.UserManager = UserManager;
             this.RoleManager = RoleManager;
             this.configuration = configuration;
             this.dbcontext = Dbcontext;
+            this.repository = repository;
+            this.mapper = mapper;
         }
         public async Task<UserManagerResponse> CreateRoleAsync(CreateRoleViewModel model)
         {
@@ -140,6 +148,25 @@ namespace PequeInnovaAPI.Services
             }
 
             return false;
+        }
+
+        public async Task<bool> deleteAssginment(int id)
+        {
+            await repository.deleteAssginment(id);
+            await repository.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> deleteComment(string userId, int commentId)
+        {
+            await repository.deleteComment(userId, commentId);
+            await repository.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<IEnumerable<AssignmentRequestModel>> GetAssignments()
+        {
+            return await repository.GetAssignments();
         }
 
         public async Task<List<GetTeachersModel>> GetTeachers()
@@ -275,6 +302,36 @@ namespace PequeInnovaAPI.Services
                 Token = tokenAsString
             };
 
+        }
+
+        public async Task<bool> postAssignment(AssignmentModel assignment)
+        {
+            await repository.ValidateArea(assignment.AreaId);
+            //falta validar existencia de teacher
+            assignment.Id = null;
+            assignment.CreateDate = DateTime.Now;
+            assignment.UpdateDate = DateTime.Now;
+            assignment.State = true;
+            assignment.Status = true;
+            var assignmentEntity = mapper.Map<AssignmentEntity>(assignment);
+            repository.postAssignment(assignmentEntity);
+            await repository.SaveChangesAsync();
+            return true;
+
+        }
+
+        public async Task<bool> postComment(CommentModel comment)
+        {
+            comment.Id = null;
+            comment.CommentDate = DateTime.Now;
+            comment.UpdateDate = DateTime.Now;
+            comment.CreateDate = DateTime.Now;
+            comment.State = true;
+            comment.Status = true;
+            var commentEntity = mapper.Map<CommentEntity>(comment);
+            repository.postComment(commentEntity);
+            await repository.SaveChangesAsync();
+            return true;
         }
 
         public async Task<UserManagerResponse> RegisterUserAsync(RegisterViewModel model)

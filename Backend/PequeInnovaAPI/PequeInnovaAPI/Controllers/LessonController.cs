@@ -128,6 +128,24 @@ namespace PequeInnovaAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [HttpGet("{lessonId:int}/Questions")]
+        public async Task<ActionResult<LessonModel>> GetQuestionLesson(int courseId, int lessonId, int areaId, bool showComments = false, bool showQuestions = false)
+        {
+            try
+            {
+                var questions = await lessonService.GetQuestionsOnly(lessonId, courseId, areaId);
+                return Ok(questions);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         /*
         [HttpGet()]
         public async Task<ActionResult<IEnumerable<LessonModel>>> getLessons(int sectionID)

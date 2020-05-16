@@ -7,6 +7,7 @@ using PequeInnovaAPI.Data.Entity;
 using PequeInnovaAPI.Data.Repository;
 using PequeInnovaAPI.Models;
 using PequeInnovaAPI.Exceptions;
+using PequeInnovaAPI.Models.ModelsRequests;
 
 namespace PequeInnovaAPI.Services
 {
@@ -122,6 +123,13 @@ namespace PequeInnovaAPI.Services
 
             throw new Exception("There were an error with the DB");
         }
-        
+
+        public async Task<List<QuestionLessonMutedModel>> GetQuestionsOnly(int lessonId, int courseId, int areaId)
+        {
+            await validateCourse(courseId);
+            var res = await repository.GetQuestionsOnly(lessonId, courseId, areaId);
+            var questionsModel = mapper.Map<List<QuestionLessonMutedModel>>(res);
+            return questionsModel;
+        }
     }
 }
