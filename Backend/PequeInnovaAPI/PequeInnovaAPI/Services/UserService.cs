@@ -164,17 +164,30 @@ namespace PequeInnovaAPI.Services
             return true;
         }
 
+        public async Task<bool> deleteUser(string userId)
+        {
+            //falta validar existencia de User
+            await repository.deleteUser(userId);
+            await repository.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<IEnumerable<AssignmentRequestModel>> GetAssignments()
         {
             return await repository.GetAssignments();
         }
+
+        public async Task<IEnumerable<GetStudentsModel>> getStudents()
+        {
+            return await repository.getStudents();
+         }
 
         public async Task<List<GetTeachersModel>> GetTeachers()
         {
             var query = await (from u in dbcontext.Users
                                join ur in dbcontext.UserRoles on u.Id equals ur.UserId
                                join r in dbcontext.Roles on ur.RoleId equals r.Id
-                               where r.NormalizedName == "PROFESOR"
+                               where r.NormalizedName == "PROFESOR" && u.Status == true
                                select new GetTeachersModel
                                {
                                    Id = u.Id,
@@ -204,7 +217,7 @@ namespace PequeInnovaAPI.Services
             var query = await (from u in dbcontext.Users
                                join ur in dbcontext.UserRoles on u.Id equals ur.UserId
                                join r in dbcontext.Roles on ur.RoleId equals r.Id
-                              // where u.Id==id
+                               where u.Status == true
                                select new GetUsersRoles
                                {
                                    Id = u.Id,
@@ -320,7 +333,7 @@ namespace PequeInnovaAPI.Services
 
         }
 
-        public async Task<bool> postComment(CommentModel comment)
+        public async Task<CommentModel> postComment(CommentModel comment)
         {
             comment.Id = null;
             comment.CommentDate = DateTime.Now;
@@ -331,7 +344,7 @@ namespace PequeInnovaAPI.Services
             var commentEntity = mapper.Map<CommentEntity>(comment);
             repository.postComment(commentEntity);
             await repository.SaveChangesAsync();
-            return true;
+            return mapper.Map<CommentModel>(comment);
         }
 
         public async Task<UserManagerResponse> RegisterUserAsync(RegisterViewModel model)
@@ -539,6 +552,19 @@ namespace PequeInnovaAPI.Services
 
         }
 
+        public async Task<bool> updateStudent(UpdateStudent student)
+        {
+            //Validar Existencia de Student
+            await repository.updateStudent(student);
+            await repository.SaveChangesAsync();
+            return true;
+        }
 
+        public async Task<bool> updateTeacher(UpdateTeacher teacher)
+        {
+            await repository.updateTeacher(teacher);
+            await repository.SaveChangesAsync();
+            return true;
+         }
     }
 }

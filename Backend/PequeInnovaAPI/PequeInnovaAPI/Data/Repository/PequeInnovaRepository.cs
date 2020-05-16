@@ -189,6 +189,32 @@ namespace PequeInnovaAPI.Data.Repository
         
         public async Task<IEnumerable<LessonEntity>> GetLessonsAsync(int courseId, int areaId, bool showComments, bool showQuestions)
         {
+
+            IQueryable<LessonEntity> query = PIDBContext.Lessons
+                                            .Where(l => l.Course.Id == courseId &&
+                                                   l.Status == true &&
+                                                   l.Course.Area.Id == areaId)
+                                            .Select(l => new LessonEntity {
+                                                Id = l.Id,
+                                                Title = l.Title,
+                                                Document = l.Document,
+                                                URLVideo = l.URLVideo,
+                                                Description = l.Description,
+                                                Type = l.Type,
+                                                Order = l.Order,
+                                                Uid = l.Uid,
+                                                State = l.State,
+                                                Status = l.Status,
+                                                UpdateDate = l.UpdateDate,
+                                                CreateDate = l.CreateDate,
+                                                Course = l.Course,
+                                                Comments = l.Comments.Where(c => c.Status==true && showComments == true).ToList(),
+                                                Questions = l.Questions.Where(q => q.Status==true && showQuestions ==true).ToList()
+
+                                            }).OrderBy(l => l.Order)
+                                            .AsNoTracking();
+            return await query.ToArrayAsync();
+            /*
             IQueryable<LessonEntity> query = PIDBContext.Lessons;
             query = query.Where(l =>l.Course.Id==courseId && l.Status==true && l.Course.Area.Id == areaId);
             if (showQuestions)
@@ -202,6 +228,7 @@ namespace PequeInnovaAPI.Data.Repository
             query = query.OrderBy(x => x.Order);
             query = query.AsNoTracking();
             return await query.ToArrayAsync();
+            */
         }
         
         public void AddLessonAsync(LessonEntity lesson)
@@ -506,5 +533,62 @@ namespace PequeInnovaAPI.Data.Repository
             comment.Uid = userId;
             
         }
+
+        public async Task deleteUser(string userId)
+        {
+            var userEntity = await PIDBContext.Users.SingleAsync(u => u.Id == userId);
+            userEntity.Status = false;
+            userEntity.UpdateDate = DateTime.Now;
+         }
+
+        public async Task<IEnumerable<GetStudentsModel>> getStudents()
+        {
+            var query = await (from u in PIDBContext.Users
+                               join ur in PIDBContext.UserRoles on u.Id equals ur.UserId
+                               join r in PIDBContext.Roles on ur.RoleId equals r.Id
+                               where u.Status == true && r.NormalizedName == "ESTUDIANTE"
+                               select new GetStudentsModel { 
+                                    Id = u.Id,
+                                    Name = u.Name,
+                                    LastName = u.LastName,
+                                    RoleName = r.Name,
+                                    Email = u.Email,
+                                    School = u.School,
+                                    Grade = u.Grade,
+                                    Age = u.Age,
+                                    Birthday = u.Birthday
+                               }).AsNoTracking().ToListAsync();
+            return query;
+
+         }
+
+        public async Task updateStudent(UpdateStudent student)
+        {
+            var studentEntity = await PIDBContext.Users.SingleAsync(u => u.Id == student.Id);
+            studentEntity.UpdateDate = DateTime.Now;
+            studentEntity.UserName = student.UserName;
+            studentEntity.Email = student.Email;
+            studentEntity.Name = student.Name;
+            studentEntity.LastName = student.LastName;
+            studentEntity.Age = student.Age;
+            studentEntity.Birthday = student.Birthday;
+            studentEntity.School = student.School;
+            studentEntity.Grade = student.Grade;
+            studentEntity.Uid = student.Uid;
+
+        }
+
+        public async Task updateTeacher(UpdateTeacher teacher)
+        {
+            var teacherEntity = await PIDBContext.Users.SingleAsync(u => u.Id == teacher.Id);
+            teacherEntity.UpdateDate = DateTime.Now;
+            teacherEntity.UserName = teacher.UserName;
+            teacherEntity.Email = teacher.Email;
+            teacherEntity.Name = teacher.Name;
+            teacherEntity.LastName = teacher.LastName;
+            teacherEntity.Degree = teacher.Degree;
+            teacherEntity.City = teacher.City;
+            teacherEntity.Uid = teacher.Uid;
+         }
     }
 }

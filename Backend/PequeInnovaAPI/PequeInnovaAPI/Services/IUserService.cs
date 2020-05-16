@@ -30,8 +30,15 @@ namespace PequeInnovaAPI.Services
         Task<bool> postAssignment(AssignmentModel assignment);
         Task<bool> deleteAssginment(int id);
 
-        Task<bool> postComment(CommentModel comment);
+        Task<CommentModel> postComment(CommentModel comment);
         Task<bool> deleteComment(string userId, int commentId);
+
+        Task<bool> deleteUser(string userId);
+
+        Task<IEnumerable<GetStudentsModel>> getStudents();
+
+        Task<bool> updateStudent(UpdateStudent student);
+        Task<bool> updateTeacher(UpdateTeacher teacher);
 
     }
 }

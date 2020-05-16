@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PequeInnovaAPI.Data.Entity;
 using PequeInnovaAPI.Models;
+using PequeInnovaAPI.Models.ModelsRequests;
 using PequeInnovaAPI.Services;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,7 @@ namespace PequeInnovaAPI.Controllers
 {
     [Route("api/[Controller]")]
     [ApiController]
-    public class UserController:ControllerBase
+    public class UserController : ControllerBase
     {
         private IUserService service;
         public UserController(IUserService service)
@@ -24,9 +26,23 @@ namespace PequeInnovaAPI.Controllers
             if (ModelState.IsValid)
             {
                 var result = await service.GetTeachers();
-                if(result!=null)
+                if (result != null)
                 {
                     return Ok(result);
+                }
+            }
+
+            return BadRequest("Algo salio mal en la peticion");
+        }
+        [HttpPut("{userId:maxlength(38)}/DeleteUser")]
+        public async Task<IActionResult> deleteUser(string userId)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await service.deleteUser(userId);
+                if (result)
+                {
+                    return Ok(Tuple.Create(result));
                 }
             }
 
@@ -95,22 +111,40 @@ namespace PequeInnovaAPI.Controllers
             return BadRequest("Some properties are not valid");
         }
 
+        [HttpGet("Students")]
+        public async Task<IActionResult> GetStudents()
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await service.getStudents();
+
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+
+                return BadRequest(result);
+            }
+
+            return BadRequest("Some properties are not valid");
+        }
+
         [HttpPost("CreateComment")]
         public async Task<IActionResult> postComments([FromBody] CommentModel comment)
         {
             if (ModelState.IsValid)
             {
                 var result = await service.postComment(comment);
-                if (result)
+                if (result != null)
                 {
-                    return Ok(Tuple.Create(result));
+                    return Created("api/",result);
                 }
             }
 
             return BadRequest("Algo salio mal en la peticion");
         }
 
-        [HttpPut("{userId:regex(^\\d{{8}}-\\d{{4}}-\\d{{4}}-\\d{{4}}-\\d{{12}}$)}/DeleteComment/{commentId:int}")]
+        [HttpPut("{userId:maxlength(38)}/DeleteComment/{commentId:int}")]//regex(^[[a-z]]{{8}}-[[a-z]]{{4}}-[[a-z]]{{4}}-[[a-z]]{{4}}-[[a-z]]{{12}}$)
         public async Task<IActionResult> deleteComment(string userId, int commentId)
         {
             if (ModelState.IsValid)
@@ -124,6 +158,52 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
-        
+
+
+        [HttpPut("UpdateStudent")]
+        public async Task<IActionResult> updateStudent([FromBody] UpdateStudent student)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await service.updateStudent(student);
+                if (result)
+                {
+                    return Ok(Tuple.Create(result));
+                }
+            }
+
+            return BadRequest("Algo salio mal en la peticion");
+        }
+
+        [HttpPut("UpdateTeacher")]
+        public async Task<IActionResult> updateTeacher([FromBody] UpdateTeacher teacher)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await service.updateTeacher(teacher);
+                if (result)
+                {
+                    return Ok(Tuple.Create(result));
+                }
+            }
+
+            return BadRequest("Algo salio mal en la peticion");
+        }
+        /*
+        [HttpPut("{userId:maxlength(38)}/DeleteComment/{commentId:int}")]//regex(^[[a-z]]{{8}}-[[a-z]]{{4}}-[[a-z]]{{4}}-[[a-z]]{{4}}-[[a-z]]{{12}}$)
+        public async Task<IActionResult> deleteComment(string userId, int commentId)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await service.deleteComment(userId, commentId);
+                if (result)
+                {
+                    return Ok(Tuple.Create(result));
+                }
+            }
+
+            return BadRequest("Algo salio mal en la peticion");
+        }
+        */
     }
 }

@@ -15,10 +15,16 @@ namespace PequeInnovaAPI.Data.Repository
         void postAssignment(AssignmentEntity assignment);
         Task deleteAssginment(int id);
         Task<IEnumerable<AssignmentRequestModel>> GetAssignments();
-
             //Comments
         void postComment(CommentEntity comment);
         Task deleteComment(string userId, int commentId);
+            //User
+        Task deleteUser(string userId);
+        Task<IEnumerable<GetStudentsModel>> getStudents();
+        Task updateStudent(UpdateStudent student);
+        Task updateTeacher(UpdateTeacher teacher);
+
+
 
         //areas
         Task<AreaEntity> GetAreaAsync(int id, bool mostrarCursos = true);
