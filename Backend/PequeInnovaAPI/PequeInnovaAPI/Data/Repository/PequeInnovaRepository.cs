@@ -590,5 +590,48 @@ namespace PequeInnovaAPI.Data.Repository
             teacherEntity.City = teacher.City;
             teacherEntity.Uid = teacher.Uid;
          }
+
+        public async Task<IEnumerable<InscriptionRequestModel>> GetInscriptions()
+        {
+            var query = await (from i in PIDBContext.Inscriptions
+                               join u in PIDBContext.Users on i.UserId equals u.Id
+                               join c in PIDBContext.Courses on i.Course.Id equals c.Id
+                               join a in PIDBContext.Areas on c.Area.Id equals a.Id
+                               where i.Status == true && u.Status == true &&
+                                     c.Status == true && a.Status == true
+                               select new InscriptionRequestModel { 
+                                    id = i.Id,
+                                    userId = u.Id,
+                                    areaId = a.Id,
+                                    courseId = c.Id.GetValueOrDefault(),
+                                    courseName = c.Name,
+                                    areaName = a.Name,
+                                    Name = u.Name,
+                                    LastName = u.LastName,
+                                    State = i.State
+                               }                               
+                               ).AsNoTracking().ToArrayAsync();
+            return query;
+        }
+
+        public async Task approveInscription(int inscriptionId)
+        {
+            var inscriptionEntity = await PIDBContext.Inscriptions.SingleAsync(i => i.Id == inscriptionId);
+            inscriptionEntity.State = true;
+            inscriptionEntity.UpdateDate = DateTime.Now;
+        }
+
+        public void postInscription(InscriptionEntity inscription)
+        {
+            PIDBContext.Entry(inscription.Course).State = EntityState.Unchanged;
+            PIDBContext.Inscriptions.Add(inscription);
+        }
+
+        public async Task deleteInscription(int id)
+        {
+            var inscriptionEntity = await PIDBContext.Inscriptions.SingleAsync(i => i.Id == id);
+            inscriptionEntity.Status = false;
+            inscriptionEntity.UpdateDate = DateTime.Now;
+        }
     }
 }

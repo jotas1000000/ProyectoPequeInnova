@@ -23,6 +23,11 @@ namespace PequeInnovaAPI.Data.Repository
         Task<IEnumerable<GetStudentsModel>> getStudents();
         Task updateStudent(UpdateStudent student);
         Task updateTeacher(UpdateTeacher teacher);
+        //Incription
+        Task<IEnumerable<InscriptionRequestModel>> GetInscriptions();
+        Task approveInscription(int inscriptionId);
+        void postInscription(InscriptionEntity inscription);
+        Task deleteInscription(int id);
 
 
 

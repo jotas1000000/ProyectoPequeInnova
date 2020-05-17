@@ -45,6 +45,15 @@ namespace PequeInnovaAPI.Services
             this.repository = repository;
             this.mapper = mapper;
         }
+
+        public async Task<bool> approveInscription(int inscriptionId)
+        {
+            //Validar Inscription
+            await repository.approveInscription(inscriptionId);
+            await repository.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<UserManagerResponse> CreateRoleAsync(CreateRoleViewModel model)
         {
             var identityRole = new IdentityRole()
@@ -164,6 +173,14 @@ namespace PequeInnovaAPI.Services
             return true;
         }
 
+        public async Task<bool> deleteInscription(int id)
+        {
+            //Validar Inscription
+            await repository.deleteInscription(id);
+            await repository.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<bool> deleteUser(string userId)
         {
             //falta validar existencia de User
@@ -175,6 +192,12 @@ namespace PequeInnovaAPI.Services
         public async Task<IEnumerable<AssignmentRequestModel>> GetAssignments()
         {
             return await repository.GetAssignments();
+        }
+
+        public async Task<IEnumerable<InscriptionRequestModel>> GetInscriptions()
+        {
+            var inscriptionsEntity = await repository.GetInscriptions();
+            return inscriptionsEntity;
         }
 
         public async Task<IEnumerable<GetStudentsModel>> getStudents()
@@ -345,6 +368,19 @@ namespace PequeInnovaAPI.Services
             repository.postComment(commentEntity);
             await repository.SaveChangesAsync();
             return mapper.Map<CommentModel>(comment);
+        }
+
+        public async Task<bool> postInscription(InscriptionModel inscription)
+        {
+            inscription.Id = null;
+            inscription.State = false;
+            inscription.Status = true;
+            inscription.UpdateDate = DateTime.Now;
+            inscription.CreateDate = DateTime.Now;
+            var inscriptionEntity = mapper.Map<InscriptionEntity>(inscription);
+            repository.postInscription(inscriptionEntity);
+            await repository.SaveChangesAsync();
+            return true;
         }
 
         public async Task<UserManagerResponse> RegisterUserAsync(RegisterViewModel model)

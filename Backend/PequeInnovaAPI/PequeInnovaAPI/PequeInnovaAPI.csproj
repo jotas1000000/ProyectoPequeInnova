@@ -17,8 +17,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Migrations\20200511041111_PequeInnova.cs" />
-    <Compile Include="Migrations\20200511041111_PequeInnova.Designer.cs" />
+    <None Remove="Models\ModelsRequests\InscriptionRequestModel.cs~RF6fb4840.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Migrations\20200516232553_c.cs" />
+    <Compile Include="Migrations\20200516232553_c.Designer.cs" />
     <Compile Include="Migrations\ApiDbContextModelSnapshot.cs" />
   </ItemGroup>
 

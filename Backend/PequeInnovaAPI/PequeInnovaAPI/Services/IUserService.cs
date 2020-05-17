@@ -39,6 +39,12 @@ namespace PequeInnovaAPI.Services
 
         Task<bool> updateStudent(UpdateStudent student);
         Task<bool> updateTeacher(UpdateTeacher teacher);
+        
+        //Inscriptions
+        Task<IEnumerable<InscriptionRequestModel>> GetInscriptions();
+        Task<bool> approveInscription(int inscriptionId);
+        Task<bool> postInscription(InscriptionModel inscription);
+        Task<bool> deleteInscription(int id);
 
     }
 }

@@ -189,13 +189,29 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
-        /*
-        [HttpPut("{userId:maxlength(38)}/DeleteComment/{commentId:int}")]//regex(^[[a-z]]{{8}}-[[a-z]]{{4}}-[[a-z]]{{4}}-[[a-z]]{{4}}-[[a-z]]{{12}}$)
-        public async Task<IActionResult> deleteComment(string userId, int commentId)
+        
+        [HttpGet("Inscriptions")]
+        public async Task<IActionResult> getInscriptions()
         {
             if (ModelState.IsValid)
             {
-                var result = await service.deleteComment(userId, commentId);
+                var result = await service.GetInscriptions();
+                if (result!= null)
+                {
+                    return Ok(result);
+                }
+            }
+
+            return BadRequest("Algo salio mal en la peticion");
+        }
+        
+        
+        [HttpPut("ApproveInscription/{inscriptionId:int}")]
+        public async Task<IActionResult> approveInscription(int inscriptionId)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await service.approveInscription(inscriptionId);
                 if (result)
                 {
                     return Ok(Tuple.Create(result));
@@ -204,6 +220,38 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
-        */
+        
+        
+        [HttpPut("DeleteInscription/{inscriptionId:int}")]
+        public async Task<IActionResult> deleteInscription(int inscriptionId)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await service.deleteInscription(inscriptionId);
+                if (result)
+                {
+                    return Ok(Tuple.Create(result));
+                }
+            }
+
+            return BadRequest("Algo salio mal en la peticion");
+        }
+
+
+        [HttpPost("CreateInscription")]
+        public async Task<IActionResult> postInscription([FromBody] InscriptionModel inscription)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await service.postInscription(inscription);
+                if (result)
+                {
+                    return Ok(Tuple.Create(result));
+                }
+            }
+
+            return BadRequest("Algo salio mal en la peticion");
+        }
+        
     }
 }

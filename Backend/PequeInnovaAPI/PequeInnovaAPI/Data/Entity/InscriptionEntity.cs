@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,7 +10,8 @@ namespace PequeInnovaAPI.Data.Entity
     {
         public int Id { get; set; }
         public string UserId { get; set; }
-        public int CourseId { get; set; }
+        [ForeignKey("CourseId")]
+        public virtual CourseEntity Course { get; set; }
 
         // [Required]
         public string Uid { get; set; }

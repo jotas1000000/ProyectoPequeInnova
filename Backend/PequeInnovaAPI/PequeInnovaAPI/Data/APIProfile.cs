@@ -34,6 +34,8 @@ namespace PequeInnovaAPI.Data
                .ReverseMap();
             this.CreateMap<AssignmentEntity, AssignmentModel>()
                .ReverseMap();
+            this.CreateMap<InscriptionEntity, InscriptionModel>()
+               .ReverseMap();
         }
     }
 }
