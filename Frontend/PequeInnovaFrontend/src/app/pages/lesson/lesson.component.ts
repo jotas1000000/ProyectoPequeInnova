@@ -54,7 +54,7 @@ export class LessonComponent implements OnInit {
     /*this.setAreaData();
     this.setSectionData(); */
     this.getLessonsData();
-    this.getLessonData();
+    // this.getLessonData();
     this.page = 0;
     console.log("BBBBBBBB" + this.courseId);
     console.log("YYYYYYYYY" + this.lessonId);
@@ -69,6 +69,7 @@ export class LessonComponent implements OnInit {
       console.log("AAAAAAAA" + this.areaId);
       console.log("BBBBBBBB" + this.courseId);
       console.log("CCCCCCCC" + this.lessonId);
+      this.getLessonData();
     });
    
   }

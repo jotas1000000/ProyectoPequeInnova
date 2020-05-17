@@ -88,7 +88,7 @@ import { RegisterTeacherComponent } from './pages/registerTeacher/register-teach
     SearchLocalPipe,
     ShufflePipe,
     SafeVideoPipe,
-    SearchLessonPipe
+    SearchLessonPipe,
     RegisterTeacherComponent
   ],
   imports: [

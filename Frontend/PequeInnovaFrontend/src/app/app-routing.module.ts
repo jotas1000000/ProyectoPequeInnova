@@ -47,10 +47,11 @@ const routes: Routes = [
   { path: 'mainAdmin', component:  MainPageAdminComponent},
   { path: 'teacherControl', component:  TeacherContolPageComponent},
   { path: 'schoolControl', component:  SchoolControlPageComponent},
-  { path: 'areaControl', component:  AreaControlPageComponent},
-  { path: 'courseControl', component:  CourseControlPageComponent},
-  { path: 'createCourse', component:  CreateCoursePageComponent},
+  { path: 'mainAdmin/areaControl', component:  AreaControlPageComponent},
+  { path: 'mainAdmin/areaControl/:areaId/courseControl', component:  CourseControlPageComponent},
+  { path: 'mainAdmin/areaControl/:areaId/courseControl/createCourse', component:  CreateCoursePageComponent},
   { path: 'registerStudent', component:  RegisterComponent},
+  { path: 'registerTeacher', component:  RegisterTeacherComponent },
 
   { path: '**', component: NotFoundComponent },
 

@@ -6,7 +6,7 @@
     </div>
     
     <div class="Add-Area"> 
-        <button class="button-AddArea" mdbBtn type="button" color="default" rounded="true" mdbWavesEffect>+ Añadir Curso</button>
+        <button class="button-AddArea" mdbBtn type="button" color="default" rounded="true" routerLink="/mainAdmin/areaControl/{{areaId}}/courseControl/createCourse" mdbWavesEffect>+ Añadir Curso</button>
     </div>
 
     <div class="container-deck" *ngIf="courseCards">
@@ -23,8 +23,8 @@
               {{cardone.description}}
             </mdb-card-text>
         
-            <a href="#" mdbBtn color="primary" mdbWavesEffect>Ver Curso</a>
-            <a href="#" mdbBtn color="primary" mdbWavesEffect>Editar Curso</a>
+            <a routerLink="/areas/{{areaId}}/courses/{{cardone.id}}/lessons" mdbBtn color="primary" mdbWavesEffect>Ver Curso</a>
+            <a href="adsasd" mdbBtn color="primary" mdbWavesEffect>Editar Curso</a>
           </mdb-card-body>
         </mdb-card>         
       </div>

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PequeInnovaAPI.Migrations
 {
-    public partial class PequeInnova : Migration
+    public partial class PequeInnovaDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -463,7 +463,7 @@ namespace PequeInnovaAPI.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Title = table.Column<string>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
                     Question = table.Column<string>(nullable: false),
                     TrueAnswer = table.Column<string>(nullable: false),
                     FalseAnswer1 = table.Column<string>(nullable: false),

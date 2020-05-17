@@ -39,7 +39,7 @@
   <div class="row">
       
     <ng-container *ngFor="let lesson of lessons | searchLesson: searchText, index as i ">
-      <ng-container *ngIf="i == 0 && lesson.type == 'Lesson'">
+      <ng-container *ngIf="i == 1 ">
     <!-- Grid column -->
     <div class="col-lg-6 ">
      
@@ -80,7 +80,7 @@
     <div class="col-lg-6 ">
 
       <ng-container *ngFor="let lesson of lessons| searchLesson: searchText, index as i">
-      <ng-container *ngIf="i != 0 && lesson.type == 'Lesson'">
+      <ng-container *ngIf="i > 1 ">
       <!-- Small news -->
       <div class="single-news mb-4">
 
@@ -142,7 +142,7 @@
    
   </div>
   <ng-container *ngFor="let lesson of lessons, index as i">
-    <ng-container *ngIf ="i == lessons.length-1 && lesson.type =='Test' ">
+    <ng-container *ngIf ="i == 0 ">
     <hr class="my-4">
     <div class = "d-flex justify-content-center">
       <a mdbBtn  color="default" mdbWavesEffect  routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lesson.id}}/practice">Realizar Prueba</a>

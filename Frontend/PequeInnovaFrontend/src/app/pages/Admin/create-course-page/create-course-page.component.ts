@@ -9,7 +9,7 @@ import {CourseService} from './../../../core/services/course/course.service';
 import {LessonService} from './../../../core/services/lesson/lesson.service';
 import {QuestionService} from './../../../core/services/question/question.service';
 import {ResponseId} from './../../../core/models/ResponseId.model';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Lesson } from 'src/app/models/Lesson';
 //import {DOCUMENT} from '@angular/common';
@@ -45,6 +45,7 @@ export class CreateCoursePageComponent implements OnInit {
   StateProcesing: string = '';
 
   StateRequestBoolean: boolean = false;
+  
 
   get stateSleep(): boolean{
     return this.StateSleep;
@@ -499,18 +500,35 @@ export class CreateCoursePageComponent implements OnInit {
 
   }
 
+  areaId:number;
+
   ngOnInit(): void {
-    
+    this.setRouteVariables();
+    console.log(this.areaId);
+
+    this.course.areaId=this.areaId;
+    console.log("eeeeeeeee" + this.course.areaId);
   }
 
+
+  private setRouteVariables(): void {
+    this.activatedRoute.params.subscribe(params => {
+      this.areaId = params['areaId'];
+  
+      console.log(params);
+      console.log("AAAAAAAA" + this.areaId);
+
+    });
+  }
   constructor( private courseService: CourseService,
                private lessonService: LessonService,
                private questionService: QuestionService,
                private formBuilder: FormBuilder,
                private router: Router,
+               private activatedRoute: ActivatedRoute
 
   ) {
-
+    
     this.StateEdit = false;
     this.StateAdd = false;
     this.StateSleep = true;

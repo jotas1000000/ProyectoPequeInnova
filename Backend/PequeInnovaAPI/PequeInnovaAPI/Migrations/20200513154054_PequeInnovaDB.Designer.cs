@@ -10,8 +10,8 @@ using PequeInnovaAPI.Data;
 namespace PequeInnovaAPI.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20200511041111_PequeInnova")]
-    partial class PequeInnova
+    [Migration("20200513154054_PequeInnovaDB")]
+    partial class PequeInnovaDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -403,8 +403,7 @@ namespace PequeInnovaAPI.Migrations
 
                     b.Property<bool>("Status");
 
-                    b.Property<string>("Title")
-                        .IsRequired();
+                    b.Property<string>("Title");
 
                     b.Property<string>("TrueAnswer")
                         .IsRequired();

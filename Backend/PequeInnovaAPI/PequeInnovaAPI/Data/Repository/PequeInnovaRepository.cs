@@ -198,6 +198,7 @@ namespace PequeInnovaAPI.Data.Repository
             {
                 query = query.Include(q => q.Comments);
             }
+            query = query.OrderBy(x => x.Order);
             query = query.AsNoTracking();
             return await query.ToArrayAsync();
         }

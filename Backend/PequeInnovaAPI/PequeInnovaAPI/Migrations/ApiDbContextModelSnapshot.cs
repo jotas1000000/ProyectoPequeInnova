@@ -401,8 +401,7 @@ namespace PequeInnovaAPI.Migrations
 
                     b.Property<bool>("Status");
 
-                    b.Property<string>("Title")
-                        .IsRequired();
+                    b.Property<string>("Title");
 
                     b.Property<string>("TrueAnswer")
                         .IsRequired();
