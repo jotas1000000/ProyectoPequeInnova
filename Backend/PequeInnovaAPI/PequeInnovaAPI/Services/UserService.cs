@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using PequeInnovaAPI.Data;
+using PequeInnovaAPI.Data.Entity;
+using PequeInnovaAPI.Data.Repository;
+using PequeInnovaAPI.Models;
 using PequeInnovaAPI.Models.Auth;
 using PequeInnovaAPI.Models.ModelsRequests;
 using System;
@@ -27,16 +31,29 @@ namespace PequeInnovaAPI.Services
         private RoleManager<IdentityRole> RoleManager;
         private ApiDbContext dbcontext;
         private IConfiguration configuration;
+        private IPequeInnovaRepository repository;
+        private IMapper mapper;
 
         
         public UserService(UserManager<ApplicationUser> UserManager, RoleManager<IdentityRole> RoleManager, IConfiguration configuration,
-            ApiDbContext Dbcontext)
+            ApiDbContext Dbcontext, IPequeInnovaRepository repository, IMapper mapper)
         {
             this.UserManager = UserManager;
             this.RoleManager = RoleManager;
             this.configuration = configuration;
             this.dbcontext = Dbcontext;
+            this.repository = repository;
+            this.mapper = mapper;
         }
+
+        public async Task<bool> approveInscription(int inscriptionId)
+        {
+            //Validar Inscription
+            await repository.approveInscription(inscriptionId);
+            await repository.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<UserManagerResponse> CreateRoleAsync(CreateRoleViewModel model)
         {
             var identityRole = new IdentityRole()
@@ -142,12 +159,58 @@ namespace PequeInnovaAPI.Services
             return false;
         }
 
+        public async Task<bool> deleteAssginment(int id)
+        {
+            await repository.deleteAssginment(id);
+            await repository.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> deleteComment(string userId, int commentId)
+        {
+            await repository.deleteComment(userId, commentId);
+            await repository.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> deleteInscription(int id)
+        {
+            //Validar Inscription
+            await repository.deleteInscription(id);
+            await repository.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> deleteUser(string userId)
+        {
+            //falta validar existencia de User
+            await repository.deleteUser(userId);
+            await repository.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<IEnumerable<AssignmentRequestModel>> GetAssignments()
+        {
+            return await repository.GetAssignments();
+        }
+
+        public async Task<IEnumerable<InscriptionRequestModel>> GetInscriptions()
+        {
+            var inscriptionsEntity = await repository.GetInscriptions();
+            return inscriptionsEntity;
+        }
+
+        public async Task<IEnumerable<GetStudentsModel>> getStudents()
+        {
+            return await repository.getStudents();
+         }
+
         public async Task<List<GetTeachersModel>> GetTeachers()
         {
             var query = await (from u in dbcontext.Users
                                join ur in dbcontext.UserRoles on u.Id equals ur.UserId
                                join r in dbcontext.Roles on ur.RoleId equals r.Id
-                               where r.NormalizedName == "PROFESOR"
+                               where r.NormalizedName == "PROFESOR" && u.Status == true
                                select new GetTeachersModel
                                {
                                    Id = u.Id,
@@ -177,7 +240,7 @@ namespace PequeInnovaAPI.Services
             var query = await (from u in dbcontext.Users
                                join ur in dbcontext.UserRoles on u.Id equals ur.UserId
                                join r in dbcontext.Roles on ur.RoleId equals r.Id
-                              // where u.Id==id
+                               where u.Status == true
                                select new GetUsersRoles
                                {
                                    Id = u.Id,
@@ -275,6 +338,49 @@ namespace PequeInnovaAPI.Services
                 Token = tokenAsString
             };
 
+        }
+
+        public async Task<bool> postAssignment(AssignmentModel assignment)
+        {
+            await repository.ValidateArea(assignment.AreaId);
+            //falta validar existencia de teacher
+            assignment.Id = null;
+            assignment.CreateDate = DateTime.Now;
+            assignment.UpdateDate = DateTime.Now;
+            assignment.State = true;
+            assignment.Status = true;
+            var assignmentEntity = mapper.Map<AssignmentEntity>(assignment);
+            repository.postAssignment(assignmentEntity);
+            await repository.SaveChangesAsync();
+            return true;
+
+        }
+
+        public async Task<CommentModel> postComment(CommentModel comment)
+        {
+            comment.Id = null;
+            comment.CommentDate = DateTime.Now;
+            comment.UpdateDate = DateTime.Now;
+            comment.CreateDate = DateTime.Now;
+            comment.State = true;
+            comment.Status = true;
+            var commentEntity = mapper.Map<CommentEntity>(comment);
+            repository.postComment(commentEntity);
+            await repository.SaveChangesAsync();
+            return mapper.Map<CommentModel>(comment);
+        }
+
+        public async Task<bool> postInscription(InscriptionModel inscription)
+        {
+            inscription.Id = null;
+            inscription.State = false;
+            inscription.Status = true;
+            inscription.UpdateDate = DateTime.Now;
+            inscription.CreateDate = DateTime.Now;
+            var inscriptionEntity = mapper.Map<InscriptionEntity>(inscription);
+            repository.postInscription(inscriptionEntity);
+            await repository.SaveChangesAsync();
+            return true;
         }
 
         public async Task<UserManagerResponse> RegisterUserAsync(RegisterViewModel model)
@@ -482,6 +588,19 @@ namespace PequeInnovaAPI.Services
 
         }
 
+        public async Task<bool> updateStudent(UpdateStudent student)
+        {
+            //Validar Existencia de Student
+            await repository.updateStudent(student);
+            await repository.SaveChangesAsync();
+            return true;
+        }
 
+        public async Task<bool> updateTeacher(UpdateTeacher teacher)
+        {
+            await repository.updateTeacher(teacher);
+            await repository.SaveChangesAsync();
+            return true;
+         }
     }
 }

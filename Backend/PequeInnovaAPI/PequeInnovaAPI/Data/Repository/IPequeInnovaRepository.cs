@@ -1,4 +1,5 @@
 ﻿using PequeInnovaAPI.Data.Entity;
+using PequeInnovaAPI.Models.ModelsRequests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,27 @@ namespace PequeInnovaAPI.Data.Repository
 {
     public interface IPequeInnovaRepository
     {
+        //User
+            //Assignment
+        void postAssignment(AssignmentEntity assignment);
+        Task deleteAssginment(int id);
+        Task<IEnumerable<AssignmentRequestModel>> GetAssignments();
+            //Comments
+        void postComment(CommentEntity comment);
+        Task deleteComment(string userId, int commentId);
+            //User
+        Task deleteUser(string userId);
+        Task<IEnumerable<GetStudentsModel>> getStudents();
+        Task updateStudent(UpdateStudent student);
+        Task updateTeacher(UpdateTeacher teacher);
+        //Incription
+        Task<IEnumerable<InscriptionRequestModel>> GetInscriptions();
+        Task approveInscription(int inscriptionId);
+        void postInscription(InscriptionEntity inscription);
+        Task deleteInscription(int id);
+
+
+
         //areas
         Task<AreaEntity> GetAreaAsync(int id, bool mostrarCursos = true);
         Task<IEnumerable<AreaEntity>> GetAreas(string orderBy = "id", bool mostrarCursos = true);
@@ -47,7 +69,7 @@ namespace PequeInnovaAPI.Data.Repository
         Task UpdateLesson(LessonEntity lesson);
         Task DeleteLesson(int id);
         void UpdateStatusLesson(int lessonId);
-
+        Task<List<QuestionLessonMutedEntity>> GetQuestionsOnly(int lessonId, int courseId, int areaId);
 
         //practica
         Task<IEnumerable<PracticeEntity>> GetPractice(int sectionId);

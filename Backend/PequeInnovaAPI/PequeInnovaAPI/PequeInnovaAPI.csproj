@@ -17,8 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Migrations\20200513154054_PequeInnovaDB.cs" />
-    <Compile Include="Migrations\20200513154054_PequeInnovaDB.Designer.cs" />
     <Compile Include="Migrations\ApiDbContextModelSnapshot.cs" />
   </ItemGroup>
 

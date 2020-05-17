@@ -39,7 +39,7 @@ namespace PequeInnovaAPI.Data
 
             modelBuilder.Entity<CourseEntity>().ToTable("Courses");
             modelBuilder.Entity<CourseEntity>().HasMany(a => a.Lessons).WithOne(b => b.Course);
-            modelBuilder.Entity<CourseEntity>().HasMany(a => a.Inscriptions).WithOne().HasForeignKey(ins=>ins.CourseId).IsRequired();//Add
+            modelBuilder.Entity<CourseEntity>().HasMany(a => a.Inscriptions).WithOne(i => i.Course);//.HasForeignKey(ins=>ins.CourseId).IsRequired();//Add
             modelBuilder.Entity<CourseEntity>().HasMany(a => a.Teachings).WithOne().HasForeignKey(t => t.CourseId).IsRequired();//Add
             modelBuilder.Entity<CourseEntity>().Property(b => b.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<CourseEntity>().HasOne(b => b.Area).WithMany(a => a.Courses);
@@ -93,6 +93,7 @@ namespace PequeInnovaAPI.Data
             modelBuilder.Entity<CommentEntity>().Property(c => c.Id).ValueGeneratedOnAdd();
 
             modelBuilder.Entity<InscriptionEntity>().ToTable("Inscriptions");
+            modelBuilder.Entity<InscriptionEntity>().HasOne(i => i.Course).WithMany(c => c.Inscriptions);
             modelBuilder.Entity<InscriptionEntity>().Property(i => i.Id).ValueGeneratedOnAdd();
 
             modelBuilder.Entity<TeachingEntity>().ToTable("Teachings");

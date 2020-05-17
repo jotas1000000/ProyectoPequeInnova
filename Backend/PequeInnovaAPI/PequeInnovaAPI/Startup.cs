@@ -78,7 +78,7 @@ namespace PequeInnovaAPI
                     ValidateIssuerSigningKey = true
                 };
             });
-
+            
             services.AddAutoMapper(typeof(Startup));
             services.AddCors();
 
@@ -101,7 +101,7 @@ namespace PequeInnovaAPI
                 app.UseHsts();
             }
             app.UseAuthentication();
-            app.UseHttpsRedirection();
+            app.UseHttpsRedirection();          
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             app.UseMvc();
         }

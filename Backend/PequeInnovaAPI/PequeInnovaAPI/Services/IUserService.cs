@@ -1,4 +1,5 @@
-﻿using PequeInnovaAPI.Models.Auth;
+﻿using PequeInnovaAPI.Models;
+using PequeInnovaAPI.Models.Auth;
 using PequeInnovaAPI.Models.ModelsRequests;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,26 @@ namespace PequeInnovaAPI.Services
         Task<List<ApplicationUser>> GetUsersComments();
 
         Task<List<GetTeachersModel>> GetTeachers();
+
+        Task<IEnumerable<AssignmentRequestModel>> GetAssignments();
+        Task<bool> postAssignment(AssignmentModel assignment);
+        Task<bool> deleteAssginment(int id);
+
+        Task<CommentModel> postComment(CommentModel comment);
+        Task<bool> deleteComment(string userId, int commentId);
+
+        Task<bool> deleteUser(string userId);
+
+        Task<IEnumerable<GetStudentsModel>> getStudents();
+
+        Task<bool> updateStudent(UpdateStudent student);
+        Task<bool> updateTeacher(UpdateTeacher teacher);
+        
+        //Inscriptions
+        Task<IEnumerable<InscriptionRequestModel>> GetInscriptions();
+        Task<bool> approveInscription(int inscriptionId);
+        Task<bool> postInscription(InscriptionModel inscription);
+        Task<bool> deleteInscription(int id);
 
     }
 }
