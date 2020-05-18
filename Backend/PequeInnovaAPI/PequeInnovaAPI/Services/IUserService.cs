@@ -13,6 +13,8 @@ namespace PequeInnovaAPI.Services
         Task<UserManagerResponse> RegisterUserAsync(RegisterViewModel model);
         Task<UserManagerResponse> RegisterUserStudentAsync(RegisterStudentModel model);
         Task<UserManagerResponse> RegisterUserTeacherAsync(RegisterTeacherModel model);
+        Task<UserManagerResponse> RegisterUserAdminAsync(RegisterViewModel model);
+
 
         Task<UserManagerResponse> CreateRoleAsync(CreateRoleViewModel model);
 

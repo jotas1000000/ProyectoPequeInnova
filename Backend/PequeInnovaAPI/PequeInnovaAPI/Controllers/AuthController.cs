@@ -67,6 +67,22 @@ namespace PequeInnovaAPI.Controllers
             return BadRequest("No se pudo registrar. Algo estuvo mal!");
         }
 
+        [HttpPost("UserAdmin")]
+        public async Task<IActionResult> CreateUserAdminAsync([FromBody] RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var Result = await Service.RegisterUserAdminAsync(model);
+                if (Result.IsSuccess)
+                {
+                    return Ok(Result);
+                }
+                return BadRequest(Result);
+
+            }
+            return BadRequest("No se pudo registrar. Algo estuvo mal!");
+        }
+
         [HttpPost("Role")]
         public async Task<IActionResult> CreateRoleAsync([FromBody] CreateRoleViewModel model)
         {

@@ -25,7 +25,13 @@ namespace PequeInnovaAPI.Models.Auth
         [StringLength(50, MinimumLength = 5)]
         public string ConfirmPassword { get; set; }
 
+        [Required]
+        [StringLength(50, MinimumLength = 1)]
+        public string Name { get; set; }
 
+        [Required]
+        [StringLength(50, MinimumLength = 1)]
+        public string LastName { get; set; }
 
     }
 }

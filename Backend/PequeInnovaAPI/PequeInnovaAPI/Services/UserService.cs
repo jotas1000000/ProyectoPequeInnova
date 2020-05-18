@@ -383,6 +383,93 @@ namespace PequeInnovaAPI.Services
             return true;
         }
 
+        public async Task<UserManagerResponse> RegisterUserAdminAsync(RegisterViewModel model)
+        {
+            if (model == null)
+            {
+                throw new NullReferenceException("No se enviaron datos");
+            }
+            if (model.Password != model.ConfirmPassword)
+            {
+                return new UserManagerResponse()
+                {
+                    Message = "Las contraseñas no coinciden",
+                    IsSuccess = false
+                };
+            }
+            var q = await UserManager.Users.Select(c => c.Id).AsNoTracking().ToListAsync();
+            if (q.Count != 0)
+            {
+                if (await UserManager.FindByEmailAsync(model.Email) != null)
+                {
+                    return new UserManagerResponse()
+                    {
+                        Message = "Ya hay un usuario registrado con ese Email",
+                        IsSuccess = false
+                    };
+                }
+            }
+            var applicationUser = new ApplicationUser
+            {
+                Name = model.Name,
+                LastName = model.LastName,
+                UserName = model.UserName,
+                //Birthday = model.Birthday,
+                //School = model.School,
+                //Grade = model.Grade,
+                //Age = model.Age,
+                Email = model.Email,
+                Uid = "123",
+                State = true,
+                Status = true,
+                UpdateDate = DateTime.Now,
+                CreateDate = DateTime.Now
+            };
+            /*   if (q.Count==0)
+               {
+                   applicationUser.Id = "";
+                   dbcontext.Users.Add(applicationUser);
+               }*/
+            var result = await UserManager.CreateAsync(applicationUser, model.Password);
+
+            if (result.Succeeded)
+            {
+                List<AuxiliarClass> query = await(from u in dbcontext.Users
+                                                  where u.Email == applicationUser.Email &&
+                                                        u.Name == applicationUser.Name
+                                                  select new AuxiliarClass
+                                                  {
+                                                      aux1 = u.Id
+                                                  }).AsNoTracking().ToListAsync();
+
+                bool resp = await CreateUserRoleAsync(query.FirstOrDefault().aux1, "administrador");
+
+                if (!resp)
+                {
+                    return new UserManagerResponse()
+                    {
+                        Message = "Algo salio mal, no se pudo asignar el rol de estudiante. Pero el Usuario se pudo crear.",
+                        IsSuccess = true
+                    };
+                }
+                else
+                {
+                    return new UserManagerResponse()
+                    {
+                        Message = "Usuario creado correctamente!",
+                        IsSuccess = true
+                    };
+                }
+            }
+
+            return new UserManagerResponse()
+            {
+                Message = "El usuario no pudo ser creado",
+                IsSuccess = false,
+                Errors = result.Errors.Select(e => e.Description)
+            };
+        }
+
         public async Task<UserManagerResponse> RegisterUserAsync(RegisterViewModel model)
         {
             if (model==null)

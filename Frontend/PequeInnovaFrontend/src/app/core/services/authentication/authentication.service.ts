@@ -29,6 +29,11 @@ export class AuthenticationService {
      return false;
    }
 
+   public get getRoleUser(): string {
+    //console.log(this.currentUserSubject.value);
+    return this.currentUserSubject.value.role;
+  }
+
    login(Email: string, Password: string) {
      return this.http.post<User>(`${environment.apiUrl}/Auth/Login`,{Email,Password})
      .pipe(map(user => {
