@@ -130,7 +130,7 @@ namespace PequeInnovaAPI.Controllers
         }
 
         [HttpGet("{lessonId:int}/Questions")]
-        public async Task<ActionResult<LessonModel>> GetQuestionLesson(int courseId, int lessonId, int areaId, bool showComments = false, bool showQuestions = false)
+        public async Task<IActionResult> GetQuestionLesson(int courseId, int lessonId, int areaId, bool showComments = false, bool showQuestions = false)
         {
             try
             {

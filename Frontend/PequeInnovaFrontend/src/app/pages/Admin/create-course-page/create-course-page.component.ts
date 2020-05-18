@@ -653,7 +653,7 @@ export class CreateCoursePageComponent implements OnInit {
     }
   }
   Validate(){
-    if (this.course.name === '' || this.course.description === ''){
+    if (this.course.name === '' || this.course.description === '' || this.course.image === ''){
       this.StateRequest = 'Agrege datos al curso';
       this.StateProcesing = 'Datos Faltantes';
     } else if (this.course.lessons.length === 0){
