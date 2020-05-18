@@ -20,7 +20,7 @@
     <h1 class="h1-reponsive text-uppercase font-weight-bold mb-0 pt-md-0 pt-0">
       <strong><mdb-icon fas size= "lg" icon="check" class="pr-2"></mdb-icon>{{lesson.title}} </strong></h1>
     <hr class="hr-black my-4">
-    <h5 class="text-uppercase mb-4 black-text "><strong>{{lesson.description}}</strong></h5>
+    <h2 class="text-uppercase mb-4 black-text "><strong>{{lesson.description}}</strong></h2>
    
   </div>
 
@@ -41,27 +41,17 @@
               <div class="media-body text-center text-md-left ml-md-3 ml-0">
 
                   <h3>{{question.question}}</h3>
-                  
-                  <div class="custom-control custom-radio">
-                          <input type="radio" class="custom-control-input" id="defaultUnchecked{{question.id}}" name="defaultExampleRadios{{question.id}}" checked mdbInput>
-                          <label class="custom-control-label" for="defaultUnchecked{{question.id}}"><h5>{{question.trueAnswer}}</h5></label>
-                  </div>
-                      
-                  <div class="custom-control custom-radio">
-                          <input type="radio" class="custom-control-input" id="defaultChecked{{question.id}}" name="defaultExampleRadios{{question.id}}" checked mdbInput>
-                          <label class="custom-control-label" for="defaultChecked{{question.id}}"><h5>{{question.falseAnswer1}}</h5></label>
-                  </div>
 
-                  <div class="custom-control custom-radio">
-                          <input type="radio" class="custom-control-input" id="defaultUnchecked2{{question.id}}" name="defaultExampleRadios{{question.id}}" checked mdbInput>
-                          <label class="custom-control-label" for="defaultUnchecked2{{question.id}}"><h5>{{question.falseAnswer2}}</h5></label>
-                  </div>
-                
-                  <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="defaultUnchecked2{{question.id}}" name="defaultExampleRadios{{question.id}}" checked mdbInput>
-                    <label class="custom-control-label" for="defaultUnchecked2{{question.id}}"><h5>{{question.falseAnswer3}}</h5></label>
-                  </div>
-                    
+                  <ng-container *ngFor = "let answer of answers, index as i">
+                    <div *ngIf ="question.question == answer.question  ">
+                      <ng-container *ngFor = "let answer2 of answers[i].answers | shuffle, index as j">
+                        <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="defaultUnchecked{{answers[i].question}}{{answer2.item1}}" name="{{answers[i].question}}"  mdbInput>
+                                <label class="custom-control-label" for="defaultUnchecked{{answers[i].question}}{{answer2.item1}}"><h5>{{answer2.item1}}</h5></label>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </ng-container>
                 
               </div>
             </div>
@@ -72,7 +62,7 @@
       <!--/.Panel-->
   
       <div class = "d-flex justify-content-center">
-        <a mdbBtn position="text-center" color="default" mdbWavesEffect routerLink="/test">Terminar</a>
+        <a mdbBtn position="text-center" color="default" mdbWavesEffect routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons"><mdb-icon fas size= "lg" icon="check" class="pr-1"></mdb-icon>Terminar</a>
       </div>
     </div>
     

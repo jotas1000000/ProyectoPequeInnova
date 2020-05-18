@@ -28,7 +28,7 @@
     <h1 class="h1-reponsive text-uppercase font-weight-bold mb-0 pt-md-0 pt-0">
       <strong><mdb-icon fas size= "lg" icon="pen" class="pr-2"></mdb-icon>{{courseName}}</strong></h1>
     <hr class="hr-black my-4">
-    <h5 class="text-uppercase mb-4 black-text "><strong>{{courseDescription}}</strong></h5>
+    <h2 class="text-uppercase mb-4 black-text "><strong>{{courseDescription}}</strong></h2>
     
    
   </div>
@@ -39,7 +39,7 @@
   <div class="row">
       
     <ng-container *ngFor="let lesson of lessons | searchLesson: searchText, index as i ">
-      <ng-container *ngIf="i == 1 ">
+      <ng-container *ngIf="i == 0 && (lesson.type == 'Lesson' || lesson.type == 'lesson')">
     <!-- Grid column -->
     <div class="col-lg-6 ">
      
@@ -57,12 +57,14 @@
         </div>
 
         <!-- Excerpt -->
-        <h5 class="font-weight-bold dark-grey-text mb-3 text-center">
-              <a>{{lesson.title}}</a>
-            </h5>
+        <h4 class="font-weight-bold dark-grey-text mb-3 text-center">
+              {{lesson.title}}
+            </h4>
        <p class="font-weight-bold dark-grey-text">
         <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4 text-center">
-          {{lesson.description}}</p>
+          {{lesson.description}}
+         
+        </p>
 
       </div>
       
@@ -80,7 +82,7 @@
     <div class="col-lg-6 ">
 
       <ng-container *ngFor="let lesson of lessons| searchLesson: searchText, index as i">
-      <ng-container *ngIf="i > 1 ">
+      <ng-container *ngIf="i > 0 && (lesson.type == 'Lesson' || lesson.type == 'lesson')">
       <!-- Small news -->
       <div class="single-news mb-4">
 
@@ -113,14 +115,15 @@
                       <a>{{lesson.title}}</a>
                   </h5>
                  
-                <a  class="dark-grey-text">{{lesson.description}}</a>
+                <a  class="dark-grey-text text-center">{{lesson.description}}</a>
               </div>
-              <a>
+              <a routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lesson.id}}/theoretical" >
                       <i class="fas fa-angle-double-right"></i>
               </a>
             </div>
             <div class = "d-flex justify-content-center">
-              <a mdbBtn  size="sm" color="default" mdbWavesEffect  routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lesson.id}}/theoretical">Ver Leccion</a>
+              <a mdbBtn  size="sm" color="default" mdbWavesEffect  routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lesson.id}}/theoretical">
+                <mdb-icon fas icon="video" class="pr-1"></mdb-icon>Ver Leccion</a>
             </div>
           </div>
           <!-- Grid column -->
@@ -129,6 +132,7 @@
         <!-- Grid row -->
 
       </div>
+      <!-- Button Ver Mas -->
       <ng-container *ngIf="i > 3">
         <div class = "d-flex justify-content-center">
           <a mdbBtn  color="default" mdbWavesEffect  routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons/1/practice">Ver Mas</a>
@@ -141,15 +145,18 @@
     </div>
    
   </div>
+  <div class = "background-container">
   <ng-container *ngFor="let lesson of lessons, index as i">
-    <ng-container *ngIf ="i == 0 ">
+    <ng-container *ngIf ="i == lessons.length-1">
     <hr class="my-4">
+    <!-- Button Realizae Prueba -->
     <div class = "d-flex justify-content-center">
       <a mdbBtn  color="default" mdbWavesEffect  routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lesson.id}}/practice">Realizar Prueba</a>
       <!--Grid column-->
     </div>
     </ng-container>
   </ng-container>
+</div>
   <!-- Grid row -->
 </section>
 

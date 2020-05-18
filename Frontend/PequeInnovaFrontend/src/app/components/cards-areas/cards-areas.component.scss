@@ -1,18 +1,21 @@
 .background-container{
-    background-image: url(src/assets/images/background/background2.jpg);
+     background-image: url(src/assets/images/background/background2.jpg); 
+ 
     background-attachment: fixed;
     background-position: center;
 }
 
 h1 {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-size: 300%;
-    letter-spacing: 5px;
+    letter-spacing: 2px;
   }
   h2{
-    letter-spacing: 2px;
+    font-family: "Comic Sans MS", cursive, sans-serif;
     font-size: 180%;
   }
   h4{
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-size: 180%;
   }
 

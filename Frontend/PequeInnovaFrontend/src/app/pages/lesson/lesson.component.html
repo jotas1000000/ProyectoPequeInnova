@@ -26,7 +26,9 @@
     <hr class="hr-black my-4">
     <h5 class="text-uppercase mb-4 black-text "><strong>{{lesson.description}} </strong></h5>
   </div>
- 
+
+  <div class = "background-container">
+  <hr class="my-4">
 <div class="media">
 
 
@@ -37,7 +39,7 @@
       <div class="media d-block d-md-flex">
         
           <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item"   [src]='sanitizer.bypassSecurityTrustResourceUrl(lesson.urlVideo)' allowfullscreen ></iframe>
+            <iframe class="embed-responsive-item"   [src]='sanitizer.bypassSecurityTrustResourceUrl(lesson.urlVideo)' allowfullscreen="allowfullscreen" ></iframe>
           </div>
         <img src="" alt="">
       </div>
@@ -46,15 +48,16 @@
         <div *ngIf="i != 0">
            <a mdbBtn size="md" color="default" class="  waves-light" mdbWavesEffect   routerLink = "/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lessons[i-1].id}}/theoretical"> <mdb-icon fas icon="angle-double-left" class="pr-1"></mdb-icon>Anterior</a>
          
-      </div> 
-        <div *ngIf ="i != lessons.length-1">
+        </div> 
+        
+        <div *ngIf ="i != lessons.length-2">
         <a mdbBtn size="md" color="default" class="  waves-light" mdbWavesEffect   routerLink = "/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lessons[i+1].id}}/theoretical" > <mdb-icon fas icon="angle-double-right" class="pr-1"></mdb-icon>Siguiente</a>
-        
-      
-       
-       
-        
-      </div>
+        </div>
+        <div *ngIf ="i == lessons.length-2">
+          <a mdbBtn size="md" color="default" class="  waves-light" mdbWavesEffect   routerLink = "/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lessons[i+1].id}}/practice" > <mdb-icon fas icon="angle-double-right" class="pr-1"></mdb-icon>Realizar Prueba</a>
+        </div>
+
+
       </div>
     
     </div>
@@ -84,13 +87,17 @@
           </div>
       
         </ng-container>
+        <div class="form-group basic-textarea rounded-corners mb-md-0 mb-4">
+          <textarea class="form-control z-depth-1" id="exampleFormControlTextarea3" rows="3" placeholder="Write your comment..."></textarea>
+        </div>
       </div>
     
     
     </div>
     <!-- FIN comentarios -->
     </div>
+  </div>
    </ng-container> 
- 
+   
   </ng-container>
 </section>

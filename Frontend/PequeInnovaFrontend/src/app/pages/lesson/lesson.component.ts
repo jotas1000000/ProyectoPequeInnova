@@ -106,7 +106,7 @@ export class LessonComponent implements OnInit {
       .subscribe(data => {
         this.courses = data;
         for (const course of data) {
-          if (course.id == this.areaId) {
+          if (course.id == this.courseId) {
             this.courseName = course.name;
             break;
           }
@@ -127,6 +127,7 @@ export class LessonComponent implements OnInit {
           }
         });
   }
+  
   comments = [
     {
       user: 'Pepito Perez',
