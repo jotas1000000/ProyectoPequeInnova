@@ -34,7 +34,7 @@ export class NavigationBarComponent implements OnInit {
     this.user = this.authenticationService.currentUserValue;
     if (this.user){
       this.nameUserCurrent= this.user.name + ' ' +this.user.lastName;
-      console.log(this.user);
+      //alert(this.user.id);
       //if (this.authenticationService.getRoleUser === 'administrador') {
         //console.log(this.authenticationService.getRoleUser);
         //this.router.navigate(['./mainAdmin']);

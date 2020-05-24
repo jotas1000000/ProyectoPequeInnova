@@ -141,8 +141,25 @@ namespace PequeInnovaAPI.Controllers
                 throw;
             }
         }
-        [HttpDelete("{courseId:int}/status")]
-        public async Task<ActionResult<bool>> DeleteCourse(int courseId)
+        [HttpGet("{courseId:int}/EditCourse")]
+        public async Task<ActionResult<CourseModel>> getCoursefotEdit(int areaID, int courseId)
+        {
+            try
+            {
+                var course = await courseService.GetCourserforEdit(areaID, courseId);
+                return Ok(course);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        [HttpPut("{courseId:int}/status")]
+        public async Task<ActionResult<bool>> DeleteCourse(int courseId, [FromBody] CourseModel course)
         {
             try
             {
@@ -178,7 +195,7 @@ namespace PequeInnovaAPI.Controllers
             }
             catch
             {
-                throw new Exception("Not possible to show");
+                throw new Exception("Algo salio mal en el proceso");
             }
         }
     }

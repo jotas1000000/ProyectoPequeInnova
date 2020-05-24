@@ -15,7 +15,7 @@ namespace PequeInnovaAPI.Models
         public int LessonId { get; set; }
         public string Description { get; set; }
         public DateTime? CommentDate { get; set; }
-
+        public string UserName { get; set; }
         // [Required]
         public string Uid { get; set; }
         //   [Required]

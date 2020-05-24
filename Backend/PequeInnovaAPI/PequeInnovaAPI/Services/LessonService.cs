@@ -131,5 +131,15 @@ namespace PequeInnovaAPI.Services
             var questionsModel = mapper.Map<List<QuestionLessonMutedModel>>(res);
             return questionsModel;
         }
+
+        public async Task<LessonModel> UpdateLessonAsync(int courseId, int id, LessonModel lesson)
+        {
+            await validateCourse(courseId);
+            lesson.Id = id;
+            var lessonEntity = mapper.Map<LessonEntity>(lesson);
+            await repository.UpdateLessonAsync(courseId, id, lessonEntity);
+            await repository.SaveChangesAsync();
+            return mapper.Map<LessonModel>(lessonEntity);
+        }
     }
 }

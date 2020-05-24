@@ -334,7 +334,7 @@ namespace PequeInnovaAPI.Services
                 Name = user.Name,
                 LastName = user.LastName,
                 Role = roles.FirstOrDefault(),
-                Password = user.PasswordHash,
+                Id = user.Id,
                 Token = tokenAsString
             };
 
@@ -367,7 +367,7 @@ namespace PequeInnovaAPI.Services
             var commentEntity = mapper.Map<CommentEntity>(comment);
             repository.postComment(commentEntity);
             await repository.SaveChangesAsync();
-            return mapper.Map<CommentModel>(comment);
+            return mapper.Map<CommentModel>(commentEntity);
         }
 
         public async Task<bool> postInscription(InscriptionModel inscription)

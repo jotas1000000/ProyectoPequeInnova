@@ -10,21 +10,23 @@
     </div>
 
     <div class="container-deck" *ngIf="courseCards">
-      <div class="one-card" *ngFor="let cardone of courseCards">
+      <div class="one-card" *ngFor="let course of courseCards">
         <mdb-card >
-          <mdb-card-img [src]="cardone.image" alt="Card image cap"></mdb-card-img>
+          <mdb-card-img [src]="course.image" alt="Card image cap"></mdb-card-img>
           <mdb-card-body>
         
             <mdb-card-title>
-              <h4>{{cardone.name}}</h4>
+              <h4>{{course.name}}</h4>
             </mdb-card-title>
         
             <mdb-card-text> 
-              {{cardone.description}}
+              {{course.description}}
             </mdb-card-text>
         
-            <a routerLink="/areas/{{areaId}}/courses/{{cardone.id}}/lessons" mdbBtn color="primary" mdbWavesEffect>Ver Curso</a>
-            <a href="adsasd" mdbBtn color="primary" mdbWavesEffect>Editar Curso</a>
+            <a routerLink="/areas/{{areaId}}/courses/{{course.id}}/lessons" mdbBtn color="primary" mdbWavesEffect>Ver Curso</a>
+            <a routerLink="/mainAdmin/areaControl/{{areaId}}/courseControl/{{course.id}}/editCourse" mdbBtn color="primary" mdbWavesEffect>Editar Curso</a>
+            <a mdbBtn color="danger" (click)="DeleteCourse(course)" mdbWavesEffect>Eliminar Curso</a>
+
           </mdb-card-body>
         </mdb-card>         
       </div>
