@@ -21,17 +21,23 @@ export class CoursesComponent implements OnInit {
 
   public searchText: string;
 
-
+  
   // Route vars
   areaId: number;
   // Area vars
   areaName: string;
   areaDescription : string;
+  
+  // vars
+  elements: number;  
+  totalCourses: number;
 
   ngOnInit(): void {
     this.setRouteVariables();
     this.setCoursesData();
     this.setAreaData();
+
+    this.elements = 3;
   }
 
   private setRouteVariables(): void {
@@ -42,7 +48,11 @@ export class CoursesComponent implements OnInit {
 
   private setCoursesData(): void {
     this.coursesServices.getCourseList(this.areaId)
-      .subscribe(data => this.courses = data);
+      .subscribe(data => {
+        this.courses = data;
+        this.totalCourses = data.length
+      });
+     
   }
 
   private setAreaData(): void {
@@ -58,4 +68,10 @@ export class CoursesComponent implements OnInit {
           }
         });
   }
+
+
+  seeMore():void{
+    this.elements = this.elements + 3;
+  }
+
 }
