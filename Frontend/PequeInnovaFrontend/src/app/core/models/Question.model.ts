@@ -1,8 +1,11 @@
 export interface Question{
     id: number;
-    Question: string;
-    trueanswer: string;
-    falseanswer1: string;
-    falseanswer2: string;
-    falseanswer3: string;
+    question: string;
+    trueAnswer: string;
+    falseAnswer1: string;
+    falseAnswer2: string;
+    falseAnswer3: string;
+    status: boolean;
+    state: boolean;
+    uid: string;
 }

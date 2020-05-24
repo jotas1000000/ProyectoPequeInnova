@@ -1,28 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterStatusPipe } from './../../../Pipes/pipeFilter/filter-status.pipe';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {FormControl} from '@angular/forms';
-import {Question} from './../../../core/models/Question.model';
-import {Course} from './../../../core/models/Course.model';
-import {LessonN} from './../../../core/models/LessonN.model';
-import {CourseService} from './../../../core/services/course/course.service';
-import {LessonService} from './../../../core/services/lesson/lesson.service';
-import {QuestionService} from './../../../core/services/question/question.service';
-import {ResponseId} from './../../../core/models/ResponseId.model';
+import { FormControl } from '@angular/forms';
+import { Question } from './../../../core/models/Question.model';
+import { Course } from './../../../core/models/Course.model';
+import { LessonN } from './../../../core/models/LessonN.model';
+import { CourseService } from './../../../core/services/course/course.service';
+import { LessonService } from './../../../core/services/lesson/lesson.service';
+import { QuestionService } from './../../../core/services/question/question.service';
+import { ResponseId } from './../../../core/models/ResponseId.model';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { Lesson } from 'src/app/models/Lesson';
-//import {DOCUMENT} from '@angular/common';
-
 @Component({
-  selector: 'app-create-course-page',
-  templateUrl: './create-course-page.component.html',
-  styleUrls: ['./create-course-page.component.scss']
+  selector: 'app-edit-course',
+  templateUrl: './edit-course.component.html',
+  styleUrls: ['./edit-course.component.scss']
 })
-export class CreateCoursePageComponent implements OnInit {
+export class EditCourseComponent implements OnInit {
 
   form: FormGroup;
-
+  sssss = true;
   ColorEditable: any = 'white';
   colorw: any = 'white';
   ColorformQ: any = 'white';
@@ -45,21 +42,21 @@ export class CreateCoursePageComponent implements OnInit {
   StateProcesing: string = '';
 
   StateRequestBoolean: boolean = false;
-  
 
-  get stateSleep(): boolean{
+
+  get stateSleep(): boolean {
     return this.StateSleep;
   }
 
-  get stateAdd(): boolean{
+  get stateAdd(): boolean {
     return this.stateAdd;
   }
 
-  get stateEdit(): boolean{
+  get stateEdit(): boolean {
     return this.stateEdit;
   }
 
-  get questionAdd(): boolean{
+  get questionAdd(): boolean {
     return this.QuestionAdd;
   }
 
@@ -76,43 +73,7 @@ export class CreateCoursePageComponent implements OnInit {
     areaId: 1,
     inscriptions: null,
     teachings: null,
-    lessons: [/*
-      {
-        id: 2,
-        title: 'Conociendo las constantes',
-        document: 'Aqui',
-        urlVideo: 'http//algo.com',
-        description: 'En esta leccion avanzaremos sobre las constantes',
-        type: 'lesson',
-        order: 0,
-        uid: '123',
-        state: true,
-        status: true,
-        updateDate: '1988-10-10T00:00:00',
-        createDate: '1988-10-10T00:00:00',
-        courseId: 1,
-        comments: [],
-        questions: []
-      },
-      {
-        id: 3,
-        title: 'Conociendo las variables',
-        document: 'Aqui',
-        urlVideo: 'http//algo.com',
-        description: 'En esta leccion avanzaremos sobre las variables',
-        type: 'lesson',
-        order: 1,
-        uid: '123',
-        state: true,
-        status: true,
-        updateDate: '1988-10-10T00:00:00',
-        createDate: '1988-10-10T00:00:00',
-        courseId: 1,
-        comments: [],
-        questions: []
-      }
-*/
-    ]
+    lessons: []
   };
 
   titleLesson: string;
@@ -127,31 +88,38 @@ export class CreateCoursePageComponent implements OnInit {
   DescriptionComparative: string;
   editFieldComparative: string;
 
-  Question: string ;
-  trueanswer: string ;
-  falseanswer1: string ;
-  falseanswer2: string ;
-  falseanswer3: string ;
+  Question: string;
+  trueanswer: string;
+  falseanswer1: string;
+  falseanswer2: string;
+  falseanswer3: string;
 
-  QuestionCompare: string ;
-  trueanswerCompare: string ;
-  falseanswer1Compare: string ;
-  falseanswer2Compare: string ;
-  falseanswer3Compare: string ;
+  QuestionCompare: string;
+  trueanswerCompare: string;
+  falseanswer1Compare: string;
+  falseanswer2Compare: string;
+  falseanswer3Compare: string;
 
   lessonAux: LessonN;
 
   remove(value: LessonN) {
 
     const pos = this.course.lessons.indexOf(value);
-    this.course.lessons[pos].status = false;
-    this.course.lessons.splice(pos, 1);
-
+    if (this.course.lessons[pos].id === 0) {
+      this.course.lessons.splice(pos, 1);
+    }else {
+      this.course.lessons[pos].status = false;
+    }
     this.questions = null;
     this.questionAux = null;
     this.functionCleanAllInputs();
   }
 
+  Restore(value: LessonN) {
+    const pos = this.course.lessons.indexOf(value);
+    this.course.lessons[pos].status = true;
+    this.functionCleanAllInputs();
+  }
   addLessonVideo() {
 
     this.questionAux = null;
@@ -164,7 +132,7 @@ export class CreateCoursePageComponent implements OnInit {
     this.typePractice = false;
 
     this.QuestionAdd = false;
-    this.QuestionEdit  = false;
+    this.QuestionEdit = false;
 
     this.ColorEditable = 'rgb(198,216,29,0.6)';
     this.ColorformQContainer = 'white';
@@ -172,7 +140,7 @@ export class CreateCoursePageComponent implements OnInit {
     this.functionCleanAllInputs();
   }
 
-  addPractice(){
+  addPractice() {
     this.functionCleanAllInputs();
     this.questions = null;
     this.questionAux = null;
@@ -187,11 +155,11 @@ export class CreateCoursePageComponent implements OnInit {
     this.typePractice = true;
 
     this.QuestionAdd = false;
-    this.QuestionEdit  = false;
+    this.QuestionEdit = false;
   }
 
-  AddQuestion(){
-    if (this.questions == null){
+  AddQuestion() {
+    if (this.questions == null) {
       this.questions = [];
     }
     this.ColorformQ = 'rgb(198,216,29,0.6)';
@@ -199,21 +167,20 @@ export class CreateCoursePageComponent implements OnInit {
     this.QuestionEdit = false;
   }
 
-  FunctionShow(value: LessonN){
+  FunctionShow(value: LessonN) {
     this.functionCleanAllInputs();
-    if (this.StateAdd !== true){
+    if (this.StateAdd !== true) {
 
       this.StateAdd = false;
       this.StateEdit = true;
       this.StateSleep = false;
 
-      if (value.type === 'lesson')
-      {
+      if (value.type === 'lesson') {
         this.typeLesson = true;
         this.typePractice = false;
 
         this.QuestionAdd = false;
-        this.QuestionEdit  = false;
+        this.QuestionEdit = false;
 
         this.ColorformQContainer = 'white';
         this.ColorEditable = 'rgba(130,177,255,0.6)';
@@ -231,15 +198,19 @@ export class CreateCoursePageComponent implements OnInit {
         this.questions = null;
         this.questionAux = null;
 
-      }else if (value.type === 'practice')
-      {
+      } else if (value.type === 'practice') {
         this.ColorformQContainer = 'rgba(130,177,255,0.6)';
+        console.log(value);
+        console.log(value.questions);
+
         this.questions = value.questions;
+        console.log(this.questions);
+
         this.typeLesson = false;
         this.typePractice = true;
 
         this.QuestionAdd = false;
-        this.QuestionEdit  = false;
+        this.QuestionEdit = false;
 
         this.ColorEditable = 'white';
       }
@@ -250,7 +221,7 @@ export class CreateCoursePageComponent implements OnInit {
   }
 
 
-  functionShowQuestion(value: Question){
+  functionShowQuestion(value: Question) {
 
     this.questionAux = value;
     this.QuestionAdd = false;
@@ -272,7 +243,7 @@ export class CreateCoursePageComponent implements OnInit {
 
   }
 
-  showCourse(){
+  showCourse() {
     console.log(this.course);
   }
 
@@ -280,10 +251,10 @@ export class CreateCoursePageComponent implements OnInit {
     this.editField = event.target.textContent;
   }
 
-  FunctionButtonUp(value: LessonN){
+  FunctionButtonUp(value: LessonN) {
 
     const pos = this.course.lessons.indexOf(value);
-    if (pos > 0){
+    if (pos > 0) {
 
       const aux = this.course.lessons[pos - 1];
       const ordermenor = this.course.lessons[pos - 1].order;
@@ -291,16 +262,15 @@ export class CreateCoursePageComponent implements OnInit {
       this.course.lessons[pos - 1] = this.course.lessons[pos];
       this.course.lessons[pos - 1].order = ordermenor;
       this.course.lessons[pos] = aux;
-    }else{
+    } else {
       console.log('no pee');
     }
 
   }
-
-  FunctionButtonDown(value: LessonN){
+  FunctionButtonDown(value: LessonN) {
 
     const pos = this.course.lessons.indexOf(value);
-    if (this.course.lessons.length !== pos + 1){
+    if (this.course.lessons.length !== pos + 1) {
 
       const aux = this.course.lessons[pos + 1];
       const ordermenor = this.course.lessons[pos + 1].order;
@@ -308,58 +278,58 @@ export class CreateCoursePageComponent implements OnInit {
       this.course.lessons[pos + 1] = this.course.lessons[pos];
       this.course.lessons[pos + 1].order = ordermenor;
       this.course.lessons[pos] = aux;
-    }else{
+    } else {
       console.log('no pee');
     }
 
   }
 
 
-  AceptButtonLessonCard(){
+  AceptButtonLessonCard() {
 
-    if (this.StateEdit === true && this.typeLesson === true){
+    if (this.StateEdit === true && this.typeLesson === true) {
 
-        if (this.titleLesson !== this.titleLessonComparative ||
-            this.urlVideo !== this.urlVideoComparative ||
-            this.knowledgePrevious !== this.knowledgePreviousComparative ||
-            this.Description !== this.DescriptionComparative){
-              const pos = this.course.lessons.indexOf(this.lessonAux);
-              this.course.lessons[pos].title = this.titleLesson;
-              this.course.lessons[pos].urlVideo = this.urlVideo;
-              this.course.lessons[pos].description = this.Description;
+      if (this.titleLesson !== this.titleLessonComparative ||
+        this.urlVideo !== this.urlVideoComparative ||
+        this.knowledgePrevious !== this.knowledgePreviousComparative ||
+        this.Description !== this.DescriptionComparative) {
+        const pos = this.course.lessons.indexOf(this.lessonAux);
+        this.course.lessons[pos].title = this.titleLesson;
+        this.course.lessons[pos].urlVideo = this.urlVideo;
+        this.course.lessons[pos].description = this.Description;
 
-            }
-        this.lessonAux = null;
-        this.ColorEditable = 'white';
-
-    }else if (this.StateAdd === true && this.typeLesson === true){
-          let posLesson = 0;
-          let orderLesson = 0;
-          if (this.course.lessons.length === 0){
-            posLesson = 1;
-            orderLesson = 0;
-          }else{
-            posLesson = this.course.lessons[this.course.lessons.length - 1].id + 1;
-            orderLesson = this.course.lessons[this.course.lessons.length - 1].order + 1;
-          }
-          this.course.lessons.push({
-          id: posLesson,
-          title: this.titleLesson,
-          document: 'Aqui',
-          urlVideo: this.urlVideo,
-          description: this.Description,
-          type: 'lesson',
-          order: orderLesson,
-          uid: '123',
-          state: true,
-          status: true,
-          updateDate: '1988-10-10T00:00:00',
-          createDate: '1988-10-10T00:00:00',
-          courseId: this.course.id,
-          comments: [],
-          questions: []
-        });
       }
+      this.lessonAux = null;
+      this.ColorEditable = 'white';
+
+    } else if (this.StateAdd === true && this.typeLesson === true) {
+      let posLesson = 0;
+      let orderLesson = 0;
+      if (this.course.lessons.length === 0) {
+        posLesson = 1;
+        orderLesson = 0;
+      } else {
+        posLesson = this.course.lessons[this.course.lessons.length - 1].id + 1;
+        orderLesson = this.course.lessons[this.course.lessons.length - 1].order + 1;
+      }
+      this.course.lessons.push({
+        id: 0,
+        title: this.titleLesson,
+        document: 'Aqui',
+        urlVideo: this.urlVideo,
+        description: this.Description,
+        type: 'lesson',
+        order: orderLesson,
+        uid: '123',
+        state: true,
+        status: true,
+        updateDate: '1988-10-10T00:00:00',
+        createDate: '1988-10-10T00:00:00',
+        courseId: this.course.id,
+        comments: [],
+        questions: []
+      });
+    }
     this.ColorEditable = 'white';
 
     this.titleLesson = '';
@@ -379,7 +349,7 @@ export class CreateCoursePageComponent implements OnInit {
 
   }
 
-  CancelButtonLessonCard(){
+  CancelButtonLessonCard() {
 
     this.StateAdd = false;
     this.StateEdit = false;
@@ -389,7 +359,7 @@ export class CreateCoursePageComponent implements OnInit {
     this.typePractice = false;
 
     this.QuestionAdd = false;
-    this.QuestionEdit  = false;
+    this.QuestionEdit = false;
 
     this.ColorEditable = 'white';
     this.titleLesson = '';
@@ -402,22 +372,22 @@ export class CreateCoursePageComponent implements OnInit {
 
   }
 
-  FunctionSavePractice(){
+  FunctionSavePractice() {
     console.log(this.questions);
     let posPractice = 0;
     let orderPractice = 0;
-    if (this.typePractice === true && this.StateAdd === true){
-      if (this.course.lessons.length === 0){
+    if (this.typePractice === true && this.StateAdd === true) {
+      if (this.course.lessons.length === 0) {
         posPractice = 1;
         orderPractice = 0;
-      }else{
+      } else {
         posPractice = this.course.lessons[this.course.lessons.length - 1].id + 1;
         orderPractice = this.course.lessons[this.course.lessons.length - 1].order + 1;
       }
 
       this.course.lessons.push(
         {
-          id: posPractice,
+          id: 0,
           title: 'Examen',
           document: 'ninguno',
           urlVideo: 'ninguno',
@@ -434,7 +404,7 @@ export class CreateCoursePageComponent implements OnInit {
           questions: this.questions
         }
       );
-    }else if (this.typePractice === true && this.StateEdit === true){
+    } else if (this.typePractice === true && this.StateEdit === true) {
 
     }
 
@@ -455,7 +425,7 @@ export class CreateCoursePageComponent implements OnInit {
     this.functionCleanAllInputs();
   }
 
-  FunctionDeclinePractice(){
+  FunctionDeclinePractice() {
     this.StateSleep = true;
     this.StateEdit = false;
     this.StateAdd = false;
@@ -475,7 +445,7 @@ export class CreateCoursePageComponent implements OnInit {
     this.functionCleanAllInputs();
   }
 
-  functionCleanAllInputs(){
+  functionCleanAllInputs() {
     this.Question = '';
     this.trueanswer = '';
     this.falseanswer1 = '';
@@ -500,35 +470,17 @@ export class CreateCoursePageComponent implements OnInit {
 
   }
 
-  areaId:number;
+  areaId: number;
+  courseId: number;
 
-  ngOnInit(): void {
-    this.setRouteVariables();
-    console.log(this.areaId);
-
-    this.course.areaId=this.areaId;
-    console.log("eeeeeeeee" + this.course.areaId);
-  }
-
-
-  private setRouteVariables(): void {
-    this.activatedRoute.params.subscribe(params => {
-      this.areaId = params['areaId'];
-  
-      console.log(params);
-      console.log("AAAAAAAA" + this.areaId);
-
-    });
-  }
-  constructor( private courseService: CourseService,
-               private lessonService: LessonService,
-               private questionService: QuestionService,
-               private formBuilder: FormBuilder,
-               private router: Router,
-               private activatedRoute: ActivatedRoute
+  constructor(private courseService: CourseService,
+    private lessonService: LessonService,
+    private questionService: QuestionService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
 
   ) {
-    
     this.StateEdit = false;
     this.StateAdd = false;
     this.StateSleep = true;
@@ -536,14 +488,29 @@ export class CreateCoursePageComponent implements OnInit {
     this.typePractice = false;
     this.typeLesson = false;
     //En la linea de abajo agregar Id de la sesion activa
-    this.questionAux = { id: 0, question: '', trueAnswer: '', falseAnswer1: '', falseAnswer2: '', falseAnswer3: '', status: true, state:true, uid: '' };
+    this.questionAux = { id: 0, question: '', trueAnswer: '', falseAnswer1: '', falseAnswer2: '', falseAnswer3: '', status: true, state: true, uid: '' };
     this.QuestionAdd = false;
     this.QuestionEdit = false;
 
     this.buildForm();
-
   }
-  functionList(): Array<Question>{
+
+
+  ngOnInit(): void {
+    this.setRouteVariables();
+    this.courseService.getCourseById(this.courseId, this.areaId).subscribe(courseGet => {
+      this.course = courseGet;
+    });
+    console.clear();
+  }
+  private setRouteVariables(): void {
+    this.activatedRoute.params.subscribe(params => {
+      this.areaId = params['areaId'];
+      this.courseId = params['courseId'];
+    });
+  }
+
+  functionList(): Array<Question> {
     return this.questions;
   }
 
@@ -557,58 +524,56 @@ export class CreateCoursePageComponent implements OnInit {
     });
   }
 
+
   saveQuestion(event: Event) {
     event.preventDefault();
 
-    if(this.QuestionAdd === true && this.typePractice === true)
-    {
+    if (this.QuestionAdd === true && this.typePractice === true) {
 
       let idAdd: number;
       if (this.form.valid) {
 
-        if (this.questions.length === 0){
+        if (this.questions.length === 0) {
 
           console.log(1);
           idAdd = 1;
 
-        }else
-        {
+        } else {
           idAdd = this.questions[this.questions.length - 1].id + 1;
         }
 
         this.questions.push(
           {
-            id: idAdd,
+            id: 0,
             question: this.form.value.Question,
-            trueAnswer : this.form.value.trueanswer,
-            falseAnswer1 : this.form.value.falseanswer1,
-            falseAnswer2 : this.form.value.falseanswer2,
-            falseAnswer3 : this.form.value.falseanswer3,
-            status : true,
-            state : true,
-            //En la linea de abaojo poner Id de la session activa
-            uid : '123'
+            trueAnswer: this.form.value.trueanswer,
+            falseAnswer1: this.form.value.falseanswer1,
+            falseAnswer2: this.form.value.falseanswer2,
+            falseAnswer3: this.form.value.falseanswer3,
+            status: true,
+            state: true,
+            //En la linea de abajo ingresar Id de la sesion activa
+            uid: '123'
           }
         );
       }
 
-    }else if (this.QuestionEdit === true && this.typePractice === true)
-    {
-        if (this.Question !== this.QuestionCompare ||
-           this.trueanswer !== this.trueanswerCompare ||
-           this.falseanswer1 !== this.falseanswer1Compare ||
-           this.falseanswer2 !== this.falseanswer2Compare ||
-           this.falseanswer3 !== this.falseanswer3Compare
-          ){
-            const pos = this.questions.indexOf(this.questionAux);
-            this.questions[pos].question = this.Question;
-            this.questions[pos].trueAnswer = this.trueanswer;
-            this.questions[pos].falseAnswer1 = this.falseanswer1;
-            this.questions[pos].falseAnswer2 = this.falseanswer2;
-            this.questions[pos].falseAnswer3 = this.falseanswer3;
-        }
+    } else if (this.QuestionEdit === true && this.typePractice === true) {
+      if (this.Question !== this.QuestionCompare ||
+        this.trueanswer !== this.trueanswerCompare ||
+        this.falseanswer1 !== this.falseanswer1Compare ||
+        this.falseanswer2 !== this.falseanswer2Compare ||
+        this.falseanswer3 !== this.falseanswer3Compare
+      ) {
+        const pos = this.questions.indexOf(this.questionAux);
+        this.questions[pos].question = this.Question;
+        this.questions[pos].trueAnswer = this.trueanswer;
+        this.questions[pos].falseAnswer1 = this.falseanswer1;
+        this.questions[pos].falseAnswer2 = this.falseanswer2;
+        this.questions[pos].falseAnswer3 = this.falseanswer3;
+      }
     }
-    if (this.QuestionEdit || this.QuestionAdd){
+    if (this.QuestionEdit || this.QuestionAdd) {
 
       this.QuestionAdd = false;
       this.QuestionEdit = false;
@@ -622,7 +587,7 @@ export class CreateCoursePageComponent implements OnInit {
     }
   }
 
-  DeclineCreateQuestion(){
+  DeclineCreateQuestion() {
 
     this.QuestionAdd = false;
     this.QuestionEdit = false;
@@ -636,12 +601,27 @@ export class CreateCoursePageComponent implements OnInit {
     this.falseanswer3 = '';
   }
 
-  RemoveQuestion(value: Question){
+  RemoveQuestion(value: Question) {
     const pos = this.questions.indexOf(value);
     this.QuestionAdd = false;
     this.QuestionEdit = false;
     this.ColorformQ = 'white';
-    this.questions.splice(pos, 1);
+    if (this.questions[pos].id === 0) {
+      this.questions.splice(pos, 1);
+    }else {
+      this.questions[pos].status = false;
+    }
+    this.questionAux = null;
+    this.Question = '';
+    this.trueanswer = '';
+    this.falseanswer1 = '';
+    this.falseanswer2 = '';
+    this.falseanswer3 = '';
+
+  }
+  RestoreQuestion(value: Question) {
+    const pos = this.questions.indexOf(value);
+    this.questions[pos].status = true;
     this.questionAux = null;
     this.Question = '';
     this.trueanswer = '';
@@ -649,58 +629,91 @@ export class CreateCoursePageComponent implements OnInit {
     this.falseanswer2 = '';
     this.falseanswer3 = '';
   }
+  FunctionAceptRequest() {
 
-  FunctionAceptRequest(){
-
-    if (this.StateRequestBoolean){
+    if (this.StateRequestBoolean) {
 
       this.router.navigate(['./mainAdmin']);
     }
   }
-  Validate(){
-    if (this.course.name === '' || this.course.description === '' || this.course.image === ''){
+  Validate() {
+    if (this.course.name === '' || this.course.description === '' || this.course.image === '') {
       this.StateRequest = 'Agrege datos al curso';
       this.StateProcesing = 'Datos Faltantes';
-    } else if (this.course.lessons.length === 0){
+    } else if (this.course.lessons.length === 0) {
       this.StateRequest = 'Agrege lecciones al curso';
       this.StateProcesing = 'Datos Faltantes';
-    } else if (this.course.lessons.length > 0 && this.course.lessons[this.course.lessons.length - 1].type === 'lesson'){
+    } else if (this.course.lessons.length > 0 && this.course.lessons[this.course.lessons.length - 1].type === 'lesson') {
       this.StateRequest = 'El curso debe tener un examen final';
       this.StateProcesing = 'Datos Faltantes';
-    } else{
+    } else {
       this.StateRequest = '......';
       this.StateProcesing = 'Procesando.....';
-      console.log(this.course);
-      this.courseService.registerNewCourse(this.course).subscribe((respCourseId: ResponseId) => {
-            console.log(respCourseId.id);
+      //console.log(this.course);
 
-            this.course.lessons.forEach(Lessonelement => {
-
-                this.lessonService.registerNewLesson(Lessonelement, this.course.areaId, respCourseId.id)
-                .subscribe((respLessonId: ResponseId) => {
-                  if (Lessonelement.type === 'practice'){
-                    Lessonelement.questions.forEach(Questionelement => {
-                      this.questionService.registerNewQuestion(Questionelement, this.course.areaId, respCourseId.id, respLessonId.id)
-                      .subscribe(() => {});
+      this.courseService.updateCourse(this.course.id, this.course.areaId, this.course).subscribe((courseResponse: Course) => {
+        //setTimeout(() => {console.log(courseResponse), 8000});
+        if (courseResponse != null) {
+          this.course.lessons.forEach(LessonElement => {
+            if (LessonElement.id > 0) {
+              this.lessonService.updateLesson(this.course.id, this.course.areaId, LessonElement).subscribe( (boolResponse: Boolean) => {
+                if (boolResponse) {
+                  if (LessonElement.type === 'practice') {
+                    LessonElement.questions.forEach(QuestionElement => {
+                      if (QuestionElement.id > 0) {
+                        this.questionService.updateQuestion(LessonElement.id, this.course.id, this.course.areaId, QuestionElement)
+                        .subscribe(() => {});
+                      } else if (QuestionElement.id === 0) {
+                        this.questionService.registerNewQuestion(QuestionElement, this.course.areaId, this.course.id, LessonElement.id)
+                        .subscribe(() => {});
+                      }
                     });
                   }
+                }
               });
-
-            });
-            this.StateRequest = 'Curso Creado con Exito!!';
-            this.StateProcesing = 'Proceso finalizado.';
-            this.StateRequestBoolean = true;
+            } else if (LessonElement.id === 0){
+              this.lessonService.registerNewLesson(LessonElement, this.course.areaId, this.course.id)
+              .subscribe((respLessonId: ResponseId) => {
+                if (LessonElement.type === 'practice') {
+                  LessonElement.questions.forEach(Questionelement => {
+                    this.questionService.registerNewQuestion(Questionelement, this.course.areaId, this.course.id, respLessonId.id)
+                      .subscribe(() => { });
+                  });
+                }
+              });
+            }
+          });
+        }
+        this.StateRequest = 'Curso Editado con Exito!!';
+        this.StateProcesing = 'Proceso finalizado.';
+        this.StateRequestBoolean = true;
 
       });
+/* 
+      this.courseService.registerNewCourse(this.course).subscribe((respCourseId: ResponseId) => {
+      console.log(respCourseId.id);
 
+      this.course.lessons.forEach(Lessonelement => {
+
+        this.lessonService.registerNewLesson(Lessonelement, this.course.areaId, respCourseId.id)
+          .subscribe((respLessonId: ResponseId) => {
+            if (Lessonelement.type === 'practice') {
+              Lessonelement.questions.forEach(Questionelement => {
+                this.questionService.registerNewQuestion(Questionelement, this.course.areaId, respCourseId.id, respLessonId.id)
+                  .subscribe(() => { });
+              });
+            }
+          });
+
+      });
+      this.StateRequest = 'Curso Creado con Exito!!';
+      this.StateProcesing = 'Proceso finalizado.';
+      this.StateRequestBoolean = true;
+
+      }); 
+ */
     }
   }
 
+
 }
-
-
-//    background-color: rgba(130,177,255,0.6);
-
-//    background-color: rgb(198,216,29,0.6);
-
-//    background-color: rgba(221, 10, 28, 0.73);

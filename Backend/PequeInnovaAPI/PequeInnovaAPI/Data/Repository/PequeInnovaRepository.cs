@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Remotion.Linq.Parsing.ExpressionVisitors.MemberBindings;
 using PequeInnovaAPI.Exceptions;
 using PequeInnovaAPI.Models.ModelsRequests;
+using Microsoft.AspNetCore.Internal;
 
 namespace PequeInnovaAPI.Data.Repository
 {
@@ -32,6 +33,7 @@ namespace PequeInnovaAPI.Data.Repository
             cursoPut.Name = curso.Name;
             cursoPut.Description = curso.Description;
             cursoPut.Image = curso.Image;
+            cursoPut.UpdateDate = DateTime.Now;
         }
 
         public void AddAreaAsync(AreaEntity area)
@@ -172,19 +174,45 @@ namespace PequeInnovaAPI.Data.Repository
         
         public async Task<LessonEntity> GetLessonAsync(int lessonId, int courseId, int areaId, bool showComments, bool showQuestions)
         {
-            IQueryable<LessonEntity> query = PIDBContext.Lessons;
-            query = query.Where(b => b.Course.Id == courseId && b.Id == lessonId && b.Course.Area.Id == areaId);
-            query = query.Include(l =>l.Course);
-            if (showQuestions)
-            {
-                query = query.Include(q => q.Questions);
-            }
-            if (showComments)
-            {
-                query = query.Include(q => q.Comments);
-            }
-            query = query.AsNoTracking();
-            return await query.SingleOrDefaultAsync();
+            /* IQueryable<LessonEntity> query = PIDBContext.Lessons;
+             query = query.Where(b => b.Course.Id == courseId && b.Id == lessonId && b.Course.Area.Id == areaId);
+             query = query.Include(l =>l.Course);
+             if (showQuestions)
+             {
+                 query = query.Include(q => q.Questions);
+             }
+             if (showComments)
+             {
+                 query = query.Include(q => q.Comments);
+             }
+             query = query.AsNoTracking();
+             return await query.SingleOrDefaultAsync();*/
+            IQueryable<LessonEntity> query = PIDBContext.Lessons
+                                            .Where(l => l.Course.Id == courseId &&
+                                                   l.Status == true &&
+                                                   l.Course.Area.Id == areaId &&
+                                                   l.Id == lessonId)
+                                            .Select(l => new LessonEntity
+                                            {
+                                                Id = l.Id,
+                                                Title = l.Title,
+                                                Document = l.Document,
+                                                URLVideo = l.URLVideo,
+                                                Description = l.Description,
+                                                Type = l.Type,
+                                                Order = l.Order,
+                                                Uid = l.Uid,
+                                                State = l.State,
+                                                Status = l.Status,
+                                                UpdateDate = l.UpdateDate,
+                                                CreateDate = l.CreateDate,
+                                                Course = l.Course,
+                                                Comments = l.Comments.Where(c => c.Status == true && showComments == true).OrderBy(c => c.CommentDate).ToList(),
+                                                Questions = l.Questions.Where(q => q.Status == true && showQuestions == true).ToList()
+
+                                            }).OrderBy(l => l.Order)
+                                            .AsNoTracking();
+            return await query.SingleAsync();
         }
         
         public async Task<IEnumerable<LessonEntity>> GetLessonsAsync(int courseId, int areaId, bool showComments, bool showQuestions)
@@ -208,7 +236,7 @@ namespace PequeInnovaAPI.Data.Repository
                                                 UpdateDate = l.UpdateDate,
                                                 CreateDate = l.CreateDate,
                                                 Course = l.Course,
-                                                Comments = l.Comments.Where(c => c.Status==true && showComments == true).ToList(),
+                                                Comments = l.Comments.Where(c => c.Status==true && showComments == true).OrderBy(c => c.CommentDate).ToList(),
                                                 Questions = l.Questions.Where(q => q.Status==true && showQuestions ==true).ToList()
 
                                             }).OrderBy(l => l.Order)
@@ -241,14 +269,14 @@ namespace PequeInnovaAPI.Data.Repository
             PIDBContext.Entry(lesson.Course).State = EntityState.Unchanged;
             PIDBContext.Lessons.Add(lesson);
         }
-        
+        /*
         public async Task UpdateLesson(LessonEntity lesson)
         {
             var lessonPut = await PIDBContext.Lessons.SingleAsync(c => c.Id == lesson.Id);
             lessonPut.Title = lessonPut.Title;
             lessonPut.URLVideo = lesson.URLVideo;
             lessonPut.Description = lesson.Description;
-        }
+        }*/
 
         public async Task DeleteLesson(int id)
         {
@@ -361,10 +389,13 @@ namespace PequeInnovaAPI.Data.Repository
                                                             q.Lesson.Course.Area.Id == areaId);
 
             questionPut.Title = question.Title;
+            questionPut.Question = question.Question;
             questionPut.TrueAnswer = question.TrueAnswer;
             questionPut.FalseAnswer1 = question.FalseAnswer1;
             questionPut.FalseAnswer2 = question.FalseAnswer2;
             questionPut.FalseAnswer3 = question.FalseAnswer3;
+            questionPut.Status = question.Status;
+           // questionPut.State = question.State;
             questionPut.UpdateDate = DateTime.Now;
         }
 
@@ -632,6 +663,83 @@ namespace PequeInnovaAPI.Data.Repository
             var inscriptionEntity = await PIDBContext.Inscriptions.SingleAsync(i => i.Id == id);
             inscriptionEntity.Status = false;
             inscriptionEntity.UpdateDate = DateTime.Now;
+        }
+
+        public async Task<CourseEntity> GetCourserforEdit(int areaId, int id)
+        {
+            var query = await (from c in PIDBContext.Courses
+                               where c.Status == true && c.Id == id
+                               select new CourseEntity
+                               {
+                                   Id = c.Id,
+                                   Name = c.Name,
+                                   Description = c.Description,
+                                   Image = c.Image,
+                                   Uid = c.Uid,
+                                   State = c.State,
+                                   Status = c.Status,
+                                   UpdateDate = c.UpdateDate,
+                                   CreateDate = c.CreateDate,
+                                   Area = c.Area,
+                                   Lessons = (from l in PIDBContext.Lessons
+                                              where l.Status == true && l.Course.Id == id
+                                              select new LessonEntity {
+                                                  Id = l.Id,
+                                                  Title = l.Title,
+                                                  Document = l.Document,
+                                                  URLVideo = l.URLVideo,
+                                                  Description = l.Description,
+                                                  Type = l.Type,
+                                                  Order = l.Order,
+                                                  Uid = l.Uid,
+                                                  State = l.State,
+                                                  Status = l.Status,
+                                                  UpdateDate = l.UpdateDate,
+                                                  CreateDate = l.CreateDate,
+                                                  Course = l.Course,
+                                                  Questions = l.Questions.Where(q => q.Status == true && q.Lesson.Id == l.Id).ToList()
+                                              }).OrderBy(l => l.Order).AsNoTracking().ToArray()
+                               }).AsNoTracking().ToArrayAsync();
+
+            var query2 = query.SingleOrDefault(c => c.Area.Id == areaId && c.Id == id);
+            return query2;
+           
+        }
+
+        public async Task<CourseEntity> test(int areaId, int id) {
+
+            var query = await (from c in PIDBContext.Courses
+                               where c.Status == true && c.Id == id
+                               select new CourseEntity
+                               {
+                                   Id = c.Id,
+                                   Name = c.Name,
+                                   Description = c.Description,
+                                   Image = c.Image,
+                                   Uid = c.Uid,
+                                   State = c.State,
+                                   Status = c.Status,
+                                   UpdateDate = c.UpdateDate,
+                                   CreateDate = c.CreateDate,
+                                   Area = c.Area,
+                                   Lessons = (PIDBContext.Lessons.Where(l=>l.Status == true &&
+                                                                        l.Course.Id == id)).Include(l =>l.Questions).ToList()
+                               }).AsNoTracking().ToArrayAsync();
+
+            var query2 = query.SingleOrDefault(c => c.Area.Id == areaId && c.Id == id);
+            return query2;
+        }
+
+        public async Task UpdateLessonAsync(int courseId, int id, LessonEntity lesson)
+        {
+            var lessonPut = await PIDBContext.Lessons.SingleAsync(c => c.Id == lesson.Id);
+            lessonPut.Title = lesson.Title;
+            lessonPut.URLVideo = lesson.URLVideo;
+            lessonPut.Description = lesson.Description;
+            lessonPut.Order = lesson.Order;
+            lessonPut.Uid = lesson.Uid;
+            lessonPut.Status = lesson.Status;
+            lessonPut.UpdateDate = DateTime.Now;
         }
     }
 }

@@ -47,6 +47,8 @@ namespace PequeInnovaAPI.Data.Repository
         Task UpdateCourse(CourseEntity curso);
         Task DeleteCourses(int id);
         void UpdateStatusCourse(int courseId);
+        Task<CourseEntity> GetCourserforEdit(int areaId, int id);
+
 
         void PostCourseComplete(CourseEntity courseComplete);
         void PostLessonComplete(LessonEntity lessonComplete);
@@ -66,10 +68,11 @@ namespace PequeInnovaAPI.Data.Repository
         Task<LessonEntity> GetLessonAsync(int lessonId,int courseId, int areaId, bool showComments, bool showQuestions);
         Task<IEnumerable<LessonEntity>> GetLessonsAsync(int courseId, int areaId, bool showComments, bool showQuestions);
         void AddLessonAsync(LessonEntity lesson);
-        Task UpdateLesson(LessonEntity lesson);
+        //Task UpdateLesson(LessonEntity lesson);
         Task DeleteLesson(int id);
         void UpdateStatusLesson(int lessonId);
         Task<List<QuestionLessonMutedEntity>> GetQuestionsOnly(int lessonId, int courseId, int areaId);
+        Task UpdateLessonAsync(int courseId, int id, LessonEntity lesson);
 
         //practica
         Task<IEnumerable<PracticeEntity>> GetPractice(int sectionId);

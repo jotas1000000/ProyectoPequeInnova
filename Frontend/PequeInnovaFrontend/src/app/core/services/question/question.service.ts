@@ -15,4 +15,8 @@ export class QuestionService {
   registerNewQuestion(newQuestion: Question, areaId: number, courseId: number, LessonId: number){
     return this.http.post<ResponseId>(`${environment.apiUrl}/Area/${areaId}/Course/${courseId}/Lesson/${LessonId}/Question/CreateQuestion`, newQuestion);
   }
+
+  updateQuestion(lessonId: number, courseId: number, areaId: number, question: Question ) {
+    return this.http.put<any>(`${environment.apiUrl}/Area/${areaId}/Course/${courseId}/Lesson/${lessonId}/Question/${question.id}`, question);
+  }
 }

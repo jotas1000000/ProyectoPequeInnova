@@ -73,6 +73,26 @@ namespace PequeInnovaAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPut("{questionId:int}")]
+        public async Task<ActionResult<IEnumerable<QuestionModel>>> putQuestion(int areaId, int courseId, int lessonId, [FromBody] QuestionModel question, int questionId)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                var resp = await service.putQuestionAsync(areaId, courseId, lessonId, question, questionId);
+                ResponseIdModel rsp = new ResponseIdModel();
+                rsp.id = resp.Id.GetValueOrDefault();
+                return Created($"api/Area/{areaId:int}/Course/{courseId:int}/Lesson/{lessonId:int}/Question/{resp.Id:int}", rsp);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 
 }

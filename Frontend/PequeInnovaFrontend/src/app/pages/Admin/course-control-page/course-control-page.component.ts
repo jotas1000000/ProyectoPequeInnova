@@ -28,9 +28,19 @@ export class CourseControlPageComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.areaId = params['areaId'];
   
-      console.log(params);
-      console.log("AAAAAAAA" + this.areaId);
+      //console.log(params);
+      //console.log("AAAAAAAA" + this.areaId);
 
+    });
+  }
+
+  DeleteCourse(value: Course) {
+    this.courseService.deleteCourse(value).subscribe((response) => {
+      if (response) {
+        console.log(response);
+        const pos = this.courseCards.indexOf(value);
+        this.courseCards.splice(pos, 1);
+      }
     });
   }
 

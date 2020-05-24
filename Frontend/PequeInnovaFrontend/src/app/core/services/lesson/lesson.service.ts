@@ -15,4 +15,8 @@ export class LessonService {
   registerNewLesson(newLesson: LessonN, areaId: number, courseId: number){
     return this.http.post<ResponseId>(`${environment.apiUrl}/Area/${areaId}/Course/${courseId}/Lesson/CreateLesson`, newLesson);
   }
+
+  updateLesson(courseId: number, areaId: number, lesson: LessonN) {
+    return this.http.put<boolean>(`${environment.apiUrl}/Area/${areaId}/Course/${courseId}/Lesson/${lesson.id}/EditLesson`, lesson);
+  }
 }

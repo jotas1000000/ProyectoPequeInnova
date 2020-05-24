@@ -19,7 +19,7 @@ namespace PequeInnovaAPI.Data.Entity
 
         public string Description { get; set; }
         public DateTime CommentDate { get; set; }
-
+        public string UserName { get; set; }
         // [Required]
         public string Uid { get; set; }
         //   [Required]

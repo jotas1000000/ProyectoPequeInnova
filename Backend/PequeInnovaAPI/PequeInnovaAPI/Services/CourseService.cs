@@ -84,17 +84,15 @@ namespace PequeInnovaAPI.Services
 
         public async Task<CourseModel> UpdateCourseAsync(int areaId, int id, CourseModel course)
         {
-            var area = await validateAreaId(areaId);
+            await validateAreaId(areaId);
+            await ValidateCourse(id);
             //if (id != course.Id && course.Id != null)
             //{
             //    throw new Exception("Id of the cancion in URL needs to be the same that the object");
             //}
-            if (areaId != area.Id)
-            {
-                throw new Exception("The id of Artist isn't correct");
-            }
 
             course.Id = id;
+            course.UpdateDate = DateTime.Now;
             var courseEntity = mapper.Map<CourseEntity>(course);
             await courseRapository.UpdateCourse(courseEntity);
             if (await courseRapository.SaveChangesAsync())
@@ -107,9 +105,9 @@ namespace PequeInnovaAPI.Services
             var area = await courseRapository.GetAreaAsync(id);
             if (area == null)
             {
-                throw new NotFoundException($"cannot found artista with id {id}");
+                throw new NotFoundException($"No se pudo encontrar el Area con el id: {id}");
             }
-            courseRapository.DetachEntity(area);
+            //courseRapository.DetachEntity(area);
             return area;
         }
 
@@ -258,6 +256,13 @@ namespace PequeInnovaAPI.Services
                         throw new Exception("There were an error with the DB");*/
             return true;
         }
-    
+
+        public async Task<CourseModel> GetCourserforEdit(int areaId, int id)
+        {
+            await courseRapository.ValidateArea(areaId);
+            await courseRapository.ValidateCourse(id);
+            return mapper.Map<CourseModel>(await courseRapository.GetCourserforEdit(areaId, id));
+
+        }
     }
 }

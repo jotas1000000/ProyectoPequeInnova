@@ -15,7 +15,7 @@ namespace PequeInnovaAPI.Services
         Task<CourseModel> UpdateCourseAsync(int areaId, int id, CourseModel course);
         Task<bool> UpdateStatusAsync(int courseId);
         Task<bool> DeleteCourse(int areaId, int id);
-
+        Task<CourseModel> GetCourserforEdit(int areaId, int id);
         Task<bool> PostCourseComplete(CourseModel courseComplete);
     }
 }

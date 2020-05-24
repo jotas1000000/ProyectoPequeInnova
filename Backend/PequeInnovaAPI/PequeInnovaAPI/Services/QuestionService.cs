@@ -62,9 +62,9 @@ namespace PequeInnovaAPI.Services
 
         public async Task<QuestionModel> putQuestionAsync(int areaId, int courseId, int lessonId, QuestionModel question, int questionId)
         {
-            await repository.ValidateArea(areaId);
             await repository.ValidateCourse(courseId);
             await repository.ValidateLesson(lessonId, courseId, areaId);
+            question.Id = questionId;
             var questionEntity = mapper.Map<QuestionEntity>(question);
             await repository.putQuestionAsync(areaId, courseId, lessonId, questionEntity,questionId);
             if (await repository.SaveChangesAsync())

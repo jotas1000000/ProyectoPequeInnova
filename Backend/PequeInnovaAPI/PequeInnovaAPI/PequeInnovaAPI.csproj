@@ -17,12 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Migrations\20200518012548_PequeInnovaDB.cs" />
-    <Compile Include="Migrations\20200518012548_PequeInnovaDB.Designer.cs" />
-    <Compile Include="Migrations\ApiDbContextModelSnapshot.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
@@ -42,6 +36,7 @@
   <ItemGroup>
     <Folder Include="Data\Repository\" />
     <Folder Include="Exceptions\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

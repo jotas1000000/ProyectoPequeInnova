@@ -1,0 +1,358 @@
+<div class="buttons-navbar">
+  <button class="button-navbar" id="bttnModal" mdbBtn type="button" color="info" rounded="true"
+    mdbWavesEffect>Areas</button>
+  <button class="button-navbar" routerLink="/mainAdmin" mdbBtn type="button" color="info" rounded="true"
+    mdbWavesEffect>Atras</button>
+  <button class="button-navbar" (click)="showCourse()" mdbBtn type="button" color="info" rounded="true"
+    mdbWavesEffect>show</button>
+
+</div>
+<h1>Datos del Curso </h1>
+<div class="DataCourse">
+  <div class="DataCourse Name">
+    <label for="form9">Nombre del Curso</label>
+    <textarea type="text" [(ngModel)]="course.name" [ngModelOptions]="{standalone: true}" id="form9"
+      class="md-textarea md-textarea-auto form-control" mdbInput></textarea>
+  </div>
+  <div class="DataCourse Description">
+    <label for="form9">Descripcion del Curso</label>
+    <textarea type="text" [(ngModel)]="course.description" [ngModelOptions]="{standalone: true}" id="form9"
+      class="md-textarea md-textarea-auto form-control" mdbInput></textarea>
+  </div>
+  <div class="DataCourse Description">
+    <label for="form9">Imagen del Curso</label>
+    <textarea type="text" [(ngModel)]="course.image" [ngModelOptions]="{standalone: true}" id="form9"
+      class="md-textarea md-textarea-auto form-control" mdbInput></textarea>
+  </div>
+  <div class="DataCourse btnSaveCourse">
+    <button class="button-navbar" (click)="basicModal2.show();Validate()" mdbBtn type="button" color="info"
+      rounded="true" mdbWavesEffect>Guardar Curso</button>
+  </div>
+</div>
+<!-- Editable table -->
+<div class="containerS">
+  <div class="container-left">
+    <div class="card">
+      <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Lecciones del Curso</h3>
+      <div class="card-body">
+        <div id="table" class="table-editable">
+          <span class="table-add float-right mb-3 mr-2">
+            <a class="text-success" (click)="basicModal.show()">
+              <mdb-icon fas icon="plus" size="2x"></mdb-icon>
+            </a>
+          </span>
+          <table mdbTable mdbTableScroll scrollY="true" maxHeight="600" bordered="true"
+            class="table table-bordered table-responsive-md table-striped text-center">
+            <tr>
+              <th class="text-center">Nombre de la Leccion</th>
+              <th class="text-center">Posicionar</th>
+              <th class="text-center">Remover</th>
+            </tr>
+            <tr *ngFor="let lesson of course.lessons; let id = index">
+
+              <ng-template *ngIf="lesson.status; then showBlock; else notShowBlock">
+              </ng-template>
+
+              <ng-template #showBlock>
+
+                <td (click)="FunctionShow(lesson)">
+                  <span contenteditable="true">{{lesson.title}}</span>
+                </td>
+
+                <td class="newTd Sorts">
+                  <button mdbBtn type="button" color="light-blue" (click)="FunctionButtonUp(lesson)" mdbWavesEffect>
+                    <a class="indigo-text">
+                      <mdb-icon fas icon="long-arrow-alt-up"></mdb-icon>
+                    </a>
+                  </button>
+                  <button mdbBtn type="button" color="light-blue" (click)="FunctionButtonDown(lesson)" mdbWavesEffect>
+                    <a class="indigo-text">
+                      <mdb-icon fas icon="long-arrow-alt-down"></mdb-icon>
+                    </a>
+                  </button>
+                </td>
+
+                <td class="newTd">
+                  <span class="table-remove">
+                    <button type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0"
+                      (click)="remove(lesson)">Remover</button>
+                  </span>
+                </td>
+
+              </ng-template>
+
+              <ng-template #notShowBlock>
+                <td style="background: rgb(255, 113, 113);" (click)="FunctionShow(lesson)">
+                  <span contenteditable="true">{{lesson.title}} (Eliminado)</span>
+                </td>
+
+                <td style="background: rgb(255, 113, 113);" class="newTd Sorts">
+                  <button mdbBtn type="button" color="light-blue" (click)="FunctionButtonUp(lesson)" mdbWavesEffect>
+                    <a class="indigo-text">
+                      <mdb-icon fas icon="long-arrow-alt-up"></mdb-icon>
+                    </a>
+                  </button>
+                  <button mdbBtn type="button" color="light-blue" (click)="FunctionButtonDown(lesson)" mdbWavesEffect>
+                    <a class="indigo-text">
+                      <mdb-icon fas icon="long-arrow-alt-down"></mdb-icon>
+                    </a>
+                  </button>
+                </td>
+
+                <td style="background: rgb(255, 113, 113);" class="newTd">
+                  <span class="table-remove">
+                    <button type="button" mdbBtn color="default" rounded="true" size="sm" class="my-0"
+                      (click)="Restore(lesson)">Restaurar</button>
+                  </span>
+                </td>
+              </ng-template>
+
+
+
+
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-right">
+    <mdb-card [style.background-color]="ColorEditable">
+      <!--Card image-->
+      <mdb-card-img [src]="course.image" alt="Card image cap"></mdb-card-img>
+      <!--Card content-->
+      <mdb-card-body>
+
+        <form>
+          <!-- Material input -->
+          <div class="modify">
+            <label for="formGroupExampleInputMD">Titulo de la leccion</label>
+            <input mdbInput type="text" [disabled]="!typeLesson" [(ngModel)]="titleLesson"
+              [ngModelOptions]="{standalone: true}" class="form-control" id="formGroupExampleInputMD" placeholder="">
+            <!-- {{titleLesson}} -->
+          </div>
+          <!-- Material input -->
+          <div class="modify">
+            <label for="formGroupExampleInput2MD">URL del video</label>
+            <input mdbInput type="text" [disabled]="!typeLesson" [(ngModel)]="urlVideo"
+              [ngModelOptions]="{standalone: true}" class="form-control" id="formGroupExampleInput2MD" placeholder="">
+          </div>
+          <div class="modify">
+            <label for="formGroupExampleInput2MD">Conocimientos previos</label>
+            <input mdbInput type="text" [disabled]="!typeLesson" [(ngModel)]="knowledgePrevious"
+              [ngModelOptions]="{standalone: true}" class="form-control" id="formGroupExampleInput3MD" placeholder="">
+          </div>
+          <div class="modify">
+            <label for="form7">Descripcion de la Leccion</label>
+            <textarea type="text" [disabled]="!typeLesson" [(ngModel)]="Description"
+              [ngModelOptions]="{standalone: true}" id="form7" class="md-textarea md-textarea-auto form-control"
+              mdbInput></textarea>
+          </div>
+        </form>
+        <div class="buttons-actions">
+          <!--  <a href="#" mdbBtn  color="primary" mdbWavesEffect>Cancelar</a>
+                <a mdbBtn (click)="AceptButtonLessonCard()" color="primary" mdbWavesEffect>Aceptar</a> -->
+          <button class="buttonsDown Cancel" [disabled]="!typeLesson" (click)="CancelButtonLessonCard()" mdbBtn
+            type="button" color="info" rounded="true" mdbWavesEffect>Cancelar</button>
+          <button class="buttonsDown Ok" [disabled]="!typeLesson" (click)="AceptButtonLessonCard()" mdbBtn type="button"
+            color="info" rounded="true" mdbWavesEffect>Aceptar</button>
+
+        </div>
+
+      </mdb-card-body>
+    </mdb-card>
+  </div>
+  <!-- Editable table -->
+</div>
+
+<div class="containerQ z-depth-2" [style.background-color]="ColorformQContainer">
+  <div class="container-Questions">
+    <span class="table-add float-right mb-3 mr-2" (click)="AddQuestion()">
+      <a class="text-success">
+        <mdb-icon fas icon="plus" size="2x"></mdb-icon>
+      </a>
+    </span>
+    <table mdbTable mdbTableScroll scrollY="true" maxHeight="650" bordered="true"
+      class="table table-bordered table-responsive-md table-striped text-center">
+
+
+      <mdb-card class="card-element" *ngFor="let ques of questions;let id = index">
+
+
+        <ng-template *ngIf="ques.status; then showBlock; else notShowBlock">
+        </ng-template>
+
+        <ng-template #showBlock>
+          <div class="question leftside" (click)="functionShowQuestion(ques)">
+            <mdb-card-title class="question-title">
+              <h4>{{ques.question | slice:0:50}}</h4>
+            </mdb-card-title>
+
+            <mdb-card-text> {{ques.trueAnswer}}
+            </mdb-card-text>
+
+          </div>
+
+          <div class="question rightside">
+            <button type="button" (click)="RemoveQuestion(ques)" mdbBtn color="danger" rounded="true" size="sm"
+              class="my-0">Remove</button>
+          </div>
+        </ng-template>
+
+        <ng-template #notShowBlock>
+          <div style="background: rgb(255, 113, 113); border-radius: 15px" class="question leftside" (click)="functionShowQuestion(ques)">
+            <mdb-card-title class="question-title">
+              <h4>{{ques.question | slice:0:50}}</h4>
+            </mdb-card-title>
+
+            <mdb-card-text> {{ques.trueAnswer}}
+            </mdb-card-text>
+
+          </div>
+
+          <div class="question rightside">
+            <button type="button" (click)="RestoreQuestion(ques)" mdbBtn color="default" rounded="true" size="sm"
+              class="my-0">Restaurar</button>
+          </div>
+        </ng-template>
+
+          
+      </mdb-card>
+
+    </table>
+
+  </div>
+
+  <div class="container-form">
+    <form class="form-Q" [formGroup]="form" (ngSubmit)="saveQuestion($event)">
+      <mat-card class="card-container" [style.background-color]="ColorformQ">
+        <mat-card-header>
+          <mat-card-title>Registro</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="card-content-container">
+
+          <div class="microContainer">
+            <mat-form-field class="input-Field">
+
+              <label for="form7">Escriba la pregunta</label>
+              <textarea type="text" [style.background-color]="colorw" [(ngModel)]="Question" formControlName="Question"
+                class="md-textarea md-textarea-auto form-control" matInput></textarea>
+
+            </mat-form-field>
+          </div>
+
+
+          <div class="microContainer">
+            <mat-form-field class="input-Field">
+
+              <label for="form7">Respuesta correcta</label>
+              <textarea type="text" [style.background-color]="colorw" [(ngModel)]="trueanswer"
+                formControlName="trueanswer" class="md-textarea md-textarea-auto form-control" matInput></textarea>
+
+            </mat-form-field>
+          </div>
+
+          <div class="microContainer">
+            <mat-form-field class="input-Field">
+
+              <label for="form7">Primera respuesta incorrecta</label>
+              <textarea type="text" [style.background-color]="colorw" [(ngModel)]="falseanswer1"
+                formControlName="falseanswer1" class="md-textarea md-textarea-auto form-control" matInput></textarea>
+
+            </mat-form-field>
+          </div>
+
+          <div class="microContainer">
+            <mat-form-field class="input-Field">
+
+              <label for="form7">Segunda respuesta incorrecta</label>
+              <textarea type="text" [style.background-color]="colorw" [(ngModel)]="falseanswer2"
+                formControlName="falseanswer2" class="md-textarea md-textarea-auto form-control" matInput></textarea>
+
+            </mat-form-field>
+          </div>
+
+          <div class="microContainer">
+            <mat-form-field class="input-Field">
+
+              <label for="form7">Tercera respuesta incorrecta</label>
+              <textarea type="text" [style.background-color]="colorw" [(ngModel)]="falseanswer3"
+                formControlName="falseanswer3" class="md-textarea md-textarea-auto form-control" matInput></textarea>
+
+            </mat-form-field>
+          </div>
+
+
+
+        </mat-card-content>
+        <mat-card-actions>
+          <button type="button" (click)="DeclineCreateQuestion()" mdbBtn color="danger" mdbWavesEffect>Cancelar</button>
+          <button [disabled]="form.invalid" type="submit" mdbBtn color="info" mdbWavesEffect>Aceptar</button>
+          <!--  <button [disabled]="form.invalid" mat-raised-button type="submit">Guardar</button> -->
+        </mat-card-actions>
+      </mat-card>
+
+    </form>
+
+
+  </div>
+</div>
+
+
+<div class="buttonsDown-OkCancel">
+  <button class="buttonsDownQ Cancel" (click)="FunctionDeclinePractice()" mdbBtn type="button" color="info"
+    rounded="true" mdbWavesEffect>Cancelar</button>
+  <button class="buttonsDownQ Ok" (click)="FunctionSavePractice()" mdbBtn type="button" color="info" rounded="true"
+    mdbWavesEffect>Aceptar</button>
+</div>
+<!--md-form form-group mt-5  -->
+
+
+
+
+
+
+<!-- Modal para elegir que se va a crear o si una practica o una leccion Video -->
+<div mdbModal #basicModal="mdbModal" id="modalS" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Añadir</h4>
+      </div>
+      <div class="modal-body">
+        ¿Que desea añadir?
+      </div>
+      <div class="modal-footer">
+        <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close"
+          (click)="basicModal.hide();addPractice()" mdbWavesEffect>Practica o examen</button>
+        <button type="button" mdbBtn color="primary" class="relative waves-light"
+          (click)="basicModal.hide();addLessonVideo()" mdbWavesEffect>Leccion Video</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #basicModal2="mdbModal" id="modalS" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal2.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">{{StateProcesing}}</h4>
+      </div>
+      <div class="modal-body">
+        {{StateRequest}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" mdbBtn color="primary" (click)="FunctionAceptRequest();basicModal2.hide()"
+          class="relative waves-light" mdbWavesEffect>Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>

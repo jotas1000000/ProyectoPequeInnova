@@ -233,20 +233,31 @@ namespace PequeInnovaAPI.Controllers
             //}
         }
         */
-        /*
+        
 
-        [HttpPut("{lessonId:int}")]
-        public async Task<ActionResult<LessonModel>> PutLesson(int sectionId, int lessonId, [FromBody] LessonModel lesson)
+        [HttpPut("{lessonId:int}/EditLesson")]
+        public async Task<IActionResult> PutLesson(int courseId, int lessonId, [FromBody] LessonModel lesson)
         {
             try
             {
-                return Ok(await lessonService.UpdateLessonAsync(sectionId, lessonId, lesson));
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Algo salio mal en el proceso, revise la informacion");
+
+                }
+
+                var lessonResponse = await lessonService.UpdateLessonAsync(courseId, lessonId, lesson);
+                if (lessonResponse == null)
+                {
+                    throw new Exception("Algo salio mal en el proceso");
+                }            
+                return Ok(true);
             }
             catch
             {
-                throw new Exception("Not possible to show");
+                throw new Exception("Algo salio mal en el proceso");
             }
         }
-        */
+        
     }
 }

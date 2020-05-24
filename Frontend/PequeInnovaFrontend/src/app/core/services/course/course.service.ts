@@ -14,8 +14,18 @@ export class CourseService {
   registerNewCourse(newCourse: Course){
     return this.http.post<ResponseId>(`${environment.apiUrl}/Area/${newCourse.areaId}/Course/CreateCourse`, newCourse);
   }
-
+  updateCourse(courseId: number, areaId: number, course: Course) {
+    return this.http.put<Course>(`${environment.apiUrl}/Area/${areaId}/Course/${courseId}`, course);
+  }
   getCoursesByArea(areaId: number){
     return this.http.get<Array<Course>>(`${environment.apiUrl}/Area/${areaId}/Course`);
+  }
+
+  getCourseById(courseId: number, areaId: number){
+    return this.http.get<Course>(`${environment.apiUrl}/Area/${areaId}/Course/${courseId}/EditCourse`);
+  }
+
+  deleteCourse(course: Course){
+    return this.http.put<boolean>(`${environment.apiUrl}/Area/${course.areaId}/Course/${course.id}/status`, course);
   }
 }
