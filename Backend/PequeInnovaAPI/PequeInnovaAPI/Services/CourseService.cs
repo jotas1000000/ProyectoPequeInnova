@@ -264,5 +264,11 @@ namespace PequeInnovaAPI.Services
             return mapper.Map<CourseModel>(await courseRapository.GetCourserforEdit(areaId, id));
 
         }
+
+        public async Task<IEnumerable<CourseModel>> getCoursesByOwner(string userId)
+        {
+            //Validar El usuario
+           return mapper.Map<IEnumerable<CourseModel>>(await courseRapository.getCoursesByOwner(userId));
+        }
     }
 }

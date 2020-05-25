@@ -98,4 +98,10 @@ export class NavigationBarComponent implements OnInit {
     }
   }
 
+  navToMainTeacher() {
+    if (this.user.role === 'Profesor') {
+      this.router.navigate(['./mainTeacher']);
+    }
+  }
+
 }

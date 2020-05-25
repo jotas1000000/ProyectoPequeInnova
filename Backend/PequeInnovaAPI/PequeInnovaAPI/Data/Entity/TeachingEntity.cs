@@ -7,7 +7,7 @@ namespace PequeInnovaAPI.Data.Entity
 {
     public class TeachingEntity
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string UserId { get; set; }
         public int CourseId { get; set; }
 

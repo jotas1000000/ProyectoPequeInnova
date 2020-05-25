@@ -189,6 +189,12 @@ namespace PequeInnovaAPI.Services
             return true;
         }
 
+        public async Task<AssignmentRequestModel> getAssignment(string userId)
+        {
+            //falta validar USer
+            return await repository.getAssignment(userId);
+        }
+
         public async Task<IEnumerable<AssignmentRequestModel>> GetAssignments()
         {
             return await repository.GetAssignments();

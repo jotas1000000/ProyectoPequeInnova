@@ -58,6 +58,12 @@ import { SafeVideoPipe } from './pipes/safe-video.pipe';
 import { SearchLessonPipe } from './pipes/search-lesson.pipe';
 import { RegisterTeacherComponent } from './pages/registerTeacher/register-teacher/register-teacher.component';
 import { EditCourseComponent } from './pages/Admin/edit-course/edit-course.component';
+import { MainPageTeacherComponent } from './pages/Teacher/main-page-teacher/main-page-teacher.component';
+import { CourseTeacherPageComponent } from './pages/Teacher/course-teacher-page/course-teacher-page.component';
+import { AreaTeacherPageComponent } from './pages/Teacher/area-teacher-page/area-teacher-page.component';
+import { CourseTeacherOwnerComponent } from './pages/Teacher/course-teacher-owner/course-teacher-owner.component';
+import { CreateCourseTeacherComponent } from './pages/Teacher/create-course-teacher/create-course-teacher.component';
+import { EditCourseTeacherComponent } from './pages/Teacher/edit-course-teacher/edit-course-teacher.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +97,13 @@ import { EditCourseComponent } from './pages/Admin/edit-course/edit-course.compo
     SafeVideoPipe,
     SearchLessonPipe,
     RegisterTeacherComponent,
-    EditCourseComponent
+    EditCourseComponent,
+    MainPageTeacherComponent,
+    CourseTeacherPageComponent,
+    AreaTeacherPageComponent,
+    CourseTeacherOwnerComponent,
+    CreateCourseTeacherComponent,
+    EditCourseTeacherComponent
   ],
   imports: [
     BrowserModule,

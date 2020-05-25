@@ -78,6 +78,21 @@ namespace PequeInnovaAPI.Controllers
             return BadRequest("Algo salio mal en la peticion");
         }
 
+        [HttpGet("{userId:maxlength(38)}/Assignment")]
+        public async Task<IActionResult> getAssignment(string userId)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await service.getAssignment(userId);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+            }
+
+            return BadRequest("Algo salio mal en la peticion");
+        }
+
         [HttpPut("Assignment/{assignmentId:int}/DeleteAssignment")]
         public async Task<IActionResult> deleteAssignment(int assignmentId)
         {

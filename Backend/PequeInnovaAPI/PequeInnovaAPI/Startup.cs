@@ -45,6 +45,7 @@ namespace PequeInnovaAPI
             services.AddTransient<ILessonService, LessonService>();
             services.AddTransient<IQuestionService, QuestionService>();
             services.AddTransient<ISchoolService, SchoolService>();
+            services.AddTransient<ITeachingService,TeachingService>();
             services.AddTransient<IPequeInnovaRepository, PequeInnovaRepository>();
 
             //Comunication DataBase
