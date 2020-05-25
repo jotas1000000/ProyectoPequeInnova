@@ -10,7 +10,7 @@ import { RegisterTeacher } from '../../models/RegisterTeacher.model';
 export class TeacherService {
 
   constructor(private http: HttpClient) { }
-  readonly APIUrl ="https://localhost:5001/api";
+  readonly APIUrl ="https://localhost:44386/api";
 
   getAllTeachers():Observable<Teacher[]>{
     return this.http.get<Teacher[]>(this.APIUrl + '/User/Teachers')
@@ -18,5 +18,9 @@ export class TeacherService {
 
   registerTeacher(newTeacher: RegisterTeacher) {
     return this.http.post<any>(`${environment.apiUrl}/Auth/UserTeacher`, newTeacher);
+  }
+
+  deleteTeacher(id: string){
+    return this.http.put<any>(`${environment.apiUrl}/User/${id}/DeleteUser`,"");
   }
 }

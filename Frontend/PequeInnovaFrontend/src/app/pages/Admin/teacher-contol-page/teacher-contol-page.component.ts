@@ -1,16 +1,23 @@
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
-import {MdbTableDirective} from 'angular-bootstrap-md';
+import { Component, OnInit, HostListener, ViewChild, ChangeDetectorRef, ApplicationRef } from '@angular/core';
+import {MdbTableDirective, ModalContainerComponent, ModalDirective} from 'angular-bootstrap-md';
 import {Router} from '@angular/router';
 import {TeacherService} from '../../../core/services/teacher/teacher.service';
+import { EditTeacherComponent } from '../../edit-teacher/edit-teacher.component';
 @Component({
   selector: 'app-teacher-contol-page',
   templateUrl: './teacher-contol-page.component.html',
   styleUrls: ['./teacher-contol-page.component.scss']
 })
+
+
+
+
 export class TeacherContolPageComponent implements OnInit {
 
   @ViewChild(MdbTableDirective, { static: true })
   mdbTable: MdbTableDirective; 
+  @ViewChild('closebutton') closebutton;
+  @ViewChild('deleteTeacherModal', { static: true }) deleteTeacherModal:ModalDirective;
   headElements = ['ID', 'Nombre', 'Titulo', 'Funciones']; 
   searchText: string = '';
   previous: string;
@@ -23,6 +30,12 @@ export class TeacherContolPageComponent implements OnInit {
     this.mdbTable.setDataSource(this.teachers);
     this.previous = this.mdbTable.getDataSource(); 
 
+  }
+
+  deleteTeacher(id:string, rowNumber:number){
+    var resp;
+    this.teacherService.deleteTeacher(id).subscribe(data => resp = data);
+    this.deleteTeacherModal.hide();
   }
 
   searchItems() {

@@ -39,9 +39,56 @@
           <td>{{el.degree}}</td>
           <!-- <td>{{el.Functions}}</td> -->
           <td class="field-functions">
-            <button mdbBtn color="" size="sm" (click)="basicModal1.show()" mdbWavesEffect type="button" class="button-color">Editar</button>
-            <button mdbBtn color="danger" size="sm" (click)="basicModal2.show()" mdbWavesEffect type="button" class="">Eliminar</button>
+            <button mdbBtn color="" size="sm" (click)="editTeacherModal.show()" mdbWavesEffect type="button" class="button-color">Editar</button>
+            <button mdbBtn color="danger" size="sm" (click)="deleteTeacherModal.show()" mdbWavesEffect type="button" class="">Eliminar</button>
           </td>
+
+          
+                    <!-- Este modal es para editar -->
+                    <div mdbModal #editTeacherModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" #closebutton class="close pull-right" aria-label="Close" (click)="editTeacherModal.hide()">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                            <h4 class="modal-title w-100" id="myModalLabel">Editar datos del maestro</h4>
+
+                          </div>
+                          <div class="modal-body">
+                            <app-edit-teacher></app-edit-teacher>
+                          </div>
+                          <!-- <div class="modal-footer">
+                            <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="editTeacherModal.hide()" mdbWavesEffect>Cerrar</button>
+                            <button type="button" mdbBtn color="danger" class="relative waves-light" mdbWavesEffect>Aceptar</button>
+                          </div> -->
+                        </div>
+                      </div>
+                    </div>
+          
+                    <!-- Este modal es para eliminar -->
+          
+                    <div mdbModal #deleteTeacherModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" #closebutton class="close pull-right" aria-label="Close" (click)="deleteTeacherModal.hide()">
+                                <span aria-hidden="true">x</span>
+                              </button>
+                              <h4 class="modal-title w-100" id="myModalLabel">Eliminar</h4>
+                            </div>
+                            <div class="modal-body">
+                                ¿Desea eliminar este maestro?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="deleteTeacherModal.hide()" mdbWavesEffect>Cerrar</button>
+                              <button type="button" mdbBtn color="danger" class="relative waves-light" (click) ="deleteTeacher(el.id, i)" mdbWavesEffect>Aceptar</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+          
+
         </tr>
       </tbody>
     </table>
