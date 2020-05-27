@@ -5,6 +5,7 @@ import { RegisterTeacher } from 'src/app/core/models/RegisterTeacher.model';
 import { formatDate } from '@angular/common';
 import { TeacherService } from 'src/app/core/services/teacher/teacher.service';
 import { MatDialog } from '@angular/material/dialog';
+import { Teacher } from 'src/app/core/models/Teacher.model';
 
 
 
@@ -33,6 +34,7 @@ export class EditTeacherComponent implements OnInit {
 
   private buildForm() {
     this.form = this.formBuilder.group({
+      id: ['', [Validators.required]],
       userName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       Name: ['', [Validators.required]],
@@ -46,16 +48,15 @@ export class EditTeacherComponent implements OnInit {
   saveTeacher(event: Event){
     event.preventDefault();
     if (this.form.valid) {
-      const newTeacher: RegisterTeacher = this.form.value;
-      newTeacher.Uid='123';
-      newTeacher.Birthday = formatDate(newTeacher.Birthday, 'yyyy-MM-ddTHH:mm:ss', 'en-US', 'undefined');//'+0430'
-      this.teacherService.registerTeacher(newTeacher)
+      const newTeacher: Teacher = this.form.value;
+      newTeacher.uid='123';
+      this.teacherService.editTeacher(newTeacher)
       .subscribe((result) => {
         //console.log(result);
         this.stateRequest = result.isSuccess;
         if(result.isSuccess){
           setTimeout(() => {
-            this.messageBinding = 'Inscripcion exitosa ya puedes ingresar';
+            this.messageBinding = 'Profesor editado correctamente';
           }, 2000);
         }else
         {

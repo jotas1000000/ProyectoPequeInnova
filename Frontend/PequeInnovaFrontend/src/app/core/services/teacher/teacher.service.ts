@@ -23,4 +23,8 @@ export class TeacherService {
   deleteTeacher(id: string){
     return this.http.put<any>(`${environment.apiUrl}/User/${id}/DeleteUser`,"");
   }
+
+  editTeacher(newTeacher: Teacher){
+    return this.http.put<any>(`${environment.apiUrl}/User/UpdateTeacher`, newTeacher)
+  }
 }
