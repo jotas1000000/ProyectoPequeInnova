@@ -52,9 +52,9 @@ export class EditTeacherComponent implements OnInit {
       newTeacher.uid='123';
       this.teacherService.editTeacher(newTeacher)
       .subscribe((result) => {
-        //console.log(result);
-        this.stateRequest = result.isSuccess;
-        if(result.isSuccess){
+        console.log(result);
+        this.stateRequest = result.item1 ;
+        if(result.item1 == true){
           setTimeout(() => {
             this.messageBinding = 'Profesor editado correctamente';
           }, 2000);

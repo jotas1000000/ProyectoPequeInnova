@@ -23,6 +23,7 @@ import {StudentGuard} from './guards/StudentGuard/student.guard';
 import {RegisterComponent} from './pages/register/register.component';
 import { RegisterTeacherComponent } from './pages/registerTeacher/register-teacher/register-teacher.component';
 import {EditCourseComponent} from './pages/Admin/edit-course/edit-course.component';
+import { EditTeacherComponent } from './pages/edit-teacher/edit-teacher.component';
 
 const routes: Routes = [
   { path: 'register', component:RegisterStudentComponent},
@@ -54,7 +55,7 @@ const routes: Routes = [
   { path: 'registerStudent', component:  RegisterComponent},
   { path: 'registerTeacher', component:  RegisterTeacherComponent },
   { path: 'mainAdmin/areaControl/:areaId/courseControl/:courseId/editCourse', component:  EditCourseComponent },
-
+  { path: 'editTeacher', component: EditTeacherComponent},
   { path: '**', component: NotFoundComponent },
 
 ];

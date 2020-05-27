@@ -85,7 +85,7 @@
                             </div>
                             <div class="modal-footer">
                               <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="deleteTeacherModal.hide()" mdbWavesEffect>Cerrar</button>
-                              <button type="button" mdbBtn color="danger" class="relative waves-light" (click) ="deleteTeacher(el.id, i)" mdbWavesEffect>Aceptar</button>
+                              <button type="button" mdbBtn color="danger" class="relative waves-light" (click) ="deleteTeacher(el.id, i);deleteTeacherModal.hide()" mdbWavesEffect>Aceptar</button>
                             </div>
                           </div>
                         </div>

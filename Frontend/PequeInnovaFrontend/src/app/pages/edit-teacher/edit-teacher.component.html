@@ -1,3 +1,7 @@
+<div class="teachers-navbar"> 
+  <button class="button-navbar" routerLink="/teacherControl" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Atras</button>
+</div>
+
 <form [formGroup]="form" (ngSubmit)="saveTeacher($event)" >
     <mat-card class="card-container">
       <mat-card-header>
@@ -67,7 +71,7 @@
         <button type="button" class="close pull-right" aria-label="Close" (click)="ResetBinding();basicModal.hide()">
           <span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title w-100" id="myModalLabel">Procesando tu inscripcion</h4>
+        <h4 class="modal-title w-100" id="myModalLabel">Procesando cambios</h4>
       </div>
       <div class="modal-body">
         <p *ngIf='messageBinding'>{{messageBinding}}</p>
@@ -79,6 +83,3 @@
     </div>
   </div>
 </div>
-
-
-<!--  mdbBtn color="primary" class="relative waves-light" mdbWavesEffect -->
