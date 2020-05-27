@@ -58,6 +58,7 @@ import { SafeVideoPipe } from './pipes/safe-video.pipe';
 import { SearchLessonPipe } from './pipes/search-lesson.pipe';
 import { RegisterTeacherComponent } from './pages/registerTeacher/register-teacher/register-teacher.component';
 import { EditCourseComponent } from './pages/Admin/edit-course/edit-course.component';
+import { StudentControlComponent } from './pages/Admin/student-control/student-control.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { EditCourseComponent } from './pages/Admin/edit-course/edit-course.compo
     SafeVideoPipe,
     SearchLessonPipe,
     RegisterTeacherComponent,
-    EditCourseComponent
+    EditCourseComponent,
+    StudentControlComponent
   ],
   imports: [
     BrowserModule,

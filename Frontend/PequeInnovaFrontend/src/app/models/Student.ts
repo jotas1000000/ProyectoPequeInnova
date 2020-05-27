@@ -5,3 +5,4 @@ export class Student{
     school:string;
     level:string;
 }
+

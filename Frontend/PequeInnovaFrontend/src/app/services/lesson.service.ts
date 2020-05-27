@@ -19,4 +19,9 @@ export class LessonService {
     const href = `${this.APIUrl}/area/${areaId}/course/${courseId}/lesson/${lessonId}`;
     return this.http.get<Lesson>(href);
   }
+
+  getLessonsWithComments(areaId: number, courseId : number): Observable<Lesson[]>{
+    const href = `${this.APIUrl}/area/${areaId}/course/${courseId}/lesson/?showComments=true`;
+    return this.http.get<Lesson[]>(href);
+  }
 }

@@ -2,6 +2,7 @@
     background-image: url(src/assets/images/background/background2.jpg);
     background-attachment: fixed;
     background-position: center;
+    background-color: white;
 }
 
 h1 {
@@ -25,4 +26,12 @@ h1 {
   }
 p{
     font-size: 120%; 
+}
+
+.align-right {
+  float: right;
+}
+
+.white-bg {
+  background-color: white;
 }
