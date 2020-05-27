@@ -38,6 +38,7 @@ export class TeacherContolPageComponent implements OnInit {
   deleteTeacher(id:string, rowNumber:number){
     var resp;
     this.teacherService.deleteTeacher(id).subscribe(data => resp = data);
+    this.teachers.splice(rowNumber, 1);
   }
 
   searchItems() {
