@@ -92,6 +92,20 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
+        [HttpGet("{userId:maxlength(38)}/Teacher")]
+        public async Task<IActionResult> getTeacher(string userId)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await service.GetTeacher(userId);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+            }
+
+            return BadRequest("Algo salio mal en la peticion");
+        }
 
         [HttpPut("Assignment/{assignmentId:int}/DeleteAssignment")]
         public async Task<IActionResult> deleteAssignment(int assignmentId)
@@ -259,10 +273,9 @@ namespace PequeInnovaAPI.Controllers
             if (ModelState.IsValid)
             {
                 var result = await service.postInscription(inscription);
-                if (result)
-                {
+               
                     return Ok(Tuple.Create(result));
-                }
+                
             }
 
             return BadRequest("Algo salio mal en la peticion");

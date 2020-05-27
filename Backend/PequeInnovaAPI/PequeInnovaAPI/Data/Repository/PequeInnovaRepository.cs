@@ -792,5 +792,12 @@ namespace PequeInnovaAPI.Data.Repository
             query = query.AsNoTracking();
             return await query.ToArrayAsync();
         }
+
+        public async Task<InscriptionEntity> GetInscription(int courseId, string userId)
+        {
+            IQueryable<InscriptionEntity> query = PIDBContext.Inscriptions;
+            query = query.AsNoTracking();
+            return await query.SingleOrDefaultAsync(i => i.Course.Id == courseId && i.UserId == userId && i.Status == true);
+        }
     }
 }

@@ -49,5 +49,7 @@ namespace PequeInnovaAPI.Services
         Task<bool> postInscription(InscriptionModel inscription);
         Task<bool> deleteInscription(int id);
 
+        Task<GetTeachersModel> GetTeacher(string userId);
+
     }
 }
