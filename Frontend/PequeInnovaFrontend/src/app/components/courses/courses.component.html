@@ -13,8 +13,8 @@
     </a>
   </li>
 
-  <li>
-    <div class="form-inline md-form mr-auto mb-8 justify-content-end">
+  <li class="list-inline-item align-right">
+    <div class="form-inline">
       <button mdbBtn size="md" color="default" class="my-0 waves-light" mdbWavesEffect type="submit">
         <mdb-icon fas icon="search" aria-hidden="true" >
         </mdb-icon>
@@ -53,7 +53,7 @@
 
       <ng-container *ngFor="let course of courses | searchLocal: searchText, index as i">
         <ng-container *ngIf="i < elements">
-          <div class="col-md-4">
+          <div class="col-md-4 ">
             <mdb-card >
               <!-- Card image-->
               <div class="  waves-light " mdbWavesEffect>

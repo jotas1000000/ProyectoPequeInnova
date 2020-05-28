@@ -1,3 +1,5 @@
+import {Comment } from './Comment';
+
 export class Lesson{
     id:number;
     title:string;
@@ -7,4 +9,5 @@ export class Lesson{
     type: string;
     order:number;
     courseId: number;
+    comments:Comment[];
 }
