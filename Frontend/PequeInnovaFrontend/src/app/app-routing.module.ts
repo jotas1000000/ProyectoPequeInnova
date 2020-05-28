@@ -29,6 +29,8 @@ import {CourseTeacherPageComponent} from './pages/Teacher/course-teacher-page/co
 import {CourseTeacherOwnerComponent} from './pages/Teacher/course-teacher-owner/course-teacher-owner.component';
 import {CreateCourseTeacherComponent} from './pages/Teacher/create-course-teacher/create-course-teacher.component';
 import {EditCourseTeacherComponent} from './pages/Teacher/edit-course-teacher/edit-course-teacher.component';
+import { EditTeacherComponent } from './pages/edit-teacher/edit-teacher.component';
+
 const routes: Routes = [
   { path: 'register', component:RegisterStudentComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -67,6 +69,7 @@ const routes: Routes = [
   { path: 'mainTeacher/CourseOwner/Area/:areaId', component:  CreateCourseTeacherComponent},
   { path: 'mainTeacher/CourseOwner/Area/:areaId/Course/:courseId/EditCourse', component:  EditCourseTeacherComponent},
 
+  { path: 'editTeacher', component: EditTeacherComponent},
   { path: '**', component: NotFoundComponent },
 
 ];

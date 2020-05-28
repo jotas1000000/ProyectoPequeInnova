@@ -24,4 +24,12 @@ export class TeacherService {
   getAssignmentTeacher(userId: string) {
     return this.http.get<AssignmentR>(`${environment.apiUrl}/User/${userId}/Assignment`);
   }
+
+  deleteTeacher(id: string){
+    return this.http.put<any>(`${environment.apiUrl}/User/${id}/DeleteUser`,"");
+  }
+
+  editTeacher(newTeacher: Teacher){
+    return this.http.put<any>(`${environment.apiUrl}/User/UpdateTeacher`, newTeacher)
+  }
 }
