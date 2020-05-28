@@ -206,6 +206,12 @@ namespace PequeInnovaAPI.Services
             return inscriptionsEntity;
         }
 
+        public async Task<IEnumerable<InscriptionRequestModel>> getInscriptionsUser(string userId)
+        {
+            var inscriptions = await repository.getInscriptionsUser(userId);
+            return inscriptions;
+        }
+
         public async Task<IEnumerable<GetStudentsModel>> getStudents()
         {
             return await repository.getStudents();
@@ -361,7 +367,8 @@ namespace PequeInnovaAPI.Services
                 LastName = user.LastName,
                 Role = roles.FirstOrDefault(),
                 Id = user.Id,
-                Token = tokenAsString
+                Token = tokenAsString,
+                UserName = user.UserName
             };
 
         }

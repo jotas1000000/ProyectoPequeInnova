@@ -631,11 +631,14 @@ namespace PequeInnovaAPI.Data.Repository
                                join u in PIDBContext.Users on i.UserId equals u.Id
                                join c in PIDBContext.Courses on i.Course.Id equals c.Id
                                join a in PIDBContext.Areas on c.Area.Id equals a.Id
+                               join ur in PIDBContext.UserRoles on u.Id equals ur.UserId
+                               join r in PIDBContext.Roles on ur.RoleId equals r.Id
                                where i.Status == true && u.Status == true &&
                                      c.Status == true && a.Status == true
                                select new InscriptionRequestModel { 
                                     id = i.Id,
                                     userId = u.Id,
+                                    RoleName = r.Name,
                                     areaId = a.Id,
                                     courseId = c.Id.GetValueOrDefault(),
                                     courseName = c.Name,
@@ -798,6 +801,34 @@ namespace PequeInnovaAPI.Data.Repository
             IQueryable<InscriptionEntity> query = PIDBContext.Inscriptions;
             query = query.AsNoTracking();
             return await query.SingleOrDefaultAsync(i => i.Course.Id == courseId && i.UserId == userId && i.Status == true);
+        }
+
+        public async Task<IEnumerable<InscriptionRequestModel>> getInscriptionsUser(string userId)
+        {
+            var query = await (from i in PIDBContext.Inscriptions
+                               join u in PIDBContext.Users on i.UserId equals u.Id
+                               join c in PIDBContext.Courses on i.Course.Id equals c.Id
+                               join a in PIDBContext.Areas on c.Area.Id equals a.Id
+                               join ur in PIDBContext.UserRoles on u.Id equals ur.UserId
+                               join r in PIDBContext.Roles on ur.RoleId equals r.Id
+                               where i.Status == true && u.Status == true &&
+                                     c.Status == true && a.Status == true && 
+                                     u.Id == userId
+                               select new InscriptionRequestModel
+                               {
+                                   id = i.Id,
+                                   userId = u.Id,
+                                   RoleName = r.Name,
+                                   areaId = a.Id,
+                                   courseId = c.Id.GetValueOrDefault(),
+                                   courseName = c.Name,
+                                   areaName = a.Name,
+                                   Name = u.Name,
+                                   LastName = u.LastName,
+                                   State = i.State
+                               }
+                               ).AsNoTracking().ToArrayAsync();
+            return query;
         }
     }
 }

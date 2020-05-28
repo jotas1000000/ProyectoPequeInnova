@@ -30,6 +30,8 @@ namespace PequeInnovaAPI.Data.Repository
         void postInscription(InscriptionEntity inscription);
         Task deleteInscription(int id);
         Task<InscriptionEntity> GetInscription(int courseId, string userId);
+        Task<IEnumerable<InscriptionRequestModel>> getInscriptionsUser(string userId);
+
 
 
 

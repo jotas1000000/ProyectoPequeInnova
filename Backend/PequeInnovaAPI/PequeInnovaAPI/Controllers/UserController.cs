@@ -233,8 +233,21 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
-        
-        
+        [HttpGet("{userId:maxlength(38)}/InscriptionsUser")]
+        public async Task<IActionResult> getInscriptionsUser(string userId)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await service.getInscriptionsUser(userId);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+            }
+
+            return BadRequest("Algo salio mal en la peticion");
+        }
+
         [HttpPut("ApproveInscription/{inscriptionId:int}")]
         public async Task<IActionResult> approveInscription(int inscriptionId)
         {
