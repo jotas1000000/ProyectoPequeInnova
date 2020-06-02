@@ -8,6 +8,8 @@ using Remotion.Linq.Parsing.ExpressionVisitors.MemberBindings;
 using PequeInnovaAPI.Exceptions;
 using PequeInnovaAPI.Models.ModelsRequests;
 using Microsoft.AspNetCore.Internal;
+using System.Net.Security;
+using PequeInnovaAPI.Models;
 
 namespace PequeInnovaAPI.Data.Repository
 {
@@ -25,6 +27,8 @@ namespace PequeInnovaAPI.Data.Repository
             areaPut.Name = area.Name;
             areaPut.Description = area.Description;
             areaPut.Image = area.Image;
+            areaPut.UpdateDate = area.UpdateDate;
+            areaPut.Uid = area.Uid;
         }
 
         public async Task UpdateCourse(CourseEntity curso)
@@ -828,6 +832,32 @@ namespace PequeInnovaAPI.Data.Repository
                                    State = i.State
                                }
                                ).AsNoTracking().ToArrayAsync();
+            return query;
+        }
+
+        public async Task<IEnumerable<TeacherAssignmentModel>> getTeacherForAssignment()
+        {
+            var query = await (from teacher in PIDBContext.Users
+                               join userRole in PIDBContext.UserRoles on teacher.Id equals userRole.UserId
+                               join role in PIDBContext.Roles on userRole.RoleId equals role.Id
+                               join assignment in PIDBContext.Assignments on teacher.Id equals assignment.UserId into TA
+                               from subassignment in TA.DefaultIfEmpty()
+                               join area in PIDBContext.Areas on subassignment.AreaId equals area.Id into SA
+                               from subarea in SA.DefaultIfEmpty()
+                               where role.NormalizedName == "PROFESOR" && teacher.Status == true &&
+                                     (subassignment == null ? true :(subassignment.Status == true ? true : false) )
+                               select new TeacherAssignmentModel
+                               {
+                                    Id = teacher.Id,
+                                    Name = teacher.Name,
+                                    LastName = teacher.LastName,
+                                    RoleName = role.Name,
+                                    City = teacher.City,
+                                    Degree = teacher.Degree,
+                                    Email = teacher.Email,
+                                    AreaId = subassignment.AreaId,
+                                    AreaName = subarea.Name ?? "Sin Area"
+                               }).AsNoTracking().ToArrayAsync();
             return query;
         }
     }

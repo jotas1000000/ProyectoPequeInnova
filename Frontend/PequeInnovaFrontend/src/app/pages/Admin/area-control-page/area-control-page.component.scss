@@ -38,6 +38,19 @@
     margin-top: 20px;
 }
 
+.modal-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.modal-img {
+    width: 250px;
+    height: 250px;
+}
+.input {
+
+}
 @media screen  and (max-width: 479px) { //@media screen  and (max-width: 479px) and (min-width: 320px)
     .one-card{
         width: 95%;
