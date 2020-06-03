@@ -5,13 +5,14 @@ import { Teacher } from '../../models/Teacher.model';
 import { Observable } from 'rxjs';
 import { RegisterTeacher } from '../../models/RegisterTeacher.model';
 import {AssignmentR} from './../../../core/models/AssignmentR.model';
+import { EditTeacher } from '../../models/EditTeacher.model';
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
 export class TeacherService {
 
   constructor(private http: HttpClient) { }
-
   getAllTeachers(): Observable<Teacher[]>{
     return this.http.get<Teacher[]>(`${environment.apiUrl}/User/Teachers`)
   }
@@ -31,4 +32,9 @@ export class TeacherService {
   editTeacher(newTeacher: Teacher){
     return this.http.put<any>(`${environment.apiUrl}/User/UpdateTeacher`, newTeacher)
   }
+
+  getTeacher(userId: string){
+    return this.http.get<EditTeacher>(`${environment.apiUrl}/User/${userId}/Teacher`);
+  }
+ 
 }
