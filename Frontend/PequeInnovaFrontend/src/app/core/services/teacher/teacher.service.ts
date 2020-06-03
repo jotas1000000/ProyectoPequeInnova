@@ -4,7 +4,7 @@ import {environment} from './../../../../environments/environment';
 import { Teacher } from '../../models/Teacher.model';
 import { Observable } from 'rxjs';
 import { RegisterTeacher } from '../../models/RegisterTeacher.model';
-import {AssignmentR} from './../../../core/models/AssignmentR.model';
+import { AssignmentR} from './../../../core/models/AssignmentR.model';
 import { EditTeacher } from '../../models/EditTeacher.model';
 import { map } from 'rxjs/operators';
 @Injectable({

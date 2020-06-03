@@ -36,7 +36,13 @@
         <tr *ngFor="let el of teachers; let i = index">
           <th scope="row">{{i+1}}</th>
           <td class="red-text">{{el.name}} {{el.lastName}}</td>
-          <td>{{el.degree}}</td>
+          <td >{{el.degree}}</td>
+          <td>
+            <div *ngFor="let assignment of assignments" >
+              <div *ngIf="assignment.userId==el.id">{{assignment.nameArea}}</div>
+            </div>
+          </td>
+          
           <!-- <td>{{el.Functions}}</td> -->
           <td class="field-functions">
             <button mdbBtn color="" size="sm" (click)="editTeacherModal.show()" mdbWavesEffect type="button" class="button-color">Editar</button>
