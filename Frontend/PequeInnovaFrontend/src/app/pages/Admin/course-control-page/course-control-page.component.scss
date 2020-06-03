@@ -131,7 +131,17 @@
     margin-left: auto;
     margin-right: auto;
     border-radius: 13px;
+}
 
+.modal-content {
+    border-radius: 35px;
+}
+.card-button-delete {
+    margin: 10px;
+    width: 30% !important;
+    font-size: 13px !important;
+    padding: 10px 15px 10px 15px !important;
+    border-radius: 13px;
 }
 
 @media screen  and (max-width: 479px) { //@media screen  and (max-width: 479px) and (min-width: 320px)

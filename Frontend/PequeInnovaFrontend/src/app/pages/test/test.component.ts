@@ -68,8 +68,6 @@ export class TestComponent implements OnInit {
   private getAnswersData(): void {
     this.testsService.getAnswersList(this.areaId,this.courseId,this.lessonId)
       .subscribe(data => this.answers = data);
-      
-     
   }
   
   private getTestsData(): void {

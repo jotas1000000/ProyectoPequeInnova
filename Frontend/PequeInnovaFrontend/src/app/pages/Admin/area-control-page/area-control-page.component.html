@@ -46,7 +46,7 @@
         <button type="button" class="close pull-right" aria-label="Close" (click)="ResetForm();basicModal.hide()">
           <span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title w-100" id="myModalLabel">Crear Area</h4>
+        <h1 class="modal-title w-100" id="myModalLabel">Crear Area</h1>
       </div>
       <div class="modal-body form" *ngIf="form">
         <form class="modal-body-form" [formGroup]="form">
@@ -60,12 +60,12 @@
               <input matInput placeholder="" [formControl]="areaName" required />
               <mat-error *ngIf="areaName.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field class="input" appearance="outline">
               <mat-label>Imagen </mat-label>
               <input matInput placeholder="" [formControl]="urlImage" required />
               <mat-error *ngIf="urlImage.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field class="input" appearance="outline">
               <mat-label>Descripcion del Area</mat-label>
               <input matInput placeholder="" [formControl]="descriptionArea" required />
               <mat-error *ngIf="descriptionArea.invalid">{{getErrorMessage()}}</mat-error>
@@ -74,12 +74,12 @@
         </form>
       </div>
       <div class="modal-footer" *ngIf="form">
-        <button type="button" mdbBtn color="secondary" *ngIf="!succesRequest" class="waves-light" aria-label="Close"
+        <button type="button" class="btnRegisterArea" mdbBtn color="secondary" *ngIf="!succesRequest" aria-label="Close"
           (click)="ResetForm();basicModal.hide()" mdbWavesEffect>Cancelar</button>
-        <button type="button" mdbBtn color="primary" *ngIf="!succesRequest" class="relative waves-light" (click)="Save()"
+        <button type="button" class="btnRegisterArea" mdbBtn color="primary" *ngIf="!succesRequest" (click)="Save()"
           [disabled]="form.value.areaName.invalid || urlImage.invalid || descriptionArea.invalid"
           mdbWavesEffect>Guardar</button>
-        <button type="button" mdbBtn color="success" *ngIf="succesRequest" class="relative waves-light" (click)="ResetForm();basicModal.hide()"
+        <button type="button" class="btnRegisterArea" mdbBtn color="success" *ngIf="succesRequest" (click)="ResetForm();basicModal.hide()"
         [disabled]="form.value.areaName.invalid || urlImage.invalid || descriptionArea.invalid"
         mdbWavesEffect>{{Operation}} Correctamente</button>
       </div>

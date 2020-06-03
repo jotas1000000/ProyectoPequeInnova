@@ -29,13 +29,36 @@
         </div>
         <div class="card-buttons">
           <button type="button" class="card-button show"   mdbBtn color="primary" routerLink="/areas/{{areaId}}/courses/{{course.id}}/lessons" mdbWavesEffect>Ver Curso</button>
-          <button type="button" class="card-button delete" mdbBtn color="danger" (click)="DeleteCourse(course)" mdbWavesEffect>Eliminar</button>
+          <button type="button" class="card-button delete" mdbBtn color="danger" (click)="DeleteCourse(course);basicModalDelete.show()" mdbWavesEffect>Eliminar</button>
           <button type="button" class="card-button editar" mdbBtn color="secondary" routerLink="/mainAdmin/areaControl/{{areaId}}/courseControl/{{course.id}}/editCourse" mdbWavesEffect>Editar</button>
         </div>
     
       </div>
     </div>
 
+  </div>
+</div>
+
+<div mdbModal #basicModalDelete="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModalDelete.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">¿Seguro que desea eliminar el Curso?</h4>
+      </div>
+      <div class="modal-body">
+        Si elimina el Curso tambien se eliminaran todas las lecciones que lo componen.
+      </div>
+      <div class="modal-footer delete">
+        <button type="button" mdbBtn color="primary" class="card-button-delete" aria-label="Close"
+          (click)="basicModalDelete.hide()" mdbWavesEffect>Cancelar</button>
+        <button type="button" mdbBtn color="danger" class="card-button-delete"
+          (click)="confirmCourseDelete();basicModalDelete.hide()" mdbWavesEffect>Eliminar</button>
+      </div>
+    </div>
   </div>
 </div>
 
