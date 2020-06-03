@@ -1,8 +1,7 @@
 <div class="containerS">
 
   <div class="areas-navbar">
-    <button class="button-navbar" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Cursos del
-      Area</button>
+    <button class="button-navbar" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect> Areas</button>
     <button class="button-navbar" routerLink="/mainAdmin" mdbBtn type="button" color="info" rounded="true"
       mdbWavesEffect>Atras</button>
   </div>
@@ -13,32 +12,29 @@
   </div>
 
   <div class="container-deck" *ngIf="areas">
-    <div class="one-card" *ngFor="let e of areas">
-      <mdb-card>
-        <mdb-card-img [src]="e.image" alt="Card image cap"></mdb-card-img>
+      <div class="card-container" *ngFor="let e of areas">
+        <div class="container-img">
+          <img  [src]="e.image" alt="Card image cap"/>
+        </div>
 
-        <mdb-card-body>
+        <div class="card-body-elements">
 
-          <mdb-card-title>
-            <h4>{{e.name}}</h4>
-          </mdb-card-title>
+          <div class="card-title">
+            <p>{{e.name | slice:0:30}}</p>
+          </div>
 
-          <mdb-card-text>
-            {{e.description}}
-          </mdb-card-text>
+          <div class="card-text">
+            {{e.description | slice:0:200}}...
+          </div>
+          <div class="card-buttons">
+            <button type="button" class="card-button show" mdbBtn color="primary" routerLink="/mainAdmin/areaControl/{{e.id}}/courseControl" mdbWavesEffect>Ver Area</button>
+            <button type="button" class="card-button delete" mdbBtn color="danger" (click)="deleteArea(e.id);basicModalDelete.show()" mdbWavesEffect>Eliminar</button>
+            <button type="button" class="card-button editar" mdbBtn color="secondary" (click)="editArea(e.id,e.image,e.name,e.description); basicModal.show()" mdbWavesEffect>Editar</button>
+          </div>
 
-          <a mdbBtn color="primary" routerLink="/mainAdmin/areaControl/{{e.id}}/courseControl" mdbWavesEffect>Ver Area</a>
-          <button type="button" mdbBtn color="danger" (click)="deleteArea(e.id);basicModalDelete.show()" mdbWavesEffect>Eliminar</button>
-          <button type="button" mdbBtn color="secondary" (click)="editArea(e.id,e.image,e.name,e.description); basicModal.show()" mdbWavesEffect>Editar</button>
-
-        </mdb-card-body>
-      </mdb-card>
-
-    </div>
-
-
+        </div>
+      </div>
   </div>
-
 </div>
 
 
@@ -52,25 +48,29 @@
         </button>
         <h4 class="modal-title w-100" id="myModalLabel">Crear Area</h4>
       </div>
-      <div class="modal-body" *ngIf="form">
-        <form class="modal-body" [formGroup]="form">
-          <img src="./../../../../assets/images/logos/logo_2.png" [srcset]="urlImage.value" class="modal-img"
-            alt="Añada la Imagen" />
-          <mat-form-field class="input" appearance="outline">
-            <mat-label>Nombre del Area</mat-label>
-            <input matInput placeholder="" [formControl]="areaName" required />
-            <mat-error *ngIf="areaName.invalid">{{getErrorMessage()}}</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Imagen </mat-label>
-            <input matInput placeholder="" [formControl]="urlImage" required />
-            <mat-error *ngIf="urlImage.invalid">{{getErrorMessage()}}</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Descripcion del Area</mat-label>
-            <input matInput placeholder="" [formControl]="descriptionArea" required />
-            <mat-error *ngIf="descriptionArea.invalid">{{getErrorMessage()}}</mat-error>
-          </mat-form-field>
+      <div class="modal-body form" *ngIf="form">
+        <form class="modal-body-form" [formGroup]="form">
+          <div class="modal-img">
+            <img src="./../../../../assets/images/logos/logo_2.png" [srcset]="urlImage.value" class="modal-img"
+              alt="Añada la Imagen" />
+          </div>
+          <div class="modal-container-input">
+            <mat-form-field class="input" appearance="outline">
+              <mat-label>Nombre del Area</mat-label>
+              <input matInput placeholder="" [formControl]="areaName" required />
+              <mat-error *ngIf="areaName.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Imagen </mat-label>
+              <input matInput placeholder="" [formControl]="urlImage" required />
+              <mat-error *ngIf="urlImage.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Descripcion del Area</mat-label>
+              <input matInput placeholder="" [formControl]="descriptionArea" required />
+              <mat-error *ngIf="descriptionArea.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
         </form>
       </div>
       <div class="modal-footer" *ngIf="form">
