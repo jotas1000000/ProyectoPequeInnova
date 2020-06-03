@@ -13,12 +13,12 @@
   </li>
   
 </ul>
-{{userName}} aaaaaaaaaa {{userId}}
+
 <section class="my-4">
 
 <ng-container *ngFor="let lesson of lessons, index as i" >
 
-   <ng-container *ngIf="mainLesson.id == lesson.id ">
+   <ng-container *ngIf="lesson && mainLesson.id == lesson.id">
 
   <div class="col-md-12 mb-4 text-default text-center">
     <h1 class="h1-reponsive text-uppercase font-weight-bold mb-0 pt-md-0 pt-0">
@@ -74,25 +74,28 @@
       <div class="card mb-3">
         <h3 class="card-header green white-text text-uppercase text-center">Comentarios</h3>
         
-        <ng-container *ngFor = "let comment of lesson.comments,let index as j">
-          <hr class="my-2">
+        <ng-container *ngFor = "let comment of lesson.comments, let index as j">
+  
           <div class="media d-block d-md-flex">
             
-            
-            <div class="media-body text-center text-md-left ml-md-3 ml-0">
-              <h5 class="mt-0 font-weight-bold cyan-text">{{comment.userName}}</h5>
+            <div class="media-body text-md-left ml-md-3 ml-0">
+              <h5 class="mt-0 font-weight-bold cyan-text">{{comment.userName}}
+                <ng-container *ngIf ="comment.userId == userId || (userRol != 'Estudiante' && userRol != null)" >
+                  <mdb-icon class="waves-light" data-toggle="modal" 
+                    (click)="setDeleteComment(comment.userId, comment.id); frame.show()" fas size= "md" icon="times" class="black-text-right" mdbWavesEffect></mdb-icon>
+                </ng-container>
+              </h5>
               {{comment.description}}
             </div>
         
           </div>
-      
+          <hr class="my-2">
         </ng-container>
         <div class="form-group basic-textarea rounded-corners mb-md-0 mb-4">
           
           <textarea class="form-control z-depth-1" id="exampleFormControlTextarea3" rows="2" [(ngModel)]="newComment" placeholder="Escribe un Comentario"></textarea>
           <a mdbBtn size="sm" color="default" class="  waves-light" mdbWavesEffect   (click)= "postComment(newComment)" > <mdb-icon fas icon="comment" class="pr-1"></mdb-icon>Comentar</a>
         </div>
-    {{newComment}}
       </div>
     
     
@@ -104,3 +107,30 @@
    
   </ng-container>
 </section>
+<!-- DELETE MODAL -->
+<div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Quieres Eliminar el Comentario?</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <mdb-icon fas icon="times" size="4x" class="animated rotateIn"></mdb-icon>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a  mdbBtn color="danger" outline="true" class="waves-effect"
+        (click)="deleteComment(); frame.hide()" mdbWavesEffect>Si</a>
+        <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" (click)="frame.hide()">No</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+

@@ -66,6 +66,7 @@ import { CreateCourseTeacherComponent } from './pages/Teacher/create-course-teac
 import { EditCourseTeacherComponent } from './pages/Teacher/edit-course-teacher/edit-course-teacher.component';
 import { StudentControlComponent } from './pages/Admin/student-control/student-control.component';
 import { EditTeacherComponent } from './pages/edit-teacher/edit-teacher.component';
+import { InscripctionsComponent } from './pages/Admin/inscripctions/inscripctions.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { EditTeacherComponent } from './pages/edit-teacher/edit-teacher.componen
     CreateCourseTeacherComponent,
     EditCourseTeacherComponent,
     StudentControlComponent,
-    EditTeacherComponent
+    EditTeacherComponent,
+    InscripctionsComponent
   ],
   imports: [
     BrowserModule,

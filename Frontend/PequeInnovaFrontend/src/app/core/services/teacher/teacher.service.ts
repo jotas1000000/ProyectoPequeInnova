@@ -11,7 +11,7 @@ import {AssignmentR} from './../../../core/models/AssignmentR.model';
 export class TeacherService {
 
   constructor(private http: HttpClient) { }
-  readonly APIUrl ="https://localhost:44386/api";
+  readonly APIUrl ="https://localhost:5001/api";
 
   getAllTeachers(): Observable<Teacher[]>{
     return this.http.get<Teacher[]>(this.APIUrl + '/User/Teachers')
