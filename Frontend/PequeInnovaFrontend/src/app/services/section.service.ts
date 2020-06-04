@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Section } from '../models/Section';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 export class SectionService {
   
   constructor(private http: HttpClient) { }
-  readonly APIUrl ="https://localhost:5001/api";
+  readonly APIUrl =`${environment.apiUrl}`;
 
   getSectionList(areaId: number, courseId : number): Observable<Section[]>{
     const href = `${this.APIUrl}/area/${areaId}/courses/${courseId}/sections/`;

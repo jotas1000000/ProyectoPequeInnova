@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Area} from 'src/app/models/Area';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +10,8 @@ import { Observable } from 'rxjs';
 export class AreaService {
 
   constructor( private http: HttpClient) { }
-  readonly APIUrl ="https://localhost:5001/api";
 
   getAreaList(): Observable<Area[]>{
-    return this.http.get<Area[]>(this.APIUrl + '/area');
+    return this.http.get<Area[]>(`${environment.apiUrl}/area`);
   }
 }
