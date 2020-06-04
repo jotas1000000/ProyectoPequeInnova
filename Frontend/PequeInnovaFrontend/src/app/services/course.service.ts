@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class CourseService {
 
   constructor(private http: HttpClient) { }
-  readonly APIUrl ="https://localhost:44386/api";
+  readonly APIUrl ="https://localhost:5001/api";
 
   getCourseList(areaId: number): Observable<Course[]>{
     const href = `${this.APIUrl}/area/${areaId}/course`;

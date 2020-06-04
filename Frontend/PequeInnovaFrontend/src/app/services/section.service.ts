@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class SectionService {
   
   constructor(private http: HttpClient) { }
-  readonly APIUrl ="https://localhost:44386/api";
+  readonly APIUrl ="https://localhost:5001/api";
 
   getSectionList(areaId: number, courseId : number): Observable<Section[]>{
     const href = `${this.APIUrl}/area/${areaId}/courses/${courseId}/sections/`;

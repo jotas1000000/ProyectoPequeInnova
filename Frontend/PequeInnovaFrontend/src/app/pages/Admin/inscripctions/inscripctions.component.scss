@@ -1,0 +1,31 @@
+.container{
+    border: 2px solid rgb(0,153,204);
+    border-radius: 25px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+}
+
+.field-functions{
+    width: 36%;
+}
+
+
+.button-color{
+    background-color: rgb(0,153,204);
+    color: white;
+}
+
+.teachers-navbar{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-navbar{
+    width: auto;
+    font-weight: 500;
+}
+#crearMaestro{
+    justify-content: right;
+}

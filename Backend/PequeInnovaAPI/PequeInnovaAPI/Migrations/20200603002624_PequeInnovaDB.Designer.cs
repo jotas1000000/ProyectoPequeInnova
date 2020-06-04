@@ -10,7 +10,7 @@ using PequeInnovaAPI.Data;
 namespace PequeInnovaAPI.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20200524030836_PequeInnovaDB")]
+    [Migration("20200603002624_PequeInnovaDB")]
     partial class PequeInnovaDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -477,7 +477,7 @@ namespace PequeInnovaAPI.Migrations
 
             modelBuilder.Entity("PequeInnovaAPI.Data.Entity.TeachingEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 

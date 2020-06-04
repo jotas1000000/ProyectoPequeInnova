@@ -9,7 +9,7 @@ import { Answers } from '../models/Answers';
 export class TestService {
 
   constructor(private http: HttpClient) { }
-  readonly APIUrl ="https://localhost:44386/api";
+  readonly APIUrl ="https://localhost:5001/api";
 
   getQuestionsList(areaId: number, courseId : number, lessonId:number): Observable<Test[]>{
     const href = `${this.APIUrl}/area/${areaId}/course/${courseId}/lesson/${lessonId}/question`;

@@ -4,24 +4,32 @@ import { TeacherService } from 'src/app/core/services/teacher/teacher.service';
 import { StudentService } from 'src/app/core/services/student/student.service';
 
 @Component({
-  selector: 'app-student-control',
-  templateUrl: './student-control.component.html',
-  styleUrls: ['./student-control.component.scss']
+  selector: 'app-inscripctions',
+  templateUrl: './inscripctions.component.html',
+  styleUrls: ['./inscripctions.component.scss']
 })
-export class StudentControlComponent implements OnInit {
+export class InscripctionsComponent implements OnInit {
 
   @ViewChild(MdbTableDirective, { static: true })
   mdbTable: MdbTableDirective; 
-  headElements = ['ID', 'Nombre', 'Colegio', 'Funciones']; 
+  headElements = ['ID', 'Area', 'Curso', 'Funciones']; 
   searchText: string = '';
   previous: string;
+  //user vars
+  userId: string;
+  userName: string;
+  userLastName: string;
+
   public students: any = [];
   constructor(private studentService: StudentService) { }
   @HostListener('input') oninput() { this.searchItems();
   }
   ngOnInit(): void {
-    this.studentService.getStudents().subscribe(data =>{ 
+    this.userId = "ff445a7a-d9a1-4f29-ae9d-cf297c9ffb30";
+    this.studentService.getInscriptions(this.userId).subscribe(data =>{ 
       this.students = data;
+      this.userName = data[0].name;
+      this.userLastName = data[0].lastName;
       console.log(data);
     });
     this.mdbTable.setDataSource(this.students);
@@ -43,4 +51,5 @@ export class StudentControlComponent implements OnInit {
     }
   }
   
+
 }
