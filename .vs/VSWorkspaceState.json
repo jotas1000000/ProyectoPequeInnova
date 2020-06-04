@@ -1,13 +1,6 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Backend",
-    "\\Backend\\PequeInnovaAPI",
-    "\\Backend\\PequeInnovaAPI\\PequeInnovaAPI",
-    "\\Backend\\PequeInnovaAPI\\PequeInnovaAPI\\Controllers",
-    "\\Backend\\PequeInnovaAPI\\PequeInnovaAPI\\Data",
-    "\\Backend\\PequeInnovaAPI\\PequeInnovaAPI\\Exceptions"
+    ""
   ],
-  "SelectedNode": "\\Backend\\PequeInnovaAPI\\PequeInnovaAPI",
   "PreviewInSolutionExplorer": false
 }
