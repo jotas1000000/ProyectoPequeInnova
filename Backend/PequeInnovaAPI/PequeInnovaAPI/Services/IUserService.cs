@@ -32,6 +32,7 @@ namespace PequeInnovaAPI.Services
         Task<AssignmentRequestModel> getAssignment(string userId);
         Task<bool> postAssignment(AssignmentModel assignment);
         Task<bool> deleteAssginment(int id);
+        Task<IEnumerable<TeacherAssignmentModel>> getTeacherForAssignment();
 
         Task<CommentModel> postComment(CommentModel comment);
         Task<bool> deleteComment(string userId, int commentId);

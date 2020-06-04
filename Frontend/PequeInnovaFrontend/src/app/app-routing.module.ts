@@ -30,6 +30,8 @@ import {CourseTeacherOwnerComponent} from './pages/Teacher/course-teacher-owner/
 import {CreateCourseTeacherComponent} from './pages/Teacher/create-course-teacher/create-course-teacher.component';
 import {EditCourseTeacherComponent} from './pages/Teacher/edit-course-teacher/edit-course-teacher.component';
 import { EditTeacherComponent } from './pages/edit-teacher/edit-teacher.component';
+import { StudentControlComponent } from './pages/Admin/student-control/student-control.component';
+import { InscripctionsComponent } from './pages/Admin/inscripctions/inscripctions.component';
 
 const routes: Routes = [
   { path: 'register', component:RegisterStudentComponent},
@@ -55,6 +57,8 @@ const routes: Routes = [
   { path: 'mainAdmin', component:  MainPageAdminComponent},
   { path: 'teacherControl', component:  TeacherContolPageComponent},
   { path: 'schoolControl', component:  SchoolControlPageComponent},
+  { path: 'studentControl', component:  StudentControlComponent},
+  { path: 'studentControl/inscriptions', component:  InscripctionsComponent},
   { path: 'mainAdmin/areaControl', component:  AreaControlPageComponent},
   { path: 'mainAdmin/areaControl/:areaId/courseControl', component:  CourseControlPageComponent},
   { path: 'mainAdmin/areaControl/:areaId/courseControl/createCourse', component:  CreateCoursePageComponent},
@@ -69,7 +73,7 @@ const routes: Routes = [
   { path: 'mainTeacher/CourseOwner/Area/:areaId', component:  CreateCourseTeacherComponent},
   { path: 'mainTeacher/CourseOwner/Area/:areaId/Course/:courseId/EditCourse', component:  EditCourseTeacherComponent},
 
-  { path: 'editTeacher', component: EditTeacherComponent},
+  { path: 'editTeacher/:id', component: EditTeacherComponent},
   { path: '**', component: NotFoundComponent },
 
 ];

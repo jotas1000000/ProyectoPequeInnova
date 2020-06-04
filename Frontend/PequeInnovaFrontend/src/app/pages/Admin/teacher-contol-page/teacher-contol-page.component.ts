@@ -3,6 +3,7 @@ import {MdbTableDirective, ModalContainerComponent, ModalDirective} from 'angula
 import {Router} from '@angular/router';
 import {TeacherService} from '../../../core/services/teacher/teacher.service';
 import { EditTeacherComponent } from '../../edit-teacher/edit-teacher.component';
+import { AssignmentService } from 'src/app/services/assignment/assignment.service';
 @Component({
   selector: 'app-teacher-contol-page',
   templateUrl: './teacher-contol-page.component.html',
@@ -18,12 +19,14 @@ export class TeacherContolPageComponent implements OnInit {
   mdbTable: MdbTableDirective; 
   @ViewChild('closebutton') closebutton;
   @ViewChild('deleteTeacherModal', { static: true }) deleteTeacherModal:ModalDirective;
-  headElements = ['ID', 'Nombre', 'Titulo', 'Funciones']; 
+  headElements = ['ID', 'Nombre', 'Titulo', 'Asignaciones', 'Funciones']; 
   searchText: string = '';
   previous: string;
   public teachers: any = [];
+  public assignments: any =[];
   constructor(
     private teacherService: TeacherService,
+    private assignmentService: AssignmentService,
     private router: Router,
     ) { }
   @HostListener('input') oninput() { this.searchItems();
@@ -32,6 +35,7 @@ export class TeacherContolPageComponent implements OnInit {
     this.teacherService.getAllTeachers().subscribe(data => this.teachers = data);
     this.mdbTable.setDataSource(this.teachers);
     this.previous = this.mdbTable.getDataSource(); 
+    this.assignmentService.getAllAssignments().subscribe(data => this.assignments = data);
 
   }
 
@@ -57,5 +61,9 @@ export class TeacherContolPageComponent implements OnInit {
 
   FunctionEscape(){
     this.router.navigate(['./teacherControl']);
+  }
+
+  getAssignments(el: any, assignmentlist: any[]){
+    return assignmentlist[1].areaName
   }
 }

@@ -17,13 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
-    <Compile Include="Migrations\20200525191715_Efe.cs" />
-    <Compile Include="Migrations\20200525191715_Efe.Designer.cs" />
-=======
-    <Compile Include="Migrations\20200524030836_PequeInnovaDB.cs" />
-    <Compile Include="Migrations\20200524030836_PequeInnovaDB.Designer.cs" />
->>>>>>> 5fbd44427f0917f10583f0adcdab994aaa2b03a6
+    <Compile Include="Migrations\20200603002624_PequeInnovaDB.cs" />
+    <Compile Include="Migrations\20200603002624_PequeInnovaDB.Designer.cs" />
     <Compile Include="Migrations\ApiDbContextModelSnapshot.cs" />
   </ItemGroup>
 

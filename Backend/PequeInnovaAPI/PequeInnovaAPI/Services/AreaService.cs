@@ -28,6 +28,7 @@ namespace PequeInnovaAPI.Services
             await ValidateArea(id);
 
             nuevaArea.Id = id;
+            nuevaArea.UpdateDate = DateTime.Now;
             var areaEntity = mapper.Map<AreaEntity>(nuevaArea);
             await areaRapository.UpdateAreaAsync(areaEntity);
             if (await areaRapository.SaveChangesAsync())
@@ -51,6 +52,10 @@ namespace PequeInnovaAPI.Services
 
         public async Task<Area> CreateAreaAsync(Area nuevaArea)
         {
+            nuevaArea.UpdateDate = DateTime.Now;
+            nuevaArea.CreateDate = DateTime.Now;
+            nuevaArea.State = true;
+            nuevaArea.Status = true;
             var areaEntity = mapper.Map<AreaEntity>(nuevaArea);
 
             areaRapository.AddAreaAsync(areaEntity);

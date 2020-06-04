@@ -16,6 +16,7 @@ export class CourseTeacherOwnerComponent implements OnInit {
   courses: Array<Course>;
   user: User;
   assignment: AssignmentR;
+  courseRequest: Course;
   constructor(private teacherService: TeacherService,
               private authenticationService: AuthenticationService, 
               private courseService: CourseService) { }
@@ -33,13 +34,20 @@ export class CourseTeacherOwnerComponent implements OnInit {
   }
 
   DeleteCourse(value: Course) {
-    this.courseService.deleteCourse(value).subscribe((response) => {
+    this.courseRequest = value;
+  }
+
+  confirmCourseDelete() {
+    this.courseService.deleteCourse(this.courseRequest).subscribe((response) => {
       if (response) {
-        console.log(response);
-        const pos = this.courses.indexOf(value);
-        this.courses.splice(pos, 1);
+        this.courseService.getCourseByOwner(this.user.id).subscribe((CoursesResponses) => {
+          this.courses = CoursesResponses;
+        });
       }
+    }, error => {
+      alert('Ups algo salio mal, intente de nuevo. Si el problema persiste contactese con Soporte Tenico!');
     });
+    this.courseRequest = null;
   }
 
 }

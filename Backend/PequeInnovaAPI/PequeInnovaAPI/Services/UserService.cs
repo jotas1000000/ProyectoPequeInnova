@@ -237,6 +237,11 @@ namespace PequeInnovaAPI.Services
             return query.SingleOrDefault(t => t.Id == userId);
         }
 
+        public async Task<IEnumerable<TeacherAssignmentModel>> getTeacherForAssignment()
+        {
+            return await repository.getTeacherForAssignment();
+        }
+
         public async Task<List<GetTeachersModel>> GetTeachers()
         {
             var query = await (from u in dbcontext.Users

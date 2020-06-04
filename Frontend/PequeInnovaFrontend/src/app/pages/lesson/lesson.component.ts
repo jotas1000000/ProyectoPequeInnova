@@ -32,7 +32,7 @@ export class LessonComponent implements OnInit {
   public areas = [];
   public lessons = [];
   public mainLesson : any;
-
+  
   // Route vars
   areaId: number;
   courseId: number;
@@ -51,19 +51,24 @@ export class LessonComponent implements OnInit {
   //Comment vars
   myComment : Comment = new Comment();
   newComment: string;
+  placeComment: string;
+  delComment: Comment = new Comment();
 
 
   //User vars
   user:User= null;
   userId:string=null;
   userName:string=null;
+  userRol: string= null;
   
   ngOnInit(): void {
-    
+    this.placeComment= "Escribe un Comentario";
     this.user = this.authenticationService.currentUserValue;
     if (this.user){
       this.userId= this.user.id;
       this.userName= this.user.name + ' ' + this.user.lastName;
+      this.userRol= this.user.role;
+    
     }
 
     this.lessonPage=1;
@@ -116,16 +121,25 @@ export class LessonComponent implements OnInit {
   }    
 
   postComment(nComment: string){
-    console.log(this.userId);
-    console.log(this.userName);
-    console.log (this.lessonId);
-    console.log(nComment);
-    console.log(this.newComment);
     this.myComment.userId = this.userId;
     this.myComment.userName = this.userName;
     this.myComment.lessonId = this.lessonId;
     this.myComment.description = this.newComment;
     this.commentService.postComment(this.myComment).subscribe();
+    this.getLessonsWithCommentsData();
+    this.newComment=null;
+  }
+
+  setDeleteComment(userIdDelete: string, idCommentDelete: number){
+    this.delComment.userId = userIdDelete;
+    this.delComment.id = idCommentDelete;
+  }
+
+
+
+  deleteComment(){
+    this.commentService.deleteComment(this.delComment.userId, this.delComment.id).subscribe(); 
+    this.getLessonsWithCommentsData();
   }
 
   private setCourseData(): void {

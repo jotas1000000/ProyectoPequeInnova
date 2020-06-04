@@ -81,7 +81,7 @@ namespace PequeInnovaAPI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest("ALgo no concuerda con el modelo");
             }
 
             var newArea= await this.areaService.CreateAreaAsync(area);

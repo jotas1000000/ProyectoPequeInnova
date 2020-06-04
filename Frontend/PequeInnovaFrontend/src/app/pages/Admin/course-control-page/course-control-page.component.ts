@@ -16,7 +16,7 @@ export class CourseControlPageComponent implements OnInit {
   areaId: number;
   courseId: number;
   lessonId: number;
-
+  courseRequest: Course;
   ngOnInit(): void {
     this.setRouteVariables();
     this.courseService.getCoursesByArea(this.areaId).subscribe(ListCourseResponse => {
@@ -27,21 +27,24 @@ export class CourseControlPageComponent implements OnInit {
   private setRouteVariables(): void {
     this.activatedRoute.params.subscribe(params => {
       this.areaId = params['areaId'];
-  
-      //console.log(params);
-      //console.log("AAAAAAAA" + this.areaId);
-
     });
   }
 
   DeleteCourse(value: Course) {
-    this.courseService.deleteCourse(value).subscribe((response) => {
+    this.courseRequest = value;
+  }
+
+  confirmCourseDelete() {
+    this.courseService.deleteCourse(this.courseRequest).subscribe((response) => {
       if (response) {
-        console.log(response);
-        const pos = this.courseCards.indexOf(value);
-        this.courseCards.splice(pos, 1);
+        this.courseService.getCoursesByArea(this.areaId).subscribe(ListCourseResponse => {
+          this.courseCards = ListCourseResponse;
+        });
       }
+    }, error => {
+      alert('Ups algo salio mal, intente de nuevo. Si el problema persiste contactese con Soporte Tenico!');
     });
+    this.courseRequest = null;
   }
 
 }

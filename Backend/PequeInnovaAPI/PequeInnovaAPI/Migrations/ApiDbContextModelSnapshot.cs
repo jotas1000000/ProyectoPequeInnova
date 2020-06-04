@@ -475,7 +475,7 @@ namespace PequeInnovaAPI.Migrations
 
             modelBuilder.Entity("PequeInnovaAPI.Data.Entity.TeachingEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
