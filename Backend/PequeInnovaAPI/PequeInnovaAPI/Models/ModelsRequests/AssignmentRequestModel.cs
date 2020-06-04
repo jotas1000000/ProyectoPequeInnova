@@ -10,5 +10,7 @@ namespace PequeInnovaAPI.Models.ModelsRequests
         public int id { get; set; }
         public string nameUser { get; set; }
         public string nameArea { get; set; }
+        public int areaId { get; set; }
+        public string userId { get; set; }
     }
 }

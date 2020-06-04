@@ -52,7 +52,6 @@ export class CoursesComponent implements OnInit {
         this.courses = data;
         this.totalCourses = data.length
       });
-     
   }
 
   private setAreaData(): void {

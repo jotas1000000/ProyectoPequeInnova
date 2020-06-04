@@ -189,6 +189,12 @@ namespace PequeInnovaAPI.Services
             return true;
         }
 
+        public async Task<AssignmentRequestModel> getAssignment(string userId)
+        {
+            //falta validar USer
+            return await repository.getAssignment(userId);
+        }
+
         public async Task<IEnumerable<AssignmentRequestModel>> GetAssignments()
         {
             return await repository.GetAssignments();
@@ -200,10 +206,36 @@ namespace PequeInnovaAPI.Services
             return inscriptionsEntity;
         }
 
+        public async Task<IEnumerable<InscriptionRequestModel>> getInscriptionsUser(string userId)
+        {
+            var inscriptions = await repository.getInscriptionsUser(userId);
+            return inscriptions;
+        }
+
         public async Task<IEnumerable<GetStudentsModel>> getStudents()
         {
             return await repository.getStudents();
          }
+
+        public async Task<GetTeachersModel> GetTeacher(string userId)
+        {
+            var query = await(from u in dbcontext.Users
+                              join ur in dbcontext.UserRoles on u.Id equals ur.UserId
+                              join r in dbcontext.Roles on ur.RoleId equals r.Id
+                              where r.NormalizedName == "PROFESOR" && u.Status == true
+                              select new GetTeachersModel
+                              {
+                                  Id = u.Id,
+                                  Name = u.Name,
+                                  LastName = u.LastName,
+                                  RoleName = r.Name,
+                                  City = u.City,
+                                  Degree = u.Degree,
+                                  Email = u.Email
+                              }
+                               ).AsNoTracking().ToListAsync();
+            return query.SingleOrDefault(t => t.Id == userId);
+        }
 
         public async Task<List<GetTeachersModel>> GetTeachers()
         {
@@ -335,7 +367,8 @@ namespace PequeInnovaAPI.Services
                 LastName = user.LastName,
                 Role = roles.FirstOrDefault(),
                 Id = user.Id,
-                Token = tokenAsString
+                Token = tokenAsString,
+                UserName = user.UserName
             };
 
         }
@@ -372,15 +405,23 @@ namespace PequeInnovaAPI.Services
 
         public async Task<bool> postInscription(InscriptionModel inscription)
         {
-            inscription.Id = null;
-            inscription.State = false;
-            inscription.Status = true;
-            inscription.UpdateDate = DateTime.Now;
-            inscription.CreateDate = DateTime.Now;
-            var inscriptionEntity = mapper.Map<InscriptionEntity>(inscription);
-            repository.postInscription(inscriptionEntity);
-            await repository.SaveChangesAsync();
-            return true;
+            var validate = await repository.GetInscription(inscription.CourseId, inscription.UserId);
+            if (validate != null)
+            {
+                return false;
+            } else
+            { 
+                inscription.Id = null;
+                inscription.State = false;
+                inscription.Status = true;
+                inscription.UpdateDate = DateTime.Now;
+                inscription.CreateDate = DateTime.Now;
+                var inscriptionEntity = mapper.Map<InscriptionEntity>(inscription);
+                repository.postInscription(inscriptionEntity);
+                await repository.SaveChangesAsync();
+                return true;
+
+            }
         }
 
         public async Task<UserManagerResponse> RegisterUserAdminAsync(RegisterViewModel model)

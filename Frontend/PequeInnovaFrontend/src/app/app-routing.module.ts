@@ -23,6 +23,13 @@ import {StudentGuard} from './guards/StudentGuard/student.guard';
 import {RegisterComponent} from './pages/register/register.component';
 import { RegisterTeacherComponent } from './pages/registerTeacher/register-teacher/register-teacher.component';
 import {EditCourseComponent} from './pages/Admin/edit-course/edit-course.component';
+import {MainPageTeacherComponent} from './pages/Teacher/main-page-teacher/main-page-teacher.component';
+import {AreaTeacherPageComponent} from './pages/Teacher/area-teacher-page/area-teacher-page.component';
+import {CourseTeacherPageComponent} from './pages/Teacher/course-teacher-page/course-teacher-page.component';
+import {CourseTeacherOwnerComponent} from './pages/Teacher/course-teacher-owner/course-teacher-owner.component';
+import {CreateCourseTeacherComponent} from './pages/Teacher/create-course-teacher/create-course-teacher.component';
+import {EditCourseTeacherComponent} from './pages/Teacher/edit-course-teacher/edit-course-teacher.component';
+import { EditTeacherComponent } from './pages/edit-teacher/edit-teacher.component';
 
 const routes: Routes = [
   { path: 'register', component:RegisterStudentComponent},
@@ -55,6 +62,14 @@ const routes: Routes = [
   { path: 'registerTeacher', component:  RegisterTeacherComponent },
   { path: 'mainAdmin/areaControl/:areaId/courseControl/:courseId/editCourse', component:  EditCourseComponent },
 
+  { path: 'mainTeacher', component:  MainPageTeacherComponent},
+  { path: 'mainTeacher/areaTeacher', component:  AreaTeacherPageComponent},
+  { path: 'mainTeacher/areaTeacher/:areaId/courseTeacher', component:  CourseTeacherPageComponent},
+  { path: 'mainTeacher/CourseOwner', component:  CourseTeacherOwnerComponent},
+  { path: 'mainTeacher/CourseOwner/Area/:areaId', component:  CreateCourseTeacherComponent},
+  { path: 'mainTeacher/CourseOwner/Area/:areaId/Course/:courseId/EditCourse', component:  EditCourseTeacherComponent},
+
+  { path: 'editTeacher', component: EditTeacherComponent},
   { path: '**', component: NotFoundComponent },
 
 ];

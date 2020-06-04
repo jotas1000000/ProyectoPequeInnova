@@ -6,6 +6,10 @@ import { LessonService } from 'src/app/services/lesson.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lesson } from 'src/app/models/Lesson';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
+import { User } from 'src/app/core/models/User.model';
+import { Comment } from 'src/app/models/Comment';
+import { CommentService } from 'src/app/services/comment.service';
 
 @Component({
   selector: 'app-lesson',
@@ -20,7 +24,9 @@ export class LessonComponent implements OnInit {
     private lessonsService: LessonService,
     private activatedRoute: ActivatedRoute,
     public sanitizer: DomSanitizer,
-    private router: Router) { }
+    public commentService: CommentService,
+    private router: Router,
+    private authenticationService: AuthenticationService) { }
 
   public courses = [];
   public areas = [];
@@ -39,23 +45,37 @@ export class LessonComponent implements OnInit {
   slides: any = [];
 
   //Lesson vars
-  page : number;
   lessonPage: number;
   sanitizer2: any;
+  
+  //Comment vars
+  myComment : Comment = new Comment();
+  newComment: string;
 
 
+  //User vars
+  user:User= null;
+  userId:string=null;
+  userName:string=null;
   
   ngOnInit(): void {
     
+    this.user = this.authenticationService.currentUserValue;
+    if (this.user){
+      this.userId= this.user.id;
+      this.userName= this.user.name + ' ' + this.user.lastName;
+    }
+
     this.lessonPage=1;
-    this.slides = this.comments;
+ 
     this.setRouteVariables();
     this.setCourseData();
+    this.getLessonsWithCommentsData();
     /*this.setAreaData();
     this.setSectionData(); */
-    this.getLessonsData();
+    //this.getLessonsData();
     // this.getLessonData();
-    this.page = 0;
+
     console.log("BBBBBBBB" + this.courseId);
     console.log("YYYYYYYYY" + this.lessonId);
   }
@@ -79,27 +99,34 @@ export class LessonComponent implements OnInit {
       .subscribe(data => this.lessons = data);
   }
 
+  private getLessonsWithCommentsData(): void {
+    this.lessonsService.getLessonsWithComments(this.areaId,this.courseId)
+      .subscribe(data =>{ this.lessons = data;
+        console.log(data[0])});
+  }
+
   getLessonData(): void {
     this.lessonsService.getLesson(this.areaId,this.courseId,this.lessonId)
       .subscribe(data => this.mainLesson = data);
   }
 
-  nextPage(id:number): void {
-    console.log("ttttttttt" + id);
-    this.router.navigate([` areas/${this.areaId}/courses/${this.courseId}/lessons/${id}/theoretical`]);
-    this.page++;
-  }
-  refresh(): void {
-    window.location.reload();
-  }
-  previousPage():void{
-    this.page--;
-  }
   
   getTrustedYouTubeUrl(linkedVideo:Lesson) {
     return this.sanitizer2.bypassSecurityTrustResourceUrl(linkedVideo.urlVideo);
   }    
 
+  postComment(nComment: string){
+    console.log(this.userId);
+    console.log(this.userName);
+    console.log (this.lessonId);
+    console.log(nComment);
+    console.log(this.newComment);
+    this.myComment.userId = this.userId;
+    this.myComment.userName = this.userName;
+    this.myComment.lessonId = this.lessonId;
+    this.myComment.description = this.newComment;
+    this.commentService.postComment(this.myComment).subscribe();
+  }
 
   private setCourseData(): void {
     this.coursesService.getCourseList(this.areaId)
@@ -128,31 +155,5 @@ export class LessonComponent implements OnInit {
         });
   }
   
-  comments = [
-    {
-      user: 'Pepito Perez',
-      comments: 'Buen video Profe Rubius',
-    },
-    {
-      user: 'Pedrito Jimenez',
-      comments: 'Como se llama el alimento de los patos?',
-    },
-    {
-      user: 'Juancito Mendez',
-      comments: 'Creo que es Pancito',
-    },
-    {
-      user: 'Pepito Perez',
-      comments: 'Creo que era Maiz',
-    },
-    {
-      user: 'Pedrito Jimenez',
-      comments: 'Gracias Juancito!',
-    },
-    {
-      user: 'Profe Rubius',
-      comments: 'El alimento de los patitos eran limones 4k. Gracias chicoz.',
-    }
-  ];
 
 }

@@ -25,9 +25,6 @@ export class NavigationBarComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService) {
-      if (this.authenticationService.currentUserValue) {
-      //  this.router.navigate(['/home']);
-    }
   }
 
   ngOnInit(): void {
@@ -80,7 +77,7 @@ export class NavigationBarComponent implements OnInit {
         .subscribe(
             data => {
                 this.user=data;
-                this.nameUserCurrent= this.user.name + ' ' +this.user.lastName;
+               // this.nameUserCurrent= this.user.name + ' ' +this.user.lastName;
                 this.router.navigate([this.returnUrl]);
             },
             error => {
@@ -95,6 +92,12 @@ export class NavigationBarComponent implements OnInit {
   navToMainAdmin() {
     if (this.user.role === 'administrador') {
       this.router.navigate(['./mainAdmin']);
+    }
+  }
+
+  navToMainTeacher() {
+    if (this.user.role === 'Profesor') {
+      this.router.navigate(['./mainTeacher']);
     }
   }
 

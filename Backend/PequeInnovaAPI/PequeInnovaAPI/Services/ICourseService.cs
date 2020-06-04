@@ -17,5 +17,7 @@ namespace PequeInnovaAPI.Services
         Task<bool> DeleteCourse(int areaId, int id);
         Task<CourseModel> GetCourserforEdit(int areaId, int id);
         Task<bool> PostCourseComplete(CourseModel courseComplete);
+
+        Task<IEnumerable<CourseModel>> getCoursesByOwner(string userId);
     }
 }

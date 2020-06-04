@@ -19,6 +19,9 @@
             <div class="view viewOne">
                 <button type="button" routerLink="/teacherControl" mdbBtn color="info" mdbWavesEffect>Maestros</button>
             </div>
+            <div class="view viewOne">
+              <button type="button" routerLink="/teacherControl" mdbBtn color="info" mdbWavesEffect>Estudiantes</button>
+          </div>
             <div class="view viewTwo">
                 <button type="button" routerLink="/schoolControl" mdbBtn color="info" mdbWavesEffect>Colegios</button>
             </div>
@@ -37,9 +40,9 @@
   
   <owl-carousel-o [options]="customOptions">
     <ng-template carouselSlide *ngFor="let slide of areas">
-      <mdb-card>
+      <mdb-card class="one-card">
         <!--Card image-->
-        <mdb-card-img [src]="slide.image" alt="Card image cap"></mdb-card-img>
+        <img class="card-img" [src]="slide.image" alt="Card image cap"><img>
         <!--Card content-->
         <mdb-card-body>
       

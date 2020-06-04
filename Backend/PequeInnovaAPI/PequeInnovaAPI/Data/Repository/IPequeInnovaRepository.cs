@@ -15,7 +15,8 @@ namespace PequeInnovaAPI.Data.Repository
         void postAssignment(AssignmentEntity assignment);
         Task deleteAssginment(int id);
         Task<IEnumerable<AssignmentRequestModel>> GetAssignments();
-            //Comments
+        Task<AssignmentRequestModel> getAssignment(string userId);
+        //Comments
         void postComment(CommentEntity comment);
         Task deleteComment(string userId, int commentId);
             //User
@@ -28,6 +29,9 @@ namespace PequeInnovaAPI.Data.Repository
         Task approveInscription(int inscriptionId);
         void postInscription(InscriptionEntity inscription);
         Task deleteInscription(int id);
+        Task<InscriptionEntity> GetInscription(int courseId, string userId);
+        Task<IEnumerable<InscriptionRequestModel>> getInscriptionsUser(string userId);
+
 
 
 
@@ -48,6 +52,8 @@ namespace PequeInnovaAPI.Data.Repository
         Task DeleteCourses(int id);
         void UpdateStatusCourse(int courseId);
         Task<CourseEntity> GetCourserforEdit(int areaId, int id);
+        Task<IEnumerable<CourseEntity>> getCoursesByOwner(string userId);
+
 
 
         void PostCourseComplete(CourseEntity courseComplete);
@@ -62,7 +68,9 @@ namespace PequeInnovaAPI.Data.Repository
         Task DeleteSection(int id);
         void UpdateStatusSection(int secctionId);
 
-
+        //Teachings
+        void postTeaching(TeachingEntity teaching);
+        Task<IEnumerable<TeachingEntity>> getTeachings();
 
         //leccion
         Task<LessonEntity> GetLessonAsync(int lessonId,int courseId, int areaId, bool showComments, bool showQuestions);

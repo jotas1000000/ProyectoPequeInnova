@@ -28,4 +28,9 @@ export class CourseService {
   deleteCourse(course: Course){
     return this.http.put<boolean>(`${environment.apiUrl}/Area/${course.areaId}/Course/${course.id}/status`, course);
   }
+
+  getCourseByOwner(userId: string) {
+    return this.http.get<Array<Course>>(`${environment.apiUrl}/Area/0/Course/ByOwner/${userId}`);
+  }
 }
+

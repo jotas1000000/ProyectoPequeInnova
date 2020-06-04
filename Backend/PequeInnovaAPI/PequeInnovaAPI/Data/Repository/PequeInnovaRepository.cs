@@ -34,6 +34,7 @@ namespace PequeInnovaAPI.Data.Repository
             cursoPut.Description = curso.Description;
             cursoPut.Image = curso.Image;
             cursoPut.UpdateDate = DateTime.Now;
+            cursoPut.Uid = curso.Uid;
         }
 
         public void AddAreaAsync(AreaEntity area)
@@ -544,7 +545,9 @@ namespace PequeInnovaAPI.Data.Repository
                                {
                                    id = a.Id.GetValueOrDefault(),
                                    nameArea = ar.Name,
-                                   nameUser = u.Name+" "+u.LastName
+                                   nameUser = u.Name+" "+u.LastName,
+                                   areaId = ar.Id,
+                                   userId = u.Id
                                }
                                ).AsNoTracking().ToListAsync();
             return query;
@@ -628,11 +631,14 @@ namespace PequeInnovaAPI.Data.Repository
                                join u in PIDBContext.Users on i.UserId equals u.Id
                                join c in PIDBContext.Courses on i.Course.Id equals c.Id
                                join a in PIDBContext.Areas on c.Area.Id equals a.Id
+                               join ur in PIDBContext.UserRoles on u.Id equals ur.UserId
+                               join r in PIDBContext.Roles on ur.RoleId equals r.Id
                                where i.Status == true && u.Status == true &&
                                      c.Status == true && a.Status == true
                                select new InscriptionRequestModel { 
                                     id = i.Id,
                                     userId = u.Id,
+                                    RoleName = r.Name,
                                     areaId = a.Id,
                                     courseId = c.Id.GetValueOrDefault(),
                                     courseName = c.Name,
@@ -740,6 +746,89 @@ namespace PequeInnovaAPI.Data.Repository
             lessonPut.Uid = lesson.Uid;
             lessonPut.Status = lesson.Status;
             lessonPut.UpdateDate = DateTime.Now;
+        }
+
+        public async Task<AssignmentRequestModel> getAssignment(string userId)
+        {
+            var query = await(from a in PIDBContext.Assignments
+                              join ar in PIDBContext.Areas on a.AreaId equals ar.Id
+                              join u in PIDBContext.Users on a.UserId equals u.Id
+                              where a.Status == true && ar.Status == true && u.Status == true
+                              select new AssignmentRequestModel
+                              {
+                                  id = a.Id.GetValueOrDefault(),
+                                  nameArea = ar.Name,
+                                  nameUser = u.Name + " " + u.LastName,
+                                  areaId = ar.Id,
+                                  userId = u.Id
+                              }
+                               ).AsNoTracking().SingleAsync();
+            return query;
+        }
+
+        public async Task<IEnumerable<CourseEntity>> getCoursesByOwner(string userId)
+        {
+            var query = await (from t in PIDBContext.Teachings
+                                                    join c in PIDBContext.Courses on t.CourseId equals c.Id
+                                                    where t.UserId == userId && c.Status == true && t.Status == true
+                                                    select new CourseEntity
+                                                    {
+                                                        Id = c.Id,
+                                                        Name = c.Name,
+                                                        Description = c.Description,
+                                                        Image = c.Image,
+                                                        Area = c.Area                                                       
+
+                                                    }).AsNoTracking().ToArrayAsync();
+            return query;
+        }
+
+        public void postTeaching(TeachingEntity teaching)
+        {
+            //PIDBContext.Entry(teaching.CourseId).State = EntityState.Unchanged;
+            PIDBContext.Teachings.Add(teaching);
+        }
+
+        public async Task<IEnumerable<TeachingEntity>> getTeachings()
+        {
+            IQueryable<TeachingEntity> query = PIDBContext.Teachings.Where(t => t.Status == true);
+            query = query.AsNoTracking();
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<InscriptionEntity> GetInscription(int courseId, string userId)
+        {
+            IQueryable<InscriptionEntity> query = PIDBContext.Inscriptions;
+            query = query.AsNoTracking();
+            return await query.SingleOrDefaultAsync(i => i.Course.Id == courseId && i.UserId == userId && i.Status == true);
+        }
+
+        public async Task<IEnumerable<InscriptionRequestModel>> getInscriptionsUser(string userId)
+        {
+            var query = await (from i in PIDBContext.Inscriptions
+                               join u in PIDBContext.Users on i.UserId equals u.Id
+                               join c in PIDBContext.Courses on i.Course.Id equals c.Id
+                               join a in PIDBContext.Areas on c.Area.Id equals a.Id
+                               join ur in PIDBContext.UserRoles on u.Id equals ur.UserId
+                               join r in PIDBContext.Roles on ur.RoleId equals r.Id
+                               where i.Status == true && u.Status == true &&
+                                     c.Status == true && a.Status == true && 
+                                     u.Id == userId
+                               select new InscriptionRequestModel
+                               {
+                                   id = i.Id,
+                                   userId = u.Id,
+                                   RoleName = r.Name,
+                                   areaId = a.Id,
+                                   courseId = c.Id.GetValueOrDefault(),
+                                   courseName = c.Name,
+                                   areaName = a.Name,
+                                   Name = u.Name,
+                                   LastName = u.LastName,
+                                   State = i.State
+                               }
+                               ).AsNoTracking().ToArrayAsync();
+            return query;
         }
     }
 }

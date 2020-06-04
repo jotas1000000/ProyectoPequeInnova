@@ -36,6 +36,8 @@ namespace PequeInnovaAPI.Data
                .ReverseMap();
             this.CreateMap<InscriptionEntity, InscriptionModel>()
                .ReverseMap();
+            this.CreateMap<TeachingEntity, TeachingModel>()
+              .ReverseMap();
         }
     }
 }

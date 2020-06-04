@@ -29,6 +29,7 @@ namespace PequeInnovaAPI.Services
         Task<List<GetTeachersModel>> GetTeachers();
 
         Task<IEnumerable<AssignmentRequestModel>> GetAssignments();
+        Task<AssignmentRequestModel> getAssignment(string userId);
         Task<bool> postAssignment(AssignmentModel assignment);
         Task<bool> deleteAssginment(int id);
 
@@ -47,6 +48,8 @@ namespace PequeInnovaAPI.Services
         Task<bool> approveInscription(int inscriptionId);
         Task<bool> postInscription(InscriptionModel inscription);
         Task<bool> deleteInscription(int id);
+        Task<IEnumerable<InscriptionRequestModel>> getInscriptionsUser(string userId);
+        Task<GetTeachersModel> GetTeacher(string userId);
 
     }
 }

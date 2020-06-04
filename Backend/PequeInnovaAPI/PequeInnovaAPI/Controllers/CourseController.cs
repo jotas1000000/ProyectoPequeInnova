@@ -33,7 +33,19 @@ namespace PequeInnovaAPI.Controllers
             }
 
         }
+        [HttpGet("ByOwner/{userId:maxlength(38)}")]
+        public async Task<IActionResult> getCoursesbyOwner(string userId)
+        {
+            try
+            {
+                return Ok(await courseService.getCoursesByOwner(userId));
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
 
+        }
         [HttpPost()]
         public async Task<ActionResult<CourseModel>> PostCourse(int areaID, [FromBody] CourseModel course)
         {
