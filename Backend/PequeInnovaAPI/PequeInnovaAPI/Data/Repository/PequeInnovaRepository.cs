@@ -536,7 +536,7 @@ namespace PequeInnovaAPI.Data.Repository
         public async Task deleteAssginment(int id)
         {
             var assignment = await PIDBContext.Assignments.SingleAsync(a => a.Id == id);
-            assignment.Status = false;
+            PIDBContext.Assignments.Remove(assignment);
         }
 
         public async Task<IEnumerable<AssignmentRequestModel>> GetAssignments()

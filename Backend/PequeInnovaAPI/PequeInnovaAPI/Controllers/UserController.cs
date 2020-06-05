@@ -140,7 +140,7 @@ namespace PequeInnovaAPI.Controllers
             return BadRequest("Some properties are not valid");
         }
 
-        [HttpPut("Assignment/{assignmentId:int}/DeleteAssignment")]
+        [HttpDelete("Assignment/{assignmentId:int}/DeleteAssignment")]
         public async Task<IActionResult> deleteAssignment(int assignmentId)
         {
             if (ModelState.IsValid)
