@@ -79,6 +79,20 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
+        [HttpPut("Assignment/{assignmentId:int}")]
+        public async Task<IActionResult> putAssignments(int assignmentId, [FromBody] AssignmentModel assignment  )
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await service.putAssignment(assignmentId, assignment);
+                if (result)
+                {
+                    return Ok(result);
+                }
+            }
+
+            return BadRequest("Algo salio mal en la peticion");
+        }
 
         [HttpGet("{userId:maxlength(38)}/Assignment")]
         public async Task<IActionResult> getAssignment(string userId)

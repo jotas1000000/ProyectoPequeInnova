@@ -766,7 +766,7 @@ namespace PequeInnovaAPI.Data.Repository
                                   areaId = ar.Id,
                                   userId = u.Id
                               }
-                               ).AsNoTracking().SingleAsync();
+                               ).AsNoTracking().FirstOrDefaultAsync();
             return query;
         }
 
@@ -856,9 +856,17 @@ namespace PequeInnovaAPI.Data.Repository
                                     Degree = teacher.Degree,
                                     Email = teacher.Email,
                                     AreaId = subassignment.AreaId,
-                                    AreaName = subarea.Name ?? "Sin Area"
+                                    AreaName = subarea.Name ?? "Sin Area",
+                                    AssignmentId = subassignment.Id.GetValueOrDefault()
                                }).AsNoTracking().ToArrayAsync();
             return query;
+        }
+
+        public async Task putAssignment(int assignmentId, AssignmentEntity assignment)
+        {
+            var assignmentPut = await PIDBContext.Assignments.SingleOrDefaultAsync(a => a.Id == assignmentId);
+            assignmentPut.AreaId = assignment.AreaId;
+            assignmentPut.UpdateDate = DateTime.Now;
         }
     }
 }

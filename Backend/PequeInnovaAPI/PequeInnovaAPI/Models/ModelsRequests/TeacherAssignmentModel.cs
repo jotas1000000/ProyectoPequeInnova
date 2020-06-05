@@ -16,5 +16,6 @@ namespace PequeInnovaAPI.Models.ModelsRequests
         public string City { get; set; }
         public string Degree { get; set; }
         public string Email { get; set; }
+        public int AssignmentId { get; set; }
     }
 }

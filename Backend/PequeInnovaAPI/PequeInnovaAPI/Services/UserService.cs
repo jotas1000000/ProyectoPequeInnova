@@ -429,6 +429,20 @@ namespace PequeInnovaAPI.Services
             }
         }
 
+        public async Task<bool> putAssignment(int assignmentId, AssignmentModel assignment)
+        {
+            var assignmentPut = await repository.getAssignment(assignment.UserId);
+            if (assignmentPut == null) {
+                throw new Exception("No se pudo editar al asignacion");
+            }
+            var assignmentEntity = mapper.Map<AssignmentEntity>(assignment);
+            await repository.putAssignment(assignmentId ,assignmentEntity);
+            if (await repository.SaveChangesAsync()) {
+                return true;
+            }
+            throw new Exception("No se pudo editar al asignacion");
+        }
+
         public async Task<UserManagerResponse> RegisterUserAdminAsync(RegisterViewModel model)
         {
             if (model == null)
