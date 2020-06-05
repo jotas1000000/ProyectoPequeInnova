@@ -12,6 +12,7 @@ namespace PequeInnovaAPI.Services
         Task<IEnumerable<Area>> GetAreasAsync(string orderBy, bool mpstrarCursos);
         Task<Area> GetAreaAsync(int id, bool mostrarCursos);
         Task<Area> UpdateAreaAsync(int id, Area nuevaArea);
+        Task<bool> UpdateStatusAsync(int areaId);
         Task<bool> DeleteAreaAsync(int id);
     }
 }

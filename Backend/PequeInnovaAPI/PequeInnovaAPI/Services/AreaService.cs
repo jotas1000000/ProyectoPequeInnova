@@ -21,15 +21,16 @@ namespace PequeInnovaAPI.Services
         }
         public async Task<Area> UpdateAreaAsync(int id, Area nuevaArea)
         {
-            if (id != nuevaArea.Id)
-            {
-                throw new InvalidOperationException("URL id needs to be the same as Author id");
-            }
+            //if (id != nuevaArea.Id)
+            //{
+            //    throw new InvalidOperationException("URL id needs to be the same as Author id");
+            //}
             await ValidateArea(id);
 
             nuevaArea.Id = id;
+            nuevaArea.UpdateDate = DateTime.Now;
             var areaEntity = mapper.Map<AreaEntity>(nuevaArea);
-            areaRapository.UpdateAreaAsync(areaEntity);
+            await areaRapository.UpdateAreaAsync(areaEntity);
             if (await areaRapository.SaveChangesAsync())
             {
                 return mapper.Map<Area>(areaEntity);
@@ -51,6 +52,10 @@ namespace PequeInnovaAPI.Services
 
         public async Task<Area> CreateAreaAsync(Area nuevaArea)
         {
+            nuevaArea.UpdateDate = DateTime.Now;
+            nuevaArea.CreateDate = DateTime.Now;
+            nuevaArea.State = true;
+            nuevaArea.Status = true;
             var areaEntity = mapper.Map<AreaEntity>(nuevaArea);
 
             areaRapository.AddAreaAsync(areaEntity);
@@ -85,9 +90,20 @@ namespace PequeInnovaAPI.Services
             var author = await areaRapository.GetAreaAsync(id);
             if (author == null)
             {
-                throw new NotFoundException("invalid author to delete");
+                throw new NotFoundException("invalid area to delete");
             }
             areaRapository.DetachEntity(author);
+        }
+
+        public async Task<bool> UpdateStatusAsync(int areaId)
+        {
+            await ValidateArea(areaId);
+
+            areaRapository.UpdateStatus(areaId);
+            if (await areaRapository.SaveChangesAsync())
+                return true;
+
+            throw new Exception("There were an error with the DB");
         }
     }
 }

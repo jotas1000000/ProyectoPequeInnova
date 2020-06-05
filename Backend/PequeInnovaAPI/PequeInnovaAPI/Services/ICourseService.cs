@@ -8,11 +8,16 @@ namespace PequeInnovaAPI.Services
 {
     public interface ICourseService
     {
-        Task<IEnumerable<Course>> GetCourse(int areaId);
-        Task<Course> GetCourseAsync(int areaId, int id);
-        Task<IEnumerable<Course>> GetAllCourses();
-        Task<Course> AddCourseAsync(int areaId, Course course);
-        Task<Course> UpdateCourseAsync(int areaId, int id, Course course);
+        Task<IEnumerable<CourseModel>> GetCourse(int areaId);
+        Task<CourseModel> GetCourseAsync(int areaId, int id);
+        Task<IEnumerable<CourseModel>> GetAllCourses();
+        Task<CourseModel> AddCourseAsync(int areaId, CourseModel course);
+        Task<CourseModel> UpdateCourseAsync(int areaId, int id, CourseModel course);
+        Task<bool> UpdateStatusAsync(int courseId);
         Task<bool> DeleteCourse(int areaId, int id);
+        Task<CourseModel> GetCourserforEdit(int areaId, int id);
+        Task<bool> PostCourseComplete(CourseModel courseComplete);
+
+        Task<IEnumerable<CourseModel>> getCoursesByOwner(string userId);
     }
 }

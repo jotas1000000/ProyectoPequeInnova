@@ -45,7 +45,7 @@ namespace PequeInnovaAPI.Controllers
                 {
                     return Ok(Result);
                 }
-                return BadRequest(Result);
+                return Ok(Result);
 
             }
             return BadRequest("No se pudo registrar. Algo estuvo mal!");
@@ -57,6 +57,22 @@ namespace PequeInnovaAPI.Controllers
             if (ModelState.IsValid)
             {
                 var Result = await Service.RegisterUserTeacherAsync(model);
+                if (Result.IsSuccess)
+                {
+                    return Ok(Result);
+                }
+                return BadRequest(Result);
+
+            }
+            return BadRequest("No se pudo registrar. Algo estuvo mal!");
+        }
+
+        [HttpPost("UserAdmin")]
+        public async Task<IActionResult> CreateUserAdminAsync([FromBody] RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var Result = await Service.RegisterUserAdminAsync(model);
                 if (Result.IsSuccess)
                 {
                     return Ok(Result);
@@ -108,7 +124,7 @@ namespace PequeInnovaAPI.Controllers
             {
                 var result = await Service.LoginUserAsync(model);
 
-                if (result.IsSuccess)
+                if (result.Name != "")
                 {
                     return Ok(result);
                 }
@@ -137,22 +153,6 @@ namespace PequeInnovaAPI.Controllers
             return BadRequest("Some properties are not valid");
         }
 
-        [HttpGet("UsersComments")]
-        public async Task<IActionResult> GetUsersComments()
-        {
-            if (ModelState.IsValid)
-            {
-                var result = await Service.GetUsersComments();
-
-                if (result != null)
-                {
-                    return Ok(result);
-                }
-
-                return BadRequest(result);
-            }
-
-            return BadRequest("Some properties are not valid");
-        }
+        
     }
 }

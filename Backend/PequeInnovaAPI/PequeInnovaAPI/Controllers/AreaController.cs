@@ -42,7 +42,7 @@ namespace PequeInnovaAPI.Controllers
             }
         }
         [HttpGet("allCuorses")]
-        public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
+        public async Task<ActionResult<IEnumerable<CourseModel>>> GetCourses()
         {
             try
             {
@@ -81,28 +81,25 @@ namespace PequeInnovaAPI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest("ALgo no concuerda con el modelo");
             }
 
             var newArea= await this.areaService.CreateAreaAsync(area);
-            return Created($"/api/areas/{newArea.Id}", newArea);
+            return Created($"/api/Area/{newArea.Id}", newArea);
         }
 
-        [HttpDelete("{areaID:int}")]
+        [HttpPut("{areaID:int}/status")]
         public async Task<ActionResult<bool>> Delete(int areaID)
         {
             try
             {
-                return Ok(await this.areaService.DeleteAreaAsync(areaID));
+                return Ok(await areaService.UpdateStatusAsync(areaID));
             }
-            catch (NotFoundException ex)
+            catch
             {
-                return NotFound(ex.Message);
+                throw new Exception("Not possible to show");
             }
-            catch (Exception ex)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Something bad happened: {ex.Message}");
-            }
+        
         }
 
         [HttpPut("{areaID}")]

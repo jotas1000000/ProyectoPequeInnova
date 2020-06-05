@@ -7,80 +7,77 @@ using PequeInnovaAPI.Data.Entity;
 using PequeInnovaAPI.Data.Repository;
 using PequeInnovaAPI.Models;
 using PequeInnovaAPI.Exceptions;
+using PequeInnovaAPI.Models.ModelsRequests;
 
 namespace PequeInnovaAPI.Services
 {
     public class LessonService : ILessonService
     {
-        private IPequeInnovaRepository lessonRapository;
+        private IPequeInnovaRepository repository;
         private readonly IMapper mapper;
-        public LessonService(IPequeInnovaRepository lessonRapository, IMapper mapper)
+        public LessonService(IPequeInnovaRepository repository, IMapper mapper)
         {
-            this.lessonRapository = lessonRapository;
+            this.repository = repository;
             this.mapper = mapper;
         }
-        public async Task<Lesson> AddLessonAsync(int sectionId, Lesson lesson)
+        
+        public async Task<LessonModel> AddLessonAsync(int courseId, LessonModel lesson)
         {
-            if (lesson.SectionId != null && sectionId != lesson.SectionId)
-            {
-                throw new InvalidOperationException("URL artisttt id and artistId should be equal");
-            }
-            lesson.SectionId = sectionId;
-
-            var sectionEntity = await validateSectionId(sectionId);
-
+            lesson.Id = null;
+            lesson.CourseId = courseId;
+            lesson.Questions = null;
+            var coursevalidate = await validateCourse(courseId);
             var lessonEntity = mapper.Map<LessonEntity>(lesson);
-            lessonEntity.Section = sectionEntity;
 
-            lessonRapository.AddLesson(lessonEntity);
-            if (await lessonRapository.SaveChangesAsync())
+            repository.AddLessonAsync(lessonEntity);
+            if (await repository.SaveChangesAsync())
             {
-                return mapper.Map<Lesson>(lessonEntity);
+                return mapper.Map<LessonModel>(lessonEntity);
             }
-            throw new Exception("There were an error with the DB");
+            throw new Exception("Hubo un error en la DB");
         }
-
+        
+        /*
         public async Task<bool> DeleteLesson(int sectionId, int id)
         {
             var val = await validateSectionId(sectionId);
-            await lessonRapository.DeleteLesson(id);
-            if (await lessonRapository.SaveChangesAsync())
+            await repository.DeleteLesson(id);
+            if (await repository.SaveChangesAsync())
                 return true;
             return false;
         }
+        */
 
-
-        public async Task<IEnumerable<Lesson>> GetLesson(int sectionId)
+        public async Task<LessonModel> GetLessonAsync(int courseId, int lessonId, int areaId, bool showComments, bool showQuestions)
         {
-            var res = await lessonRapository.GetLesson(sectionId);
-            var lessons = mapper.Map<IEnumerable<Lesson>>(res);
-            foreach (Lesson d in lessons)
-            {
-                d.SectionId = sectionId;
-            }
+            await validateCourse(courseId);
+            var res = await repository.GetLessonAsync(lessonId,courseId, areaId, showComments,showQuestions);
+            var lessons = mapper.Map<LessonModel>(res);
             return lessons;
         }
-
-        public async Task<Lesson> GetLessonAsync(int sectionId, int id)
+        
+       
+        public async Task<IEnumerable<LessonModel>> GetLessonsAsync(int courseId, int areaId, bool showComments, bool showQuestions)
         {
-            var res = await validateSectionId(sectionId);
-            var LessonEntity = await lessonRapository.GetLessonsAsync(id);
+            var res = await validateCourse(courseId);
+            var LessonEntity = await repository.GetLessonsAsync(courseId, areaId, showComments, showQuestions);
             if (LessonEntity == null)
             {
                 throw new Exception("Not Found");
             }
-            var less = mapper.Map<Lesson>(LessonEntity);
-            less.SectionId = sectionId;
-            return less;
+            var resp = mapper.Map<IEnumerable<LessonModel>>(LessonEntity);
+           // less.SectionId = sectionId;
+            return resp;
         }
 
-        public async Task<Lesson> UpdateLessonAsync(int sectionId, int id, Lesson lesson)
+        /*
+        public async Task<LessonModel> UpdateLessonAsync(int sectionId, int id, LessonModel lesson)
         {
             var section = await validateSectionId(sectionId);
-            if (id != lesson.Id && lesson.Id != null)
-            {
-                throw new Exception("Id of the cancion in URL needs to be the same that the object");
-            }
+            //if (id != lesson.Id && lesson.Id != null)
+            //{
+            //    throw new Exception("Id of the cancion in URL needs to be the same that the object");
+            //}
             if (sectionId != section.Id)
             {
                 throw new Exception("The id of Artist isn't correct");
@@ -88,20 +85,61 @@ namespace PequeInnovaAPI.Services
 
             lesson.Id = id;
             var lessonEntity = mapper.Map<LessonEntity>(lesson);
-            lessonRapository.UpdateLesson(lessonEntity);
-            if (await lessonRapository.SaveChangesAsync())
-                return mapper.Map<Lesson>(lessonEntity);
+            await repository.UpdateLesson(lessonEntity);
+            if (await repository.SaveChangesAsync())
+                return mapper.Map<LessonModel>(lessonEntity);
             throw new Exception("There were an error with the DB");
         }
-        private async Task<SectionEntity> validateSectionId(int id)
+        */
+       
+
+        private async Task<CourseEntity> validateCourse(int id)
         {
-            var section = await lessonRapository.GetSectionsAsync(id);
-            if (section == null)
+            var course = await repository.GetCourseAsync(id);
+            if (course == null)
             {
-                throw new NotFoundException($"cannot found artista with id {id}");
+                throw new NotFoundException($"No se pudo encontrar el curso con id: {id}");
             }
-            lessonRapository.DetachEntity(section);
-            return section;
+            return course;
+        }
+        
+        private async Task ValidateLesson(int lessonId, int courseId, int areaId)
+        {
+            var lesson = await repository.GetLessonAsync(lessonId, courseId, areaId,false, false);
+            if (lesson == null)
+            {
+                throw new NotFoundException("No se encontro la leccion.");
+            }
+        }
+        
+
+        public async Task<bool> UpdateStatusAsync(int lessonId, int courseId, int areaId)
+        {
+            await ValidateLesson(lessonId, courseId,  areaId);
+
+            repository.UpdateStatusLesson(lessonId);
+            if (await repository.SaveChangesAsync())
+                return true;
+
+            throw new Exception("There were an error with the DB");
+        }
+
+        public async Task<List<QuestionLessonMutedModel>> GetQuestionsOnly(int lessonId, int courseId, int areaId)
+        {
+            await validateCourse(courseId);
+            var res = await repository.GetQuestionsOnly(lessonId, courseId, areaId);
+            var questionsModel = mapper.Map<List<QuestionLessonMutedModel>>(res);
+            return questionsModel;
+        }
+
+        public async Task<LessonModel> UpdateLessonAsync(int courseId, int id, LessonModel lesson)
+        {
+            await validateCourse(courseId);
+            lesson.Id = id;
+            var lessonEntity = mapper.Map<LessonEntity>(lesson);
+            await repository.UpdateLessonAsync(courseId, id, lessonEntity);
+            await repository.SaveChangesAsync();
+            return mapper.Map<LessonModel>(lessonEntity);
         }
     }
 }

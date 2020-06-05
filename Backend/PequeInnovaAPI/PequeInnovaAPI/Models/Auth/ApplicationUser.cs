@@ -21,6 +21,7 @@ namespace PequeInnovaAPI.Models.Auth
 
         //Data for Teachers
         public string Degree { get; set; }
+        public string City { get; set; }
 
         //Data for Students
         public string School { get; set; }

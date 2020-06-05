@@ -1,0 +1,73 @@
+/* :host{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
+.containerS{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.container-deck{
+    //margin: 20px;
+    width: 90vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    flex-wrap: wrap;
+}
+
+.areas-navbar{
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-navbar{
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.one-card{
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+@media screen  and (max-width: 479px) { //@media screen  and (max-width: 479px) and (min-width: 320px)
+    .one-card{
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+    }
+    .areas-navbar{
+        width: 100vw;
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+@media screen and (min-width: 480px) and (max-width: 599px) {
+    .one-card{
+        width: 40%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+    }
+}
+@media screen and (min-width: 600px) and (max-width: 799px) {
+    
+}
+@media screen and (min-width: 800px) and (max-width: 867px) {
+    
+}
+@media screen and (min-width: 868px) and (max-width: 1023px) {
+    
+}
+@media screen and (min-width: 1024px) {
+
+}

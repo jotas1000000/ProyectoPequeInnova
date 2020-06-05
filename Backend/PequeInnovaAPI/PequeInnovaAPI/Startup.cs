@@ -20,6 +20,7 @@ using PequeInnovaAPI.Data.Repository;
 using Microsoft.IdentityModel.Tokens;
 using PequeInnovaAPI.Models.Auth;
 using PequeInnovaAPI.Services;
+using Ubiety.Dns.Core;
 
 namespace PequeInnovaAPI
 {
@@ -42,6 +43,9 @@ namespace PequeInnovaAPI
             services.AddTransient<ISectionService, SectionService>();
             services.AddTransient<IPracticeService, PracticeService>();
             services.AddTransient<ILessonService, LessonService>();
+            services.AddTransient<IQuestionService, QuestionService>();
+            services.AddTransient<ISchoolService, SchoolService>();
+            services.AddTransient<ITeachingService,TeachingService>();
             services.AddTransient<IPequeInnovaRepository, PequeInnovaRepository>();
 
             //Comunication DataBase
@@ -75,7 +79,7 @@ namespace PequeInnovaAPI
                     ValidateIssuerSigningKey = true
                 };
             });
-
+            
             services.AddAutoMapper(typeof(Startup));
             services.AddCors();
 
@@ -98,7 +102,7 @@ namespace PequeInnovaAPI
                 app.UseHsts();
             }
             app.UseAuthentication();
-            app.UseHttpsRedirection();
+            app.UseHttpsRedirection();          
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             app.UseMvc();
         }

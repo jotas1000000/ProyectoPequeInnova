@@ -10,7 +10,7 @@ namespace PequeInnovaAPI.Models
     {
         public int? Id { get; set; }
         [Required]
-        public string LessonTpye { get; set; }
+        public string LessonType { get; set; }
         // [Required]
         public string Uid { get; set; }
         //   [Required]

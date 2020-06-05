@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="userbox">
+    <div class="user userphoto">
+      <img class="photo rounded-circle"
+        src="https://banner2.cleanpng.com/20191203/kkv/transparent-teacher-icon-careers-women-icon-5de662ffd3f590.3076791915753797118682.jpg"
+        alt="">
+    </div>
+    <div class="user userdata">
+      <div class="u role">
+        <p class="textUser">Administrador</p>
+      </div>
+      <div class="u name">
+        <p class="textUser">Annelis Torre Daza</p>
+      </div>
+      <div class="user userfunctions">
+        <button type="button" class="user-button teacher" routerLink="/teacherControl" mdbBtn color="primary"
+          mdbWavesEffect>Maestros</button>
+        <button type="button" class="user-button student" routerLink="/teacherControl" mdbBtn color="info"
+          mdbWavesEffect>Estudiantes</button>
+        <button type="button" class="user-button school" routerLink="/schoolControl" mdbBtn color="secondary"
+          mdbWavesEffect>Colegios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="areas">
+  <button mdbBtn class="buttonAreas" type="button" routerLink="/mainAdmin/areaControl" color="info" rounded="true"
+    outline="true" mdbWavesEffect>Areas</button>
+</div>
+
+<div class="containerCarousel">
+
+  <owl-carousel-o [options]="customOptions">
+    <ng-template carouselSlide *ngFor="let slide of areas">
+
+      <div class="card-container">
+        <div class="container-img">
+          <img [src]="slide.image" alt="Card image cap" />
+        </div>
+
+        <div class="card-body-elements">
+
+          <div class="card-title">
+            <p>{{slide.name | slice:0:30}}</p>
+          </div>
+
+          <div class="card-text">
+            {{slide.description | slice:0:200}}...
+          </div>
+          <div class="card-buttons">
+            <button type="button" class="card-button show" mdbBtn color="primary"
+              routerLink="/mainAdmin/areaControl/{{slide.id}}/courseControl" mdbWavesEffect>Ver Area</button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </owl-carousel-o>
+</div>

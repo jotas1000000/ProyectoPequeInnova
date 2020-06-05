@@ -19,6 +19,7 @@ namespace PequeInnovaAPI.Services
             this.sectionRapository = sectionRapository;
             this.mapper = mapper;
         }
+        /*
         public async Task<Section> AddSectionAsync(int courseId, Section section)
         {
             if (section.CourseId != null && courseId != section.CourseId)
@@ -76,10 +77,10 @@ namespace PequeInnovaAPI.Services
         public async Task<Section> UpdateSectionAsync(int courseId, int id, Section section)
         {
             var course = await validateCourseId(courseId);
-            if (id != section.Id && section.Id != null)
-            {
-                throw new Exception("Id of the cancion in URL needs to be the same that the object");
-            }
+            //if (id != section.Id && section.Id != null)
+            //{
+            //    throw new Exception("Id of the cancion in URL needs to be the same that the object");
+            //}
             if (courseId != course.Id)
             {
                 throw new Exception("The id of Artist isn't correct");
@@ -87,7 +88,7 @@ namespace PequeInnovaAPI.Services
 
             section.Id = id;
             var sectionEntity = mapper.Map<SectionEntity>(section);
-            sectionRapository.UpdateSection(sectionEntity);
+            await sectionRapository.UpdateSection(sectionEntity);
             if (await sectionRapository.SaveChangesAsync())
                 return mapper.Map<Section>(sectionEntity);
             throw new Exception("There were an error with the DB");
@@ -103,5 +104,25 @@ namespace PequeInnovaAPI.Services
             sectionRapository.DetachEntity(course);
             return course;
         }
+        private async Task ValidateSection(int id)
+        {
+            var author = await sectionRapository.GetSectionsAsync(id);
+            if (author == null)
+            {
+                throw new NotFoundException("invalid section to delete");
+            }
+            sectionRapository.DetachEntity(author);
+        }
+        public async Task<bool> UpdateStatusAsync(int sectionId)
+        {
+            await ValidateSection(sectionId);
+
+            sectionRapository.UpdateStatusSection(sectionId);
+            if (await sectionRapository.SaveChangesAsync())
+                return true;
+
+            throw new Exception("There were an error with the DB");
+        }
+        */
     }
 }

@@ -19,6 +19,7 @@ namespace PequeInnovaAPI.Services
             this.practiceRapository = practiceRapository;
             this.mapper = mapper;
         }
+        /*
         public async Task<Practice> AddPracticeAsync(int sectionId, Practice practice)
         {
             if (practice.SectionId != null && sectionId != practice.SectionId)
@@ -26,10 +27,16 @@ namespace PequeInnovaAPI.Services
                 throw new InvalidOperationException("URL artisttt id and artistId should be equal");
             }
             practice.SectionId = sectionId;
-
+           
             var sectionEntity = await validateSectionId(sectionId);
 
+            var sectiontype = await practiceRapository.GetSectionsAsync(sectionId);
+            if (sectiontype.LessonType != "Practice" && sectiontype.LessonType != "practice")
+            {
+                throw new Exception("Una practica no puede formar parte de seccion de lecciones");
+            }
             var practiceEntity = mapper.Map<PracticeEntity>(practice);
+            practiceEntity.FalseAnswer2 = "Falso";
             practiceEntity.Section = sectionEntity;
 
             practiceRapository.AddPractice(practiceEntity);
@@ -76,10 +83,10 @@ namespace PequeInnovaAPI.Services
         public async Task<Practice> UpdatePracticeAsync(int sectionId, int id, Practice practice)
         {
             var section = await validateSectionId(sectionId);
-            if (id != practice.Id && practice.Id != null)
-            {
-                throw new Exception("Id of the cancion in URL needs to be the same that the object");
-            }
+            //if (id != practice.Id && practice.Id != null)
+            //{
+            //    throw new Exception("Id of the cancion in URL needs to be the same that the object");
+            //}
             if (sectionId != section.Id)
             {
                 throw new Exception("The id of Artist isn't correct");
@@ -87,7 +94,7 @@ namespace PequeInnovaAPI.Services
 
             practice.Id = id;
             var practiceEntity = mapper.Map<PracticeEntity>(practice);
-            practiceRapository.UpdatePractice(practiceEntity);
+            await practiceRapository.UpdatePractice(practiceEntity);
             if (await practiceRapository.SaveChangesAsync())
                 return mapper.Map<Practice>(practiceEntity);
             throw new Exception("There were an error with the DB");
@@ -102,5 +109,24 @@ namespace PequeInnovaAPI.Services
             practiceRapository.DetachEntity(section);
             return section;
         }
+        private async Task ValidatePractice(int id)
+        {
+            var author = await practiceRapository.GetPracticesAsync(id);
+            if (author == null)
+            {
+                throw new NotFoundException("invalid practice to delete");
+            }
+            practiceRapository.DetachEntity(author);
+        }
+        public async Task<bool> UpdateStatusAsync(int precticeId)
+        {
+            await ValidatePractice(precticeId);
+
+            practiceRapository.UpdateStatusPractice(precticeId);
+            if (await practiceRapository.SaveChangesAsync())
+                return true;
+
+            throw new Exception("There were an error with the DB");
+        }*/
     }
 }

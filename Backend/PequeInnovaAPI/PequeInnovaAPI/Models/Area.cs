@@ -23,7 +23,7 @@ namespace PequeInnovaAPI.Models
         public DateTime UpdateDate { get; set; }
         //  [Required]
         public DateTime CreateDate { get; set; }
-        public IEnumerable<Course> Courses { get; set; }
+        public IEnumerable<CourseModel> Courses { get; set; }
         public IEnumerable<AssignmentModel> Assignments { get; set; }//Add 
 
     }

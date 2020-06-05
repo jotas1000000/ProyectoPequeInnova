@@ -8,7 +8,6 @@ namespace PequeInnovaAPI.Models.ModelsRequests
 {
     public class RegisterStudentModel
     {
-
         public string Name { get; set; }
         public string LastName { get; set; }
         public DateTime Birthday { get; set; }

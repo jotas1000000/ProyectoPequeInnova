@@ -1,117 +1,189 @@
-<section class="magazine-section my-5">
-{{areaId}}
-<br>
-{{courseId}}
-  <!-- Section heading -->
-  <h2 class="h1-responsive font-weight-bold text-center my-3">
-          <a href="#!" class="green-text">
-                  <h4 class="font-weight-bold">
-                    <mdb-icon fas size= "lg" icon="book-open" class="pr-2"></mdb-icon>Matematica</h4>
-          </a>Alimentacion de Patos</h2>
-  
-  <!-- Section description -->
-  <p class="text-center dark-grey-text w-responsive mx-auto mb-5">Este es un curso super divertido.</p>
-
-  <hr class="my-4">
-
-  <!-- Grid row -->
-  <div class="media">
-      
-
-    <!-- Grid column -->
-    <div class="col-lg-6 col-md-12">
-       
-      <div class="single mb-lg-0 mb-4">
-
-        <!-- video -->
-        <div class="view overlay rounded z-depth-1-half mb-4">
-          <div class="embed-responsive embed-responsive-16by9">
-              <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/0dTfNF6iMDo" allowfullscreen></iframe>
-          </div>
-          <a>
-            <div class="mask rgba-white-slight waves-light" mdbWavesEffect routerLink="/lesson"></div>
-          </a>
-        </div>
-
-        <!-- Excerpt -->
-        <h3 class="font-weight-bold dark-grey-text mb-3">
-              <a>Titulo de la leccion</a>
-            </h3>
-       <p class="font-weight-bold dark-grey-text">
-          <mdb-icon far icon="clock" class="pr-2"></mdb-icon>27/02/2018</p>
-        <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4">Descripcion Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla ble bli blo blu.</p>
-
+<ul class="list-unstyled list-inline ">
+  <li class="list-inline-item">
+    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink="/home">
+      <mdb-icon fas icon="home"></mdb-icon>
+    </a>
+  </li>
+  <li class="list-inline-item">
+    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink="/areas">
+      <mdb-icon fas icon="book"></mdb-icon>
+    </a>
+  </li>
+  <li class="list-inline-item">
+    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink="/areas/{{areaId}}/courses">
+      <mdb-icon fas icon="book-open" class="pr-2"></mdb-icon>{{areaName | slice:0:30}}
+    </a>
+  </li>
+  <li class="list-inline-item align-right">
+    <div class="form-inline">
+      <button mdbBtn size="md" color="default" class="my-0 waves-light" mdbWavesEffect type="submit">
+        <mdb-icon fas icon="search" aria-hidden="true"></mdb-icon>
+      </button>
+      <div class="md-form">
+        <input type="search" [(ngModel)]="searchText" placeholder="Buscar">
       </div>
-      
-      <!-- Featured news -->
-    
     </div>
- 
-    <!-- Grid column -->
+  </li>
+</ul>
 
-    <!-- Grid column -->
-    <div class="col-lg-6 col-md-12">
+<section class=" my-0">
 
-      <ng-container *ngFor="let lesson of lessons">
-      <!-- Small news -->
-      <div class="single-news mb-4">
+  <div class="col-md-12 mb-0 text-default text-center">
+    <h1 class="h1-reponsive text-uppercase font-weight-bold mb-0 pt-md-0 pt-0">
+      <strong>
+        <mdb-icon fas size="lg" icon="pen" class="pr-2"></mdb-icon>{{courseName | slice:0:30}}<!--  {{totalLessons}} -->
+      </strong></h1>
+    <hr class="hr-black my-4">
+    <h2 class="text-uppercase mb-4 black-text "><strong>{{courseDescription | slice:0:100}}</strong></h2>
 
-        <!-- Grid row -->
-        <div class="row">
-
-          <!-- Grid column -->
-          <div class="col-md-3">
-              
-
-            <!--Image-->
-            <div class="view overlay rounded z-depth-1 mb-4">
-                  <div class="embed-responsive embed-responsive-16by9">
-                      <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/0dTfNF6iMDo" allowfullscreen></iframe>
-                  </div>
-              <a>
-                <div class="mask rgba-white-slight waves-light" mdbWavesEffect></div>
-              </a>
-            </div>
-
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-8">
-            
-            <div class="d-flex justify-content-between">
-                  
-              <div class="col-11 text-truncate pl-0 mb-3">
-                  
-                  <h5 class="font-weight-bold dark-grey-text mb-1">
-                      <a>{{lesson.title}}</a>
-                  </h5>
-                  <p class="font-weight-bold dark-grey-text mb-0">
-                          <mdb-icon far icon="clock" class="pr-2"></mdb-icon>{{lesson.date}}</p>
-                 
-                <a href="#!" class="dark-grey-text">{{lesson.description}}</a>
-              </div>
-              <a>
-                      <i class="fas fa-angle-double-right"></i>
-              </a>
-            </div>
-            
-          </div>
-          <!-- Grid column -->
-
-        </div>
-        <!-- Grid row -->
-
-      </div>
-      <!-- Small news -->
-      </ng-container>
-      <a mdbBtn position="center" color="success" mdbWavesEffect>Ver Mas</a>
-    </div>
-  
-    <!--Grid column-->
 
   </div>
+
+  <div class="background-container">
+<div class="white-bg">
+
   <hr class="my-4">
+
   <!-- Grid row -->
+  <div class="media justify-content-center">
+
+    <ng-container *ngFor="let lesson of lessons | searchLesson: searchText, index as i ">
+      <ng-container *ngIf="i < elements ">
+        <ng-container *ngIf="i == 0 && (lesson.type == 'Lesson' || lesson.type == 'lesson')">
+          <!-- Grid column -->
+          <div class="col-lg-9 text-center ">
+            <div class="single mb-lg-0 mb-4">
+
+              <!-- video -->
+              <div class="view overlay rounded z-depth-1-half mb-4">
+
+                <img class="img-fluid" src={{getThumb(lesson)}} alt="zoom">
+
+                <a>
+                  <div class="mask rgba-white-slight waves-light" mdbWavesEffect
+                    (click)= "inscriptionStudent()"
+                    routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lesson.id}}/theoretical"></div>
+                </a>
+
+              </div>
+
+              <!-- Excerpt -->
+              <h4 class="font-weight-bold dark-grey-text mb-3 text-center">
+                {{lesson.title | slice:0:30}}
+              </h4>
+              <p class="font-weight-bold dark-grey-text">
+                <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4 text-center">
+                  {{lesson.description | slice:0:100}}
+
+                </p>
+                <div class="d-flex justify-content-center">
+                  <a mdbBtn size="sm" color="default" mdbWavesEffect
+                  (click)= "inscriptionStudent()"
+                    routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lesson.id}}/theoretical">
+                    <mdb-icon fas icon="video" class="pr-1"></mdb-icon>Ver Leccion
+                  </a>
+                </div>
+
+            </div>
+
+            <!-- Featured news -->
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+
+
+    <!-- Grid column -->
+
+   
+
+  </div>
+
+  <hr class="hr-black my-4">
+  <div class="media  justify-content-center">
+   <div class="col-lg-6  text-center">
+    <ng-container *ngFor="let lesson of lessons | searchLesson: searchText, index as i">
+      <ng-container *ngIf="i < elements ">
+        <ng-container *ngIf="i > 0 && (lesson.type == 'Lesson' || lesson.type == 'lesson')">
+          <!-- Small news -->
+          <div class="single-news mb-4">
+           
+            <!-- Grid row -->
+            <div class="media justify-content-center">
+
+              <!-- Grid column -->
+              <div class="col-md-6">
+
+
+                <!--Image-->
+                <div class="view overlay zoom">
+                  <img class="img-fluid" src={{getThumb(lesson)}} alt="zoom" width="150%" height="200%">
+                  <a>
+                    <div class="mask rgba-white-slight waves-light" mdbWavesEffect
+                      routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lesson.id}}/theoretical"></div>
+                  </a>
+                </div>
+
+              </div>
+              <!-- Grid column -->
+
+              <!-- Grid column -->
+              <div class="col-md-6">
+
+                <div class="d-flex justify-content-between">
+
+                  <div class=" text-truncate pl-0 mb-3">
+
+                    <h5 class="font-weight-bold dark-grey-text mb-1 text-center">
+                      <a>{{lesson.title | slice:0:30 }}</a>
+                    </h5>
+
+                    <a class="dark-grey-text text-center">{{lesson.description | slice:0:100}}</a>
+                  </div>
+                  <a routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lesson.id}}/theoretical">
+                    
+                  </a>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <a mdbBtn size="sm" color="default" mdbWavesEffect
+                    routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lesson.id}}/theoretical">
+                    <mdb-icon fas icon="video" class="pr-1"></mdb-icon>Ver Leccion
+                  </a>
+                </div>
+              </div>
+              <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+          
+          </div>
+          <!-- Button Ver Mas -->
+          <ng-container *ngIf="i == 3 && elements != totalLessons">
+            <div class="d-flex justify-content-center">
+              <a mdbBtn color="default" mdbWavesEffect (click)=seeMore()><mdb-icon fas icon="video" class="pr-1"></mdb-icon>Ver Todas Las Lecciones</a>
+            </div>
+          </ng-container>
+          <!-- Small news -->
+        </ng-container>
+      </ng-container>
+    </ng-container>
+   
+  </div>
+</div>
+  </div>
+
+  
+    <ng-container *ngFor="let lesson of lessons, index as i">
+      <ng-container *ngIf="i == lessons.length-1">
+        <hr class="my-4">
+        <!-- Button Realizae Prueba -->
+        <div class="d-flex justify-content-center">
+          <a mdbBtn color="pink" mdbWavesEffect
+            routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lesson.id}}/practice">
+            <mdb-icon fas icon="check" class="pr-1"></mdb-icon>Realizar Prueba</a>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
 
 </section>

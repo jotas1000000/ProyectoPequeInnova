@@ -1,0 +1,567 @@
+.container{
+    max-width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.userbox{
+    width: 50%;
+    height: 250px;
+    border-radius: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0px 6px 11px -1px rgba(153, 153, 153, 0.92);
+    margin: 50px auto 50px auto;
+}
+
+.user.userphoto{
+    width: 35%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.photo{
+    width: 80%;
+    height: 80%;
+    box-shadow: 0px 6px 17px -1px rgba(153, 153, 153, 0.92);
+}
+
+.user.userdata{
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background: rgb(255,187,51);
+    height: 100%;
+    border-radius: 35px;
+    box-shadow: -6px 1px 7px -3px rgba(189,178,189,1);
+}
+
+.u{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:15%;
+    width: 75%;
+}
+
+.u > p{
+    color: black;
+}
+
+p.textUser{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 20px;
+}
+
+.user.userfunctions{
+    width: 100%;
+    height: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.user-button {
+    border-radius: 15px;
+    padding: 10px 15px 10px 15px;
+}
+
+/* .user{
+    width: 33%;
+    height: 95%;
+}
+ */
+
+
+
+.areas{
+    margin:15px 0px 0px 0px;
+}
+
+
+.buttonAreas{
+    font-weight: 900;
+    font-size: 35px;
+}
+
+
+
+
+
+.containerCarousel{
+    width: 90%;
+     margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    margin-bottom: 50px;
+}
+
+
+.card-container {
+    width: 100%;
+    height: 550px;
+    border-radius: 35px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 6px 11px -1px rgba(153,153,153,0.92);
+}
+
+.container-img {
+    width: 100%;
+    height: 300px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.container-img > img {
+    width: 100%;
+    height: 300px;
+    border-radius: 35px;
+    object-fit: cover;
+    box-shadow: -1px 6px 5px -1px rgba(189,178,189,1);
+
+}
+
+.card-body-elements {
+    padding: 15px 20px 10px 20px;
+    height: 100%;
+}
+
+.card-title {
+    height: 10%;
+}
+
+.card-text {
+    height: 55%;
+}
+
+.card-title > p {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.card-buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-button {
+    width: 30% !important;
+    font-size: 13px !important;
+    padding: 10px 15px 10px 15px !important;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 13px;
+
+}
+/* 
+@media (max-width: 600px) {
+    .container{
+        height: 600px;
+        margin:0px 0px 40px 0px;
+    }
+    .userbox.z-depth-5{
+        flex-direction: column;
+        height: 95%;
+        width: 80%;
+    }
+    .user{
+        width: 85%;
+    }
+} */
+
+@media screen  and (max-width: 479px) { //@media screen  and (max-width: 479px) and (min-width: 320px)
+    .userbox{
+        width: 100%;
+        height: 400px;
+        border-radius: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        box-shadow: 0px 6px 11px -1px rgba(153, 153, 153, 0.92);
+        margin: 50px auto 50px auto;
+        flex-direction: column;
+    }
+
+    .user.userphoto{
+        width: 100%;
+        height: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .photo{
+        width: 45%;
+        height: 80%;
+    }
+
+    .user.userdata{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        background: rgb(255,187,51);
+        height: 50%;
+        border-radius: 35px;
+        box-shadow: -6px 1px 7px -3px rgba(189,178,189,1);
+    }
+    .user-button {
+        border-radius: 15px;
+        padding: 10px 10px 10px 10px;
+        font-size: 12px !important;
+    }
+    .areas-navbar{
+        width: 100vw;
+        display: flex;
+        flex-wrap: wrap;
+    }    
+    
+    .card-container {
+        width: 100%;
+        height: 620px;
+        border-radius: 35px;
+        box-shadow: 0px 6px 11px -1px rgba(153,153,153,0.92);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-button {
+        width: 32% !important;
+        font-size: 10px !important;
+        padding: 10px 10px 10px 10px !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+@media screen and (min-width: 480px) and (max-width: 619px) {
+    .userbox{
+        width: 80%;
+        height: 400px;
+        border-radius: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        box-shadow: 0px 6px 11px -1px rgba(153, 153, 153, 0.92);
+        margin: 50px auto 50px auto;
+        flex-direction: column;
+    }
+
+    .user.userphoto{
+        width: 100%;
+        height: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .photo{
+        width: 45%;
+        height: 80%;
+    }
+
+    .user.userdata{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        background: rgb(255,187,51);
+        height: 50%;
+        border-radius: 35px;
+        box-shadow: -6px 1px 7px -3px rgba(189,178,189,1);
+    }
+
+    .card-container {
+        width: 100%;
+        height: 550px;
+        border-radius: 35px;
+        box-shadow: 0px 6px 11px -1px rgba(153,153,153,0.92);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-button {
+        width: 30% !important;
+        font-size: 13px !important;
+        padding: 10px 15px 10px 15px !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+@media screen and (min-width: 620px) and (max-width: 740px) {
+    .userbox{
+        width: 90%;
+        height: 250px;
+        border-radius: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        box-shadow: 0px 6px 11px -1px rgba(153, 153, 153, 0.92);
+        margin: 50px auto 50px auto;
+    }
+    .card-container {
+        width: 100%;
+        height: 550px;
+        border-radius: 35px;
+        box-shadow: 0px 6px 11px -1px rgba(153,153,153,0.92);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-button {
+        width: 30% !important;
+        font-size: 15px !important;
+        padding: 10px 15px 10px 15px !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+@media screen and (min-width: 741px) and (max-width: 799px) {
+    .userbox{
+        width: 85%;
+        height: 250px;
+        border-radius: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        box-shadow: 0px 6px 11px -1px rgba(153, 153, 153, 0.92);
+        margin: 50px auto 50px auto;
+    }
+    .card-container {
+        width: 100%;
+        height: 550px;
+        border-radius: 35px;
+        box-shadow: 0px 6px 11px -1px rgba(153,153,153,0.92);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-button {
+        width: 30% !important;
+        font-size: 10px !important;
+        padding: 10px 15px 10px 15px !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+@media screen and (min-width: 800px) and (max-width: 867px) {
+    .userbox{
+        width: 80%;
+        height: 250px;
+        border-radius: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        box-shadow: 0px 6px 11px -1px rgba(153, 153, 153, 0.92);
+        margin: 50px auto 50px auto;
+    }
+    .card-container {
+        width: 100%;
+        height: 550px;
+        border-radius: 35px;
+        box-shadow: 0px 6px 11px -1px rgba(153,153,153,0.92);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+    .card-button {
+        width: 30% !important;
+        font-size: 10px !important;
+        padding: 10px 15px 10px 15px !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+@media screen and (min-width: 868px) and (max-width: 1023px) {
+    .userbox{
+        width: 70%;
+        height: 250px;
+        border-radius: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        box-shadow: 0px 6px 11px -1px rgba(153, 153, 153, 0.92);
+        margin: 50px auto 50px auto;
+    }
+
+    .card-container {
+        width: 100%;
+        height: 550px;
+        border-radius: 35px;
+        box-shadow: 0px 6px 11px -1px rgba(153,153,153,0.92);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .container-img {
+        width: 100%;
+        height: 300px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .container-img > img {
+        width: 100%;
+        height: 300px;
+        border-radius: 35px;
+        object-fit: cover;
+    }
+    
+    .card-body-elements {
+        padding: 15px 20px 10px 20px;
+        height: 100%;
+    }
+    
+    .card-title {
+        height: 10%;
+    }
+    
+    .card-text {
+        height: 55%;
+    }
+    
+    .card-buttons {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .card-button {
+        width: 30% !important;
+        font-size: 11px !important;
+        padding: 10px 20px 10px 20px !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+@media screen and (min-width: 1024px) and (max-width: 1190px) {
+    .userbox{
+        width: 60%;
+        height: 250px;
+        border-radius: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        box-shadow: 0px 6px 11px -1px rgba(153, 153, 153, 0.92);
+        margin: 50px auto 50px auto;
+    }
+    .card-container {
+        width: 100%;
+        height: 550px;
+        border-radius: 35px;
+        box-shadow: 0px 6px 11px -1px rgba(153,153,153,0.92);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .container-img {
+        width: 100%;
+        height: 300px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .container-img > img {
+        width: 100%;
+        height: 300px;
+        border-radius: 35px;
+        object-fit: cover;
+    }
+    
+    .card-body-elements {
+        padding: 15px 20px 10px 20px;
+        height: 100%;
+    }
+    
+    .card-title {
+        height: 10%;
+    }
+    
+    .card-text {
+        height: 55%;
+    }
+    
+    .card-buttons {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .card-button {
+        width: 30% !important;
+        font-size: 15px !important;
+        padding: 10px 20px 10px 20px !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media screen and (min-width: 1191px) and (max-width: 1400px) {
+    .userbox{
+        width: 60%;
+        height: 250px;
+        border-radius: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        box-shadow: 0px 6px 11px -1px rgba(153, 153, 153, 0.92);
+        margin: 50px auto 50px auto;
+    }
+    .card-button {
+        width: 30% !important;
+        font-size: 10px !important;
+        padding: 10px 15px 10px 15px !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

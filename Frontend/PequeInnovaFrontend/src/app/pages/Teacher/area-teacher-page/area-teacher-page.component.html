@@ -1,0 +1,36 @@
+<div class="containerS">
+
+    <div class="areas-navbar"> 
+        <button class="button-navbar" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Cursos del Area</button>
+        <button class="button-navbar" routerLink="/mainAdmin" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Atras</button>
+    </div>
+    
+<!--     <div class="Add-Area"> 
+        <button class="button-AddArea" mdbBtn type="button" color="default" rounded="true" routerLink="courseControl" mdbWavesEffect>+ Añadir Area</button>
+    </div> -->
+  
+    <div class="container-deck" *ngIf="areas">
+      <div class="one-card" *ngFor="let e of areas">
+        <mdb-card >
+          <mdb-card-img [src]="e.image" alt="Card image cap"></mdb-card-img>
+       
+          <mdb-card-body>
+        
+            <mdb-card-title>
+              <h4>{{e.name}}</h4>
+            </mdb-card-title>
+        
+            <mdb-card-text> 
+                {{e.description}}
+            </mdb-card-text>
+        
+            <a mdbBtn color="primary"routerLink="/mainTeacher/areaTeacher/{{e.id}}/courseTeacher" mdbWavesEffect>Ver Area</a>
+          </mdb-card-body>
+        </mdb-card>           
+        
+      </div>
+      
+      
+    </div>
+    
+  </div>

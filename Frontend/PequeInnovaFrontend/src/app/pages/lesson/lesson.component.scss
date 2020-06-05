@@ -1,0 +1,50 @@
+
+@media (max-width: 1230px) {
+    
+    .media{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .col-md-10.col-lg-9.col-xl-8.mb-r
+    {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .col-md-10.col-lg-9.col-xl-4
+    {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+.background-container{
+    background-image: url(src/assets/images/background/background2.jpg);
+    background-attachment: fixed;
+    background-position: center;
+}
+
+h1 {
+    font-size: 300%;
+    letter-spacing: 5px;
+  }
+  h2{
+    letter-spacing: 2px;
+    font-size: 180%;
+  }
+  h4{
+    font-size: 180%;
+  }
+
+  h5 {
+    font-size: 150%; 
+  }
+  a{
+    font-size: 120%;
+  }
+.black-text-right{
+
+  color: black;
+  position: absolute;
+  right: 10px;
+}

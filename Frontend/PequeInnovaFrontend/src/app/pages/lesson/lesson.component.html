@@ -1,77 +1,136 @@
-<section class="my-5">
-  <!-- Section heading -->
-  <h2 class="h1-responsive font-weight-bold text-center my-3">
-      <a href="#!" class="green-text">
-              <h4 class="font-weight-bold">
-                <mdb-icon fas size= "lg" icon="book-open" class="pr-2"></mdb-icon>Matematica - Alimentacion de Patos</h4>
-      </a>Titulo de la leccion</h2>
+ <ul class="list-unstyled list-inline ">
+  <li class="list-inline-item">
+    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink = "/home"> <mdb-icon fas icon="home" ></mdb-icon></a>
+  </li>
+  <li class="list-inline-item">
+    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink = "/areas" ><mdb-icon fas icon="book"></mdb-icon></a>
+  </li>
+  <li class="list-inline-item">
+    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink = "/areas/{{areaId}}/courses" ><mdb-icon fas icon="book-open"></mdb-icon></a>
+  </li>
+  <li class="list-inline-item">
+    <a mdbBtn size="lg" color="default" class="  waves-light" disablemdbWavesEffect routerLink = "/areas/{{areaId}}/courses/{{courseId}}/lessons"><mdb-icon fas icon="pen"  class="pr-2"></mdb-icon>{{courseName}}</a>
+  </li>
+  
+</ul>
 
-<!-- Grid row -->
+<section class="my-4">
+
+<ng-container *ngFor="let lesson of lessons, index as i" >
+
+   <ng-container *ngIf="lesson && mainLesson.id == lesson.id">
+
+  <div class="col-md-12 mb-4 text-default text-center">
+    <h1 class="h1-reponsive text-uppercase font-weight-bold mb-0 pt-md-0 pt-0">
+      <strong><mdb-icon fas size= "lg" icon="video" class="pr-2"></mdb-icon>{{lesson.title}}</strong></h1>
+    <hr class="hr-black my-4">
+    <h5 class="text-uppercase mb-4 black-text "><strong>{{lesson.description}} </strong></h5>
+  </div>
+
+  <div class = "background-container">
+  <hr class="my-4">
 <div class="media">
 
-  <!-- Grid column -->
+
   <div class="col-md-10 col-lg-9 col-xl-8 mb-r">
 
-    <!--Panel-->
+
     <div class="card card-body mb-3">
       <div class="media d-block d-md-flex">
-          <!-- 16:9 aspect ratio -->
+        
           <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/0dTfNF6iMDo" allowfullscreen ></iframe>
+            <iframe class="embed-responsive-item"   [src]='sanitizer.bypassSecurityTrustResourceUrl(lesson.urlVideo)' allowfullscreen="allowfullscreen" ></iframe>
           </div>
+        <img src="" alt="">
       </div>
 
-      <div class="media-body text-center text-md-left ml-md-5 ">
-        <h5 class="mt-3 font-weight-bold gray-text">Description</h5>
-        Descripcion Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-        bla bla ble bli blo blu.
+      <div class = "d-flex justify-content-center">
+        <div *ngIf="i != 0">
+           <a mdbBtn size="md" color="default" class="  waves-light" mdbWavesEffect   routerLink = "/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lessons[i-1].id}}/theoretical"> <mdb-icon fas icon="angle-double-left" class="pr-1"></mdb-icon>Anterior</a>
+         
+        </div> 
+        
+        <div *ngIf ="i != lessons.length-2">
+        <a mdbBtn size="md" color="default" class="  waves-light" mdbWavesEffect   routerLink = "/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lessons[i+1].id}}/theoretical" > <mdb-icon fas icon="angle-double-right" class="pr-1"></mdb-icon>Siguiente</a>
+        </div>
+        <div *ngIf ="i == lessons.length-2">
+          <a mdbBtn size="md" color="pink" class="  waves-light" mdbWavesEffect   routerLink = "/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lessons[i+1].id}}/practice" > <mdb-icon fas icon="angle-double-right" class="pr-1"></mdb-icon>Realizar Prueba</a>
+        </div>
+
 
       </div>
-
+    
     </div>
-    <!--/.Panel-->
     
 
   </div>
-  <!-- Grid column -->
 
-  <!-- Grid column -->
-  <div class="col-md-10 col-lg-9 col-xl-4">
 
-    <!--Panel-->
-    <div class="card mb-3">
-      <h3 class="card-header green white-text text-uppercase text-center">Comentarios</h3>
-      <!-- Grid column -->
-      <ng-container *ngFor = "let comment of comments">
+
+    <!-- comentarios -->
+    <div class="col-md-10 col-lg-9 col-xl-4">
+
+      
+      <div class="card mb-3">
+        <h3 class="card-header green white-text text-uppercase text-center">Comentarios</h3>
+        
+        <ng-container *ngFor = "let comment of lesson.comments, let index as j">
+  
+          <div class="media d-block d-md-flex">
+            
+            <div class="media-body text-md-left ml-md-3 ml-0">
+              <h5 class="mt-0 font-weight-bold cyan-text">{{comment.userName}}
+                <ng-container *ngIf ="comment.userId == userId || (userRol != 'Estudiante' && userRol != null)" >
+                  <mdb-icon class="waves-light" data-toggle="modal" 
+                    (click)="setDeleteComment(comment.userId, comment.id); frame.show()" fas size= "md" icon="times" class="black-text-right" mdbWavesEffect></mdb-icon>
+                </ng-container>
+              </h5>
+              {{comment.description}}
+            </div>
+        
+          </div>
           <hr class="my-2">
-    <div class="media d-block d-md-flex">
-      
-      
-      <div class="media-body text-center text-md-left ml-md-3 ml-0">
-        <h5 class="mt-0 font-weight-bold cyan-text">{{comment.user}}</h5>
-        {{comment.comments}}
-      </div>
-   
-    </div>
-    
-  </ng-container>
-    <hr class="mb-1 mt-3">
-    <div class="media d-block d-md-flex mt-2 shadow-textarea">
-      <div class="media-body text-center text-md-left ml-md-3 ml-0">
+        </ng-container>
         <div class="form-group basic-textarea rounded-corners mb-md-0 mb-4">
-          <textarea class="form-control z-depth-1" id="exampleFormControlTextarea3" rows="3" placeholder="Escribe un Comentario..."></textarea>
+          
+          <textarea class="form-control z-depth-1" id="exampleFormControlTextarea3" rows="2" [(ngModel)]="newComment" placeholder="Escribe un Comentario"></textarea>
+          <a mdbBtn size="sm" color="default" class="  waves-light" mdbWavesEffect   (click)= "postComment(newComment)" > <mdb-icon fas icon="comment" class="pr-1"></mdb-icon>Comentar</a>
         </div>
       </div>
+    
+    
     </div>
-
+    <!-- FIN comentarios -->
+    </div>
   </div>
-  <!-- Grid column -->
-
-    <!--/.Panel-->
-
-  </div>
-  <!-- Grid column -->
-
-</div>
-<!-- Grid row -->
+   </ng-container> 
+   
+  </ng-container>
 </section>
+<!-- DELETE MODAL -->
+<div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Quieres Eliminar el Comentario?</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <mdb-icon fas icon="times" size="4x" class="animated rotateIn"></mdb-icon>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a  mdbBtn color="danger" outline="true" class="waves-effect"
+        (click)="deleteComment(); frame.hide()" mdbWavesEffect>Si</a>
+        <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" (click)="frame.hide()">No</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+

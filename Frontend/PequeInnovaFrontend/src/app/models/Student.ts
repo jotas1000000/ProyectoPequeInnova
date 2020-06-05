@@ -1,7 +1,9 @@
 export class Student{
-    names:string;
-    lastnames:string;
+    id:string;
+    name:string;
+    lastname:string;
     username:string;
     school:string;
     level:string;
 }
+

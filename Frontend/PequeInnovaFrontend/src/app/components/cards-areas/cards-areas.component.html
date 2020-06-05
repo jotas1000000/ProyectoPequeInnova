@@ -1,0 +1,61 @@
+
+<ul class="list-unstyled list-inline ">
+  <li class="list-inline-item">
+    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink = "/home"> <mdb-icon fas icon="home" class="pr-1" ></mdb-icon>Home</a>
+  </li>
+
+
+</ul>
+<section class="my-4">
+  
+  <div class="col-md-12 mb-4 text-default text-center">
+  
+    <h1 class="h1-reponsive text-uppercase font-weight-bold mb-0 pt-md-0 pt-0">
+      <strong><mdb-icon fas size= "lg" icon="book" class="pr-2"></mdb-icon>AREAS</strong></h1>
+    <hr class="hr-black my-4">
+
+    <h2 class="text-uppercase mb-4 black-text "><strong>Bienvenido! Estas son las areas en las que podemos apoyarte</strong></h2>
+   
+  </div>
+
+  <div class = "background-container">
+  <hr class="my-4">
+  
+<ng-container *ngFor="let area of areas, index as i">
+
+<div class ="media justify-content-center">
+  <div class = "col-md-">
+    <div class="card-group">
+      
+     
+        <div class = "col mb-5">
+        <div class="media text-center">
+          <mdb-card>
+            <div class="view rgba-white-slight waves-light" mdbWavesEffect>
+            
+              <mdb-card-img src="{{area.image}}" alt="Card image cap"></mdb-card-img>
+              <a>
+                <div class="mask"></div>
+              </a>
+            </div>
+        
+          <mdb-card-body>
+            
+            <mdb-card-title>
+              <h4><mdb-icon fas size= "lg" icon="book" class="pr-2"></mdb-icon>
+             {{area.name | slice:0:30}}</h4>
+            </mdb-card-title>
+            <mdb-card-text><h5>{{area.description | slice:0:100}}</h5>  </mdb-card-text>
+            <a mdbBtn color="default"  routerLink="/areas/{{area.id}}" mdbWavesEffect><mdb-icon fas icon="book-open" class="left" ></mdb-icon>Ver Area</a>
+          </mdb-card-body>
+          </mdb-card>
+        </div>
+      </div>
+    
+    </div>
+    </div>
+  </div>
+</ng-container>
+</div>
+  
+</section>
