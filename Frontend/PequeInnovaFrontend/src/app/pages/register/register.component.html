@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="saveStudent($event)">
+<form [formGroup]="form" *ngIf="form" (ngSubmit)="saveStudent($event)">
   <mat-card class="card-container">
     <mat-card-header>
       <mat-card-title>Registro</mat-card-title>
@@ -6,63 +6,118 @@
     <mat-card-content class="card-content-container">
 
       <div class="microContainer">
-        <mat-form-field class="input-Field">
-          <input placeholder="User Name" formControlName="userName" matInput type="text">
+        <mat-form-field class="input-Field" appearance="outline">
+          <mat-label>User Name</mat-label>
+          <input placeholder="" [formControl]="userName" matInput type="text">
+          <mat-error *ngIf="userName.invalid">{{getErrorMessageUserName()}}</mat-error>
+        
         </mat-form-field>
       </div>
 
       <div class="microContainer">
-        <mat-form-field class="input-Field">
-          <input placeholder="Nombre" formControlName="Name" matInput type="text">
+        <mat-form-field class="input-Field" appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input placeholder="" [formControl]="Name" matInput type="text">
+          <mat-error *ngIf="Name.invalid">{{getErrorMessageName()}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="microContainer">
-        <mat-form-field class="input-Field">
-          <input placeholder="Apellido" formControlName="LastName" matInput type="text">
+        <mat-form-field class="input-Field" appearance="outline">
+          <mat-label>Apellido</mat-label>
+          <input placeholder="" [formControl]="LastName" matInput type="text">
+          <mat-error *ngIf="LastName.invalid">{{getErrorMessageLastName()}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="microContainer">
-        <mat-form-field class="input-Field">
-          <input placeholder="Email" formControlName="Email" matInput type="email">
+        <mat-form-field class="input-Field" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input placeholder="" [formControl]="Email" matInput type="text">
+          <mat-error *ngIf="Email.invalid">{{getErrorMessageEmail()}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="microContainer">
-        <mat-form-field class="input-Field">
+        <mat-form-field class="input-Field" appearance="outline">
           <mat-label>Fecha de nacimiento</mat-label>
-          <input matInput formControlName="Birthday" [matDatepicker]="picker1" disabled>
+          <input matInput [formControl]="Birthday" [matDatepicker]="picker1" disabled>
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+          <mat-error *ngIf="Birthday.invalid">{{getErrorMessageBirthday()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+          <!--       <div class="microContainer">
+                  <mat-form-field class="input-Field" appearance="fill"
+                  [hideRequiredMarker]="hideRequiredControl.value"
+                  [floatLabel]="floatLabelControl.value">
+                    <input placeholder="Colegio" [formControl]="School" matInput type="text">
+                    <mat-error *ngIf="School.invalid">{{getErrorMessageSchool()}}</mat-error>
+                  </mat-form-field>
+                </div> -->
+
+      <div class="microContainer" *ngIf="schools">
+        <mat-form-field class="input-Field" appearance="outline"
+        [hideRequiredMarker]="hideRequiredControlSchool.value"
+        [floatLabel]="floatLabelControlSchool.value">
+        <mat-select [formControl]="School" required>
+            <mat-option *ngFor="let school of schools" value="{{school.name}}">{{school.name}}</mat-option>
+        </mat-select>
+        <mat-label>Colegio</mat-label>
+        </mat-form-field>
+      </div>
+
+        <!-- <div class="microContainer">
+          <mat-form-field class="input-Field" appearance="outline">
+            <input placeholder="Curso" [formControl]="Grade" matInput type="text">
+            <mat-error *ngIf="Grade.invalid">{{getErrorMessageGrade()}}</mat-error>
+          </mat-form-field>
+        </div> -->
+      <div class="microContainer">
+        <mat-form-field class="input-Field" appearance="outline"
+        [hideRequiredMarker]="hideRequiredControlGrade.value"
+        [floatLabel]="floatLabelControlGrade.value">
+        <mat-select [formControl]="Grade" required>
+          <mat-option value="Primero de Primaria">Primero de Primaria</mat-option>
+          <mat-option value="Segundo de Primaria">Segundo de Primaria</mat-option>
+          <mat-option value="Tercero de Primaria">Tercero de Primaria</mat-option>
+          <mat-option value="Cuarto de Primaria">Cuarto de Primaria</mat-option>
+          <mat-option value="Quinto de Primaria">Quinto de Primaria</mat-option>
+          <mat-option value="Sexto de Primaria">Sexto de Primaria</mat-option>
+          <mat-option value="Primero de Secundaria">Primero de Secundaria</mat-option>
+          <mat-option value="Segundo de Secundaria">Segundo de Secundaria</mat-option>
+          <mat-option value="Tercero de Secundaria">Tercero de Secundaria</mat-option>
+          <mat-option value="Cuarto de Secundaria">Cuarto de Secundaria</mat-option>
+          <mat-option value="Quinto de Secundaria">Quinto de Secundaria</mat-option>
+          <mat-option value="Sexto de Secundaria">Sexto de Secundaria</mat-option>
+        </mat-select>
+        <mat-label>Curso</mat-label>
         </mat-form-field>
       </div>
 
       <div class="microContainer">
-        <mat-form-field class="input-Field">
-          <input placeholder="Colegio" formControlName="School" matInput type="text">
+        <mat-form-field class="input-Field" appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput placeholder="Contraseña" [formControl]="Password" [type]="hidePassword ? 'password' : 'text'">
+          <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="Password.invalid">{{getErrorMessagePassword()}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="microContainer">
-        <mat-form-field class="input-Field">
-          <input placeholder="Curso" formControlName="Grade" matInput type="text">
+        <mat-form-field class="input-Field" appearance="outline">
+          <mat-label>Confirmar Contraseña</mat-label>
+          <input matInput placeholder="Confirmar Contraseña" [formControl]="ConfirmPassword" [type]="hideConfirmPassword ? 'password' : 'text'">
+          <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+          <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="ConfirmPassword.invalid">{{getErrorMessageConfirmPassword()}}</mat-error>
+          <mat-error *ngIf="ConfirmPassword.errors && ConfirmPassword.errors.mustMatch">Las contraseñas deben coincidir</mat-error>
         </mat-form-field>
       </div>
-
-      <div class="microContainer">
-        <mat-form-field class="input-Field">
-          <input placeholder="Contraseña" formControlName="Password" matInput type="text">
-        </mat-form-field>
-      </div>
-
-      <div class="microContainer">
-        <mat-form-field class="input-Field">
-          <input placeholder="Confirmar contraseña" formControlName="ConfirmPassword" matInput type="text">
-        </mat-form-field>
-      </div>
-
-
 
     </mat-card-content>
     <mat-card-actions>
@@ -73,7 +128,6 @@
   </mat-card>
 
 </form>
-
 <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -85,6 +139,7 @@
         <h4 class="modal-title w-100" id="myModalLabel">Procesando tu inscripcion</h4>
       </div>
       <div class="modal-body">
+        <img *ngIf="!stateRequest" id="spinner" src="./../../../assets/images/background/Spinner200px.gif" width="200" height="200" alt="" />
         <p *ngIf='messageBinding'>{{messageBinding}}</p>
       </div>
       <div class="modal-footer">

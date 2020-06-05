@@ -14,10 +14,12 @@ import { first } from 'rxjs/operators';
 export class AreaControlPageComponent implements OnInit {
 
   areas: Array<Area>;
+
   form: FormGroup;
   areaName = new FormControl('', [Validators.required, spaceValidator]);
   urlImage = new FormControl('', [Validators.required, spaceValidator]);
   descriptionArea = new FormControl('', [Validators.required, spaceValidator]);
+
   succesRequest = false;
   Operation = 'Creado';
   areaNameValidate = false;

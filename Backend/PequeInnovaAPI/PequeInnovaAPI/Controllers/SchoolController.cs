@@ -13,16 +13,15 @@ using PequeInnovaAPI.Exceptions;
 
 namespace PequeInnovaAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class SchoolContoller : ControllerBase
+    [Route("api/[Controller]")]
+    public class SchoolController : ControllerBase
     {
         private ISchoolService schoolService;
-        public SchoolContoller(ISchoolService schoolService)
+        public SchoolController(ISchoolService schoolService)
         {
             this.schoolService = schoolService;
         }
-        [HttpGet("School")]
+        [HttpGet()]
         public async Task<ActionResult<IEnumerable<School>>> Get(string orderBy = "Id")
         {
             try
