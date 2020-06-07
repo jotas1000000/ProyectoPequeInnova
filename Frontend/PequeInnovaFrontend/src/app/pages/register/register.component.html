@@ -8,7 +8,7 @@
       <div class="microContainer">
         <mat-form-field class="input-Field" appearance="outline">
           <mat-label>User Name</mat-label>
-          <input placeholder="" [formControl]="userName" matInput type="text">
+          <input placeholder="" [formControl]="userName" matInput type="text" autocomplete="off">
           <mat-error *ngIf="userName.invalid">{{getErrorMessageUserName()}}</mat-error>
         
         </mat-form-field>
@@ -17,7 +17,7 @@
       <div class="microContainer">
         <mat-form-field class="input-Field" appearance="outline">
           <mat-label>Nombre</mat-label>
-          <input placeholder="" [formControl]="Name" matInput type="text">
+          <input placeholder="" [formControl]="Name" matInput type="text" autocomplete="off">
           <mat-error *ngIf="Name.invalid">{{getErrorMessageName()}}</mat-error>
         </mat-form-field>
       </div>
@@ -25,7 +25,7 @@
       <div class="microContainer">
         <mat-form-field class="input-Field" appearance="outline">
           <mat-label>Apellido</mat-label>
-          <input placeholder="" [formControl]="LastName" matInput type="text">
+          <input placeholder="" [formControl]="LastName" matInput type="text" autocomplete="off">
           <mat-error *ngIf="LastName.invalid">{{getErrorMessageLastName()}}</mat-error>
         </mat-form-field>
       </div>
@@ -33,7 +33,7 @@
       <div class="microContainer">
         <mat-form-field class="input-Field" appearance="outline">
           <mat-label>Email</mat-label>
-          <input placeholder="" [formControl]="Email" matInput type="text">
+          <input placeholder="" [formControl]="Email" matInput type="text" autocomplete="off">
           <mat-error *ngIf="Email.invalid">{{getErrorMessageEmail()}}</mat-error>
         </mat-form-field>
       </div>
@@ -99,7 +99,7 @@
       <div class="microContainer">
         <mat-form-field class="input-Field" appearance="outline">
           <mat-label>Contraseña</mat-label>
-          <input matInput placeholder="Contraseña" [formControl]="Password" [type]="hidePassword ? 'password' : 'text'">
+          <input matInput placeholder="Contraseña" [formControl]="Password" [type]="hidePassword ? 'password' : 'text'" autocomplete="new-password">
           <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
           <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
@@ -110,7 +110,7 @@
       <div class="microContainer">
         <mat-form-field class="input-Field" appearance="outline">
           <mat-label>Confirmar Contraseña</mat-label>
-          <input matInput placeholder="Confirmar Contraseña" [formControl]="ConfirmPassword" [type]="hideConfirmPassword ? 'password' : 'text'">
+          <input matInput placeholder="Confirmar Contraseña" [formControl]="ConfirmPassword" [type]="hideConfirmPassword ? 'password' : 'text'" autocomplete="new-password">
           <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
           <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
