@@ -17,6 +17,10 @@ export class TeacherService {
     return this.http.get<Teacher[]>(`${environment.apiUrl}/User/Teachers`)
   }
 
+  getAllTeachersWithAssingments(): Observable<Teacher[]>{
+    return this.http.get<Teacher[]>(`${environment.apiUrl}/User/TeachersForAssignment`)
+  }
+
   registerTeacher(newTeacher: RegisterTeacher) {
     return this.http.post<any>(`${environment.apiUrl}/Auth/UserTeacher`, newTeacher);
   }
