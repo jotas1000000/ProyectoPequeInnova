@@ -10,7 +10,7 @@ using PequeInnovaAPI.Data;
 namespace PequeInnovaAPI.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20200603002624_PequeInnovaDB")]
+    [Migration("20200606231957_PequeInnovaDB")]
     partial class PequeInnovaDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

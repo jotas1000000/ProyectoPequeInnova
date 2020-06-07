@@ -51,7 +51,6 @@ export class LessonComponent implements OnInit {
   //Comment vars
   myComment : Comment = new Comment();
   newComment: string;
-  placeComment: string;
   delComment: Comment = new Comment();
 
 
@@ -62,7 +61,6 @@ export class LessonComponent implements OnInit {
   userRol: string= null;
   
   ngOnInit(): void {
-    this.placeComment= "Escribe un Comentario";
     this.user = this.authenticationService.currentUserValue;
     if (this.user){
       this.userId= this.user.id;
@@ -106,7 +104,8 @@ export class LessonComponent implements OnInit {
 
   private getLessonsWithCommentsData(): void {
     this.lessonsService.getLessonsWithComments(this.areaId,this.courseId)
-      .subscribe(data =>{ this.lessons = data;
+      .subscribe(data =>{ 
+        this.lessons = data;
         console.log(data[0])});
   }
 

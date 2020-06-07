@@ -46,8 +46,12 @@
                     <div *ngIf ="question.question == answer.question  ">
                       <ng-container *ngFor = "let answer2 of answers[i].answers | shuffle, index as j">
                         <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="defaultUnchecked{{answers[i].question}}{{answer2.item1}}" name="{{answers[i].question}}"  mdbInput>
-                                <label class="custom-control-label" for="defaultUnchecked{{answers[i].question}}{{answer2.item1}}"><h5>{{answer2.item1}}</h5></label>
+                                <input type="radio" class="custom-control-input" id="defaultUnchecked{{answers[i].question}}{{answer2.item1}}{{i}}" name="{{answers[i].question}}"  mdbInput>
+                                <label class="custom-control-label" for="defaultUnchecked{{answers[i].question}}{{answer2.item1}}{{i}}"><h5>{{answer2.item1}}</h5></label>
+                                <label *ngIf="answer2.item2 != true">{{answer2.item2 == true ? "bien" : "mal"}}</label>
+
+
+
                         </div>
                       </ng-container>
                     </div>

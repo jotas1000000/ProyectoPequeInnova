@@ -516,8 +516,8 @@ namespace PequeInnovaAPI.Data.Repository
                                   answers = new List<Tuple<string, bool>> {
                                         Tuple.Create(q.TrueAnswer,true),
                                         Tuple.Create(q.FalseAnswer1,false),
-                                        Tuple.Create(q.FalseAnswer2,true),
-                                        Tuple.Create(q.FalseAnswer3,true),
+                                        Tuple.Create(q.FalseAnswer2,false),
+                                        Tuple.Create(q.FalseAnswer3,false),
                                     }
                               }
                               ).AsNoTracking().ToListAsync();
