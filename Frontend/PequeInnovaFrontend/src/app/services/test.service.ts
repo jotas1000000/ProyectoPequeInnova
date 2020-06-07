@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Test } from './../models/test';
 import { Answers } from '../models/Answers';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,11 +13,11 @@ export class TestService {
   readonly APIUrl ="https://localhost:5001/api";
 
   getQuestionsList(areaId: number, courseId : number, lessonId:number): Observable<Test[]>{
-    const href = `${this.APIUrl}/area/${areaId}/course/${courseId}/lesson/${lessonId}/question`;
+    const href = `${environment.apiUrl}/area/${areaId}/course/${courseId}/lesson/${lessonId}/question`;
     return this.http.get<Test[]>(href);
   }
   getAnswersList(areaId: number, courseId : number, lessonId:number): Observable<Answers[]>{
-    const href = `${this.APIUrl}/area/${areaId}/course/${courseId}/lesson/${lessonId}/questions`;
+    const href = `${environment.apiUrl}/area/${areaId}/course/${courseId}/lesson/${lessonId}/questions`;
     return this.http.get<Answers[]>(href);
   }
 }

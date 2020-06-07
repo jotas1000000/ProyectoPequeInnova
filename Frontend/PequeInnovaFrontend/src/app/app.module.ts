@@ -67,6 +67,9 @@ import { EditCourseTeacherComponent } from './pages/Teacher/edit-course-teacher/
 import { StudentControlComponent } from './pages/Admin/student-control/student-control.component';
 import { EditTeacherComponent } from './pages/edit-teacher/edit-teacher.component';
 import { InscripctionsComponent } from './pages/Admin/inscripctions/inscripctions.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
+
 
 @NgModule({
   declarations: [
@@ -142,7 +145,9 @@ import { InscripctionsComponent } from './pages/Admin/inscripctions/inscripction
     MatNativeDateModule,
     MatDialogModule,
 
-    CardsModule
+    CardsModule,
+    MatIconModule,
+    MatSelectModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

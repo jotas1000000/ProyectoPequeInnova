@@ -5,6 +5,8 @@ using PequeInnovaAPI.Models.ModelsRequests;
 using PequeInnovaAPI.Services;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -77,6 +79,20 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
+        [HttpPut("Assignment/{assignmentId:int}")]
+        public async Task<IActionResult> putAssignments(int assignmentId, [FromBody] AssignmentModel assignment  )
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await service.putAssignment(assignmentId, assignment);
+                if (result)
+                {
+                    return Ok(result);
+                }
+            }
+
+            return BadRequest("Algo salio mal en la peticion");
+        }
 
         [HttpGet("{userId:maxlength(38)}/Assignment")]
         public async Task<IActionResult> getAssignment(string userId)
@@ -106,8 +122,25 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
+        [HttpGet("TeachersForAssignment")]
+        public async Task<IActionResult> getTeacherForAssignment()
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await service.getTeacherForAssignment();
 
-        [HttpPut("Assignment/{assignmentId:int}/DeleteAssignment")]
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+
+                return BadRequest(result);
+            }
+
+            return BadRequest("Some properties are not valid");
+        }
+
+        [HttpDelete("Assignment/{assignmentId:int}/DeleteAssignment")]
         public async Task<IActionResult> deleteAssignment(int assignmentId)
         {
             if (ModelState.IsValid)

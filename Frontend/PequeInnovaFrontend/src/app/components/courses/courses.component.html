@@ -34,13 +34,13 @@
       <strong>
       <mdb-icon fas size="lg" icon="book-open" class="pr-2">
       </mdb-icon>
-      {{areaName}}
+      {{areaName | slice:0:30}}
       </strong>
     </h1>
     <hr class="hr-black my-4">
     <h2 class="text-uppercase mb-4 black-text ">
       <strong>
-        {{areaDescription}}
+        {{areaDescription | slice:0:100}}
       </strong>
     </h2>
 
@@ -70,18 +70,18 @@
                     <h5 class="font-weight-bold mb-3 ">
                       <mdb-icon fas icon="book-open" class="pr-2">
                       </mdb-icon>
-                      {{areaName}}
+                      {{areaName | slice:0:30}}
                     </h5>
                   </a>
                   <!-- Name -->
                   <h4 class="font-weight-bold mb-3 black-text">
                     <strong>
-                      {{course.name}} 
+                      {{course.name | slice:0:30}} 
                     </strong>
                   </h4>
                   <!-- Description -->
                   <p>
-                    {{course.description}}
+                    {{course.description | slice:0:100}}
                   </p>
                   <!-- View Area button -->
                   <a mdbBtn color="default" mdbWavesEffect routerLink="/areas/{{course.areaId}}/courses/{{course.id}}/lessons">

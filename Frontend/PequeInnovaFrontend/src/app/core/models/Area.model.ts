@@ -2,7 +2,7 @@ import {Course} from './Course.model';
 import {Assignment} from './Assignment.model';
 export interface Area{
 
-     id: string;
+     id: number;
      name: string;
      description: string;
      image: string;

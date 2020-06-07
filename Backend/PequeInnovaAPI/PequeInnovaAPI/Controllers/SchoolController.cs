@@ -8,19 +8,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Routing;
 using PequeInnovaAPI.Models;
 using Microsoft.AspNetCore.Http;
+using PequeInnovaAPI.Models.ModelsRequests;
 using PequeInnovaAPI.Exceptions;
 
 namespace PequeInnovaAPI.Controllers
 {
-    [Route("api/[controller]")]
-    public class SchoolContoller : ControllerBase
+    [Route("api/[Controller]")]
+    public class SchoolController : ControllerBase
     {
         private ISchoolService schoolService;
-        public SchoolContoller(ISchoolService schoolService)
+        public SchoolController(ISchoolService schoolService)
         {
             this.schoolService = schoolService;
         }
-        [HttpGet]
+        [HttpGet()]
         public async Task<ActionResult<IEnumerable<School>>> Get(string orderBy = "Id")
         {
             try
@@ -63,7 +64,7 @@ namespace PequeInnovaAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var newSchool= await this.schoolService.CreateSchoolAsync(school);
+            var newSchool = await this.schoolService.CreateSchoolAsync(school);
             return Created($"/api/school/{newSchool.Id}", newSchool);
         }
 

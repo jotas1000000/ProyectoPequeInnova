@@ -1,69 +1,59 @@
 <div class="container">
-    <div class="userbox z-depth-5">
-        <div class="user userphoto">
-             <img class="photo rounded-circle"src="./../../../../assets/images/admin/user.png" alt="">
-        
-        </div>
-        <div class="user userdata">
-            <div class="u role">
-                <p class="textUser">Administrador</p>
-            </div>
-            <div class="u name">
-                <p class="textUser">Annelis Torre Daza</p>
-            </div>
-            <div class="u editfunction">
-                <button type="button" mdbBtn color="secondary" mdbWavesEffect>Editar</button>
-            </div>
-        </div>
-        <div class="user userfunctions">
-            <div class="view viewOne">
-                <button type="button" routerLink="/teacherControl" mdbBtn color="info" mdbWavesEffect>Maestros</button>
-            </div>
-            <div class="view viewOne">
-              <button type="button" routerLink="/studentControl" mdbBtn color="info" mdbWavesEffect>Estudiantes</button>
-          </div>
-            <div class="view viewTwo">
-                <button type="button" routerLink="/schoolControl" mdbBtn color="info" mdbWavesEffect>Colegios</button>
-            </div>
-        </div>
+  <div class="userbox">
+    <div class="user userphoto">
+      <img class="photo rounded-circle"
+        src="https://banner2.cleanpng.com/20191203/kkv/transparent-teacher-icon-careers-women-icon-5de662ffd3f590.3076791915753797118682.jpg"
+        alt="">
     </div>
-
-    
+    <div class="user userdata">
+      <div class="u role">
+        <p class="textUser">Administrador</p>
+      </div>
+      <div class="u name">
+        <p class="textUser">Annelis Torre Daza</p>
+      </div>
+      <div class="user userfunctions">
+        <button type="button" class="user-button teacher" routerLink="/teacherControl" mdbBtn color="primary"
+          mdbWavesEffect>Maestros</button>
+        <button type="button" class="user-button student" routerLink="/teacherControl" mdbBtn color="info"
+          mdbWavesEffect>Estudiantes</button>
+        <button type="button" class="user-button school" routerLink="/schoolControl" mdbBtn color="secondary"
+          mdbWavesEffect>Colegios</button>
+      </div>
+    </div>
+  </div>
 </div>
+
 <div class="areas">
-    <!-- <h1 class="areatitle">Areas</h1>
- -->
- <button mdbBtn class="buttonAreas" type="button" routerLink="/mainAdmin/areaControl" color="info" rounded="true" outline="true" mdbWavesEffect>Areas</button>
+  <button mdbBtn class="buttonAreas" type="button" routerLink="/mainAdmin/areaControl" color="info" rounded="true"
+    outline="true" mdbWavesEffect>Areas</button>
 </div>
 
 <div class="containerCarousel">
-  
+
   <owl-carousel-o [options]="customOptions">
     <ng-template carouselSlide *ngFor="let slide of areas">
-      <mdb-card class="one-card">
-        <!--Card image-->
-        <img class="card-img" [src]="slide.image" alt="Card image cap"><img>
-        <!--Card content-->
-        <mdb-card-body>
-      
-          <!--Title-->
-          <mdb-card-title>
-            <h4>{{slide.name}}</h4>
-          </mdb-card-title>
-      
-          <!--Text-->
-          <mdb-card-text> 
-            {{slide.description}}
-          </mdb-card-text>
-      
-          <a routerLink="/areas/{{slide.id}}/courses" mdbBtn color="primary" mdbWavesEffect>ver Area</a>
-        </mdb-card-body>
-      </mdb-card>
-        <!-- <div class="slide">
-            <img src="https://i.picsum.photos/id/905/400/300.jpg">
-        </div> -->
-    </ng-template>  
+
+      <div class="card-container">
+        <div class="container-img">
+          <img [src]="slide.image" alt="Card image cap" />
+        </div>
+
+        <div class="card-body-elements">
+
+          <div class="card-title">
+            <p>{{slide.name | slice:0:30}}</p>
+          </div>
+
+          <div class="card-text">
+            {{slide.description | slice:0:200}}...
+          </div>
+          <div class="card-buttons">
+            <button type="button" class="card-button show" mdbBtn color="primary"
+              routerLink="/mainAdmin/areaControl/{{slide.id}}/courseControl" mdbWavesEffect>Ver Area</button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
   </owl-carousel-o>
-
-
 </div>

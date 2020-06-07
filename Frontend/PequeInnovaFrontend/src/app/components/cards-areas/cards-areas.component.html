@@ -43,9 +43,9 @@
             
             <mdb-card-title>
               <h4><mdb-icon fas size= "lg" icon="book" class="pr-2"></mdb-icon>
-             {{area.name}}</h4>
+             {{area.name | slice:0:30}}</h4>
             </mdb-card-title>
-            <mdb-card-text><h5>{{area.description}}</h5>  </mdb-card-text>
+            <mdb-card-text><h5>{{area.description | slice:0:100}}</h5>  </mdb-card-text>
             <a mdbBtn color="default"  routerLink="/areas/{{area.id}}" mdbWavesEffect><mdb-icon fas icon="book-open" class="left" ></mdb-icon>Ver Area</a>
           </mdb-card-body>
           </mdb-card>

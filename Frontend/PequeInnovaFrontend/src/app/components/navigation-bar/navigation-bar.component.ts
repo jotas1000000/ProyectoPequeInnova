@@ -19,8 +19,8 @@ export class NavigationBarComponent implements OnInit {
   returnUrl: string;
   error = '';
 
-  user:User= null;
-  nameUserCurrent:string=null;
+  user: User = null;
+  nameUserCurrent: string = null;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -30,12 +30,7 @@ export class NavigationBarComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.authenticationService.currentUserValue;
     if (this.user){
-      this.nameUserCurrent= this.user.name + ' ' +this.user.lastName;
-      //alert(this.user.id);
-      //if (this.authenticationService.getRoleUser === 'administrador') {
-        //console.log(this.authenticationService.getRoleUser);
-        //this.router.navigate(['./mainAdmin']);
-     // }
+      this.nameUserCurrent = this.user.name + ' ' +this.user.lastName;
     }
     this.validatingForm = new FormGroup({
     loginFormModalEmail: new FormControl('', Validators.email),
@@ -76,8 +71,8 @@ export class NavigationBarComponent implements OnInit {
         .pipe(first())
         .subscribe(
             data => {
-                this.user=data;
-               // this.nameUserCurrent= this.user.name + ' ' +this.user.lastName;
+                this.user = data;
+                this.nameUserCurrent= this.user.name + ' ' + this.user.lastName;
                 this.router.navigate([this.returnUrl]);
             },
             error => {

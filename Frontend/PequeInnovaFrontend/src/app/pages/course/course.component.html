@@ -11,7 +11,7 @@
   </li>
   <li class="list-inline-item">
     <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink="/areas/{{areaId}}/courses">
-      <mdb-icon fas icon="book-open" class="pr-2"></mdb-icon>{{areaName}}
+      <mdb-icon fas icon="book-open" class="pr-2"></mdb-icon>{{areaName | slice:0:30}}
     </a>
   </li>
   <li class="list-inline-item align-right">
@@ -31,10 +31,10 @@
   <div class="col-md-12 mb-0 text-default text-center">
     <h1 class="h1-reponsive text-uppercase font-weight-bold mb-0 pt-md-0 pt-0">
       <strong>
-        <mdb-icon fas size="lg" icon="pen" class="pr-2"></mdb-icon>{{courseName}} {{totalLessons}}
+        <mdb-icon fas size="lg" icon="pen" class="pr-2"></mdb-icon>{{courseName | slice:0:30}}<!--  {{totalLessons}} -->
       </strong></h1>
     <hr class="hr-black my-4">
-    <h2 class="text-uppercase mb-4 black-text "><strong>{{courseDescription}}</strong></h2>
+    <h2 class="text-uppercase mb-4 black-text "><strong>{{courseDescription | slice:0:100}}</strong></h2>
 
 
   </div>
@@ -69,11 +69,11 @@
 
               <!-- Excerpt -->
               <h4 class="font-weight-bold dark-grey-text mb-3 text-center">
-                {{lesson.title}}
+                {{lesson.title | slice:0:30}}
               </h4>
               <p class="font-weight-bold dark-grey-text">
                 <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4 text-center">
-                  {{lesson.description}}
+                  {{lesson.description | slice:0:100}}
 
                 </p>
                 <div class="d-flex justify-content-center">
@@ -136,10 +136,10 @@
                   <div class=" text-truncate pl-0 mb-3">
 
                     <h5 class="font-weight-bold dark-grey-text mb-1 text-center">
-                      <a>{{lesson.title}}</a>
+                      <a>{{lesson.title | slice:0:30 }}</a>
                     </h5>
 
-                    <a class="dark-grey-text text-center">{{lesson.description}}</a>
+                    <a class="dark-grey-text text-center">{{lesson.description | slice:0:100}}</a>
                   </div>
                   <a routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lesson.id}}/theoretical">
                     

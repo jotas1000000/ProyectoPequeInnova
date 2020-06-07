@@ -237,6 +237,11 @@ namespace PequeInnovaAPI.Services
             return query.SingleOrDefault(t => t.Id == userId);
         }
 
+        public async Task<IEnumerable<TeacherAssignmentModel>> getTeacherForAssignment()
+        {
+            return await repository.getTeacherForAssignment();
+        }
+
         public async Task<List<GetTeachersModel>> GetTeachers()
         {
             var query = await (from u in dbcontext.Users
@@ -422,6 +427,20 @@ namespace PequeInnovaAPI.Services
                 return true;
 
             }
+        }
+
+        public async Task<bool> putAssignment(int assignmentId, AssignmentModel assignment)
+        {
+            var assignmentPut = await repository.getAssignment(assignment.UserId);
+            if (assignmentPut == null) {
+                throw new Exception("No se pudo editar al asignacion");
+            }
+            var assignmentEntity = mapper.Map<AssignmentEntity>(assignment);
+            await repository.putAssignment(assignmentId ,assignmentEntity);
+            if (await repository.SaveChangesAsync()) {
+                return true;
+            }
+            throw new Exception("No se pudo editar al asignacion");
         }
 
         public async Task<UserManagerResponse> RegisterUserAdminAsync(RegisterViewModel model)
