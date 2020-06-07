@@ -502,7 +502,7 @@ namespace PequeInnovaAPI.Services
                                                       aux1 = u.Id
                                                   }).AsNoTracking().ToListAsync();
 
-                bool resp = await CreateUserRoleAsync(query.FirstOrDefault().aux1, "administrador");
+                bool resp = await CreateUserRoleAsync(query.FirstOrDefault().aux1, "Administrador");
 
                 if (!resp)
                 {
