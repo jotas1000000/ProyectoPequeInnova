@@ -47,7 +47,7 @@
           <!-- <td>{{el.Functions}}</td> -->
           <td class="field-functions">
             <button mdbBtn color="" size="sm" (click)="editTeacherModal.show()" mdbWavesEffect type="button" class="button-color">Editar</button>
-            <button mdbBtn color="" size="sm" (click)="assignmentModal.show();updateAssignmentModal(el.id)" mdbWavesEffect type="button" class="button-color">Asignacion</button>
+            <button mdbBtn color="" size="sm" (click)="assignmentModal.show();updateAssignmentModal(el.id, el.assignmentId);updateAssignmentForm(el.areaId)" mdbWavesEffect type="button" class="button-color">Asignacion</button>
             <button mdbBtn color="danger" size="sm" (click)="deleteTeacherModal.show()" mdbWavesEffect type="button" class="">Eliminar</button>
           </td>
 
@@ -151,7 +151,7 @@
     </div>
   </div>
 
-<div mdbModal #assignmentModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+<div mdbModal id="assignmentmodal" #assignmentModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -162,45 +162,63 @@
       </div>
       <div class="modal-body">
 
-        {{current_teacher}}
-
-
-        <form [formGroup]="form" *ngIf="form" (ngSubmit)="changeAssignment">
+        <form [formGroup]="form" *ngIf="form" (ngSubmit)="debugAssignment($event)">
           <mat-card class="card-container">
             <mat-card-header>
               <mat-card-title>Asignacion Area</mat-card-title>
             </mat-card-header>
             <mat-card-content class="card-content-container">
-                
+                {{messageBinding}}
+              
               <div class="microContainer" *ngIf="assignments">
                 <mat-form-field class="input-Field" appearance="outline"
                 [hideRequiredMarker]="hideRequiredControlAssignment.value"
                 [floatLabel]="floatLabelControlAssignment.value">
-                <mat-select [formControl]="Assignment" required>
-                    <mat-option *ngFor="let assignment of assignments" value="{{assignment.nameArea}}">{{assignment.nameArea}}</mat-option>
+                <mat-select  [formControl]="areaId" required>
+                    <mat-option  *ngFor="let area of areas" value="{{area.id}}">{{area.name}}</mat-option>
                 </mat-select>
-                <mat-label>Colegio</mat-label>
+                <mat-label>Area</mat-label>
                 </mat-form-field>
               </div>
               
             
             </mat-card-content>
-            <!-- <mat-card-actions>
-              <button type="button" (click)="FunctionEscape()" mdbBtn color="danger" mdbWavesEffect>Cancelar</button>
+            <mat-card-actions>
+              <button type="button" (click)="assignmentModal.hide()" mdbBtn color="danger" mdbWavesEffect>Cancelar</button>
               <button [disabled]="form.invalid" type="submit" (click)="basicModal.show()" mdbBtn color="info"
                 mdbWavesEffect>Aceptar</button>
-            </mat-card-actions> -->
+            </mat-card-actions>
           </mat-card>
         </form>
 
-
-
-
-
       </div>
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="assignmentModal.hide()" mdbWavesEffect>Cerrar</button>
         <button type="button" mdbBtn color="danger" class="relative waves-light" mdbWavesEffect>Aceptar</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Cambiando Area</h4>
+      </div>
+      <div class="modal-body">
+        <img *ngIf="!stateRequest" id="spinner" src="./../../../assets/images/background/Spinner200px.gif" width="200" height="200" alt="" />
+        <p *ngIf='messageBinding'>{{messageBinding}}</p>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
+         --><button type="button" (click)="basicModal.hide()" mdbBtn color="primary"
+          class="relative waves-light" mdbWavesEffect>Ok</button>
       </div>
     </div>
   </div>

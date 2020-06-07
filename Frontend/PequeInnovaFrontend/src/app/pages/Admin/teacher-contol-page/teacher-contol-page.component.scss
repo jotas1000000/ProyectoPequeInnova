@@ -29,3 +29,16 @@
 #crearMaestro{
     justify-content: right;
 }
+#dropdown{
+    z-index: 2000 !important;
+    color: rgb(82, 49, 49);
+}
+#assignmentmodal{
+    z-index: 1100;
+
+}
+
+.mat-option {
+    z-index: 5000;
+    color: red;
+}

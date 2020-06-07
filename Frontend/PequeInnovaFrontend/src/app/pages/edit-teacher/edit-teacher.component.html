@@ -5,20 +5,52 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
   <mat-card-header>
+
     <mat-card-title>Nombre: {{teacher.name}}</mat-card-title>
-  </mat-card-header>
-  <mat-card-header>
+  
     <mat-card-title>Apellido: {{teacher.lastName}}</mat-card-title>
-  </mat-card-header>
-  <mat-card-header>
+  
     <mat-card-title>Email: {{teacher.email}}</mat-card-title>
-  </mat-card-header>
-  <mat-card-header>
+
     <mat-card-title>Titulo: {{teacher.degree}}</mat-card-title>
-  </mat-card-header>
-  <mat-card-header>
+    <mat-card-title *ngFor="let element of teachers">
+      <div *ngIf="element.id == teacher.id">Area: {{element.areaName}}</div>
+      
+    </mat-card-title>
+
+
     <mat-card-title>Ciudad: {{teacher.city}}</mat-card-title>
   </mat-card-header>
+  <br><br>
+  <form [formGroup]="areaForm" *ngIf="areaForm" (ngSubmit)="changeAssignment($event)">
+    <mat-card class="card-container">
+      <mat-card-header>
+        <mat-card-title>Asignacion Area</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="card-content-container">
+          {{messageBinding}}
+        
+        <div class="microContainer" *ngIf="areas">
+          <mat-form-field class="input-Field" appearance="outline"
+          [hideRequiredMarker]="hideRequiredControlAssignment.value"
+          [floatLabel]="floatLabelControlAssignment.value">
+          <mat-select  [formControl]="areaId" required>
+              <mat-option  *ngFor="let area of areas" value="{{area.id}}">{{area.name}}</mat-option>
+          </mat-select>
+          <mat-label>Area</mat-label>
+          </mat-form-field>
+        </div>
+        
+      
+      </mat-card-content>
+      <mat-card-actions>
+        <!-- <button type="button" (click)="assignmentModal.hide()" mdbBtn color="danger" mdbWavesEffect>Cancelar</button> -->
+        <button [disabled]="areaForm.invalid" type="submit" (click)="basicModal.show()" mdbBtn color="info"
+          mdbWavesEffect>Aceptar</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+
   <br><br>
   <button class="button-navbar"  mdbBtn type="button" color="info" rounded="true" mdbWavesEffect (click)="updateProfile();basicModal1.show()">Editar</button>
   </div>

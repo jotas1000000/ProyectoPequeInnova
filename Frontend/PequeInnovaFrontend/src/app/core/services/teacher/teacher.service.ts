@@ -17,7 +17,7 @@ export class TeacherService {
     return this.http.get<Teacher[]>(`${environment.apiUrl}/User/Teachers`)
   }
 
-  getAllTeachersWithAssingments(): Observable<Teacher[]>{
+  getAllTeachersWithAssignments(): Observable<Teacher[]>{
     return this.http.get<Teacher[]>(`${environment.apiUrl}/User/TeachersForAssignment`)
   }
 
