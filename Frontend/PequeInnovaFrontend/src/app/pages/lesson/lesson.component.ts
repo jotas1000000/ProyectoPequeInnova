@@ -20,13 +20,13 @@ export class LessonComponent implements OnInit {
 
 
   constructor(  private areasService: AreaService,
-    private coursesService: CourseService,
-    private lessonsService: LessonService,
-    private activatedRoute: ActivatedRoute,
-    public sanitizer: DomSanitizer,
-    public commentService: CommentService,
-    private router: Router,
-    private authenticationService: AuthenticationService) { }
+                private coursesService: CourseService,
+                private lessonsService: LessonService,
+                private activatedRoute: ActivatedRoute,
+                public sanitizer: DomSanitizer,
+                public commentService: CommentService,
+                private router: Router,
+                private authenticationService: AuthenticationService) { }
 
   public courses = [];
   public areas = [];
@@ -56,21 +56,21 @@ export class LessonComponent implements OnInit {
 
 
   //User vars
-  user:User= null;
-  userId:string=null;
-  userName:string=null;
-  userRol: string= null;
+  user: User = null;
+  userId: string = null;
+  userName: string = null;
+  userRol: string = null;
 
   ngOnInit(): void {
     this.user = this.authenticationService.currentUserValue;
     if (this.user){
-      this.userId= this.user.id;
-      this.userName= this.user.userName;
-      this.userRol= this.user.role;
+      this.userId = this.user.id;
+      this.userName = this.user.userName;
+      this.userRol = this.user.role;
 
     }
 
-    this.lessonPage=1;
+    this.lessonPage = 1;
 
     this.setRouteVariables();
     this.setCourseData();
@@ -89,7 +89,7 @@ export class LessonComponent implements OnInit {
       console.log("CCCCCCCC" + this.lessonId); */
       this.getLessonData();
     });
-   
+
   }
 
   private getLessonsData(): void {
@@ -99,9 +99,9 @@ export class LessonComponent implements OnInit {
 
   private getLessonsWithCommentsData(): void {
     this.lessonsService.getLessonsWithComments(this.areaId,this.courseId)
-      .subscribe(data =>{ 
+      .subscribe(data => {
         this.lessons = data;
-        console.log(data[0])});
+        console.log(data[0]) });
   }
 
   getLessonData(): void {
@@ -110,7 +110,7 @@ export class LessonComponent implements OnInit {
   }
 
   
-  getTrustedYouTubeUrl(linkedVideo:Lesson) {
+  getTrustedYouTubeUrl(linkedVideo: Lesson) {
     return this.sanitizer2.bypassSecurityTrustResourceUrl(linkedVideo.urlVideo);
   }    
 

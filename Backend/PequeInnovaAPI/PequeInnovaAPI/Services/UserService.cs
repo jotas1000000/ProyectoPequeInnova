@@ -189,7 +189,7 @@ namespace PequeInnovaAPI.Services
             return true;
         }
 
-        public async Task<AssignmentRequestModel> getAssignment(string userId)
+        public async Task<TeacherAssignmentModel> getAssignment(string userId)
         {
             //falta validar USer
             return await repository.getAssignment(userId);

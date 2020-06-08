@@ -17,7 +17,7 @@ export class MainPageAdminComponent implements OnInit, AfterViewInit {
     touchDrag: true,
     pullDrag: false,
     dots: false,
-    margin: 50,
+    margin: 30,
     navSpeed: 700,
     navText: ['ANTERIOR', 'SIGUIENTE'],
     responsive: {
@@ -28,7 +28,7 @@ export class MainPageAdminComponent implements OnInit, AfterViewInit {
         items: 1
       },
       740: {
-        items: 3
+        items: 2
       },
       940: {
         items: 3

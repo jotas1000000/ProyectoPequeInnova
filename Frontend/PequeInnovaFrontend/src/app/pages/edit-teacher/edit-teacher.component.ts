@@ -181,8 +181,8 @@ export class EditTeacherComponent implements OnInit {
         console.log(this.newAssignment);
         this.assignmentService.putAssignment(this.newAssignment)
         .subscribe((result) => {
-          console.log(result);
-          console.log("HERE");
+        /*   console.log(result);
+          console.log("HERE"); */
           this.stateRequest = result ;
           if(result == true){
             setTimeout(() => {
@@ -205,20 +205,18 @@ export class EditTeacherComponent implements OnInit {
     event.preventDefault();
     if (this.form.valid) {
       const newTeacher: Teacher = this.form.value;
-      newTeacher.uid='123';
+      newTeacher.uid = '123';
       this.teacherService.editTeacher(newTeacher)
       .subscribe((result) => {
         console.log(result);
         this.stateRequest = result.item1 ;
-        if(result.item1 == true){
-          setTimeout(() => {
-            this.messageBinding = 'Profesor editado correctamente';
-          }, 2000);
+        if (result.item1 === true){
+          console.log(this.form.value.city);
+          this.teacher.city = this.form.value.city;
+          this.messageBinding = 'Profesor editado correctamente';
         }else
         {
-          setTimeout(() => {
-            this.messageBinding = result.message;
-          }, 2000);
+          this.messageBinding = result.message;
         }
 
       });

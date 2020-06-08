@@ -29,7 +29,7 @@ namespace PequeInnovaAPI.Services
         Task<List<GetTeachersModel>> GetTeachers();
 
         Task<IEnumerable<AssignmentRequestModel>> GetAssignments();
-        Task<AssignmentRequestModel> getAssignment(string userId);
+        Task<TeacherAssignmentModel> getAssignment(string userId);
         Task<bool> postAssignment(AssignmentModel assignment);
         Task<bool> deleteAssginment(int id);
         Task<bool> putAssignment(int assignmentId, AssignmentModel assignment);
