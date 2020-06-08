@@ -17,6 +17,10 @@ export class AssignmentService {
   }
   
   postAssignment(assignment:Assignment){
-    return this.http.post<any>(`${environment.apiUrl}/Auth/Assignment`, assignment);
+    return this.http.post<any>(`${environment.apiUrl}/User/Assignment`, assignment);
+  }
+
+  putAssignment(assignment:Assignment){
+    return this.http.put<any>(`${environment.apiUrl}/User/Assignment/${assignment.id}`,assignment )
   }
 }
