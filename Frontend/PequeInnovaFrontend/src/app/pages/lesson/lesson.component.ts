@@ -50,7 +50,7 @@ export class LessonComponent implements OnInit {
   
   //Comment vars
   myComment : Comment = new Comment();
-  newComment: string;
+  newComment = '';
   placeComment: string;
   delComment: Comment = new Comment();
 
@@ -81,8 +81,8 @@ export class LessonComponent implements OnInit {
     //this.getLessonsData();
     // this.getLessonData();
 
-    console.log("BBBBBBBB" + this.courseId);
-    console.log("YYYYYYYYY" + this.lessonId);
+/*     console.log("BBBBBBBB" + this.courseId);
+    console.log("YYYYYYYYY" + this.lessonId); */
   }
 
   private setRouteVariables(): void {
@@ -90,10 +90,10 @@ export class LessonComponent implements OnInit {
       this.areaId = params['areaId'];
       this.courseId = params['courseId'];
       this.lessonId = params['lessonId'];
-      console.log(params);
+/*       console.log(params);
       console.log("AAAAAAAA" + this.areaId);
       console.log("BBBBBBBB" + this.courseId);
-      console.log("CCCCCCCC" + this.lessonId);
+      console.log("CCCCCCCC" + this.lessonId); */
       this.getLessonData();
     });
    
@@ -125,9 +125,11 @@ export class LessonComponent implements OnInit {
     this.myComment.userName = this.userName;
     this.myComment.lessonId = this.lessonId;
     this.myComment.description = this.newComment;
-    this.commentService.postComment(this.myComment).subscribe();
-    this.getLessonsWithCommentsData();
-    this.newComment=null;
+    if (this.newComment !== null || this.newComment !== '') {
+      this.commentService.postComment(this.myComment).subscribe();
+      this.getLessonsWithCommentsData();
+    }
+    this.newComment = '';
   }
 
   setDeleteComment(userIdDelete: string, idCommentDelete: number){

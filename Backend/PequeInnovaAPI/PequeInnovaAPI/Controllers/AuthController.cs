@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PequeInnovaAPI.Models.Auth;
 using PequeInnovaAPI.Models.ModelsRequests;
+using Microsoft.AspNetCore.Authorization;
 using PequeInnovaAPI.Services;
 
 namespace PequeInnovaAPI.Controllers
 {
+    [Authorize(Roles = "Profesor, Estudiante, Administrador")]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -35,6 +37,7 @@ namespace PequeInnovaAPI.Controllers
             return BadRequest("No se pudo registrar. Algo estuvo mal!");
         }
 
+        [AllowAnonymous]
         [HttpPost("UserStudent")]
         public async Task<IActionResult> CreateUserStudentAsync([FromBody]  RegisterStudentModel model)
         {
@@ -50,7 +53,8 @@ namespace PequeInnovaAPI.Controllers
             }
             return BadRequest("No se pudo registrar. Algo estuvo mal!");
         }
-                
+
+        [Authorize(Roles = "Administrador")]
         [HttpPost("UserTeacher")]
         public async Task<IActionResult> CreateUserTeacherAsync([FromBody] RegisterTeacherModel model)
         {
@@ -66,7 +70,8 @@ namespace PequeInnovaAPI.Controllers
             }
             return BadRequest("No se pudo registrar. Algo estuvo mal!");
         }
-
+        //[Authorize(Roles = "Administrador")]
+        [AllowAnonymous]//Peligro
         [HttpPost("UserAdmin")]
         public async Task<IActionResult> CreateUserAdminAsync([FromBody] RegisterViewModel model)
         {
@@ -83,6 +88,7 @@ namespace PequeInnovaAPI.Controllers
             return BadRequest("No se pudo registrar. Algo estuvo mal!");
         }
 
+        [AllowAnonymous]//Peligro
         [HttpPost("Role")]
         public async Task<IActionResult> CreateRoleAsync([FromBody] CreateRoleViewModel model)
         {
@@ -99,7 +105,7 @@ namespace PequeInnovaAPI.Controllers
             }
             return BadRequest("Some properties are not valid");
         }
-
+        [AllowAnonymous]//Peligro
         [HttpPost("UserRole")]
         public async Task<IActionResult> CreateUserRole([FromBody] CreateUserRoleViewModel model)
         {
@@ -116,7 +122,7 @@ namespace PequeInnovaAPI.Controllers
             }
             return BadRequest("Some properties are not valid");
         }
-
+        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> LoginAsync([FromBody]LoginViewModel model)
         {
@@ -134,7 +140,7 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Some properties are not valid");
         }
-
+        [AllowAnonymous]//Peligro
         [HttpGet("Users")]
         public async Task<IActionResult> GetUsersRoles()
         {
