@@ -73,29 +73,36 @@
       
       <div class="card mb-3">
         <h3 class="card-header green white-text text-uppercase text-center">Comentarios</h3>
-        <!-- <div class="containerComments">
-        </div> -->
-            <ng-container *ngFor="let comment of lesson.comments, let index = j">    
-              <div class="media d-block d-md-flex">              
-                <div class="media-body text-md-left ml-md-3 ml-0">
+        <div class="form-group basic-textarea rounded-corners mb-md-0 mb-4">              
+          <textarea class="form-control z-depth-1" id="exampleFormControlTextarea3" rows="2" [(ngModel)]="newComment" placeholder="Escribe un Comentario"></textarea>
+          <a mdbBtn size="sm" color="default" class="  waves-light" mdbWavesEffect   (click)= "postComment(newComment)" > <mdb-icon fas icon="comment" class="pr-1"></mdb-icon>Comentar</a>
+        </div>
+        <hr class="my-2">
+        <div class="containerComments">
+          <ng-container *ngFor="let comment of lesson.comments, let index = j">    
+            <div class="media d-block d-md-flex">              
+              <div class="media-body text-md-left ml-md-3 ml-0">
+                <div class="titleComment">
                   <h5 class="mt-0 font-weight-bold cyan-text">{{comment.userName}}
-                    <ng-container *ngIf ="comment.userId == userId || (userRol != 'Estudiante' && userRol != null)" >
+                    <!-- <ng-container *ngIf ="comment.userId == userId || (userRol != 'Estudiante' && userRol != null)" >
                       <mdb-icon class="waves-light" data-toggle="modal" 
                         (click)="setDeleteComment(comment.userId, comment.id); frame.show()" fas size= "md" icon="times" class="black-text-right" mdbWavesEffect></mdb-icon>
-                    </ng-container>
+                    </ng-container> -->
                   </h5>
-                  <p>
-                    {{comment.description}}
-                  </p>
-                </div>          
-              </div>
-              <hr class="my-2">
-            </ng-container>
-            <div class="form-group basic-textarea rounded-corners mb-md-0 mb-4">
-              
-              <textarea class="form-control z-depth-1" id="exampleFormControlTextarea3" rows="2" [(ngModel)]="newComment" placeholder="Escribe un Comentario"></textarea>
-              <a mdbBtn size="sm" color="default" class="  waves-light" mdbWavesEffect   (click)= "postComment(newComment)" > <mdb-icon fas icon="comment" class="pr-1"></mdb-icon>Comentar</a>
+                  <ng-container *ngIf ="comment.userId == userId || (userRol != 'Estudiante' && userRol != null)" >
+                     <button data-toggle="modal" 
+                     (click)="setDeleteComment(comment.userId, comment.id); frame.show()" type="button" mdbBtn color="danger" class="btn-delete" mdbWavesEffect>X</button >
+                  </ng-container>
+                </div>
+                <p class="description-comment">
+                  {{comment.description | slice:0:200}}
+                </p>
+              </div>          
             </div>
+            <hr class="my-2">
+          </ng-container>
+        </div>
+        
       </div>
     
     

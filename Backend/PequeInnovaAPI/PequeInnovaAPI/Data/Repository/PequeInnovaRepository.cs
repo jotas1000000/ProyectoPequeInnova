@@ -241,7 +241,7 @@ namespace PequeInnovaAPI.Data.Repository
                                                 UpdateDate = l.UpdateDate,
                                                 CreateDate = l.CreateDate,
                                                 Course = l.Course,
-                                                Comments = l.Comments.Where(c => c.Status==true && showComments == true).OrderBy(c => c.CommentDate).ToList(),
+                                                Comments = l.Comments.Where(c => c.Status==true && showComments == true).OrderByDescending(c => c.CommentDate).ToList(),
                                                 Questions = l.Questions.Where(q => q.Status==true && showQuestions ==true).ToList()
 
                                             }).OrderBy(l => l.Order)

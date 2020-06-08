@@ -17,7 +17,7 @@ import { CommentService } from 'src/app/services/comment.service';
   styleUrls: ['./lesson.component.scss']
 })
 export class LessonComponent implements OnInit {
-  
+
 
   constructor(  private areasService: AreaService,
     private coursesService: CourseService,
@@ -32,7 +32,7 @@ export class LessonComponent implements OnInit {
   public areas = [];
   public lessons = [];
   public mainLesson : any;
-  
+
   // Route vars
   areaId: number;
   courseId: number;
@@ -47,12 +47,12 @@ export class LessonComponent implements OnInit {
   //Lesson vars
   lessonPage: number;
   sanitizer2: any;
-  
+
   //Comment vars
-  myComment : Comment = new Comment();
+  myComment : Comment;
   newComment = '';
   placeComment: string;
-  delComment: Comment = new Comment();
+  delComment: Comment;
 
 
   //User vars
@@ -60,29 +60,23 @@ export class LessonComponent implements OnInit {
   userId:string=null;
   userName:string=null;
   userRol: string= null;
-  
+
   ngOnInit(): void {
     this.placeComment= "Escribe un Comentario";
     this.user = this.authenticationService.currentUserValue;
     if (this.user){
       this.userId= this.user.id;
-      this.userName= this.user.name + ' ' + this.user.lastName;
+      this.userName= this.user.userName;
       this.userRol= this.user.role;
-    
+
     }
 
     this.lessonPage=1;
- 
+
     this.setRouteVariables();
     this.setCourseData();
     this.getLessonsWithCommentsData();
-    /*this.setAreaData();
-    this.setSectionData(); */
-    //this.getLessonsData();
-    // this.getLessonData();
-
-/*     console.log("BBBBBBBB" + this.courseId);
-    console.log("YYYYYYYYY" + this.lessonId); */
+    this.delComment = new Comment();
   }
 
   private setRouteVariables(): void {
@@ -121,6 +115,7 @@ export class LessonComponent implements OnInit {
   }    
 
   postComment(nComment: string){
+    this.myComment = new Comment();
     this.myComment.userId = this.userId;
     this.myComment.userName = this.userName;
     this.myComment.lessonId = this.lessonId;
@@ -130,6 +125,7 @@ export class LessonComponent implements OnInit {
       this.getLessonsWithCommentsData();
     }
     this.newComment = '';
+    this.myComment = null;
   }
 
   setDeleteComment(userIdDelete: string, idCommentDelete: number){
