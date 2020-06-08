@@ -8,19 +8,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PequeInnovaAPI.Models.ModelsRequests;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PequeInnovaAPI.Controllers
 {
+    [Authorize(Roles = "Profesor, Estudiante, Administrador")]
     [Route("api/Area/{areaId:int}/Course/{courseId:int}/[Controller]")]
     public class LessonController : ControllerBase
     {
         private ILessonService lessonService;
-        //private ISectionService sectionService;
         public LessonController(ILessonService lessonService)
         {
             this.lessonService = lessonService;
         }
-
+        
         [HttpGet()]
         public async Task<ActionResult<IEnumerable<LessonModel>>> getLessons(int courseId, int areaId, bool showComments = false, bool showQuestions = false)
         {
@@ -50,7 +51,7 @@ namespace PequeInnovaAPI.Controllers
                 throw;
             }
         }
-
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpPost()]
         public async Task<ActionResult<LessonModel>> PostLesson(int areaId,int courseId, [FromBody] LessonModel lesson)
         {
@@ -77,6 +78,7 @@ namespace PequeInnovaAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpPost("CreateLesson")]
         public async Task<ActionResult<LessonModel>> PostLessonCreated(int areaId, int courseId, [FromBody] LessonModel lesson)
         {
@@ -105,6 +107,8 @@ namespace PequeInnovaAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpPut("{lessonId:int}")]
         public async Task<ActionResult<bool>> DeleteLesson(int lessonId, int courseId, int areaId)
         {
@@ -233,8 +237,8 @@ namespace PequeInnovaAPI.Controllers
             //}
         }
         */
-        
 
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpPut("{lessonId:int}/EditLesson")]
         public async Task<IActionResult> PutLesson(int courseId, int lessonId, [FromBody] LessonModel lesson)
         {

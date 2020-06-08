@@ -13,7 +13,7 @@ using PequeInnovaAPI.Exceptions;
 namespace PequeInnovaAPI.Controllers
 {
     //Algun cambio
-    //[Authorize(Roles = "Profesor, Estudiante, Administrador")]
+    [Authorize(Roles = "Profesor, Estudiante, Administrador")]
     [Route("api/[controller]")]
     public class AreaController : ControllerBase
     {
@@ -25,7 +25,7 @@ namespace PequeInnovaAPI.Controllers
             this.courseService = courseService;
 
         }
-       // [AllowAnonymous]
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Area>>> Get(string orderBy = "Id", bool showCourses= false)
         {
@@ -43,6 +43,8 @@ namespace PequeInnovaAPI.Controllers
 
             }
         }
+
+        [AllowAnonymous]
         [HttpGet("allCuorses")]
         public async Task<ActionResult<IEnumerable<CourseModel>>> GetCourses()
         {
@@ -60,6 +62,8 @@ namespace PequeInnovaAPI.Controllers
 
             }
         }
+
+        [AllowAnonymous]
         [HttpGet("{areaID:int}")]
         public async Task<ActionResult<Area>> Get(int areaID, bool showCoures= true)
         {
