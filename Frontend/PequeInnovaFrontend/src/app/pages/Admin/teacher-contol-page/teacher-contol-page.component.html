@@ -46,8 +46,8 @@
           
           <!-- <td>{{el.Functions}}</td> -->
           <td class="field-functions">
-            <button mdbBtn color="" size="sm" (click)="editTeacherModal.show()" mdbWavesEffect type="button" class="button-color">Editar</button>
-            <button mdbBtn color="" size="sm" (click)="assignmentModal.show();updateAssignmentModal(el.id, el.assignmentId);updateAssignmentForm(el.areaId)" mdbWavesEffect type="button" class="button-color">Asignacion</button>
+            <button mdbBtn color="" size="sm" routerLink="/editTeacher/{{el.id}}" mdbWavesEffect type="button" class="button-color">Editar</button>
+            <!-- <button mdbBtn color="" size="sm" (click)="assignmentModal.show();updateAssignmentModal(el.id, el.assignmentId);updateAssignmentForm(el.areaId)" mdbWavesEffect type="button" class="button-color">Asignacion</button> -->
             <button mdbBtn color="danger" size="sm" (click)="deleteTeacherModal.show()" mdbWavesEffect type="button" class="">Eliminar</button>
           </td>
 

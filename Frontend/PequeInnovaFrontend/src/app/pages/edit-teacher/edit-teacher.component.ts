@@ -69,7 +69,13 @@ export class EditTeacherComponent implements OnInit {
 
   private async buildForm() {
     this.id=this._Activatedroute.snapshot.paramMap.get("id");
-    this.teacherService.getTeacher(this.id).subscribe(data => {this.teacher = data; let x = this.length})
+    this.teacherService.getTeacher(this.id).subscribe(data => 
+      {
+        if(data)
+        this.teacher = data; let x = this.length
+      })
+    this.teacherService.getTeacher(this.id).subscribe(teacherResponse =>{})
+    
     this.areaService.getAreaList().subscribe(data=> this.areas =data);
     this.form = this.formBuilder.group({
       id: [this.id, [Validators.required]],
@@ -147,8 +153,10 @@ export class EditTeacherComponent implements OnInit {
           if (result.item1){
             setTimeout(() => {
               this.stateRequest = true;
-              this.messageBinding = 'Cambio de area exitoso';
-            }, 3000);
+              this.messageBinding = "Cambio de area exitoso";
+              this.teacherService.getAllTeachersWithAssignments().subscribe(data => this.teachers = data);
+
+            }, 1000);
           }else
           {
             setTimeout(() => {
@@ -173,12 +181,13 @@ export class EditTeacherComponent implements OnInit {
         console.log(this.newAssignment);
         this.assignmentService.putAssignment(this.newAssignment)
         .subscribe((result) => {
-          this.stateRequest = result.item1;
-          if (result.item1){
+          console.log(result);
+          console.log("HERE");
+          this.stateRequest = result ;
+          if(result == true){
             setTimeout(() => {
-              this.stateRequest = true;
               this.messageBinding = 'Cambio de area exitoso';
-            }, 3000);
+            }, 2000);
           }else
           {
             setTimeout(() => {
@@ -186,7 +195,7 @@ export class EditTeacherComponent implements OnInit {
             }, 2000);
           }
         }, error => {
-          alert('Ups algo salio mal, intente de nuevo. Si el problema persiste contactese con Soporte Tenico!');
+          alert('Ups algo salio mal, intente de nuevo. Si el problema persiste contactese con Soporte Tecnico!');
         });
       }
     }
@@ -217,13 +226,13 @@ export class EditTeacherComponent implements OnInit {
   }
 
   FunctionEscape(){
-    this.router.navigate(['./teacherControl']);
+    this.router.navigate([`./editTeacher/${this.id}`]);
   }
 
   ResetBinding(){
     if(this.stateRequest)
     {
-        this.router.navigate(['./teacherControl']);
+        this.router.navigate([`./editTeacher/${this.id}`]);
     }else{
 
       this.messageBinding=null;

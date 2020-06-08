@@ -5,31 +5,24 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
   <mat-card-header>
-
     <mat-card-title>Nombre: {{teacher.name}}</mat-card-title>
-  
     <mat-card-title>Apellido: {{teacher.lastName}}</mat-card-title>
-  
     <mat-card-title>Email: {{teacher.email}}</mat-card-title>
-
     <mat-card-title>Titulo: {{teacher.degree}}</mat-card-title>
     <mat-card-title *ngFor="let element of teachers">
       <div *ngIf="element.id == teacher.id">Area: {{element.areaName}}</div>
-      
     </mat-card-title>
-
-
     <mat-card-title>Ciudad: {{teacher.city}}</mat-card-title>
   </mat-card-header>
+
   <br><br>
+
   <form [formGroup]="areaForm" *ngIf="areaForm" (ngSubmit)="changeAssignment($event)">
     <mat-card class="card-container">
       <mat-card-header>
         <mat-card-title>Asignacion Area</mat-card-title>
       </mat-card-header>
       <mat-card-content class="card-content-container">
-          {{messageBinding}}
-        
         <div class="microContainer" *ngIf="areas">
           <mat-form-field class="input-Field" appearance="outline"
           [hideRequiredMarker]="hideRequiredControlAssignment.value"
@@ -39,23 +32,21 @@
           </mat-select>
           <mat-label>Area</mat-label>
           </mat-form-field>
-        </div>
-        
-      
+        </div>          
       </mat-card-content>
       <mat-card-actions>
         <!-- <button type="button" (click)="assignmentModal.hide()" mdbBtn color="danger" mdbWavesEffect>Cancelar</button> -->
-        <button [disabled]="areaForm.invalid" type="submit" (click)="basicModal.show()" mdbBtn color="info"
-          mdbWavesEffect>Aceptar</button>
+        <button [disabled]="areaForm.invalid" type="submit" (click)="basicModal2.show()" mdbBtn color="info"
+          mdbWavesEffect>Cambiar Area</button>
       </mat-card-actions>
     </mat-card>
   </form>
 
   <br><br>
+
   <button class="button-navbar"  mdbBtn type="button" color="info" rounded="true" mdbWavesEffect (click)="updateProfile();basicModal1.show()">Editar</button>
   </div>
-  
-  </div>
+</div>
   
 </div>
 <div mdbModal #basicModal1="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
@@ -74,17 +65,6 @@
               <mat-card-title>Editar Maestro</mat-card-title>
             </mat-card-header>
             <mat-card-content class="card-content-container">
-      
-            <!-- <div class="microContainer">
-              <mat-form-field class="input-Field">
-                  <input placeholder="ID" formControlName="id" matInput type="text">
-              </mat-form-field>
-            </div> -->
-            <!-- <div class="microContainer">
-              <mat-form-field class="input-Field">
-                  <input placeholder="UserName" formControlName="userName" matInput type="text">
-              </mat-form-field>
-            </div> -->
       
             <div class="microContainer">
                 <mat-form-field class="input-Field">
@@ -120,7 +100,7 @@
       
             </mat-card-content>
             <mat-card-actions>
-              <button type="button" (click)="FunctionEscape()" mdbBtn color="danger" mdbWavesEffect>Cancelar</button>
+              <button type="button" (click)="FunctionEscape(); basicModal1.hide()" mdbBtn color="danger" mdbWavesEffect>Cancelar</button>
               <button [disabled]="form.invalid" type="submit" (click)="basicModal.show()" mdbBtn color="info" mdbWavesEffect>Aceptar</button>
              <!--  <button [disabled]="form.invalid" mat-raised-button type="submit">Guardar</button> -->
             </mat-card-actions>
@@ -147,11 +127,31 @@
         <h4 class="modal-title w-100" id="myModalLabel">Procesando cambios</h4>
       </div>
       <div class="modal-body">
-        <p *ngIf='messageBinding'>{{messageBinding}}</p>
+        <p *ngIf='messageBinding'>{{messageBinding}} test</p>
       </div>
       <div class="modal-footer">
         <!-- <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
          --><button type="button" (click)="ResetBinding();basicModal.hide()" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #basicModal2="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="ResetBinding();basicModal2.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Procesando cambios</h4>
+      </div>
+      <div class="modal-body">
+        <p >{{messageBinding}}</p>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
+         --><button type="button" (click)="ResetBinding();basicModal2.hide()" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Ok</button>
       </div>
     </div>
   </div>
