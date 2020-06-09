@@ -23,9 +23,26 @@ export class StudentService {
   getStudents(): Observable<Student[]>{
     return this.http.get<Student[]>(`${environment.apiUrl}/User/Students`);
   }
+
+  
+  editStudent(student: RegisterStudent): Observable<Student[]>{
+    return this.http.put<Student[]>(`${environment.apiUrl}/User/UpdateStudent`,student);
+  }
+
+  deleteStudent(id: string){
+    return this.http.put<any>(`${environment.apiUrl}/User/${id}/DeleteUser`,"");
+  }
   
   getInscriptions(userId:string): Observable<Inscription[]>{
     return this.http.get<Inscription[]>(`${environment.apiUrl}/User/${userId}/InscriptionsUser`);
   } 
+
+  deleteInscription (idInscription: number) : Observable<Inscription>{
+    return this.http.put<Inscription>(`${environment.apiUrl}/User/DeleteInscription/${idInscription}`,"");
+  }
+
+  putAproveTest(id:number){
+    return this.http.put<any>(`${environment.apiUrl}/User/ApproveInscription/${id}`,"");
+  }
 
 }

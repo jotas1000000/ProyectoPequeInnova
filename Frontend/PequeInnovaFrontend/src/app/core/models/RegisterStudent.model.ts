@@ -1,4 +1,5 @@
 export interface RegisterStudent{
+    id:string;
     userName: string;
     Email: string;
     Name: string;

@@ -63,13 +63,7 @@ export class LessonComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.authenticationService.currentUserValue;
-    if (this.user){
-      this.userId= this.user.id;
-      this.userName= this.user.userName;
-      this.userRol= this.user.role;
-
-    }
-
+    this.setUserVariables();
     this.lessonPage=1;
 
     this.setRouteVariables();
@@ -77,16 +71,20 @@ export class LessonComponent implements OnInit {
     this.getLessonsWithCommentsData();
     this.delComment = new Comment();
   }
+  private setUserVariables(): void{
+    this.user = this.authenticationService.currentUserValue;
+    if (this.user){
+      this.userId= this.user.id;
+      this.userName= this.user.userName;
+      this.userRol= this.user.role;
+    }
+  }
 
   private setRouteVariables(): void {
     this.activatedRoute.params.subscribe(params => {
       this.areaId = params['areaId'];
       this.courseId = params['courseId'];
       this.lessonId = params['lessonId'];
-/*       console.log(params);
-      console.log("AAAAAAAA" + this.areaId);
-      console.log("BBBBBBBB" + this.courseId);
-      console.log("CCCCCCCC" + this.lessonId); */
       this.getLessonData();
     });
    

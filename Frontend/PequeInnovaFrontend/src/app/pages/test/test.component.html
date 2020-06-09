@@ -18,10 +18,10 @@
  
   <div class="col-md-12 mb-4 text-default text-center">
     <h1 class="h1-reponsive text-uppercase font-weight-bold mb-0 pt-md-0 pt-0">
-      <strong><mdb-icon fas size= "lg" icon="check" class="pr-2"></mdb-icon>{{lesson.title | slice:0:30}} </strong></h1>
+      <strong><mdb-icon fas size= "lg" icon="check" class="pr-2"></mdb-icon>{{lessonTitle| slice:0:30}} </strong></h1>
     <hr class="hr-black my-4">
-<!--     <h2 class="text-uppercase mb-4 black-text "><strong>{{lesson.description |slice:0:100}}</strong></h2>
- -->   
+     <h2 class="text-uppercase mb-4 black-text "><strong>{{lessonDescription|slice:0:100}}</strong></h2>
+ 
   </div>
 
   <!-- Grid row -->
@@ -46,11 +46,10 @@
                     <div *ngIf ="question.question == answer.question  ">
                       <ng-container *ngFor = "let answer2 of answers[i].answers | shuffle, index as j">
                         <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="defaultUnchecked{{answers[i].question}}{{answer2.item1}}{{i}}" name="{{answers[i].question}}"  mdbInput>
+                                <input type="radio" class="custom-control-input" id="defaultUnchecked{{answers[i].question}}{{answer2.item1}}{{i}}" 
+                                name="{{answers[i].question}}" (click)="checkAnswer(question.question,answer2.item2)" mdbInput>
                                 <label class="custom-control-label" for="defaultUnchecked{{answers[i].question}}{{answer2.item1}}{{i}}"><h5>{{answer2.item1}}</h5></label>
                                 <label *ngIf="answer2.item2 != true">{{answer2.item2 == true ? "bien" : "mal"}}</label>
-
-
 
                         </div>
                       </ng-container>
@@ -62,11 +61,14 @@
         </div>
       </ng-container>
             
-      
-      <!--/.Panel-->
+     
+      <!--/.Panel        routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons"-->
   
       <div class = "d-flex justify-content-center">
-        <a mdbBtn position="text-center" color="default" mdbWavesEffect routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons"><mdb-icon fas size= "lg" icon="check" class="pr-1"></mdb-icon>Terminar</a>
+        <a mdbBtn position="text-center" color="default" (click)= "verifyTest()"mdbWavesEffect >
+          <mdb-icon fas size= "lg" icon="check" class="pr-1"></mdb-icon>
+          {{totalTrueQuestions}}
+          Terminar</a>
       </div>
     </div>
     

@@ -17,5 +17,4 @@ export class StudentService {
     return this.http.post<Inscription>(this.APIUrl, inscription)
   }
   
-  
 }

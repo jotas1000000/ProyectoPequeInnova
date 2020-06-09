@@ -58,7 +58,7 @@ const routes: Routes = [
   { path: 'teacherControl', component:  TeacherContolPageComponent},
   { path: 'schoolControl', component:  SchoolControlPageComponent},
   { path: 'studentControl', component:  StudentControlComponent},
-  { path: 'studentControl/inscriptions', component:  InscripctionsComponent},
+  { path: 'studentControl/:userId/inscriptions', component:  InscripctionsComponent},
   { path: 'mainAdmin/areaControl', component:  AreaControlPageComponent},
   { path: 'mainAdmin/areaControl/:areaId/courseControl', component:  CourseControlPageComponent},
   { path: 'mainAdmin/areaControl/:areaId/courseControl/createCourse', component:  CreateCoursePageComponent},
