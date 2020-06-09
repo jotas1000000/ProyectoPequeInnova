@@ -53,5 +53,6 @@ namespace PequeInnovaAPI.Services
         Task<IEnumerable<InscriptionRequestModel>> getInscriptionsUser(string userId);
         Task<GetTeachersModel> GetTeacher(string userId);
 
+        Task<bool> updateUser(string userId,RegisterStudentModel model);
     }
 }
