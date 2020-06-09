@@ -7,13 +7,13 @@
     </div>
     <div class="user userdata">
       <div class="u role">
-        <p class="textUser">{{assignment.nameUser | slice:0:30}}</p>
+        <p class="textUser">{{assignment.name | slice:0:30}} {{assignment.lastName | slice:0:30 }}</p>
       </div>
       <div class="u name">
-        <p class="textUser">{{assignment.nameArea | slice:0:30 }}</p>
+        <p class="textUser">{{assignment.areaName | slice:0:30 }}</p>
       </div>
       <div class="user userfunctions">
-        <button type="button" class="user-button teacher" routerLink="/mainTeacher/CourseOwner" mdbBtn color="primary"
+        <button type="button" class="user-button teacher" [disabled]="assignment.areaName === 'Sin Area'" (click)="NavigateToMyCourses()" mdbBtn color="primary"
           mdbWavesEffect>Mis Cursos</button>
       </div>
     </div>

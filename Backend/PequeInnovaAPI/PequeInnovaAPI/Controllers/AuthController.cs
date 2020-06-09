@@ -53,7 +53,22 @@ namespace PequeInnovaAPI.Controllers
             }
             return BadRequest("No se pudo registrar. Algo estuvo mal!");
         }
+        [AllowAnonymous]
+        [HttpPut("{userId:maxlength(38)}/EditUserStudent")]
+        public async Task<IActionResult> updateUser(string userId,[FromBody]  RegisterStudentModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var Result = await Service.updateUser(userId,model);
+                if (Result)
+                {
+                    return Ok(Result);
+                }
+                return Ok(Result);
 
+            }
+            return BadRequest("No se pudo registrar. Algo estuvo mal!");
+        }
         [Authorize(Roles = "Administrador")]
         [HttpPost("UserTeacher")]
         public async Task<IActionResult> CreateUserTeacherAsync([FromBody] RegisterTeacherModel model)

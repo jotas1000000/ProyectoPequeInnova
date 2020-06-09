@@ -26,7 +26,7 @@ export class TeacherService {
   }
 
   getAssignmentTeacher(userId: string) {
-    return this.http.get<AssignmentR>(`${environment.apiUrl}/User/${userId}/Assignment`);
+    return this.http.get<any>(`${environment.apiUrl}/User/${userId}/Assignment`);
   }
 
   deleteTeacher(id: string){

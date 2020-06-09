@@ -7,6 +7,8 @@ import { TeacherService } from './../../../core/services/teacher/teacher.service
 import { AssignmentR } from './../../../core/models/AssignmentR.model';
 import { AuthenticationService } from './../../../core/services/authentication/authentication.service';
 import { User } from './../../../core/models/User.model';
+import { Router, ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-main-page-teacher',
   templateUrl: './main-page-teacher.component.html',
@@ -48,12 +50,14 @@ export class MainPageTeacherComponent implements OnInit, AfterViewInit {
   constructor(public breakpointObserver: BreakpointObserver,
               private areaService: AreaService,
               private teacherService: TeacherService,
-              private authenticationService: AuthenticationService)
+              private authenticationService: AuthenticationService,
+              private router: Router
+              )
               { }
 
 
   slides: any = [[]];
-  assignment: AssignmentR;
+  assignment: any;
   user: User;
 
   chunk(arr, chunkSize): any {
@@ -65,7 +69,7 @@ export class MainPageTeacherComponent implements OnInit, AfterViewInit {
   }
   ngOnInit() {
     this.user = this.authenticationService.currentUserValue;
-    console.log(this.user);
+    //console.log(this.user);
     this.areaService.getAreas('Id', 'false').subscribe(AreasResponse => {
       this.areas = AreasResponse;
       //console.log(this.areas);
@@ -80,4 +84,13 @@ export class MainPageTeacherComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
   }
 
+
+  NavigateToMyCourses() {
+    if (this.user.role === 'Profesor' && this.assignment.areaName !== 'Sin Area') {
+      this.router.navigate(['./mainTeacher/CourseOwner']);
+    }
+  }
+
 }
+
+//routerLink="/mainTeacher/CourseOwner"

@@ -15,7 +15,7 @@ export class CourseTeacherOwnerComponent implements OnInit {
   areas: Array<Area>;
   courses: Array<Course>;
   user: User;
-  assignment: AssignmentR;
+  assignment: any;
   courseRequest: Course;
   constructor(private teacherService: TeacherService,
               private authenticationService: AuthenticationService, 
