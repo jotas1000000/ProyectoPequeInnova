@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import {FormControl, FormBuilder,FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from './../../core/services/authentication/authentication.service';
-import {User} from './../../core//models/User.model';
+import { User } from './../../core//models/User.model';
 @Component({
   selector: 'app-navigation-bar',
   templateUrl: './navigation-bar.component.html',
@@ -29,12 +29,12 @@ export class NavigationBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.authenticationService.currentUserValue;
-    if (this.user){
-      this.nameUserCurrent = this.user.name + ' ' +this.user.lastName;
+    if (this.user) {
+      this.nameUserCurrent = this.user.name + ' ' + this.user.lastName;
     }
     this.validatingForm = new FormGroup({
-    loginFormModalEmail: new FormControl('', Validators.email),
-    loginFormModalPassword: new FormControl('', Validators.required)
+      loginFormModalEmail: new FormControl('', Validators.email),
+      loginFormModalPassword: new FormControl('', Validators.required)
     });
 
     //this.returnUrl = this.route.snapshot.queryParams['/home'] || '/home';
@@ -52,7 +52,7 @@ export class NavigationBarComponent implements OnInit {
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/home']);
-    this.user=null;
+    this.user = null;
     //window.location.reload();
   }
 
@@ -61,31 +61,31 @@ export class NavigationBarComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.validatingForm.invalid) {
-        return;
+      return;
     }
 
     this.loading = true;
     //  this.authenticationService.login('Lucas1@hotmail.com', 'ElSalesiano1!')
-    this.authenticationService.login(this.validatingForm.get('loginFormModalEmail').value ,
-                                     this.validatingForm.get('loginFormModalPassword').value)
-        .pipe(first())
-        .subscribe(
-            data => {
-                this.user = data;
-                this.nameUserCurrent= this.user.name + ' ' + this.user.lastName;
-                this.router.navigate([this.returnUrl]);
-            },
-            error => {
-                this.error = error;
-                this.loading = false;
-            });
+    this.authenticationService.login(this.validatingForm.get('loginFormModalEmail').value,
+      this.validatingForm.get('loginFormModalPassword').value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.user = data;
+          this.nameUserCurrent = this.user.name + ' ' + this.user.lastName;
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          this.error = error;
+          this.loading = false;
+        });
   }
 
-  FunctionRegisterNavigate(){
+  FunctionRegisterNavigate() {
     this.router.navigate(['./registerStudent']);
   }
   navToMainAdmin() {
-    if ((this.user.role === 'administrador') || (this.user.role === 'Administrador') ) {
+    if ((this.user.role === 'administrador') || (this.user.role === 'Administrador')) {
       this.router.navigate(['./mainAdmin']);
     }
   }

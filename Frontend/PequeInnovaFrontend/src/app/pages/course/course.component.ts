@@ -53,11 +53,7 @@ export class CourseComponent implements OnInit {
   
   ngOnInit(): void {
     
-    this.user = this.authenticationService.currentUserValue;
-    if (this.user){
-      this.userId= this.user.id;
-    }
-
+    this.setDataUser();
     this.setRouteVariables();
     this.setCourseData();
     this.setAreaData();
@@ -65,6 +61,13 @@ export class CourseComponent implements OnInit {
     
     this.elements  = 4;
   
+  }
+
+  private setDataUser(){
+    this.user = this.authenticationService.currentUserValue;
+    if (this.user){
+      this.userId= this.user.id;
+    }
   }
 
   private setRouteVariables(): void {

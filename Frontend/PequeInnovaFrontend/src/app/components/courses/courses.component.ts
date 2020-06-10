@@ -3,6 +3,8 @@ import { CourseService } from './../../services/course.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AreaService } from 'src/app/services/area.service';
+import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
+import { User } from 'src/app/core/models/User.model';
 
 @Component({
   selector: 'app-courses',
@@ -14,7 +16,8 @@ export class CoursesComponent implements OnInit {
   constructor(
     private areasService: AreaService,
     private coursesServices: CourseService,
-    private activatedRoute: ActivatedRoute){ }
+    private activatedRoute: ActivatedRoute,
+    private authenticationService: AuthenticationService){ }
 
   public courses = [];
   public areas = [];
@@ -32,12 +35,24 @@ export class CoursesComponent implements OnInit {
   elements: number;  
   totalCourses: number;
 
+  //user vars
+  user:User= null;
+  userRole:string=null;
+
   ngOnInit(): void {
+    this.setDataUser();
     this.setRouteVariables();
     this.setCoursesData();
     this.setAreaData();
 
     this.elements = 3;
+  }
+
+  private setDataUser(){
+    this.user = this.authenticationService.currentUserValue;
+    if (this.user){
+      this.userRole= this.user.role;
+    }
   }
 
   private setRouteVariables(): void {
