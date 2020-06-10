@@ -469,7 +469,7 @@ namespace PequeInnovaAPI.Data.Repository
                 default:
                     break;
             }
-
+            query = query.Where(s => s.Status == true);
             return await query.ToArrayAsync();
         }
 

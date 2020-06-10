@@ -1,4 +1,4 @@
-import { Component, OnInit,HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit,HostListener, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {School} from './../../../core/models/School.model';
 import {MdbTableDirective} from 'angular-bootstrap-md';
@@ -29,12 +29,13 @@ export class SchoolControlPageComponent implements OnInit {
   ide: string;
   name: string;
   city: string;
+  newName: string;
+  newCity: string;
   school: EditSchool = new EditSchool();
-
-  constructor( private formBuilder: FormBuilder,
-               private router: Router,
-               public dialog: MatDialog,
-               private schoolService: SchoolService ) { 
+  newSchool: EditSchool = new EditSchool();
+  constructor( public dialog: MatDialog,
+               private schoolService: SchoolService,
+               private changeDetectorRefs: ChangeDetectorRef ) { 
     
   }
 
@@ -42,8 +43,12 @@ export class SchoolControlPageComponent implements OnInit {
     this.getSchoolss();
   }
   getSchoolss(){
-    this.schoolService.getSchools().subscribe(data => this.schools = data);
+    this.schoolService.getSchools().subscribe(data => {
+      this.schools = data;
+      this.changeDetectorRefs.detectChanges();
+    });
   }
+
   setDataDeleteSchool(id: string, row: number){
     this.row = row;
     this.id = id;
@@ -53,19 +58,29 @@ export class SchoolControlPageComponent implements OnInit {
     this.name = name;
     this.ide = ide;
   }
+
+
+  addSchool(){
+    this.newSchool.name = this.newName;
+    this.newSchool.city = this.newCity;
+
+    this.schoolService.addSchools(this.newSchool).subscribe(data=>{this.getSchoolss()});
+    this.newCity= null;
+    this.newName= null;
+  }
+
   editSchool(){
-    console.log(this.name);
-    console.log(this.city);
     this.school.name = this.name;
     this.school.city = this.city;
 
-    console.log(this.school);
-    this.schoolService.editSchools(this.ide, this.school).subscribe();
-    setTimeout(() => { }, 2000);
-    this.getSchoolss();
+    this.schoolService.editSchools(this.ide, this.school).subscribe(data=>{this.getSchoolss()});
+    
   }
   deleteSchool(){
-    this.schoolService.deleteSchools(this.ide).subscribe(data => this.schools = data);
+    this.schoolService.deleteSchools(this.id).subscribe(data => {
+      this.schools = data;
+      this.getSchoolss();
+    });
     this.schools.splice(this.row, 1);
   }
 

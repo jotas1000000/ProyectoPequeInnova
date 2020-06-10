@@ -1,6 +1,10 @@
 <div class="teachers-navbar"> 
-    <button class="button-navbar" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Maestros</button>
-    <button class="button-navbar" routerLink="/mainAdmin" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Atras</button>
+  <button class="button-navbar" routerLink="/mainAdmin" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>
+    <mdb-icon fas icon="hand-point-left" class="pr-1"></mdb-icon>Atras
+  </button>
+  <button class="button-navbar" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>
+    <mdb-icon fas icon="users" class="pr-1"></mdb-icon> Profesores
+  </button>
 </div>
 
 
@@ -103,7 +107,8 @@
         </tr>
       </tbody>
     </table>
-    <button class="button-navbar" id="crearMaestro" routerLink="/registerTeacher" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Nuevo Maestro</button>
+    <button class="button-navbar" id="crearMaestro" routerLink="/registerTeacher" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>
+      <mdb-icon fas icon="plus" class="pr-1"></mdb-icon>Nuevo Maestro</button>
   </div>
 <!-- <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show()" mdbWavesEffect>Launch demo modal</button>
  -->

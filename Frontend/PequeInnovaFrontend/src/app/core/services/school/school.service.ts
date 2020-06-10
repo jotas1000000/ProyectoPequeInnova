@@ -16,6 +16,9 @@ export class SchoolService {
   getSchools() {
     return this.http.get<Array<EditSchool>>(`${environment.apiUrl}/School`);
   }
+  addSchools( school: EditSchool): Observable<EditSchool[]>{
+    return this.http.post<EditSchool[]>(`${environment.apiUrl}/School`,school);
+  }
   deleteSchools(id: string) {
     return this.http.put<EditSchool>(`${environment.apiUrl}/School/${id}/status`,"");
   }
