@@ -29,3 +29,56 @@
 #crearMaestro{
     justify-content: right;
 }
+
+.card-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 65%;
+    border: 25px solid rgb(0,153,204);
+   // background-color: rgba(0,153,204,0.5);
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 35px
+}
+
+.card-content-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.microContainer{
+    width: 40vw;
+    margin-bottom: 10px;
+}
+
+.input-Field{
+    width: 100%;
+}
+
+.spinner {
+    position: relative;
+    left: 125px;
+}
+
+.example-container .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }
+  
+  .example-right-align {
+    text-align: right;
+  }
+  
+  input.example-right-align::-webkit-outer-spin-button,
+  input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+  }
+  
+  input.example-right-align {
+    -moz-appearance: textfield;
+  }

@@ -189,7 +189,7 @@ namespace PequeInnovaAPI.Services
             return true;
         }
 
-        public async Task<AssignmentRequestModel> getAssignment(string userId)
+        public async Task<TeacherAssignmentModel> getAssignment(string userId)
         {
             //falta validar USer
             return await repository.getAssignment(userId);
@@ -502,7 +502,7 @@ namespace PequeInnovaAPI.Services
                                                       aux1 = u.Id
                                                   }).AsNoTracking().ToListAsync();
 
-                bool resp = await CreateUserRoleAsync(query.FirstOrDefault().aux1, "administrador");
+                bool resp = await CreateUserRoleAsync(query.FirstOrDefault().aux1, "Administrador");
 
                 if (!resp)
                 {
@@ -617,7 +617,6 @@ namespace PequeInnovaAPI.Services
                 dbcontext.Users.Add(applicationUser);
             }*/
             var result = await UserManager.CreateAsync(applicationUser, model.Password);
-                                  
             if (result.Succeeded)
             {
                 List<AuxiliarClass> query = await (from u in dbcontext.Users
@@ -749,5 +748,26 @@ namespace PequeInnovaAPI.Services
             await repository.SaveChangesAsync();
             return true;
          }
+
+        public async Task<bool> updateUser(string userId, RegisterStudentModel model)
+        {
+            //var user = await UserManager.FindByNameAsync(model.UserName);
+            var user = await UserManager.FindByIdAsync(userId);
+            var newPassword = UserManager.PasswordHasher.HashPassword(user, model.Password);
+            user.PasswordHash = newPassword;
+            user.Name = model.Name;
+            user.LastName = model.LastName;
+            user.School = model.School;
+            user.Email = model.Email;
+            user.Grade = model.Grade;
+            user.Birthday = model.Birthday;
+            var res = await UserManager.UpdateAsync(user);
+            if (res.Succeeded) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
     }
 }

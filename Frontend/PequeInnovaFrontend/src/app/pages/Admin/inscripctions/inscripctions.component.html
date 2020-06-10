@@ -1,25 +1,146 @@
 
 <div class="teachers-navbar"> 
-    <button class="button-navbar" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>{{userName}} {{userLastName}}</button>
-    <button class="button-navbar" routerLink="/mainAdmin" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Atras</button>
+  <button class="button-navbar" routerLink="/studentControl" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>
+    <mdb-icon fas icon="hand-point-left" class="pr-1"></mdb-icon>Atras
+  </button>
+  <button class="button-navbar" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>
+    <mdb-icon fas icon="user" class="pr-1"></mdb-icon> {{actualStudent.name}} {{actualStudent.lastName}}
+  </button>
+</div>
+ 
+<form [formGroup]="form" *ngIf="form" (ngSubmit)="saveStudent($event)">
+  <mat-card class="card-container">
+    <mat-card-header>
+      <mat-card-title>Estudiante</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="card-content-container">
+
+      <div class="microContainer">
+        <mat-label>Nombre</mat-label>
+        <mat-form-field class="input-Field" appearance="outline">
+          
+          <input placeholder="" [formControl]="Name" matInput type="text" autocomplete="off">
+          <mat-error *ngIf="Name.invalid">{{getErrorMessageName()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="microContainer">
+        <mat-form-field class="input-Field" appearance="outline">
+          <mat-label>Apellido</mat-label>
+          <input placeholder="" [formControl]="LastName" matInput type="text" autocomplete="off">
+          <mat-error *ngIf="LastName.invalid">{{getErrorMessageLastName()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="microContainer">
+        <mat-form-field class="input-Field" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input placeholder="" [formControl]="Email" matInput type="text" autocomplete="off">
+          <mat-error *ngIf="Email.invalid">{{getErrorMessageEmail()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="microContainer">
+        <mat-form-field class="input-Field" appearance="outline">
+          <mat-label>Fecha de nacimiento</mat-label>
+          <input matInput [formControl]="Birthday" [matDatepicker]="picker1" disabled>
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+          <mat-error *ngIf="Birthday.invalid">{{getErrorMessageBirthday()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="microContainer" *ngIf="schools">
+        <mat-form-field class="input-Field" appearance="outline"
+        [hideRequiredMarker]="hideRequiredControlSchool.value"
+        [floatLabel]="floatLabelControlSchool.value">
+        <mat-select [formControl]="School" required>
+            <mat-option *ngFor="let school of schools" value="{{school.name}}">{{school.name}}</mat-option>
+        </mat-select>
+        <mat-label>Colegio</mat-label>
+        </mat-form-field>
+      </div>
+
+      <div class="microContainer">
+        <mat-form-field class="input-Field" appearance="outline"
+        [hideRequiredMarker]="hideRequiredControlGrade.value"
+        [floatLabel]="floatLabelControlGrade.value">
+        <mat-select [formControl]="Grade" required>
+          <mat-option value="Primero de Primaria">Primero de Primaria</mat-option>
+          <mat-option value="Segundo de Primaria">Segundo de Primaria</mat-option>
+          <mat-option value="Tercero de Primaria">Tercero de Primaria</mat-option>
+          <mat-option value="Cuarto de Primaria">Cuarto de Primaria</mat-option>
+          <mat-option value="Quinto de Primaria">Quinto de Primaria</mat-option>
+          <mat-option value="Sexto de Primaria">Sexto de Primaria</mat-option>
+          <mat-option value="Primero de Secundaria">Primero de Secundaria</mat-option>
+          <mat-option value="Segundo de Secundaria">Segundo de Secundaria</mat-option>
+          <mat-option value="Tercero de Secundaria">Tercero de Secundaria</mat-option>
+          <mat-option value="Cuarto de Secundaria">Cuarto de Secundaria</mat-option>
+          <mat-option value="Quinto de Secundaria">Quinto de Secundaria</mat-option>
+          <mat-option value="Sexto de Secundaria">Sexto de Secundaria</mat-option>
+        </mat-select>
+        <mat-label>Curso</mat-label>
+        </mat-form-field>
+      </div>
+      <div class="microContainer">
+        <mat-form-field class="input-Field" appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput placeholder="Contraseña" [formControl]="Password" [type]="hidePassword ? 'password' : 'text'" autocomplete="new-password">
+          <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="Password.invalid">{{getErrorMessagePassword()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="microContainer">
+        <mat-form-field class="input-Field" appearance="outline">
+          <mat-label>Confirmar Contraseña</mat-label>
+          <input matInput placeholder="Confirmar Contraseña" [formControl]="ConfirmPassword" [type]="hideConfirmPassword ? 'password' : 'text'" autocomplete="new-password">
+          <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+          <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="ConfirmPassword.invalid">{{getErrorMessageConfirmPassword()}}</mat-error>
+          <mat-error *ngIf="ConfirmPassword.errors && ConfirmPassword.errors.mustMatch">Las contraseñas deben coincidir</mat-error>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button type="button" (click)="getStudent()" mdbBtn color="danger" mdbWavesEffect>Cancelar</button>
+      <button [disabled]="form.invalid" type="submit" (click)="saveStudent($event)" mdbBtn color="info"
+        mdbWavesEffect>Editar</button>
+    </mat-card-actions>
+  </mat-card>
+
+</form>
+<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="ResetBinding();basicModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Procesando tu inscripcion</h4>
+      </div>
+      <div class="modal-body">
+        <img *ngIf="!stateRequest" id="spinner" src="./../../../assets/images/background/Spinner200px.gif" width="200" height="200" alt="" />
+        <p *ngIf='messageBinding'>{{messageBinding}}</p>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
+         --><button type="button" (click)="ResetBinding();basicModal.hide()" mdbBtn color="primary"
+          class="relative waves-light" mdbWavesEffect>Ok</button>
+      </div>
+    </div>
+  </div>
 </div>
 
-
-
-<div class="container">
+<div class="container "  *ngIf="inscription">
     <div class="row">
       <div class="col-md-12 mx-auto">
         <br>
-        <!-- <div class="md-form">
-          <input
-            type="text"
-            [(ngModel)]="searchText"
-            class="form-control"
-            id="search"
-            mdbInput
-          />
-          <label for="search">Buscar</label>
-        </div> -->
+        <!--  -->
       </div>
     </div>
     <table mdbTable class="z-depth-1">
@@ -27,20 +148,23 @@
         <tr>
           <th
             *ngFor="let head of headElements; let i = index"
-            scope="col"
-          >
+            scope="col">
             {{head}}
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let el of students; let i = index">
+        <tr *ngFor="let el of inscription; let i = index">
           <th scope="row">{{i+1}}</th>
           <td class="red-text">{{el.areaName}}</td>
           <td>{{el.courseName}}</td>
+          <td *ngIf="!el.state">Reprobado</td>
+          <td *ngIf="el.state">Aprobado</td>
           <!-- <td>{{el.Functions}}</td> -->
           <td class="field-functions">
-            <button mdbBtn color="danger" size="sm" (click)="basicModal2.show()" mdbWavesEffect type="button" class="">Eliminar</button>
+            <button mdbBtn color="danger" size="sm" (click)="basicModal2.show();setDataDeleteIncription(el.id, i)" mdbWavesEffect type="button" class="">
+              <mdb-icon fas icon="trash" class="pr-1"></mdb-icon> 
+              Eliminar</button>
           </td>
         </tr>
       </tbody>
@@ -48,27 +172,6 @@
 </div>
 <!-- <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show()" mdbWavesEffect>Launch demo modal</button>
  -->
-
- <!-- Este modal es para editar -->
-<div mdbModal #basicModal1="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal1.hide()">
-          <span aria-hidden="true">×</span>
-        </button>
-        <h4 class="modal-title w-100" id="myModalLabel">Editar </h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="basicModal1.hide()" mdbWavesEffect>Cerrar</button>
-        <button type="button" mdbBtn color="danger" class="relative waves-light" mdbWavesEffect>Aceptar</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Este modal es para eliminar -->
 
@@ -82,11 +185,11 @@
           <h4 class="modal-title w-100" id="myModalLabel">Eliminar</h4>
         </div>
         <div class="modal-body">
-            ¿Desea eliminar este maestro?
+            ¿Desea eliminar esta Inscripcion?
         </div>
         <div class="modal-footer">
-          <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="basicModal2.hide()" mdbWavesEffect>Cerrar</button>
-          <button type="button" mdbBtn color="danger" class="relative waves-light" mdbWavesEffect>Aceptar</button>
+          <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="basicModal2.hide()"  mdbWavesEffect>Cerrar</button>
+          <button type="button" mdbBtn color="danger" class="relative waves-light" (click)="deleteInscription();basicModal2.hide()"mdbWavesEffect>Aceptar</button>
         </div>
       </div>
     </div>

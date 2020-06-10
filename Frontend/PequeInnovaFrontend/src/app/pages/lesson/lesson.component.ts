@@ -17,22 +17,22 @@ import { CommentService } from 'src/app/services/comment.service';
   styleUrls: ['./lesson.component.scss']
 })
 export class LessonComponent implements OnInit {
-  
+
 
   constructor(  private areasService: AreaService,
-    private coursesService: CourseService,
-    private lessonsService: LessonService,
-    private activatedRoute: ActivatedRoute,
-    public sanitizer: DomSanitizer,
-    public commentService: CommentService,
-    private router: Router,
-    private authenticationService: AuthenticationService) { }
+                private coursesService: CourseService,
+                private lessonsService: LessonService,
+                private activatedRoute: ActivatedRoute,
+                public sanitizer: DomSanitizer,
+                public commentService: CommentService,
+                private router: Router,
+                private authenticationService: AuthenticationService) { }
 
   public courses = [];
   public areas = [];
   public lessons = [];
   public mainLesson : any;
-  
+
   // Route vars
   areaId: number;
   courseId: number;
@@ -47,42 +47,37 @@ export class LessonComponent implements OnInit {
   //Lesson vars
   lessonPage: number;
   sanitizer2: any;
-  
+
   //Comment vars
-  myComment : Comment = new Comment();
-  newComment: string;
+  myComment : Comment;
+  newComment = '';
   placeComment: string;
-  delComment: Comment = new Comment();
+  delComment: Comment;
 
 
   //User vars
-  user:User= null;
-  userId:string=null;
-  userName:string=null;
-  userRol: string= null;
-  
-  ngOnInit(): void {
-    this.placeComment= "Escribe un Comentario";
-    this.user = this.authenticationService.currentUserValue;
-    if (this.user){
-      this.userId= this.user.id;
-      this.userName= this.user.name + ' ' + this.user.lastName;
-      this.userRol= this.user.role;
-    
-    }
+  user: User = null;
+  userId: string = null;
+  userName: string = null;
+  userRol: string = null;
 
+  ngOnInit(): void {
+    this.user = this.authenticationService.currentUserValue;
+    this.setUserVariables();
     this.lessonPage=1;
- 
+
     this.setRouteVariables();
     this.setCourseData();
     this.getLessonsWithCommentsData();
-    /*this.setAreaData();
-    this.setSectionData(); */
-    //this.getLessonsData();
-    // this.getLessonData();
-
-    console.log("BBBBBBBB" + this.courseId);
-    console.log("YYYYYYYYY" + this.lessonId);
+    this.delComment = new Comment();
+  }
+  private setUserVariables(): void{
+    this.user = this.authenticationService.currentUserValue;
+    if (this.user){
+      this.userId= this.user.id;
+      this.userName= this.user.userName;
+      this.userRol= this.user.role;
+    }
   }
 
   private setRouteVariables(): void {
@@ -90,13 +85,9 @@ export class LessonComponent implements OnInit {
       this.areaId = params['areaId'];
       this.courseId = params['courseId'];
       this.lessonId = params['lessonId'];
-      console.log(params);
-      console.log("AAAAAAAA" + this.areaId);
-      console.log("BBBBBBBB" + this.courseId);
-      console.log("CCCCCCCC" + this.lessonId);
       this.getLessonData();
     });
-   
+
   }
 
   private getLessonsData(): void {
@@ -106,8 +97,9 @@ export class LessonComponent implements OnInit {
 
   private getLessonsWithCommentsData(): void {
     this.lessonsService.getLessonsWithComments(this.areaId,this.courseId)
-      .subscribe(data =>{ this.lessons = data;
-        console.log(data[0])});
+      .subscribe(data => {
+        this.lessons = data;
+        console.log(data[0]) });
   }
 
   getLessonData(): void {
@@ -116,18 +108,22 @@ export class LessonComponent implements OnInit {
   }
 
   
-  getTrustedYouTubeUrl(linkedVideo:Lesson) {
+  getTrustedYouTubeUrl(linkedVideo: Lesson) {
     return this.sanitizer2.bypassSecurityTrustResourceUrl(linkedVideo.urlVideo);
   }    
 
   postComment(nComment: string){
+    this.myComment = new Comment();
     this.myComment.userId = this.userId;
     this.myComment.userName = this.userName;
     this.myComment.lessonId = this.lessonId;
     this.myComment.description = this.newComment;
-    this.commentService.postComment(this.myComment).subscribe();
-    this.getLessonsWithCommentsData();
-    this.newComment=null;
+    if (this.newComment !== null || this.newComment !== '') {
+      this.commentService.postComment(this.myComment).subscribe();
+      this.getLessonsWithCommentsData();
+    }
+    this.newComment = '';
+    this.myComment = null;
   }
 
   setDeleteComment(userIdDelete: string, idCommentDelete: number){

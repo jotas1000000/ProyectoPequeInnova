@@ -48,3 +48,36 @@ h1 {
   position: absolute;
   right: 10px;
 }
+.col-md-10.col-lg-9.col-xl-4 {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+.col-md-10.col-lg-9.col-xl-4 > .card.mb-3 {
+  width: 80vw !important;
+}
+.containerComments {
+  height: 500px;
+  overflow: auto;
+}
+.media.d-block.d-md-flex {
+  align-items: start !important;
+  width: 100% !important;
+  //margin: 5px auto 5px auto !important;
+}
+.media-body.text-md-left.ml-md-3.ml-0 {
+  width: 95% !important;
+}
+
+.titleComment {
+  display: flex;
+  justify-content: space-between;
+}
+.description-comment {
+  width: 90%;
+}
+.btn-delete {
+  border-radius: 50% !important;
+  padding: 10px 15px 10px 15px;
+  margin: 0px 10px 0px 0px;
+}

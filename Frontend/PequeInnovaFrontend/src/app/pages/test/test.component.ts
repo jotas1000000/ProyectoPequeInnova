@@ -6,6 +6,11 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Lesson } from 'src/app/models/Lesson';
 import { TestService } from 'src/app/services/test.service';
+import { StudentService } from 'src/app/core/services/student/student.service';
+import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
+import { User } from 'src/app/core/models/User.model';
+import { Aprove } from 'src/app/models/Aprove';
+import { FooterComponent } from 'src/app/components/footer/footer.component';
 
 @Component({
   selector: 'app-test',
@@ -19,14 +24,21 @@ export class TestComponent implements OnInit {
     private lessonsService: LessonService,
     private activatedRoute: ActivatedRoute,
     private testsService: TestService,
-    public sanitizer: DomSanitizer) { }
+    public sanitizer: DomSanitizer,
+    private studentService:StudentService,
+    private authenticationService: AuthenticationService) { }
 
-  public courses = [];
+  public courses = []; 
   public areas = [];
   public lessons = [];
   public questions = [];
   public answers = [];
   public lesson :any;
+  public aproveTest : Array<Aprove> = [];
+
+  // lesson vars
+  lessonTitle: string;
+  lessonDescription: string;
 
   // Route vars
   areaId: number;
@@ -39,35 +51,57 @@ export class TestComponent implements OnInit {
   lessonName: string;
   slides: any = [];
 
- 
+  //Test Aprove
+  idInscription : number ;
+  totalQuestions: number = 0;
+  totalTrueQuestions: number = 0;
+  aprovePractice: boolean = false;
 
+  //User vars
+  user:User= null;
+  userId:string=null;
+  userName:string=null;
+  userRol: string= null;
+  
   ngOnInit(): void {
-
+    this.setUserVariables();
     this.setRouteVariables();
     this.setCourseData();
-    /*this.setAreaData();
-    this.setSectionData(); */
+    this.setInscriptions();
     this.getLessonsData();
     this.getLessonData();
     this.getTestsData();
     this.getAnswersData();
   }
 
+
+  private setUserVariables(): void{
+    this.user = this.authenticationService.currentUserValue;
+    if (this.user){
+      this.userId= this.user.id;
+      this.userName= this.user.name + ' ' + this.user.lastName;
+      this.userRol= this.user.role;
+    }
+  }
   private setRouteVariables(): void {
     this.activatedRoute.params.subscribe(params => {
       this.areaId = params['areaId'];
       this.courseId = params['courseId'];
       this.lessonId = params['lessonId'];
-      console.log(params);
-      console.log("AAAAAAAA" + this.areaId);
-      console.log("BBBBBBBB" + this.courseId);
-      console.log("CCCCCCCC" + this.lessonId);
     });
   }
 
   private getAnswersData(): void {
     this.testsService.getAnswersList(this.areaId,this.courseId,this.lessonId)
-      .subscribe(data => this.answers = data);
+      .subscribe(data =>{ 
+        this.answers = data; 
+        this.aproveTest
+        this.totalQuestions = data.length;
+        for (let question of data) {
+            this.aproveTest.push({id : question.question, state:false});
+        }
+      });
+     
   }
   
   private getTestsData(): void {
@@ -82,7 +116,11 @@ export class TestComponent implements OnInit {
 
   private getLessonData(): void {
     this.lessonsService.getLesson(this.areaId,this.courseId,this.lessonId)
-      .subscribe(data => this.lesson = data);
+      .subscribe(data =>{ 
+        this.lesson = data; 
+        this.lessonTitle = data.title;
+        this.lessonDescription = data.description;
+      });
   }
 
 
@@ -97,6 +135,51 @@ export class TestComponent implements OnInit {
           }
         }
       });
+  }
+
+  setInscriptions(){
+    this.studentService.getInscriptions(this.userId)
+    .subscribe(data => {
+      for (const inscrip of data) {
+        if (inscrip.courseId == this.courseId) {
+            this.idInscription = inscrip.id;
+            console.log(this.idInscription);
+          break;
+        }
+      }
+    });
+  }
+
+  checkAnswer( quest:string , trueAnswer:boolean){
+    this.aproveTest.forEach((e,index)=>{
+      if(e.id == quest){
+        if(trueAnswer){
+         
+          this.aproveTest[index].state=true;
+        }else{
+          this.aproveTest[index].state=false;
+        }
+      }
+    });
+  }
+
+  verifyTest(){
+    var totalTrueQ = 0;
+    var aproveBoolean = false;
+
+    for (let q of this.aproveTest){
+      if(q.state){
+        totalTrueQ ++;
+      } 
+    } 
+    
+    if(totalTrueQ > (this.totalQuestions / 2) ){
+        aproveBoolean = true;
+        console.log(this.idInscription);
+        this.studentService.putAproveTest(this.idInscription).subscribe();
+    } 
+    this.aprovePractice = aproveBoolean;
+    this.totalTrueQuestions = totalTrueQ;
   }
 
 

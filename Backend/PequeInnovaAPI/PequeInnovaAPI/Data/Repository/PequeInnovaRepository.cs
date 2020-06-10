@@ -241,7 +241,7 @@ namespace PequeInnovaAPI.Data.Repository
                                                 UpdateDate = l.UpdateDate,
                                                 CreateDate = l.CreateDate,
                                                 Course = l.Course,
-                                                Comments = l.Comments.Where(c => c.Status==true && showComments == true).OrderBy(c => c.CommentDate).ToList(),
+                                                Comments = l.Comments.Where(c => c.Status==true && showComments == true).OrderByDescending(c => c.CommentDate).ToList(),
                                                 Questions = l.Questions.Where(q => q.Status==true && showQuestions ==true).ToList()
 
                                             }).OrderBy(l => l.Order)
@@ -520,8 +520,8 @@ namespace PequeInnovaAPI.Data.Repository
                                   answers = new List<Tuple<string, bool>> {
                                         Tuple.Create(q.TrueAnswer,true),
                                         Tuple.Create(q.FalseAnswer1,false),
-                                        Tuple.Create(q.FalseAnswer2,true),
-                                        Tuple.Create(q.FalseAnswer3,true),
+                                        Tuple.Create(q.FalseAnswer2,false),
+                                        Tuple.Create(q.FalseAnswer3,false),
                                     }
                               }
                               ).AsNoTracking().ToListAsync();
@@ -752,12 +752,14 @@ namespace PequeInnovaAPI.Data.Repository
             lessonPut.UpdateDate = DateTime.Now;
         }
 
-        public async Task<AssignmentRequestModel> getAssignment(string userId)
+        public async Task<TeacherAssignmentModel> getAssignment(string userId)
         {
+            /*
             var query = await(from a in PIDBContext.Assignments
                               join ar in PIDBContext.Areas on a.AreaId equals ar.Id
                               join u in PIDBContext.Users on a.UserId equals u.Id
-                              where a.Status == true && ar.Status == true && u.Status == true
+                              where a.Status == true && ar.Status == true && u.Status == true &&
+                                    u.Id == userId
                               select new AssignmentRequestModel
                               {
                                   id = a.Id.GetValueOrDefault(),
@@ -767,6 +769,30 @@ namespace PequeInnovaAPI.Data.Repository
                                   userId = u.Id
                               }
                                ).AsNoTracking().FirstOrDefaultAsync();
+            return query;
+            */
+            var query = await (from teacher in PIDBContext.Users
+                               join userRole in PIDBContext.UserRoles on teacher.Id equals userRole.UserId
+                               join role in PIDBContext.Roles on userRole.RoleId equals role.Id
+                               join assignment in PIDBContext.Assignments on teacher.Id equals assignment.UserId into TA
+                               from subassignment in TA.DefaultIfEmpty()
+                               join area in PIDBContext.Areas on subassignment.AreaId equals area.Id into SA
+                               from subarea in SA.DefaultIfEmpty()
+                               where role.NormalizedName == "PROFESOR" && teacher.Status == true && teacher.Id == userId &&
+                                     (subassignment == null ? true : (subassignment.Status == true ? true : false))
+                               select new TeacherAssignmentModel
+                               {
+                                   Id = teacher.Id,
+                                   Name = teacher.Name,
+                                   LastName = teacher.LastName,
+                                   RoleName = role.Name,
+                                   City = teacher.City,
+                                   Degree = teacher.Degree,
+                                   Email = teacher.Email,
+                                   AreaId = subassignment.AreaId,
+                                   AreaName = subarea.Name ?? "Sin Area",
+                                   AssignmentId = subassignment.Id.GetValueOrDefault()
+                               }).AsNoTracking().FirstOrDefaultAsync();
             return query;
         }
 

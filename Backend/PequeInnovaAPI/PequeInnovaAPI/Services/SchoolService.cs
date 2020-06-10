@@ -22,6 +22,8 @@ namespace PequeInnovaAPI.Services
         public async Task<School> CreateSchoolAsync(School nuevaArea)
         {
             var schoolEntity = mapper.Map<SchoolEntity>(nuevaArea);
+            schoolEntity.State = true;
+            schoolEntity.Status = true;
 
             schoolRapository.AddSchoolAsync(schoolEntity);
             if (await schoolRapository.SaveChangesAsync())

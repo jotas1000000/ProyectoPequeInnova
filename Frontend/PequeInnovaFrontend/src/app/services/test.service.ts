@@ -16,8 +16,11 @@ export class TestService {
     const href = `${environment.apiUrl}/area/${areaId}/course/${courseId}/lesson/${lessonId}/question`;
     return this.http.get<Test[]>(href);
   }
+
   getAnswersList(areaId: number, courseId : number, lessonId:number): Observable<Answers[]>{
     const href = `${environment.apiUrl}/area/${areaId}/course/${courseId}/lesson/${lessonId}/questions`;
     return this.http.get<Answers[]>(href);
   }
+
+ 
 }

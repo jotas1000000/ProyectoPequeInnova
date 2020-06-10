@@ -5,12 +5,14 @@ using PequeInnovaAPI.Services;
 using PequeInnovaAPI.Exceptions;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using System.Threading.Tasks;
 using PequeInnovaAPI.Models.ModelsRequests;
 
 namespace PequeInnovaAPI.Controllers
 {
+    [Authorize(Roles = "Profesor, Estudiante, Administrador")]
     [Route("api/Area/{areaID:int}/[Controller]")]
     public class CourseController : ControllerBase
     {
@@ -20,6 +22,7 @@ namespace PequeInnovaAPI.Controllers
             this.courseService = courseService;
 
         }
+        [AllowAnonymous]
         [HttpGet()]
         public async Task<ActionResult<IEnumerable<CourseModel>>> getCourses(int areaId)
         {
@@ -33,6 +36,7 @@ namespace PequeInnovaAPI.Controllers
             }
 
         }
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpGet("ByOwner/{userId:maxlength(38)}")]
         public async Task<IActionResult> getCoursesbyOwner(string userId)
         {
@@ -46,6 +50,7 @@ namespace PequeInnovaAPI.Controllers
             }
 
         }
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpPost()]
         public async Task<ActionResult<CourseModel>> PostCourse(int areaID, [FromBody] CourseModel course)
         {
@@ -73,7 +78,7 @@ namespace PequeInnovaAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpPost("CreateCourse")]
         public async Task<ActionResult<CourseModel>> PostCourseCreate(int areaID, [FromBody] CourseModel course)
         {
@@ -136,6 +141,7 @@ namespace PequeInnovaAPI.Controllers
             
         }
         */
+        [AllowAnonymous]
         [HttpGet("{courseId:int}")]
         public async Task<ActionResult<CourseModel>> getCourse(int areaID, int courseId)
         {
@@ -153,6 +159,8 @@ namespace PequeInnovaAPI.Controllers
                 throw;
             }
         }
+
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpGet("{courseId:int}/EditCourse")]
         public async Task<ActionResult<CourseModel>> getCoursefotEdit(int areaID, int courseId)
         {
@@ -170,6 +178,8 @@ namespace PequeInnovaAPI.Controllers
                 throw;
             }
         }
+
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpPut("{courseId:int}/status")]
         public async Task<ActionResult<bool>> DeleteCourse(int courseId, [FromBody] CourseModel course)
         {
@@ -197,7 +207,7 @@ namespace PequeInnovaAPI.Controllers
         }
 
 
-
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpPut("{courseId:int}")]
         public async Task<ActionResult<CourseModel>> PutCourse(int areaId, int courseId, [FromBody] CourseModel course)
         {

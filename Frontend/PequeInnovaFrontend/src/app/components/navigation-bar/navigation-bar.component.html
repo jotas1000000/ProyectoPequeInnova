@@ -44,13 +44,13 @@
         <ul class="navbar-nav ml-auto nav-flex-icons" *ngIf='user'>
             
           <li class="nav-item">
-              <a class="nav-link waves-light username" mdbWavesEffect><mdb-icon fas icon="user"></mdb-icon>{{nameUserCurrent}}<span class="sr-only">(current)</span></a>
+              <a class="nav-link waves-light username" mdbWavesEffect><mdb-icon fas icon=""></mdb-icon>{{nameUserCurrent}}<span class="sr-only">(current)</span></a>
           </li>   
-          <li class="nav-item" *ngIf='user.role==="administrador"'>
-            <a class="btn btn-outline btn-md my-sm-0" (click)="navToMainAdmin()" mdbWavesEffect ><mdb-icon fas icon="users"></mdb-icon>  Controles de Administrador</a>
+          <li class="nav-item" *ngIf='user.role==="Administrador"'>
+            <a class="btn btn-outline btn-md my-sm-0" (click)="navToMainAdmin()" mdbWavesEffect ><mdb-icon fas icon="bars"></mdb-icon>  Controles de Administrador</a>
           </li> 
           <li class="nav-item" *ngIf='user.role==="Profesor"'>
-            <a class="btn btn-outline btn-md my-sm-0" (click)="navToMainTeacher()" mdbWavesEffect ><mdb-icon fas icon="users"></mdb-icon>  Controles de Profesor</a>
+            <a class="btn btn-outline btn-md my-sm-0" (click)="navToMainTeacher()" mdbWavesEffect ><mdb-icon fas icon="bars"></mdb-icon>  Controles de Profesor</a>
           </li> 
           <li class="nav-item">
               <a class="btn btn-outline btn-md my-sm-0" (click)="logout()" mdbWavesEffect ><mdb-icon fas icon="users"></mdb-icon>  Log Out</a>

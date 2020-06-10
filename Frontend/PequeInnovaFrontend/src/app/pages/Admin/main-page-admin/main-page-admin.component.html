@@ -15,7 +15,7 @@
       <div class="user userfunctions">
         <button type="button" class="user-button teacher" routerLink="/teacherControl" mdbBtn color="primary"
           mdbWavesEffect>Maestros</button>
-        <button type="button" class="user-button student" routerLink="/teacherControl" mdbBtn color="info"
+        <button type="button" class="user-button student" routerLink="/studentControl" mdbBtn color="info"
           mdbWavesEffect>Estudiantes</button>
         <button type="button" class="user-button school" routerLink="/schoolControl" mdbBtn color="secondary"
           mdbWavesEffect>Colegios</button>
@@ -46,7 +46,7 @@
           </div>
 
           <div class="card-text">
-            {{slide.description | slice:0:200}}...
+            {{slide.description | slice:0:170}}...
           </div>
           <div class="card-buttons">
             <button type="button" class="card-button show" mdbBtn color="primary"
