@@ -41,7 +41,7 @@
               <div class="media-body text-center text-md-left ml-md-3 ml-0">
 
                   <h3>{{question.question | slice:0:100}}</h3>
-
+            
                   <ng-container *ngFor= "let answer of answers, index as i">
                     <div *ngIf ="question.question == answer.question  ">
                       <ng-container *ngFor = "let answer2 of answers[i].answers | shuffle, index as j">
@@ -50,6 +50,7 @@
                                 name="{{answers[i].question}}" (click)="checkAnswer(question.question,answer2.item2)" mdbInput>
                                 <label class="custom-control-label" for="defaultUnchecked{{answers[i].question}}{{answer2.item1}}{{i}}"><h5>{{answer2.item1}}</h5></label>
                                 <label *ngIf="answer2.item2 != true">{{answer2.item2 == true ? "bien" : "mal"}}</label>
+                           
 
                         </div>
                       </ng-container>
@@ -61,13 +62,11 @@
         </div>
       </ng-container>
             
-     
-      <!--/.Panel        routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons"-->
+    
   
       <div class = "d-flex justify-content-center">
-        <a mdbBtn position="text-center" color="default" (click)= "verifyTest()"mdbWavesEffect >
+        <a mdbBtn position="text-center" color="default" (click)= "verifyTest(); frame.show()"mdbWavesEffect >
           <mdb-icon fas size= "lg" icon="check" class="pr-1"></mdb-icon>
-          {{totalTrueQuestions}}
           Terminar</a>
       </div>
     </div>
@@ -80,3 +79,75 @@
   <!-- Grid row -->
 </div>
 </section>
+
+
+<div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <ng-container *ngIf="aprovePractice == true">
+    <div class="modal-dialog modal-notify modal-success" role="document">
+      <!--Content-->
+      <div class="modal-content">
+        <!--Header-->
+        <div class="modal-header d-flex justify-content-center">
+          <p class="heading lead" text-center>Curso Aprobado</p>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+            (click)="frame.hide()">
+            <span aria-hidden="true" class="white-text">&times;</span>
+          </button>
+        </div>
+
+        <!--Body-->
+        <div class="modal-body">
+          <div class="text-center">
+            <mdb-icon fas icon="check" size="4x" class="mb-3 animated rotateIn"></mdb-icon>
+            <p>Felicidades! {{userName}} Aprobaste el Curso de {{courseName}}.</p>
+            <p> {{totalTrueQuestions}} / {{totalQuestions}} Respuestas Correctas.</p>
+          </div>
+        </div>
+
+        <!--Footer-->
+        <div class="modal-footer justify-content-center">
+          
+          <a type="button" mdbBtn color="success" class="waves-effect" mdbWavesEffect>
+            <mdb-icon fas size= "lg" icon="pen" class="pr-1"></mdb-icon>Ir a Curso
+          </a>
+        </div>
+      </div>
+      <!--/.Content-->
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="aprovePractice != true">
+    <div class="modal-dialog modal-notify modal-danger" role="document">
+      <!--Content-->
+      <div class="modal-content text-center">
+        <!--Header-->
+        <div class="modal-header d-flex justify-content-center">
+          <p class="heading">Curso Reprobado</p>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          (click)="frame.hide()">
+            <span aria-hidden="true" class="white-text">&times;</span>
+          </button>
+        </div>
+  
+        <!--Body-->
+        <div class="modal-body">
+          <div class="text-center">
+            <mdb-icon fas icon="times" size="4x" class="animated rotateIn"></mdb-icon>
+            <p>Oh No! {{userName}} Reprobaste el Curso de {{courseName}}.</p>
+            <p> {{totalTrueQuestions}} / {{totalQuestions}} Respuestas Correctas.</p>
+          </div>
+        </div>
+  
+        <!--Footer-->
+        <div class="modal-footer justify-content-center">
+          
+          <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" 
+          routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons">
+            <mdb-icon fas size= "lg" icon="pen" class="pr-1"></mdb-icon>Ir a Curso</a>
+        </div>
+      </div>
+      <!--/.Content-->
+    </div>
+  </ng-container>
+</div>

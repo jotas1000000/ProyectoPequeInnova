@@ -58,7 +58,7 @@ const routes: Routes = [
   { path: 'teacherControl', component:  TeacherContolPageComponent, canActivate: [AdminGuard]},
   { path: 'schoolControl', component:  SchoolControlPageComponent, canActivate: [AdminGuard]},
   { path: 'studentControl', component:  StudentControlComponent, canActivate: [AdminGuard]},
-  { path: 'studentControl/inscriptions', component:  InscripctionsComponent, canActivate: [AdminGuard]},
+  { path: 'studentControl/:userId/inscriptions', component:  InscripctionsComponent, canActivate: [AdminGuard]},
   { path: 'mainAdmin/areaControl', component:  AreaControlPageComponent, canActivate: [AdminGuard]},
   { path: 'mainAdmin/areaControl/:areaId/courseControl', component:  CourseControlPageComponent, canActivate: [AdminGuard]},
   { path: 'mainAdmin/areaControl/:areaId/courseControl/createCourse', component:  CreateCoursePageComponent, canActivate: [AdminGuard]},

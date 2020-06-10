@@ -82,7 +82,28 @@
         <mat-label>Curso</mat-label>
         </mat-form-field>
       </div>
+      <div class="microContainer">
+        <mat-form-field class="input-Field" appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput placeholder="Contraseña" [formControl]="Password" [type]="hidePassword ? 'password' : 'text'" autocomplete="new-password">
+          <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="Password.invalid">{{getErrorMessagePassword()}}</mat-error>
+        </mat-form-field>
+      </div>
 
+      <div class="microContainer">
+        <mat-form-field class="input-Field" appearance="outline">
+          <mat-label>Confirmar Contraseña</mat-label>
+          <input matInput placeholder="Confirmar Contraseña" [formControl]="ConfirmPassword" [type]="hideConfirmPassword ? 'password' : 'text'" autocomplete="new-password">
+          <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+          <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="ConfirmPassword.invalid">{{getErrorMessageConfirmPassword()}}</mat-error>
+          <mat-error *ngIf="ConfirmPassword.errors && ConfirmPassword.errors.mustMatch">Las contraseñas deben coincidir</mat-error>
+        </mat-form-field>
+      </div>
     </mat-card-content>
     <mat-card-actions>
       <button type="button" (click)="getStudent()" mdbBtn color="danger" mdbWavesEffect>Cancelar</button>
@@ -137,6 +158,8 @@
           <th scope="row">{{i+1}}</th>
           <td class="red-text">{{el.areaName}}</td>
           <td>{{el.courseName}}</td>
+          <td *ngIf="!el.state">Reprobado</td>
+          <td *ngIf="el.state">Aprobado</td>
           <!-- <td>{{el.Functions}}</td> -->
           <td class="field-functions">
             <button mdbBtn color="danger" size="sm" (click)="basicModal2.show();setDataDeleteIncription(el.id, i)" mdbWavesEffect type="button" class="">

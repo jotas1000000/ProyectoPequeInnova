@@ -5,6 +5,7 @@ import {environment} from './../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { Student } from 'src/app/models/Student';
 import { Inscription } from 'src/app/models/Inscription';
+
 /* import 'rxjs/add/operator/catch'; 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/empty';
@@ -25,8 +26,8 @@ export class StudentService {
   }
 
   
-  editStudent(student: RegisterStudent): Observable<Student[]>{
-    return this.http.put<Student[]>(`${environment.apiUrl}/User/UpdateStudent`,student);
+  editStudent(student: RegisterStudent, id: string): Observable<RegisterStudent[]>{
+    return this.http.put<RegisterStudent[]>(`${environment.apiUrl}/Auth/${id}/EditUserStudent`,student);
   }
 
   deleteStudent(id: string){
