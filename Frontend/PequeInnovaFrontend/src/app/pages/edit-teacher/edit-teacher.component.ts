@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -54,7 +54,8 @@ export class EditTeacherComponent implements OnInit {
     private areaService: AreaService,
     private router: Router,
     public dialog: MatDialog,
-    private _Activatedroute:ActivatedRoute
+    private _Activatedroute:ActivatedRoute,
+    private changeDetectorRefs: ChangeDetectorRef
   ) { 
     this.buildForm();
     this.buildAreaForm();
@@ -99,8 +100,15 @@ export class EditTeacherComponent implements OnInit {
 
 
   updateProfile() {
-    console.log(this.teacher)
     this.form.patchValue(this.teacher);
+  }
+
+  refresh() {
+      this.teacherService.getAllTeachersWithAssignments().subscribe(
+      (data) => {
+        this.teachers = data;    
+        this.changeDetectorRefs.detectChanges();          
+      });
   }
 
   updateAssignmentForm(newAreaId){
@@ -126,6 +134,9 @@ export class EditTeacherComponent implements OnInit {
     });
     console.log(this.areaForm.value)
   }
+  detectChanges(){
+    this.changeDetectorRefs.detectChanges();
+  }
   changeAssignment(event: Event){
     event.preventDefault();
     if (this.areaForm.valid){
@@ -146,7 +157,6 @@ export class EditTeacherComponent implements OnInit {
         this.newAssignment = this.areaForm.value;
         this.newAssignment.id = this.current_assignmentId;
         this.newAssignment.userId = this.id;
-        console.log(this.newAssignment);
         this.assignmentService.postAssignment(this.newAssignment)
         .subscribe((result) => {
           this.stateRequest = result.item1;
@@ -154,7 +164,10 @@ export class EditTeacherComponent implements OnInit {
             setTimeout(() => {
               this.stateRequest = true;
               this.messageBinding = "Cambio de area exitoso";
-              this.teacherService.getAllTeachersWithAssignments().subscribe(data => this.teachers = data);
+              this.teacherService.getAllTeachersWithAssignments().subscribe(
+                data => {this.teachers = data;              
+                }
+              );
 
             }, 1000);
           }else
@@ -163,6 +176,7 @@ export class EditTeacherComponent implements OnInit {
               this.messageBinding = result.message;
             }, 2000);
           }
+          this.refresh();
         }, error => {
           alert('Ups algo salio mal, intente de nuevo. Si el problema persiste contactese con Soporte Tenico!');
         });
@@ -178,11 +192,8 @@ export class EditTeacherComponent implements OnInit {
         this.newAssignment = this.areaForm.value;
         this.newAssignment.id = this.current_assignmentId;
         this.newAssignment.userId = this.id;
-        console.log(this.newAssignment);
         this.assignmentService.putAssignment(this.newAssignment)
         .subscribe((result) => {
-          console.log(result);
-          console.log("HERE");
           this.stateRequest = result ;
           if(result == true){
             setTimeout(() => {
@@ -194,6 +205,7 @@ export class EditTeacherComponent implements OnInit {
               this.messageBinding = result.message;
             }, 2000);
           }
+          this.refresh();
         }, error => {
           alert('Ups algo salio mal, intente de nuevo. Si el problema persiste contactese con Soporte Tecnico!');
         });
@@ -208,7 +220,6 @@ export class EditTeacherComponent implements OnInit {
       newTeacher.uid='123';
       this.teacherService.editTeacher(newTeacher)
       .subscribe((result) => {
-        console.log(result);
         this.stateRequest = result.item1 ;
         if(result.item1 == true){
           setTimeout(() => {
