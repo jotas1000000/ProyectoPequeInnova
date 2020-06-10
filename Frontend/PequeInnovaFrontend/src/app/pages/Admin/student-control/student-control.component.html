@@ -14,16 +14,6 @@
     <div class="row">
       <div class="col-md-12 mx-auto">
         <br>
-        <!-- <div class="md-form">
-          <input
-            type="text"
-            [(ngModel)]="searchText"
-            class="form-control"
-            id="search"
-            mdbInput
-          />
-          <label for="search">Buscar</label>
-        </div> -->
       </div>
     </div>
     <table mdbTable class="z-depth-1">
@@ -43,15 +33,11 @@
           <td class="red-text">{{el.name}} {{el.lastName}}</td>
           <td>{{el.school}}</td>
           <td>{{el.email}}</td>
-          <!-- <td>{{el.Functions}}</td> -->
-           <!--  -->
+     
           <td class="field-functions">
             <button mdbBtn color="" size="sm" routerLink="/studentControl/{{el.id}}/inscriptions" mdbWavesEffect type="button" class="button-color">
               <mdb-icon fas icon="bars" class="pr-1"></mdb-icon>Ver
             </button>
-           <!--  <button mdbBtn color="" size="sm" (click)="basicModal1.show()" mdbWavesEffect type="button" class="button-color">
-              <mdb-icon fas icon="edit" class="pr-1"></mdb-icon>Editar
-            </button> -->
             <button mdbBtn color="danger" size="sm" (click)="basicModal2.show();setDataDeleteStudent(el.id, i)" mdbWavesEffect type="button" class="">
               <mdb-icon fas icon="trash" class="pr-1"></mdb-icon>Eliminar
             </button>
