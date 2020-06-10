@@ -32,9 +32,9 @@ export class SchoolControlPageComponent implements OnInit {
   school: EditSchool = new EditSchool();
 
   constructor( private formBuilder: FormBuilder,
-    private router: Router,
-    public dialog: MatDialog,
-    private schoolService: SchoolService ) { 
+               private router: Router,
+               public dialog: MatDialog,
+               private schoolService: SchoolService ) { 
     
   }
 
@@ -45,19 +45,19 @@ export class SchoolControlPageComponent implements OnInit {
     this.schoolService.getSchools().subscribe(data => this.schools = data);
   }
   setDataDeleteSchool(id: string, row: number){
-    this.row= row;
-    this.id= id;
+    this.row = row;
+    this.id = id;
   }
   setDataEditSchool(ide: string, name: string, city: string){
-    this.city= city;
-    this.name= name;
-    this.ide= ide;
+    this.city = city;
+    this.name = name;
+    this.ide = ide;
   }
   editSchool(){
     console.log(this.name);
-    console.log(this.city); 
-    this.school.name=this.name;
-    this.school.city=this.city;
+    console.log(this.city);
+    this.school.name = this.name;
+    this.school.city = this.city;
 
     console.log(this.school);
     this.schoolService.editSchools(this.ide, this.school).subscribe();
