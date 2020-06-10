@@ -28,7 +28,7 @@ export class TestComponent implements OnInit {
     private studentService:StudentService,
     private authenticationService: AuthenticationService) { }
 
-  public courses = [];
+  public courses = []; 
   public areas = [];
   public lessons = [];
   public questions = [];
@@ -55,6 +55,7 @@ export class TestComponent implements OnInit {
   idInscription : number ;
   totalQuestions: number = 0;
   totalTrueQuestions: number = 0;
+  aprovePractice: boolean = false;
 
   //User vars
   user:User= null;
@@ -66,6 +67,7 @@ export class TestComponent implements OnInit {
     this.setUserVariables();
     this.setRouteVariables();
     this.setCourseData();
+    this.setInscriptions();
     this.getLessonsData();
     this.getLessonData();
     this.getTestsData();
@@ -94,13 +96,10 @@ export class TestComponent implements OnInit {
       .subscribe(data =>{ 
         this.answers = data; 
         this.aproveTest
-        console.log(data.length);
-        console.log(data);
         this.totalQuestions = data.length;
         for (let question of data) {
             this.aproveTest.push({id : question.question, state:false});
         }
-        console.log(this.aproveTest);
       });
      
   }
@@ -144,6 +143,7 @@ export class TestComponent implements OnInit {
       for (const inscrip of data) {
         if (inscrip.courseId == this.courseId) {
             this.idInscription = inscrip.id;
+            console.log(this.idInscription);
           break;
         }
       }
@@ -164,17 +164,22 @@ export class TestComponent implements OnInit {
   }
 
   verifyTest(){
-    console.log(this.aproveTest);
+    var totalTrueQ = 0;
+    var aproveBoolean = false;
+
     for (let q of this.aproveTest){
       if(q.state){
-        this.totalTrueQuestions++;
+        totalTrueQ ++;
       } 
     } 
-    this.totalTrueQuestions = 0;
-    console.log(this.totalQuestions);
-   /*  if(this.totalTrueQuestions > (this.totalQuestions / 2) ){
+    
+    if(totalTrueQ > (this.totalQuestions / 2) ){
+        aproveBoolean = true;
+        console.log(this.idInscription);
         this.studentService.putAproveTest(this.idInscription).subscribe();
-    } */
+    } 
+    this.aprovePractice = aproveBoolean;
+    this.totalTrueQuestions = totalTrueQ;
   }
 
 

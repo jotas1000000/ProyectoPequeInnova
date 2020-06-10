@@ -12,6 +12,7 @@ import { SchoolService } from 'src/app/core/services/school/school.service';
 import { MatDialog } from '@angular/material/dialog';
 import { RegisterStudent } from 'src/app/core/models/RegisterStudent.model';
 import { formatDate } from '@angular/common';
+import { MustMatch } from 'src/app/validators/MustMatch.validator';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class InscripctionsComponent implements OnInit {
   date = new FormControl(new Date(2017, 0, 1));
   serializedDate = new FormControl((new Date()).toISOString());
 
-
+  hidePassword = true;
+  hideConfirmPassword = true;
   hide=true;
 //form data
   form: FormGroup;
@@ -35,6 +37,16 @@ export class InscripctionsComponent implements OnInit {
   Birthday = new FormControl('', [Validators.required] ); //"1988-10-10T00:00:00",
   School = new FormControl('');
   Grade = new FormControl('', [Validators.required, spaceValidator] );
+  Password = new FormControl('', Validators.compose([
+    Validators.required,
+    Validators.minLength(8),
+    spaceValidator,
+    patternValidator(/\d/),
+    patternValidator(/[A-Z]/),
+    patternValidator(/[a-z]/),
+    patternValidator(/[!@#$%&_|.]/)
+  ]));
+  ConfirmPassword = new FormControl('', [Validators.required, Validators.minLength(8) , spaceValidator] );
 
 
   hideRequiredControlSchool = new FormControl(false);
@@ -48,14 +60,16 @@ export class InscripctionsComponent implements OnInit {
  
   @ViewChild(MdbTableDirective, { static: true })
   mdbTable: MdbTableDirective; 
-  headElements = ['ID', 'Area', 'Curso', 'Funciones']; 
+  headElements = ['ID', 'Area', 'Curso', 'Calificacion' ,'Funciones']; 
   searchText: string = '';
   previous: string;
+  
   //user vars
   userId: string;
 
   //actual student vars
   actualStudent : Student = new Student();  
+
   //inscription data
   idDeleteInscription : number;
   rowNumber: number;
@@ -93,6 +107,7 @@ export class InscripctionsComponent implements OnInit {
   private getInscriptions(){
     this.studentService.getInscriptions(this.userId).subscribe(data =>{ 
       this.inscription = data;
+      console.log(data);
     });
   }
   
@@ -113,6 +128,7 @@ export class InscripctionsComponent implements OnInit {
     });
   }
   setDataDeleteIncription(idInscription: number, rNumber: number){
+
     this.rowNumber= rNumber;
     this.idDeleteInscription = idInscription;
   }
@@ -131,8 +147,10 @@ export class InscripctionsComponent implements OnInit {
       Birthday: this.Birthday,
       School: this.School,
       Grade: this.Grade,
+      Password: this.Password,
+      ConfirmPassword: this.ConfirmPassword
     },{
-   
+      validator: MustMatch('Password', 'ConfirmPassword')
     });
   }
 
@@ -192,19 +210,46 @@ export class InscripctionsComponent implements OnInit {
     }
   }
 
+  getErrorMessagePassword() {
+    if (this.Password.hasError('required')) {
+      return 'Introduzca algun dato';
+    }
+    if(this.Password.hasError('spaceValid')) {
+      return 'No se puede comenzar con espacio';
+    }
+    if(this.Password.hasError('minlength')) {
+      return 'La contraseña debe tener minimo 8 caracteres';
+    }
+    if(this.Password.hasError('patternValidator')) {
+      return 'La contrasena debe tener por lo menos un numero, una letra mayuscula, una letra minuscula, un caracter especial y no puede tener espacios';
+    }
+    
+  }
+
+  getErrorMessageConfirmPassword() {
+    if (this.ConfirmPassword.hasError('required')) {
+      return 'Introduzca algun dato';
+    }
+    if(this.ConfirmPassword.hasError('spaceValid')) {
+      return 'No se puede comenzar con espacio';
+    }
+    if(this.ConfirmPassword.hasError('minlength')) {
+      return 'La contraseña debe tener minimo 8 caracteres';
+    }
+  }
 
 
   saveStudent(event: Event) {
      event.preventDefault();
      if (this.form.valid) {
       const student: RegisterStudent = this.form.value;
+      console.log(student);
       student.id= this.userId;
       student.Age = 10;
       student.Uid = '123';
       student.Birthday = formatDate(student.Birthday, 'yyyy-MM-ddTHH:mm:ss', 'en-US', 'undefined');//'+0430'
       console.log(student);
-      this.studentService.editStudent(student)
-      .subscribe();
+      this.studentService.editStudent(student, this.userId).subscribe();
      }
 
   }
