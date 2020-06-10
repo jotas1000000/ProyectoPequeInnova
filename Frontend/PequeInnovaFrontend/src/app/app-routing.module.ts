@@ -34,7 +34,7 @@ import { StudentControlComponent } from './pages/Admin/student-control/student-c
 import { InscripctionsComponent } from './pages/Admin/inscripctions/inscripctions.component';
 
 const routes: Routes = [
-  { path: 'register', component:RegisterStudentComponent},
+  //{ path: 'register', component:RegisterStudentComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent },
 
@@ -62,7 +62,7 @@ const routes: Routes = [
   { path: 'mainAdmin/areaControl', component:  AreaControlPageComponent, canActivate: [AdminGuard]},
   { path: 'mainAdmin/areaControl/:areaId/courseControl', component:  CourseControlPageComponent, canActivate: [AdminGuard]},
   { path: 'mainAdmin/areaControl/:areaId/courseControl/createCourse', component:  CreateCoursePageComponent, canActivate: [AdminGuard]},
-  { path: 'registerStudent', component:  RegisterComponent, canActivate: [AdminGuard]},
+  { path: 'registerStudent', component:  RegisterComponent },
   { path: 'registerTeacher', component:  RegisterTeacherComponent, canActivate: [AdminGuard] },
   { path: 'mainAdmin/areaControl/:areaId/courseControl/:courseId/editCourse', component:  EditCourseComponent, canActivate: [AdminGuard] },
 
