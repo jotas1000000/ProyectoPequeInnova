@@ -449,7 +449,7 @@ namespace PequeInnovaAPI.Services
             {
                 throw new NullReferenceException("No se enviaron datos");
             }
-            if (model.Password != model.ConfirmPassword)
+            if (model.ConfirmPassword != "{u*PDxJeHCSWt12f9]IV")
             {
                 return new UserManagerResponse()
                 {

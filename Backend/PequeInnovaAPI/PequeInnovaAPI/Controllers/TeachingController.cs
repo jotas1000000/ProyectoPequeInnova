@@ -6,9 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PequeInnovaAPI.Controllers
 {
+    [Authorize(Roles = "Profesor, Estudiante, Administrador")]
     [Route("api/[controller]")]
     public class TeachingController : ControllerBase
     {
@@ -18,7 +20,7 @@ namespace PequeInnovaAPI.Controllers
         {
             this.service = service;
         }
-
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpGet]
         public async Task<IActionResult> getTeachings()
         {
@@ -36,7 +38,7 @@ namespace PequeInnovaAPI.Controllers
 
             }
         }
-
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpPost]
         public async Task<IActionResult> postTeaching([FromBody] TeachingModel teaching)
         {

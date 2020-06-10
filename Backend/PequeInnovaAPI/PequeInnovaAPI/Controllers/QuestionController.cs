@@ -7,9 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PequeInnovaAPI.Controllers
 {
+    [Authorize(Roles = "Profesor, Estudiante, Administrador")]
     [Route("api/Area/{areaId:int}/Course/{courseId:int}/Lesson/{lessonId:int}/[Controller]")]
     public class QuestionController:ControllerBase
     {
@@ -19,7 +21,7 @@ namespace PequeInnovaAPI.Controllers
         {
             this.service = service;
         }
-
+        [Authorize(Roles = "Profesor, Estudiante, Administrador")]
         [HttpGet()]
         public async Task<ActionResult<IEnumerable<QuestionModel>>> getQuestions(int areaId, int courseId, int lessonId)
         {
@@ -35,7 +37,7 @@ namespace PequeInnovaAPI.Controllers
                 return NotFound(ex.Message);
             }
         }
-
+        [Authorize(Roles = "Profesor,Administrador")]
         [HttpPost()]
         public async Task<ActionResult<IEnumerable<QuestionModel>>> postQuestion(int areaId, int courseId, int lessonId, [FromBody] QuestionModel question)
         {
@@ -53,7 +55,7 @@ namespace PequeInnovaAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [Authorize(Roles = "Profesor,Administrador")]
         [HttpPost("CreateQuestion")]
         public async Task<ActionResult<IEnumerable<QuestionModel>>> postQuestionCreate(int areaId, int courseId, int lessonId, [FromBody] QuestionModel question)
         {
@@ -73,7 +75,7 @@ namespace PequeInnovaAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpPut("{questionId:int}")]
         public async Task<ActionResult<IEnumerable<QuestionModel>>> putQuestion(int areaId, int courseId, int lessonId, [FromBody] QuestionModel question, int questionId)
         {
