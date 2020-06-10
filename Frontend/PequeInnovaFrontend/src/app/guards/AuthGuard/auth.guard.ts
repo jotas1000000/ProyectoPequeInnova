@@ -16,14 +16,10 @@ export class AuthGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
       const currentUser = this.authenticationService.currentUserValue;
       const booler = this.authenticationService.getBoolRoleUSer;
-   /*    const sttg='Data';
-      console.log(sttg); */
-      if(currentUser.role ==='Estudiante')
+      if (currentUser.role === 'Estudiante')
       {
-        /* if(localStorage.currentUser.role)*/
         return true;
       }
-      //this.router.navigate(['/home'], {queryParams: {returnUrl: state.url}});
       this.router.navigate(['/home']);
       return false;
     }
@@ -34,5 +30,5 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return true;
   }*/
-  
+
 }

@@ -15,8 +15,9 @@ namespace PequeInnovaAPI.Data.Repository
         void postAssignment(AssignmentEntity assignment);
         Task deleteAssginment(int id);
         Task<IEnumerable<AssignmentRequestModel>> GetAssignments();
-        Task<AssignmentRequestModel> getAssignment(string userId);
+        Task<TeacherAssignmentModel> getAssignment(string userId);
         Task<IEnumerable<TeacherAssignmentModel>> getTeacherForAssignment();
+        Task putAssignment(int assignmentId, AssignmentEntity assignment);
 
         //Comments
         void postComment(CommentEntity comment);

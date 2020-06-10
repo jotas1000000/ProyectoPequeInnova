@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Routing;
 using PequeInnovaAPI.Models;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +13,7 @@ using PequeInnovaAPI.Exceptions;
 namespace PequeInnovaAPI.Controllers
 {
     //Algun cambio
+    [Authorize(Roles = "Profesor, Estudiante, Administrador")]
     [Route("api/[controller]")]
     public class AreaController : ControllerBase
     {
@@ -24,6 +25,7 @@ namespace PequeInnovaAPI.Controllers
             this.courseService = courseService;
 
         }
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Area>>> Get(string orderBy = "Id", bool showCourses= false)
         {
@@ -41,6 +43,8 @@ namespace PequeInnovaAPI.Controllers
 
             }
         }
+
+        [AllowAnonymous]
         [HttpGet("allCuorses")]
         public async Task<ActionResult<IEnumerable<CourseModel>>> GetCourses()
         {
@@ -58,6 +62,8 @@ namespace PequeInnovaAPI.Controllers
 
             }
         }
+
+        [AllowAnonymous]
         [HttpGet("{areaID:int}")]
         public async Task<ActionResult<Area>> Get(int areaID, bool showCoures= true)
         {
@@ -76,6 +82,7 @@ namespace PequeInnovaAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Something bad happened: {ex.Message}");
             }
         }
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         public async Task<ActionResult<Area>> Post([FromBody] Area area)
         {
@@ -88,6 +95,7 @@ namespace PequeInnovaAPI.Controllers
             return Created($"/api/Area/{newArea.Id}", newArea);
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPut("{areaID:int}/status")]
         public async Task<ActionResult<bool>> Delete(int areaID)
         {
@@ -102,6 +110,7 @@ namespace PequeInnovaAPI.Controllers
         
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPut("{areaID}")]
         public async Task<ActionResult<Area>> Update(int areaID, [FromBody] Area area)
         {

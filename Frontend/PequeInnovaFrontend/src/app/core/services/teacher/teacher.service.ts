@@ -17,12 +17,16 @@ export class TeacherService {
     return this.http.get<Teacher[]>(`${environment.apiUrl}/User/Teachers`)
   }
 
+  getAllTeachersWithAssignments(): Observable<Teacher[]>{
+    return this.http.get<Teacher[]>(`${environment.apiUrl}/User/TeachersForAssignment`)
+  }
+
   registerTeacher(newTeacher: RegisterTeacher) {
     return this.http.post<any>(`${environment.apiUrl}/Auth/UserTeacher`, newTeacher);
   }
 
   getAssignmentTeacher(userId: string) {
-    return this.http.get<AssignmentR>(`${environment.apiUrl}/User/${userId}/Assignment`);
+    return this.http.get<any>(`${environment.apiUrl}/User/${userId}/Assignment`);
   }
 
   deleteTeacher(id: string){

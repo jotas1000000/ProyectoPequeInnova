@@ -1,0 +1,31 @@
+.modal-content {
+    border-radius: 35px;
+    padding: 25px;
+}
+
+form {
+    border-radius: 35px;
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+}
+
+.card-container {
+    border-radius: 35px;
+    box-shadow: -3px 5px 10px 0 rgba(210, 210, 210, 0.18);
+}
+
+.button-navbar {
+    border-radius: 15px;
+}
+mat-card-title {
+    margin: 15px !important;
+}
+
+.title-card {
+    color: rgb(51,181,229);
+    font-size: 35px;
+    font-weight: 500;
+}
+
+.btn.edit-form {
+    border-radius: 15px;
+}

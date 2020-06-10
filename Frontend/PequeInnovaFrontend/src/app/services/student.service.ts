@@ -17,8 +17,4 @@ export class StudentService {
     return this.http.post<Inscription>(this.APIUrl, inscription)
   }
   
-  getInscriptions(): Observable<Inscription[]>{
-    return this.http.get<Inscription[]>(this.APIUrl + '/area');
-  } 
-
 }

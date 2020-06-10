@@ -29,9 +29,10 @@ namespace PequeInnovaAPI.Services
         Task<List<GetTeachersModel>> GetTeachers();
 
         Task<IEnumerable<AssignmentRequestModel>> GetAssignments();
-        Task<AssignmentRequestModel> getAssignment(string userId);
+        Task<TeacherAssignmentModel> getAssignment(string userId);
         Task<bool> postAssignment(AssignmentModel assignment);
         Task<bool> deleteAssginment(int id);
+        Task<bool> putAssignment(int assignmentId, AssignmentModel assignment);
         Task<IEnumerable<TeacherAssignmentModel>> getTeacherForAssignment();
 
         Task<CommentModel> postComment(CommentModel comment);
@@ -52,5 +53,6 @@ namespace PequeInnovaAPI.Services
         Task<IEnumerable<InscriptionRequestModel>> getInscriptionsUser(string userId);
         Task<GetTeachersModel> GetTeacher(string userId);
 
+        Task<bool> updateUser(string userId,RegisterStudentModel model);
     }
 }

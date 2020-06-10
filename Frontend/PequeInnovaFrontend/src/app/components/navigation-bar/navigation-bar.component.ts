@@ -85,7 +85,7 @@ export class NavigationBarComponent implements OnInit {
     this.router.navigate(['./registerStudent']);
   }
   navToMainAdmin() {
-    if (this.user.role === 'administrador') {
+    if ((this.user.role === 'administrador') || (this.user.role === 'Administrador') ) {
       this.router.navigate(['./mainAdmin']);
     }
   }

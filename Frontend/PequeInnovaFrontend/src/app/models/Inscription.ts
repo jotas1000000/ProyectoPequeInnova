@@ -7,4 +7,5 @@ export class Inscription{
     areaName: string;
     name: string;
     lastName: string;
+    state: boolean;
 }

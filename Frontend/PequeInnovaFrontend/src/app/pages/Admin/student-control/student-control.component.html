@@ -1,8 +1,13 @@
 <div class="teachers-navbar"> 
-    <button class="button-navbar" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Maestros</button>
-    <button class="button-navbar" routerLink="/mainAdmin" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Atras</button>
-</div>
+    
+    <button class="button-navbar" routerLink="/mainAdmin" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>
+      <mdb-icon fas icon="hand-point-left" class="pr-1"></mdb-icon>Atras
+    </button>
+    <button class="button-navbar" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>
+      <mdb-icon fas icon="users" class="pr-1"></mdb-icon> Estudiantes
+    </button>
 
+</div>
 
 
 <div class="container">
@@ -37,40 +42,28 @@
           <th scope="row">{{i+1}}</th>
           <td class="red-text">{{el.name}} {{el.lastName}}</td>
           <td>{{el.school}}</td>
+          <td>{{el.email}}</td>
           <!-- <td>{{el.Functions}}</td> -->
+           <!--  -->
           <td class="field-functions">
-            <button mdbBtn color="" size="sm" routerLink="/studentControl/inscriptions" mdbWavesEffect type="button" class="button-color">Inscripciones</button>
-            <button mdbBtn color="" size="sm" (click)="basicModal1.show()" mdbWavesEffect type="button" class="button-color">Editar</button>
-            <button mdbBtn color="danger" size="sm" (click)="basicModal2.show()" mdbWavesEffect type="button" class="">Eliminar</button>
+            <button mdbBtn color="" size="sm" routerLink="/studentControl/{{el.id}}/inscriptions" mdbWavesEffect type="button" class="button-color">
+              <mdb-icon fas icon="bars" class="pr-1"></mdb-icon>Ver
+            </button>
+           <!--  <button mdbBtn color="" size="sm" (click)="basicModal1.show()" mdbWavesEffect type="button" class="button-color">
+              <mdb-icon fas icon="edit" class="pr-1"></mdb-icon>Editar
+            </button> -->
+            <button mdbBtn color="danger" size="sm" (click)="basicModal2.show();setDataDeleteStudent(el.id, i)" mdbWavesEffect type="button" class="">
+              <mdb-icon fas icon="trash" class="pr-1"></mdb-icon>Eliminar
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
-    <button class="button-navbar" id="crearMaestro" routerLink="/registerTeacher" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>Nuevo Estudiante</button>
+    <button class="button-navbar" id="crearEstudiante" routerLink="/registerStudent" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>
+      <mdb-icon fas icon="plus" class="pr-1"></mdb-icon>Nuevo Estudiante</button>
   </div>
 <!-- <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show()" mdbWavesEffect>Launch demo modal</button>
  -->
-
- <!-- Este modal es para editar -->
-<div mdbModal #basicModal1="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal1.hide()">
-          <span aria-hidden="true">×</span>
-        </button>
-        <h4 class="modal-title w-100" id="myModalLabel">Editar datos del Estudiante</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="basicModal1.hide()" mdbWavesEffect>Cerrar</button>
-        <button type="button" mdbBtn color="danger" class="relative waves-light" mdbWavesEffect>Aceptar</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Este modal es para eliminar -->
 
@@ -88,7 +81,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="basicModal2.hide()" mdbWavesEffect>Cerrar</button>
-          <button type="button" mdbBtn color="danger" class="relative waves-light" mdbWavesEffect>Aceptar</button>
+          <button type="button" mdbBtn color="danger" class="relative waves-light" (click)="deleteStudent();basicModal2.hide()" mdbWavesEffect>Aceptar</button>
         </div>
       </div>
     </div>

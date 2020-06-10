@@ -71,10 +71,6 @@ export class CourseComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.areaId = params['areaId'];
       this.courseId = params['courseId'];
-      // this.sectionId = params ['sectionId'];
-      console.log(params);
-      console.log("AAAAAAAA" + this.areaId);
-      console.log("BBBBBBBB" + this.courseId);
     });
   }
   private setLessonsData(): void {

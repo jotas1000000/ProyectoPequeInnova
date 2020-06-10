@@ -16,12 +16,12 @@
   <li class="list-inline-item align-right">
     <div class="form-inline">
       <button mdbBtn size="md" color="default" class="my-0 waves-light" mdbWavesEffect type="submit">
-        <mdb-icon fas icon="search" aria-hidden="true" >
+        <mdb-icon fas icon="search" aria-hidden="true">
         </mdb-icon>
       </button>
-        <div class="md-form" >
-          <input type="search" [(ngModel)]="searchText" placeholder="Buscar">
-        </div>
+      <div class="md-form">
+        <input type="search" [(ngModel)]="searchText" placeholder="Buscar">
+      </div>
     </div>
   </li>
 
@@ -32,9 +32,9 @@
   <div class="col-md-12 mb-4 text-default text-center">
     <h1 class="h1-reponsive text-uppercase font-weight-bold mb-0 pt-md-0 pt-0">
       <strong>
-      <mdb-icon fas size="lg" icon="book-open" class="pr-2">
-      </mdb-icon>
-      {{areaName | slice:0:30}}
+        <mdb-icon fas size="lg" icon="book-open" class="pr-2">
+        </mdb-icon>
+        {{areaName | slice:0:30}}
       </strong>
     </h1>
     <hr class="hr-black my-4">
@@ -46,25 +46,19 @@
 
   </div>
 
-  <div class = "background-container">
-    <hr class="my-4" >
-
-    <div class="card-group ">
-
+  <div class="background-container">
+    <hr class="my-4">
+     <div class="card-group ">
       <ng-container *ngFor="let course of courses | searchLocal: searchText, index as i">
         <ng-container *ngIf="i < elements">
-          <div class="col-md-4 ">
-            <mdb-card >
-              <!-- Card image-->
+          <div class="container-deck">
+            <!-- <mdb-card>
               <div class="  waves-light " mdbWavesEffect>
                 <mdb-card-img [src]="course.image">
                 </mdb-card-img>
                 <div class="mask rgba-white-slight"></div>
               </div>
-              
-              <!-- Card content -->
               <mdb-card-body class="text-center">
-
                 <mdb-card-text>
                   <a class="green-text ">
                     <h5 class="font-weight-bold mb-3 ">
@@ -73,35 +67,77 @@
                       {{areaName | slice:0:30}}
                     </h5>
                   </a>
-                  <!-- Name -->
                   <h4 class="font-weight-bold mb-3 black-text">
                     <strong>
-                      {{course.name | slice:0:30}} 
+                      {{course.name | slice:0:30}}
                     </strong>
                   </h4>
-                  <!-- Description -->
                   <p>
                     {{course.description | slice:0:100}}
                   </p>
-                  <!-- View Area button -->
-                  <a mdbBtn color="default" mdbWavesEffect routerLink="/areas/{{course.areaId}}/courses/{{course.id}}/lessons">
-                    <mdb-icon fas size= "lg" icon="pen" class="pr-2">
+                  <a mdbBtn color="default" mdbWavesEffect
+                    routerLink="/areas/{{course.areaId}}/courses/{{course.id}}/lessons">
+                    <mdb-icon fas size="lg" icon="pen" class="pr-2">
                     </mdb-icon>
                     Ver Curso
                   </a>
                 </mdb-card-text>
               </mdb-card-body>
-
-            </mdb-card>
-            <hr class="my-4" >
+            </mdb-card> -->
+            <div class="card-container">
+              <div class="container-img">
+                <img  [src]="course.image" alt="Card image cap"/>
+              </div>
+      
+              <div class="card-body-elements">
+      
+                <div class="card-title">
+                  <p>{{course.name | slice:0:30}}</p>
+                </div>
+      
+                <div class="card-text">
+                  {{course.description | slice:0:200}}...
+                </div>
+                <div class="card-buttons">
+                  <button type="button" class="card-button show" mdbBtn color="primary" routerLink="/areas/{{course.areaId}}/courses/{{course.id}}/lessons" mdbWavesEffect>Ver Curso</button>
+                </div>
+      
+              </div>
+            </div>
+            <hr class="my-4">
           </div>
         </ng-container>
       </ng-container>
     </div>
 
+<!--     <div class="container-deck" *ngIf="areas">
+      <div class="card-container" *ngFor="let e of areas">
+        <div class="container-img">
+          <img  [src]="e.image" alt="Card image cap"/>
+        </div>
+
+        <div class="card-body-elements">
+
+          <div class="card-title">
+            <p>{{e.name | slice:0:30}}</p>
+          </div>
+
+          <div class="card-text">
+            {{e.description | slice:0:200}}...
+          </div>
+          <div class="card-buttons">
+            <button type="button" class="card-button show" mdbBtn color="primary" routerLink="/mainAdmin/areaControl/{{e.id}}/courseControl" mdbWavesEffect>Ver Area</button>
+            <button type="button" class="card-button delete" mdbBtn color="danger" (click)="deleteArea(e.id);basicModalDelete.show()" mdbWavesEffect>Eliminar</button>
+            <button type="button" class="card-button editar" mdbBtn color="secondary" (click)="editArea(e.id,e.image,e.name,e.description); basicModal.show()" mdbWavesEffect>Editar</button>
+          </div>
+
+        </div>
+      </div>
+  </div> -->
+
     <ng-container *ngIf=" elements < totalCourses">
-      <div class = "d-flex justify-content-center" (click)=seeMore()>
-        <a mdbBtn  color="cyan" mdbWavesEffect  >
+      <div class="d-flex justify-content-center" (click)=seeMore()>
+        <a mdbBtn color="cyan" mdbWavesEffect>
           Ver Mas Cursos
         </a>
       </div>

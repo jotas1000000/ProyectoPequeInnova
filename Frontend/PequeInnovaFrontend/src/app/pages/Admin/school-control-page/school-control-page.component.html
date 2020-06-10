@@ -4,20 +4,20 @@
 </div>
 
 <div class="container">
-    <div class="row">
+<!--     <div class="row">
       <div class="col-md-12 mx-auto">
         <div class="md-form">
-          <input
+           <input
             type="text"
             [(ngModel)]="searchText"
             class="form-control"
             id="search"
             mdbInput
           />
-          <label for="search">Buscar</label>
+          <label for="search">Buscar</label> 
         </div>
       </div>
-    </div>
+    </div> -->
     <table mdbTable class="z-depth-1">
       <thead>
         <tr>
@@ -30,15 +30,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let el of elements; let i = index">
-          <th scope="row">{{el.id}}</th>
-          <td class="red-text">{{el.Colegio}}</td>
-          <td>{{el.Ciudad}}</td>
-          <!-- <td>{{el.Functions}}</td> -->
-          <td class="field-functions">
-            <button mdbBtn color="" size="sm" (click)="basicModal1.show()" mdbWavesEffect type="button" class="button-color">Editar</button>
-            <button mdbBtn color="danger" size="sm" (click)="basicModal2.show()" mdbWavesEffect type="button" class="">Eliminar</button>
-          </td>
+        <tr *ngFor="let el of schools; let i = index">
+          <ng-container *ngIf="el.status==true">
+            <th scope="row">{{el.id}}</th>
+            <td class="red-text">{{el.name}}</td>
+            <td>{{el.city}}</td>
+            <!-- <td>{{el.Functions}}</td> -->
+            <td class="field-functions">
+              <button mdbBtn color="" size="sm" (click)="basicModal1.show();setDataEditSchool(el.id, el.name, el.city)" mdbWavesEffect type="button" class="button-color">Editar</button>
+              <button mdbBtn color="danger" size="sm" (click)="basicModal2.show();setDataDeleteSchool(el.id, i)" mdbWavesEffect type="button" class="">Eliminar</button>
+            </td>
+          </ng-container>
         </tr>
       </tbody>
     </table>
@@ -54,14 +56,19 @@
         <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal1.hide()">
           <span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title w-100" id="myModalLabel">Editar datos del Estudiante</h4>
+        <h4 class="modal-title w-100" id="myModalLabel">Editar datos de la Escuela</h4>
       </div>
       <div class="modal-body">
-        ...
+        <mat-label>Nombre: </mat-label>
+        <input [(ngModel)]="name" placeholder="{{name}}" matInput-type="text">
+        <br>
+        <mat-label>Ciudad: </mat-label>
+        <input [(ngModel)]="city" placeholder="{{city}}" matInput-type="text">
+
       </div>
       <div class="modal-footer">
         <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="basicModal1.hide()" mdbWavesEffect>Cerrar</button>
-        <button type="button" mdbBtn color="danger" class="relative waves-light" mdbWavesEffect>Aceptar</button>
+        <button type="button" mdbBtn color="danger" class="relative waves-light" (click)="editSchool();basicModal1.hide()" mdbWavesEffect>Aceptar</button>
       </div>
     </div>
   </div>
@@ -79,11 +86,11 @@
           <h4 class="modal-title w-100" id="myModalLabel">Eliminar</h4>
         </div>
         <div class="modal-body">
-            ¿Desea eliminar este Estudiante?
+            ¿Desea eliminar esta Escuela?
         </div>
         <div class="modal-footer">
           <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="basicModal2.hide()" mdbWavesEffect>Cerrar</button>
-          <button type="button" mdbBtn color="danger" class="relative waves-light" mdbWavesEffect>Aceptar</button>
+          <button type="button" mdbBtn color="danger" class="relative waves-light" (click) ="deleteSchool();basicModal2.hide();" mdbWavesEffect>Aceptar</button>
         </div>
       </div>
     </div>
