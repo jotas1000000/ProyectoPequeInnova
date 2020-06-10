@@ -81,8 +81,10 @@ namespace PequeInnovaAPI
             });
             
             services.AddAutoMapper(typeof(Startup));
-            services.AddCors();
-
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => { options.AllowAnyOrigin(); options.AllowAnyMethod(); options.AllowAnyHeader(); });
+            });
             //MVC version
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
                     

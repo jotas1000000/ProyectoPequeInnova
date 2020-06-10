@@ -751,7 +751,8 @@ namespace PequeInnovaAPI.Services
 
         public async Task<bool> updateUser(string userId, RegisterStudentModel model)
         {
-            var user = await UserManager.FindByNameAsync(model.UserName);
+            //var user = await UserManager.FindByNameAsync(model.UserName);
+            var user = await UserManager.FindByIdAsync(userId);
             var newPassword = UserManager.PasswordHasher.HashPassword(user, model.Password);
             user.PasswordHash = newPassword;
             user.Name = model.Name;
