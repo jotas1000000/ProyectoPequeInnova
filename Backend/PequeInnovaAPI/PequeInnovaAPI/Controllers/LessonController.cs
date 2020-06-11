@@ -21,7 +21,7 @@ namespace PequeInnovaAPI.Controllers
         {
             this.lessonService = lessonService;
         }
-        
+        [AllowAnonymous]
         [HttpGet()]
         public async Task<ActionResult<IEnumerable<LessonModel>>> getLessons(int courseId, int areaId, bool showComments = false, bool showQuestions = false)
         {
@@ -33,7 +33,7 @@ namespace PequeInnovaAPI.Controllers
                 return NotFound(ex.Message);
             }
         }
-
+        [AllowAnonymous]
         [HttpGet("{lessonId:int}")]
         public async Task<ActionResult<LessonModel>> getLesson(int courseId, int lessonId, int areaId, bool showComments = false, bool showQuestions = false)
         {
