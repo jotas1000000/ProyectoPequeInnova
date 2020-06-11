@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient,HttpErrorResponse } from '@angular/common/http';
-import {RegisterStudent} from './../../models/RegisterStudent.model';
-import {environment} from './../../../../environments/environment';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { RegisterStudent } from './../../models/RegisterStudent.model';
+import { environment } from './../../../../environments/environment.prod';
 import { Observable } from 'rxjs';
 import { Student } from 'src/app/models/Student';
 import { Inscription } from 'src/app/models/Inscription';
@@ -17,33 +17,33 @@ export class StudentService {
 
   constructor(private http: HttpClient) { }
 
-  registerStudent(newStudent: RegisterStudent){
+  registerStudent(newStudent: RegisterStudent) {
     return this.http.post<any>(`${environment.apiUrl}/Auth/UserStudent`, newStudent);
   }
 
-  getStudents(): Observable<Student[]>{
+  getStudents(): Observable<Student[]> {
     return this.http.get<Student[]>(`${environment.apiUrl}/User/Students`);
   }
 
-  
-  editStudent(student: RegisterStudent, id: string): Observable<RegisterStudent[]>{
-    return this.http.put<RegisterStudent[]>(`${environment.apiUrl}/Auth/${id}/EditUserStudent`,student);
+
+  editStudent(student: RegisterStudent, id: string): Observable<RegisterStudent[]> {
+    return this.http.put<RegisterStudent[]>(`${environment.apiUrl}/Auth/${id}/EditUserStudent`, student);
   }
 
-  deleteStudent(id: string){
-    return this.http.put<any>(`${environment.apiUrl}/User/${id}/DeleteUser`,"");
+  deleteStudent(id: string) {
+    return this.http.put<any>(`${environment.apiUrl}/User/${id}/DeleteUser`, "");
   }
-  
-  getInscriptions(userId:string): Observable<Inscription[]>{
+
+  getInscriptions(userId: string): Observable<Inscription[]> {
     return this.http.get<Inscription[]>(`${environment.apiUrl}/User/${userId}/InscriptionsUser`);
-  } 
-
-  deleteInscription (idInscription: number) : Observable<Inscription>{
-    return this.http.put<Inscription>(`${environment.apiUrl}/User/DeleteInscription/${idInscription}`,"");
   }
 
-  putAproveTest(id:number){
-    return this.http.put<any>(`${environment.apiUrl}/User/ApproveInscription/${id}`,"");
+  deleteInscription(idInscription: number): Observable<Inscription> {
+    return this.http.put<Inscription>(`${environment.apiUrl}/User/DeleteInscription/${idInscription}`, "");
+  }
+
+  putAproveTest(id: number) {
+    return this.http.put<any>(`${environment.apiUrl}/User/ApproveInscription/${id}`, "");
   }
 
 }
