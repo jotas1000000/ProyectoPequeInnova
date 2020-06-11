@@ -734,6 +734,53 @@ namespace PequeInnovaAPI.Services
 
         }
 
+        public async Task<bool> setpassword(string userId, SetPasswordModel setpassword)
+        {
+            var user = await UserManager.FindByIdAsync(userId);
+            var oldPasswordHash = await UserManager.CheckPasswordAsync(user, setpassword.OldPassword);
+            if (oldPasswordHash)
+            {
+                var newPasswordHash = UserManager.PasswordHasher.HashPassword(user, setpassword.NewPassword);
+                user.PasswordHash = newPasswordHash;
+                user.UpdateDate = DateTime.Now;
+                var res = await UserManager.UpdateAsync(user);
+
+                if (res.Succeeded)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+
+        }
+
+        public async Task<bool> setpasswordtouser(string userId, SetPasswordModel setpassword)
+        {
+            var user = await UserManager.FindByIdAsync(setpassword.Id);
+            if (setpassword.NewPassword != "")
+            {
+                var newPasswordHash = UserManager.PasswordHasher.HashPassword(user, setpassword.NewPassword);
+                user.PasswordHash = newPasswordHash;
+                user.UpdateDate = DateTime.Now;
+                user.Uid = userId;
+                var res = await UserManager.UpdateAsync(user);
+
+                if (res.Succeeded)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+
         public async Task<bool> updateStudent(UpdateStudent student)
         {
             //Validar Existencia de Student
@@ -744,6 +791,25 @@ namespace PequeInnovaAPI.Services
 
         public async Task<bool> updateTeacher(UpdateTeacher teacher)
         {
+           /* var user = await UserManager.FindByIdAsync(teacher.Id);
+            var newPassword = UserManager.PasswordHasher.HashPassword(user, teacher.Password);
+            user.PasswordHash = newPassword;
+            user.Name = teacher.Name;
+            user.LastName = teacher.LastName;
+            user.School = teacher.School;
+            user.Email = teacher.Email;
+            user.Degree = teacher.Degree;
+            user.City = teacher.City;
+            var res = await UserManager.UpdateAsync(user);
+
+            if (res.Succeeded)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }*/
             await repository.updateTeacher(teacher);
             await repository.SaveChangesAsync();
             return true;
@@ -753,8 +819,8 @@ namespace PequeInnovaAPI.Services
         {
             //var user = await UserManager.FindByNameAsync(model.UserName);
             var user = await UserManager.FindByIdAsync(userId);
-            var newPassword = UserManager.PasswordHasher.HashPassword(user, model.Password);
-            user.PasswordHash = newPassword;
+          /*  var newPassword = UserManager.PasswordHasher.HashPassword(user, model.Password);
+            user.PasswordHash = newPassword;*/
             user.Name = model.Name;
             user.LastName = model.LastName;
             user.School = model.School;

@@ -80,7 +80,7 @@ namespace PequeInnovaAPI.Controllers
             return BadRequest("Algo salio mal en la peticion");
         }
         [HttpPut("Assignment/{assignmentId:int}")]
-        public async Task<IActionResult> putAssignments(int assignmentId, [FromBody] AssignmentModel assignment  )
+        public async Task<IActionResult> putAssignments(int assignmentId, [FromBody] AssignmentModel assignment)
         {
             if (ModelState.IsValid)
             {
@@ -199,7 +199,7 @@ namespace PequeInnovaAPI.Controllers
                 var result = await service.postComment(comment);
                 if (result != null)
                 {
-                    return Created("api/",result);
+                    return Created("api/", result);
                 }
             }
 
@@ -251,7 +251,35 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
-        
+
+        [HttpPut("{userId:maxlength(38)}/SetPassword")]
+        public async Task<IActionResult> setPassword(string userId,[FromBody] SetPasswordModel newpassword)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await service.setpassword(userId, newpassword);
+                if (result)
+                {
+                    return Ok(result);
+                }
+            }
+            return Ok(false);
+
+        }
+        [HttpPut("{userId:maxlength(38)}/SetPasswordToUser")]
+        public async Task<IActionResult> setPasswordToUser(string userId, [FromBody] SetPasswordModel newpassword)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await service.setpasswordtouser(userId, newpassword);
+                if (result)
+                {
+                    return Ok(result);
+                }
+            }
+            return Ok(false);
+
+        }
         [HttpGet("Inscriptions")]
         public async Task<IActionResult> getInscriptions()
         {
