@@ -155,7 +155,7 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Some properties are not valid");
         }
-        [AllowAnonymous]//Peligro
+        [AllowAnonymous]
         [HttpGet("Users")]
         public async Task<IActionResult> GetUsersRoles()
         {
