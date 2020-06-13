@@ -33,7 +33,7 @@ export class TeacherContolPageComponent implements OnInit {
   searchText: string = '';
   previous: string;
   stateRequest = false;
-  messageBinding: string = "Mensaje";
+  messageBinding: string = "";
   user: User;
 
 
