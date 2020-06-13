@@ -178,14 +178,7 @@ export class MainPageTeacherComponent implements OnInit, AfterViewInit {
     }
   }
   ResetBinding() {
-    // TODO
-    // if(this.stateRequest)
-    // {
-    //     this.router.navigate([`./editTeacher/${this.id}`]);
-    // }else{
-
-    //   this.messageBinding=null;
-    // }
+      this.messageBinding=null;
   }
 
   FunctionEscape() {

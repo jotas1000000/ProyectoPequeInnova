@@ -13,16 +13,6 @@
     <div class="row">
       <div class="col-md-12 mx-auto">
         <br>
-        <!-- <div class="md-form">
-          <input
-            type="text"
-            [(ngModel)]="searchText"
-            class="form-control"
-            id="search"
-            mdbInput
-          />
-          <label for="search">Buscar</label>
-        </div> -->
       </div>
     </div>
     <table mdbTable class="z-depth-1">
@@ -42,15 +32,13 @@
           <td class="red-text">{{el.name}} {{el.lastName}}</td>
           <td >{{el.degree}}</td>
           <td>
-            <!-- <div *ngFor="let assignment of assignments" >
-              <div *ngIf="assignment.userId==el.id">{{assignment.nameArea}}</div>
-            </div> -->
             {{el.areaName}}
           </td>
           
           <!-- <td>{{el.Functions}}</td> -->
           <td class="field-functions">
             <button mdbBtn color="" size="sm" routerLink="/editTeacher/{{el.id}}" mdbWavesEffect type="button" class="button-color">Editar</button>
+            <button mdbBtn color="" size="sm" (click)="passwordModal.show()" mdbWavesEffect type="button" class="button-color">Cambiar Contraseña</button>
             <!-- <button mdbBtn color="" size="sm" (click)="assignmentModal.show();updateAssignmentModal(el.id, el.assignmentId);updateAssignmentForm(el.areaId)" mdbWavesEffect type="button" class="button-color">Asignacion</button> -->
             <button mdbBtn color="danger" size="sm" (click)="deleteTeacherModal.show()" mdbWavesEffect type="button" class="">Eliminar</button>
           </td>
@@ -113,97 +101,61 @@
 <!-- <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show()" mdbWavesEffect>Launch demo modal</button>
  -->
 
- <!-- Este modal es para editar -->
-<div mdbModal #basicModal1="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+ <!-- Este modal es para editar contraseña-->
+<div mdbModal #passwordModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal1.hide()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="passwordModal.hide()">
           <span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title w-100" id="myModalLabel">Editar datos del maestro</h4>
+        <h4 class="modal-title w-100" id="myModalLabel">Cambiar contraseña del maestro</h4>
       </div>
       <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="basicModal1.hide()" mdbWavesEffect>Cerrar</button>
-        <button type="button" mdbBtn color="danger" class="relative waves-light" mdbWavesEffect>Aceptar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Este modal es para eliminar -->
-
-<div mdbModal #basicModal2="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal2.hide()">
-            <span aria-hidden="true">x</span>
-          </button>
-          <h4 class="modal-title w-100" id="myModalLabel">Eliminar</h4>
-        </div>
-        <div class="modal-body">
-            ¿Desea eliminar este maestro?
-        </div>
-        <div class="modal-footer">
-          <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="basicModal2.hide()" mdbWavesEffect>Cerrar</button>
-          <button type="button" mdbBtn color="danger" class="relative waves-light" mdbWavesEffect>Aceptar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-<div mdbModal id="assignmentmodal" #assignmentModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close pull-right" aria-label="Close" (click)="assignmentModal.hide()">
-          <span aria-hidden="true">x</span>
-        </button>
-        <h4 class="modal-title w-100" id="myModalLabel">Asignacion</h4>
-      </div>
-      <div class="modal-body">
-
-        <form [formGroup]="form" *ngIf="form" (ngSubmit)="debugAssignment($event)">
+        <form [formGroup]="passwordForm" (ngSubmit)="forceChangePassword($event)">
           <mat-card class="card-container">
             <mat-card-header>
-              <mat-card-title>Asignacion Area</mat-card-title>
+              <mat-card-title>Editar Maestro</mat-card-title>
             </mat-card-header>
             <mat-card-content class="card-content-container">
-                {{messageBinding}}
-              
-              <div class="microContainer" *ngIf="assignments">
-                <mat-form-field class="input-Field" appearance="outline"
-                [hideRequiredMarker]="hideRequiredControlAssignment.value"
-                [floatLabel]="floatLabelControlAssignment.value">
-                <mat-select  [formControl]="areaId" required>
-                    <mat-option  *ngFor="let area of areas" value="{{area.id}}">{{area.name}}</mat-option>
-                </mat-select>
-                <mat-label>Area</mat-label>
+
+              <div class="microContainer">
+                <mat-form-field class="input-Field">
+                  <input placeholder="Nueva Contraseña" formControlName="NewPassword" matInput type="password">
                 </mat-form-field>
               </div>
-              
-            
+
+              <div class="microContainer">
+                <mat-form-field class="input-Field">
+                  <input placeholder="Confirmar Nueva contraseña" formControlName="ConfirmPassword" matInput type="password">
+                  <mat-error *ngIf="ConfirmPassword.invalid">{{getErrorMessageConfirmPassword()}}</mat-error>
+                  <mat-error *ngIf="ConfirmPassword.errors && ConfirmPassword.errors.mustMatch">Las contraseñas deben coincidir</mat-error>
+                </mat-form-field>
+              </div>
+
+
             </mat-card-content>
             <mat-card-actions>
-              <button type="button" (click)="assignmentModal.hide()" mdbBtn color="danger" mdbWavesEffect>Cancelar</button>
-              <button [disabled]="form.invalid" type="submit" (click)="basicModal.show()" mdbBtn color="info"
-                mdbWavesEffect>Aceptar</button>
+              <button type="button" class="btn edit-form" (click)="FunctionEscape(); passwordModal.hide()" mdbBtn
+                color="danger" mdbWavesEffect>Cancelar</button>
+              <button [disabled]="passwordForm.invalid" type="submit" class="btn edit-form" (click)="passwordModal.show()"
+                mdbBtn color="info" mdbWavesEffect>Aceptar</button>
+               <button [disabled]="passwordForm.invalid" mat-raised-button type="submit">Guardar</button>
+              <br>
+              {{messageBinding}}
             </mat-card-actions>
           </mat-card>
         </form>
-
       </div>
-      <!-- <div class="modal-footer">
-        <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="assignmentModal.hide()" mdbWavesEffect>Cerrar</button>
+      <div class="modal-footer">
+        <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="passwordModal.hide()" mdbWavesEffect>Cerrar</button>
         <button type="button" mdbBtn color="danger" class="relative waves-light" mdbWavesEffect>Aceptar</button>
-      </div> -->
+      </div>
     </div>
   </div>
 </div>
+
+
 
 
 <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
