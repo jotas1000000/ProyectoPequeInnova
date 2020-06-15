@@ -129,20 +129,22 @@ export class MainPageTeacherComponent implements OnInit, AfterViewInit {
     });
   }
   changePassword(event: Event) {
-    this.passwordService.changeOwnPassword(this.user.id,this.form.value).subscribe((result) => {
+
+    const bodyRequest = {
+      Id: '',
+      OldPassword: this.form.value.OldPassword,
+      NewPassword: this.form.value.NewPassword
+    };
+    this.passwordService.changeOwnPassword(this.user.id, bodyRequest).subscribe((result) => {
       this.stateRequest = result.isSuccess;
       console.log(result);
       if (result){
         this.messageBinding = 'Contraseña cambiada correctamente';
-        setTimeout(() => {
-          this.stateRequest = true;
-        }, 3000);
+        this.stateRequest = true;
         this.FunctionEscape();
       }else
       {
-        setTimeout(() => {
-          this.messageBinding = 'Error al cambiar contraseña, revise los datos e intente de nuevo';
-        }, 2000);
+        this.messageBinding = 'Error al cambiar contraseña, revise los datos e intente de nuevo';
       }
     }, error => {
       alert('Ups algo salio mal, intente de nuevo. Si el problema persiste contactese con Soporte Tecnico!');

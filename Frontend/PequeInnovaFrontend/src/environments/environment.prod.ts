@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://localhost:44386/api'
+  apiUrl: 'https://pequeinnovaapi20200611121153.azurewebsites.net/api'
 };

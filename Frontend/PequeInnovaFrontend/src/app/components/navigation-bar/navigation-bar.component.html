@@ -46,7 +46,7 @@
           <li class="nav-item">
               <a class="nav-link waves-light username" mdbWavesEffect><mdb-icon fas icon=""></mdb-icon>{{nameUserCurrent}}<span class="sr-only">(current)</span></a>
           </li>   
-          <li class="nav-item" *ngIf='user.role==="Administrador"'>
+          <li class="nav-item" *ngIf='(user.role==="Administrador") || (user.role==="administrador")'>
             <a class="btn btn-outline btn-md my-sm-0" (click)="navToMainAdmin()" mdbWavesEffect ><mdb-icon fas icon="bars"></mdb-icon>  Controles de Administrador</a>
           </li> 
           <li class="nav-item" *ngIf='user.role==="Profesor"'>

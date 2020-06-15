@@ -12,10 +12,10 @@ export class PasswordService {
 
   constructor(private http: HttpClient) { }
 
-  changeOwnPassword(id: string, passwords:PasswordChange): Observable<any>{
-    return this.http.put<any>(`${environment.apiUrl}/User/${id}/SetPassword`,passwords)
+  changeOwnPassword(id: string, passwords: any): Observable<any>{
+    return this.http.put<any>(`${environment.apiUrl}/User/${id}/SetPassword`, passwords);
   }
-  forceChangePassword(adminId, passwords:ForcePasswordChange): Observable<any>{
-    return this.http.put<any>(`${environment.apiUrl}/User/${adminId}/SetPassword`,passwords)
+  forceChangePassword(adminId: string, passwords: any): Observable<any>{
+    return this.http.put<any>(`${environment.apiUrl}/User/${adminId}/SetPasswordToUser`, passwords);
   }
 }

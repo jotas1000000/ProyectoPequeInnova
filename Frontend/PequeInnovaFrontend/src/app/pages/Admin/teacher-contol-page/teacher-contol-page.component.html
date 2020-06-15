@@ -27,7 +27,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let el of teachers; let i = index">
+        <tr *ngFor="let el of teachers; let i = index" (click)="showData(el)">
           <th scope="row">{{i+1}}</th>
           <td class="red-text">{{el.name}} {{el.lastName}}</td>
           <td >{{el.degree}}</td>
@@ -109,7 +109,7 @@
         <button type="button" class="close pull-right" aria-label="Close" (click)="passwordModal.hide()">
           <span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title w-100" id="myModalLabel">Cambiar contraseña del maestro</h4>
+        <h4 class="modal-title w-100" id="myModalLabel">Cambiar contraseña</h4>
       </div>
       <div class="modal-body">
         <form [formGroup]="passwordForm" (ngSubmit)="forceChangePassword($event)">

@@ -36,7 +36,7 @@ export class TeacherContolPageComponent implements OnInit {
   messageBinding: string = "";
   user: User;
 
-
+  userId: string;
   public teachers: any = [];
   public areas: any = [];
 
@@ -76,9 +76,8 @@ export class TeacherContolPageComponent implements OnInit {
     this.user = this.authenticationService.currentUserValue;
     this.teacherService.getAllTeachersWithAssignments().subscribe(data => this.teachers = data);
     this.mdbTable.setDataSource(this.teachers);
-    this.previous = this.mdbTable.getDataSource(); 
-    this.areaService.getAreaList().subscribe(data=> this.areas =data);
-
+    this.previous = this.mdbTable.getDataSource();
+    this.areaService.getAreaList().subscribe(data => this.areas = data);
   }
 
 
@@ -104,17 +103,18 @@ export class TeacherContolPageComponent implements OnInit {
   }
 
   searchItems() {
-    const prev = this.mdbTable.getDataSource();
+   /*  const prev = this.mdbTable.getDataSource();
     if (!this.searchText) {
-
-
       this.mdbTable.setDataSource(this.previous); 
       this.teachers = this.mdbTable.getDataSource();
     }
     if (this.searchText) {
       this.teachers = this.mdbTable.searchLocalDataByMultipleFields(this.searchText, ['name', 'degree']);
       this.mdbTable.setDataSource(prev);
-    }
+    } */
+  }
+  showData(value){
+    this.userId = value.id;
   }
 
   FunctionEscape(){
@@ -124,25 +124,25 @@ export class TeacherContolPageComponent implements OnInit {
   forceChangePassword(event:Event){
     this.updatePassword = this.passwordForm.value;
     this.updatePassword.Id = this.current_teacher;
-    
-    this.passwordService.forceChangePassword(this.user.id,this.updatePassword).subscribe((result) => {
-      this.stateRequest = result.isSuccess;
-      console.log(result);
-      if (result){
-        this.messageBinding = 'Contraseña cambiada correctamente';
-        setTimeout(() => {
-          this.stateRequest = true;
-        }, 3000);
-        this.FunctionEscape();
-      }else
-      {
-        setTimeout(() => {
-          this.messageBinding = 'Error al cambiar contraseña, revise los datos e intente de nuevo';
-        }, 2000);
-      }
+    const bodyRequest = {
+        Id: this.userId,
+        OldPassword: '',
+        NewPassword: this.passwordForm.value.NewPassword
+    };
+    this.passwordService.forceChangePassword(this.user.id, bodyRequest).subscribe((result) => {
+    this.stateRequest = result.isSuccess;
+    console.log(result);
+    if (result){
+      this.messageBinding = 'Contraseña cambiada correctamente';
+      this.stateRequest = true;
+      this.FunctionEscape();
+    }else
+    {
+      this.messageBinding = 'Error al cambiar contraseña, revise los datos e intente de nuevo';
+    }
     }, error => {
       alert('Ups algo salio mal, intente de nuevo. Si el problema persiste contactese con Soporte Tecnico!');
-    });
+    }); 
 
   }
   
