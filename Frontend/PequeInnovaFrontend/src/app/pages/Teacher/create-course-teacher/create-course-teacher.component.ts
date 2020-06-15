@@ -162,9 +162,14 @@ export class CreateCourseTeacherComponent implements OnInit {
     if (this.questions == null){
       this.questions = [];
     }
-    this.ColorformQ = 'rgb(198,216,29,0.6)';
+    this.ColorformQ = 'rgb(198,216,29)';
     this.QuestionAdd = true;
     this.QuestionEdit = false;
+    this.Question = '';
+    this.trueanswer = '';
+    this.falseanswer1 = '';
+    this.falseanswer2 = '';
+    this.falseanswer3 = '';
   }
 
   FunctionShow(value: LessonN){
@@ -223,7 +228,7 @@ export class CreateCourseTeacherComponent implements OnInit {
     this.questionAux = value;
     this.QuestionAdd = false;
     this.QuestionEdit = true;
-    this.ColorformQ = 'rgba(130,177,255,0.6)';
+    this.ColorformQ = 'rgb(130,177,255)';
     this.Question = value.question;
     this.trueanswer = value.trueAnswer;
     this.falseanswer1 = value.falseAnswer1;

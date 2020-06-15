@@ -22,7 +22,7 @@
       class="md-textarea md-textarea-auto form-control" mdbInput></textarea>
   </div>
   <div class="DataCourse btnSaveCourse">
-    <button class="button-navbar" (click)="basicModal2.show();Validate()" mdbBtn type="button" color="info"
+    <button class="button-navbar" (click)="basicModal2.show();Validate()" mdbBtn type="button" color="secondary"
       rounded="true" mdbWavesEffect>Guardar Curso</button>
   </div>
 </div>
@@ -112,11 +112,12 @@
   </div>
 </div>
 
-<div class="containerQ z-depth-2" [style.background-color]="ColorformQContainer">
+<div class="containerQ z-depth-2" *ngIf="typePractice" [style.background-color]="ColorformQContainer">
   <div class="container-Questions">
     <span class="table-add float-right mb-3 mr-2" (click)="AddQuestion()">
       <a class="text-success">
-        <mdb-icon fas icon="plus" size="2x"></mdb-icon>
+        <mdb-icon fas icon="plus" size="3x"></mdb-icon>
+        <p>Anadir Pregunta</p>
       </a>
     </span>
     <table mdbTable mdbTableScroll scrollY="true" maxHeight="650" bordered="true"
@@ -145,11 +146,11 @@
 
   </div>
 
-  <div class="container-form">
+  <div class="container-form" *ngIf="QuestionAdd || QuestionEdit">
     <form class="form-Q" [formGroup]="form" (ngSubmit)="saveQuestion($event)">
       <mat-card class="card-container" [style.background-color]="ColorformQ">
         <mat-card-header>
-          <mat-card-title>Registro</mat-card-title>
+          <mat-card-title>Registro de Pregunta</mat-card-title>
         </mat-card-header>
         <mat-card-content class="card-content-container">
           <div class="microContainer">
@@ -211,11 +212,11 @@
 </div>
 
 
-<div class="buttonsDown-OkCancel">
+<div class="buttonsDown-OkCancel" *ngIf="typePractice">
   <button class="buttonsDownQ Cancel" (click)="FunctionDeclinePractice()" mdbBtn type="button" color="info"
     rounded="true" mdbWavesEffect>Cancelar</button>
   <button class="buttonsDownQ Ok" (click)="FunctionSavePractice()" mdbBtn type="button" color="info" rounded="true"
-    mdbWavesEffect>Aceptar</button>
+    mdbWavesEffect>Guardar Examen</button>
 </div>
 
 
