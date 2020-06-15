@@ -45,7 +45,7 @@ export class CreateCoursePageComponent implements OnInit {
   StateProcesing: string = '';
 
   StateRequestBoolean: boolean = false;
-  
+
 
   get stateSleep(): boolean{
     return this.StateSleep;
@@ -76,43 +76,7 @@ export class CreateCoursePageComponent implements OnInit {
     areaId: 1,
     inscriptions: null,
     teachings: null,
-    lessons: [/*
-      {
-        id: 2,
-        title: 'Conociendo las constantes',
-        document: 'Aqui',
-        urlVideo: 'http//algo.com',
-        description: 'En esta leccion avanzaremos sobre las constantes',
-        type: 'lesson',
-        order: 0,
-        uid: '123',
-        state: true,
-        status: true,
-        updateDate: '1988-10-10T00:00:00',
-        createDate: '1988-10-10T00:00:00',
-        courseId: 1,
-        comments: [],
-        questions: []
-      },
-      {
-        id: 3,
-        title: 'Conociendo las variables',
-        document: 'Aqui',
-        urlVideo: 'http//algo.com',
-        description: 'En esta leccion avanzaremos sobre las variables',
-        type: 'lesson',
-        order: 1,
-        uid: '123',
-        state: true,
-        status: true,
-        updateDate: '1988-10-10T00:00:00',
-        createDate: '1988-10-10T00:00:00',
-        courseId: 1,
-        comments: [],
-        questions: []
-      }
-*/
-    ]
+    lessons: []
   };
 
   titleLesson: string;
@@ -194,9 +158,14 @@ export class CreateCoursePageComponent implements OnInit {
     if (this.questions == null){
       this.questions = [];
     }
-    this.ColorformQ = 'rgb(198,216,29,0.6)';
+    this.ColorformQ = 'rgb(198,216,29)';
     this.QuestionAdd = true;
     this.QuestionEdit = false;
+    this.Question = '';
+    this.trueanswer = '';
+    this.falseanswer1 = '';
+    this.falseanswer2 = '';
+    this.falseanswer3 = '';
   }
 
   FunctionShow(value: LessonN){
@@ -255,7 +224,7 @@ export class CreateCoursePageComponent implements OnInit {
     this.questionAux = value;
     this.QuestionAdd = false;
     this.QuestionEdit = true;
-    this.ColorformQ = 'rgba(130,177,255,0.6)';
+    this.ColorformQ = 'rgb(130,177,255)';
     this.Question = value.question;
     this.trueanswer = value.trueAnswer;
     this.falseanswer1 = value.falseAnswer1;
@@ -535,7 +504,6 @@ export class CreateCoursePageComponent implements OnInit {
 
     this.typePractice = false;
     this.typeLesson = false;
-    //En la linea de abajo agregar Id de la sesion activa
     this.questionAux = { id: 0, question: '', trueAnswer: '', falseAnswer1: '', falseAnswer2: '', falseAnswer3: '', status: true, state:true, uid: '' };
     this.QuestionAdd = false;
     this.QuestionEdit = false;
@@ -697,10 +665,3 @@ export class CreateCoursePageComponent implements OnInit {
   }
 
 }
-
-
-//    background-color: rgba(130,177,255,0.6);
-
-//    background-color: rgb(198,216,29,0.6);
-
-//    background-color: rgba(221, 10, 28, 0.73);

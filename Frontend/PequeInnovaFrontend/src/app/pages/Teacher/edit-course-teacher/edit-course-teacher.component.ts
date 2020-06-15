@@ -165,9 +165,14 @@ export class EditCourseTeacherComponent implements OnInit {
     if (this.questions == null) {
       this.questions = [];
     }
-    this.ColorformQ = 'rgb(198,216,29,0.6)';
+    this.ColorformQ = 'rgb(198,216,29)';
     this.QuestionAdd = true;
     this.QuestionEdit = false;
+    this.Question = '';
+    this.trueanswer = '';
+    this.falseanswer1 = '';
+    this.falseanswer2 = '';
+    this.falseanswer3 = '';
   }
 
   FunctionShow(value: LessonN) {
@@ -186,7 +191,7 @@ export class EditCourseTeacherComponent implements OnInit {
         this.QuestionEdit = false;
 
         this.ColorformQContainer = 'white';
-        this.ColorEditable = 'rgba(130,177,255,0.6)';
+        this.ColorEditable = 'rgb(130,177,255)';
 
         this.lessonAux = value;
         this.titleLesson = value.title;
@@ -491,7 +496,6 @@ export class EditCourseTeacherComponent implements OnInit {
 
     this.typePractice = false;
     this.typeLesson = false;
-    //En la linea de abajo agregar Id de la sesion activa
     this.questionAux = { id: 0, question: '', trueAnswer: '', falseAnswer1: '', falseAnswer2: '', falseAnswer3: '', status: true, state: true, uid: '' };
     this.QuestionAdd = false;
     this.QuestionEdit = false;

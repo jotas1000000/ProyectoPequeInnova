@@ -144,7 +144,7 @@ export class EditCourseComponent implements OnInit {
     this.functionCleanAllInputs();
     this.questions = null;
     this.questionAux = null;
-    this.ColorformQContainer = 'rgb(198,216,29,0.6)';
+    this.ColorformQContainer = 'rgba(198,216,29,0.6)';
     this.ColorEditable = 'white';
 
     this.StateAdd = true;
@@ -162,9 +162,14 @@ export class EditCourseComponent implements OnInit {
     if (this.questions == null) {
       this.questions = [];
     }
-    this.ColorformQ = 'rgb(198,216,29,0.6)';
+    this.ColorformQ = 'rgb(198,216,29)';
     this.QuestionAdd = true;
     this.QuestionEdit = false;
+    this.Question = '';
+    this.trueanswer = '';
+    this.falseanswer1 = '';
+    this.falseanswer2 = '';
+    this.falseanswer3 = '';
   }
 
   FunctionShow(value: LessonN) {
@@ -226,7 +231,7 @@ export class EditCourseComponent implements OnInit {
     this.questionAux = value;
     this.QuestionAdd = false;
     this.QuestionEdit = true;
-    this.ColorformQ = 'rgba(130,177,255,0.6)';
+    this.ColorformQ = 'rgb(130,177,255)';
     this.Question = value.question;
     this.trueanswer = value.trueAnswer;
     this.falseanswer1 = value.falseAnswer1;
@@ -487,7 +492,6 @@ export class EditCourseComponent implements OnInit {
 
     this.typePractice = false;
     this.typeLesson = false;
-    //En la linea de abajo agregar Id de la sesion activa
     this.questionAux = { id: 0, question: '', trueAnswer: '', falseAnswer1: '', falseAnswer2: '', falseAnswer3: '', status: true, state: true, uid: '' };
     this.QuestionAdd = false;
     this.QuestionEdit = false;
@@ -552,7 +556,6 @@ export class EditCourseComponent implements OnInit {
             falseAnswer3: this.form.value.falseanswer3,
             status: true,
             state: true,
-            //En la linea de abajo ingresar Id de la sesion activa
             uid: '123'
           }
         );
@@ -649,10 +652,8 @@ export class EditCourseComponent implements OnInit {
     } else {
       this.StateRequest = '......';
       this.StateProcesing = 'Procesando.....';
-      //console.log(this.course);
 
       this.courseService.updateCourse(this.course.id, this.course.areaId, this.course).subscribe((courseResponse: Course) => {
-        //setTimeout(() => {console.log(courseResponse), 8000});
         if (courseResponse != null) {
           this.course.lessons.forEach(LessonElement => {
             if (LessonElement.id > 0) {
@@ -689,31 +690,6 @@ export class EditCourseComponent implements OnInit {
         this.StateRequestBoolean = true;
 
       });
-/* 
-      this.courseService.registerNewCourse(this.course).subscribe((respCourseId: ResponseId) => {
-      console.log(respCourseId.id);
-
-      this.course.lessons.forEach(Lessonelement => {
-
-        this.lessonService.registerNewLesson(Lessonelement, this.course.areaId, respCourseId.id)
-          .subscribe((respLessonId: ResponseId) => {
-            if (Lessonelement.type === 'practice') {
-              Lessonelement.questions.forEach(Questionelement => {
-                this.questionService.registerNewQuestion(Questionelement, this.course.areaId, respCourseId.id, respLessonId.id)
-                  .subscribe(() => { });
-              });
-            }
-          });
-
-      });
-      this.StateRequest = 'Curso Creado con Exito!!';
-      this.StateProcesing = 'Proceso finalizado.';
-      this.StateRequestBoolean = true;
-
-      }); 
- */
     }
   }
-
-
 }
