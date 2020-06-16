@@ -26,9 +26,9 @@ export class InscripctionsComponent implements OnInit {
   date = new FormControl(new Date(2017, 0, 1));
   serializedDate = new FormControl((new Date()).toISOString());
 
-  hidePassword = true;
+ /*  hidePassword = true;
   hideConfirmPassword = true;
-  hide=true;
+  hide=true; */
 //form data
   form: FormGroup;
   Email = new FormControl('', [Validators.required, Validators.email, spaceValidator ]);
@@ -37,7 +37,7 @@ export class InscripctionsComponent implements OnInit {
   Birthday = new FormControl('', [Validators.required] ); //"1988-10-10T00:00:00",
   School = new FormControl('');
   Grade = new FormControl('', [Validators.required, spaceValidator] );
-  Password = new FormControl('', Validators.compose([
+/*   Password = new FormControl('', Validators.compose([
     Validators.required,
     Validators.minLength(8),
     spaceValidator,
@@ -45,10 +45,10 @@ export class InscripctionsComponent implements OnInit {
     patternValidator(/[A-Z]/),
     patternValidator(/[a-z]/),
     patternValidator(/[!@#$%&_|.]/)
-  ]));
-  ConfirmPassword = new FormControl('', [Validators.required, Validators.minLength(8) , spaceValidator] );
+  ])); */
+ /*  ConfirmPassword = new FormControl('', [Validators.required, Validators.minLength(8) , spaceValidator] );
 
-
+ */
   hideRequiredControlSchool = new FormControl(false);
   floatLabelControlSchool = new FormControl('auto');
 
@@ -147,10 +147,10 @@ export class InscripctionsComponent implements OnInit {
       Birthday: this.Birthday,
       School: this.School,
       Grade: this.Grade,
-      Password: this.Password,
-      ConfirmPassword: this.ConfirmPassword
+   /*    Password: this.Password,
+      ConfirmPassword: this.ConfirmPassword */
     },{
-      validator: MustMatch('Password', 'ConfirmPassword')
+     /*  validator: MustMatch('Password', 'ConfirmPassword') */
     });
   }
 
@@ -210,7 +210,7 @@ export class InscripctionsComponent implements OnInit {
     }
   }
 
-  getErrorMessagePassword() {
+/*   getErrorMessagePassword() {
     if (this.Password.hasError('required')) {
       return 'Introduzca algun dato';
     }
@@ -224,9 +224,9 @@ export class InscripctionsComponent implements OnInit {
       return 'La contrasena debe tener por lo menos un numero, una letra mayuscula, una letra minuscula, un caracter especial y no puede tener espacios';
     }
     
-  }
+  } */
 
-  getErrorMessageConfirmPassword() {
+/*   getErrorMessageConfirmPassword() {
     if (this.ConfirmPassword.hasError('required')) {
       return 'Introduzca algun dato';
     }
@@ -236,7 +236,7 @@ export class InscripctionsComponent implements OnInit {
     if(this.ConfirmPassword.hasError('minlength')) {
       return 'La contraseña debe tener minimo 8 caracteres';
     }
-  }
+  } */
 
 
   saveStudent(event: Event) {

@@ -82,7 +82,7 @@
         <mat-label>Curso</mat-label>
         </mat-form-field>
       </div>
-      <div class="microContainer">
+   <!--    <div class="microContainer">
         <mat-form-field class="input-Field" appearance="outline">
           <mat-label>Contraseña</mat-label>
           <input matInput placeholder="Contraseña" [formControl]="Password" [type]="hidePassword ? 'password' : 'text'" autocomplete="new-password">
@@ -103,7 +103,7 @@
           <mat-error *ngIf="ConfirmPassword.invalid">{{getErrorMessageConfirmPassword()}}</mat-error>
           <mat-error *ngIf="ConfirmPassword.errors && ConfirmPassword.errors.mustMatch">Las contraseñas deben coincidir</mat-error>
         </mat-form-field>
-      </div>
+      </div> -->
     </mat-card-content>
     <mat-card-actions>
       <button type="button" (click)="getStudent()" mdbBtn color="danger" mdbWavesEffect>Cancelar</button>
