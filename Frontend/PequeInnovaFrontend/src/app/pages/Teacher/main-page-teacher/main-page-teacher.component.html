@@ -2,8 +2,7 @@
   <div class="userbox" *ngIf="assignment">
     <div class="user userphoto">
       <img class="photo rounded-circle"
-        src="https://www.inventicons.com/uploads/iconset/1301/wm/512/teacher-male-67.png"
-        alt="">
+        src="https://www.inventicons.com/uploads/iconset/1301/wm/512/teacher-male-67.png" alt="">
     </div>
     <div class="user userdata">
       <div class="u role">
@@ -13,8 +12,10 @@
         <p class="textUser">{{assignment.areaName | slice:0:30 }}</p>
       </div>
       <div class="user userfunctions">
-        <button type="button" class="user-button teacher" [disabled]="assignment.areaName === 'Sin Area'" (click)="NavigateToMyCourses()" mdbBtn color="primary"
-          mdbWavesEffect>Mis Cursos</button>
+        <button type="button" class="user-button teacher" [disabled]="assignment.areaName === 'Sin Area'"
+          (click)="NavigateToMyCourses()" mdbBtn color="primary" mdbWavesEffect>Mis Cursos</button>
+        <button type="button" class="user-button teacher"
+          (click)="passwordModal.show()" mdbBtn color="primary" mdbWavesEffect>Cambiar contraseña</button>
       </div>
     </div>
   </div>
@@ -26,24 +27,6 @@
 
 <div class="containerCarousel">
 
-<!--   <owl-carousel-o [options]="customOptions">
-    <ng-template carouselSlide *ngFor="let slide of areas">
-      <mdb-card class="one-card">
-        <img class="card-img" [src]="slide.image" alt="Card image cap" />
-        <mdb-card-body>
-
-          <mdb-card-title>
-            <h4>{{slide.name}}</h4>
-          </mdb-card-title>
-          <mdb-card-text>
-            {{slide.description}}
-          </mdb-card-text>
-
-          <a routerLink="/areas/{{slide.id}}/courses" mdbBtn color="primary" mdbWavesEffect>ver Area</a>
-        </mdb-card-body>
-      </mdb-card>
-    </ng-template>
-  </owl-carousel-o> -->
 
   <owl-carousel-o [options]="customOptions">
     <ng-template carouselSlide *ngFor="let slide of areas">
@@ -70,6 +53,61 @@
       </div>
     </ng-template>
   </owl-carousel-o>
+</div>
 
 
+<div mdbModal #passwordModal="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="passwordModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Editar datos del maestro</h4>
+      </div> -->
+      <div class="modal-body">
+        <form [formGroup]="form" (ngSubmit)="changePassword($event)">
+          <mat-card class="card-container">
+            <mat-card-header>
+              <mat-card-title>Editar Maestro</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="card-content-container">
+
+              <div class="microContainer">
+                <mat-form-field class="input-Field">
+                  <input placeholder="Anterior Contraseña" formControlName="OldPassword" matInput type="password">
+                </mat-form-field>
+              </div>
+
+              <div class="microContainer">
+                <mat-form-field class="input-Field">
+                  <input placeholder="Nueva Contraseña" formControlName="NewPassword" matInput type="password">
+                </mat-form-field>
+              </div>
+
+              <div class="microContainer">
+                <mat-form-field class="input-Field">
+                  <input placeholder="Confirmar Nueva contraseña" formControlName="ConfirmPassword" matInput type="password">
+                  <mat-error *ngIf="ConfirmPassword.invalid">{{getErrorMessageConfirmPassword()}}</mat-error>
+                  <mat-error *ngIf="ConfirmPassword.errors && ConfirmPassword.errors.mustMatch">Las contraseñas deben coincidir</mat-error>
+                </mat-form-field>
+              </div>
+
+
+            </mat-card-content>
+            <mat-card-actions>
+              <button type="button" class="btn edit-form" (click)="FunctionEscape(); passwordModal.hide()" mdbBtn
+                color="danger" mdbWavesEffect>Cancelar</button>
+              <button [disabled]="form.invalid" type="submit" class="btn edit-form" (click)="passwordModal.show()"
+                mdbBtn color="info" mdbWavesEffect>Aceptar</button>
+              <!--  <button [disabled]="form.invalid" mat-raised-button type="submit">Guardar</button> -->
+              <br>
+              {{messageBinding}}
+            </mat-card-actions>
+          </mat-card>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

@@ -19,7 +19,7 @@ export class AdminGuard implements CanActivate {
 
     const currentUser = this.authenticationService.currentUserValue;
     const booler = this.authenticationService.getBoolRoleUSer;
-    if (currentUser.role === 'Administrador')
+    if (currentUser.role === 'Administrador' || currentUser.role === 'administrador')
     {
       return true;
     }

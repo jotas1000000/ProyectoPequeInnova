@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient,HttpErrorResponse } from '@angular/common/http';
-import {environment} from './../../../../environments/environment';
+import {environment} from './../../../../environments/environment.prod';
 import { Teacher } from '../../models/Teacher.model';
 import { Observable } from 'rxjs';
 import { RegisterTeacher } from '../../models/RegisterTeacher.model';

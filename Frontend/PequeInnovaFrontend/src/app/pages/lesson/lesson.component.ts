@@ -96,10 +96,10 @@ export class LessonComponent implements OnInit {
   }
 
   private getLessonsWithCommentsData(): void {
-    this.lessonsService.getLessonsWithComments(this.areaId,this.courseId)
+    this.lessonsService.getLessonsWithComments(this.areaId, this.courseId)
       .subscribe(data => {
         this.lessons = data;
-        console.log(data[0]) });
+        console.log(data[0])});
   }
 
   getLessonData(): void {
@@ -119,8 +119,9 @@ export class LessonComponent implements OnInit {
     this.myComment.lessonId = this.lessonId;
     this.myComment.description = this.newComment;
     if (this.newComment !== null || this.newComment !== '') {
-      this.commentService.postComment(this.myComment).subscribe();
-      this.getLessonsWithCommentsData();
+      this.commentService.postComment(this.myComment).subscribe(data => {
+        this.getLessonsWithCommentsData();
+      });
     }
     this.newComment = '';
     this.myComment = null;
@@ -134,8 +135,9 @@ export class LessonComponent implements OnInit {
 
 
   deleteComment(){
-    this.commentService.deleteComment(this.delComment.userId, this.delComment.id).subscribe(); 
-    this.getLessonsWithCommentsData();
+    this.commentService.deleteComment(this.delComment.userId, this.delComment.id).subscribe(data => {
+      this.getLessonsWithCommentsData();
+    });
   }
 
   private setCourseData(): void {

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Routing;
 using PequeInnovaAPI.Models;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +13,7 @@ using PequeInnovaAPI.Exceptions;
 
 namespace PequeInnovaAPI.Controllers
 {
+    [Authorize(Roles = "Profesor, Estudiante, Administrador")]
     [Route("api/[Controller]")]
     public class SchoolController : ControllerBase
     {
@@ -21,6 +22,7 @@ namespace PequeInnovaAPI.Controllers
         {
             this.schoolService = schoolService;
         }
+        [AllowAnonymous]
         [HttpGet()]
         public async Task<ActionResult<IEnumerable<School>>> Get(string orderBy = "Id")
         {
@@ -38,6 +40,7 @@ namespace PequeInnovaAPI.Controllers
 
             }
         }
+        [AllowAnonymous]
         [HttpGet("{schoolID:int}")]
         public async Task<ActionResult<School>> Get(int schoolID)
         {
@@ -56,6 +59,7 @@ namespace PequeInnovaAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Something bad happened: {ex.Message}");
             }
         }
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         public async Task<ActionResult<School>> Post([FromBody] School school)
         {
@@ -67,7 +71,7 @@ namespace PequeInnovaAPI.Controllers
             var newSchool = await this.schoolService.CreateSchoolAsync(school);
             return Created($"/api/school/{newSchool.Id}", newSchool);
         }
-
+        [Authorize(Roles = "Administrador")]
         [HttpPut("{schoolID:int}/status")]
         public async Task<ActionResult<bool>> Delete(int schoolID)
         {
@@ -81,6 +85,7 @@ namespace PequeInnovaAPI.Controllers
             }
 
         }
+        [Authorize(Roles = "Administrador")]
         [HttpPut("{schoolID}")]
         public async Task<ActionResult<School>> Update(int schoolID, [FromBody] School school)
         {

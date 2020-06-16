@@ -35,7 +35,7 @@ h1{
     justify-content: space-between;
     margin-bottom: 20px;
     margin-top: 20px;
-
+    border-radius: 35px;
     margin-left: auto;
     margin-right: auto;
     //border: 2px solid red;
@@ -151,6 +151,10 @@ form{
     flex-direction: column;
 }
    // border:2px solid red;
+.table-add.float-right.mb-3.mr-2 {
+    margin: 25px 15px 15px 15px !important;
+}
+   // border:2px solid red;
 .text-success{
     margin-left: 15px;
 }
@@ -189,6 +193,7 @@ form{
     display: flex;
     justify-content: center;
     align-items: center;
+    
   //  border: 2px solid red;
 }
 
@@ -201,6 +206,7 @@ form{
     justify-content: center;
     align-items: center;
    // border: 2px solid red;
+   border-radius: 35px;
     flex-direction: column;
     width: 100%;
 }

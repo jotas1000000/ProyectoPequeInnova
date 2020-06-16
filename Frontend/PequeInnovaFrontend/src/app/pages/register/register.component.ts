@@ -202,28 +202,6 @@ export class RegisterComponent implements OnInit {
         alert('Ups algo salio mal, intente de nuevo. Si el problema persiste contactese con Soporte Tenico!');
       });
      }
- /*   if (this.form.valid) {
-      const student: RegisterStudent = this.form.value;
-      student.Age = 10;
-      student.Uid = '123';
-      student.Birthday = formatDate(student.Birthday, 'yyyy-MM-ddTHH:mm:ss', 'en-US', 'undefined');//'+0430'
-      this.studentService.registerStudent(student)
-      .subscribe((result) => {
-        this.stateRequest = result.isSuccess;
-        if(result.isSuccess){
-          setTimeout(() => {
-            this.messageBinding = 'Inscripcion exitosa ya puedes ingresar';
-          }, 2000);
-        }else
-        {
-          setTimeout(() => {
-            this.messageBinding = result.message;
-          }, 2000);
-        }
-
-        //this.router.navigate(['./admin/products']);
-      });
-    } */
   }
 
  
@@ -251,34 +229,3 @@ export class RegisterComponent implements OnInit {
       }
     }
 }
-
-
-//formatDate(value: string | number | Date, format: string, locale: string, timezone?: string): string
-
-
-/* @Component({
-  selector: 'dialog-overview-example-dialog',
-  template: `<h1 mat-dialog-title>Hi {{data.name}}</h1>
-  <div mat-dialog-content>
-    <p>What's your favorite animal?</p>
-    <mat-form-field>
-      <mat-label>Favorite Animal</mat-label>
-      <input matInput [(ngModel)]="data.animal">
-    </mat-form-field>
-  </div>
-  <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
-  </div>`,
-})
-export class DialogOverviewExampleDialogComponent {
-
-  constructor(
-    public dialogRef: MatDialogRef<DialogOverviewExampleDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-} */

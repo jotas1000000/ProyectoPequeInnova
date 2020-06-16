@@ -57,14 +57,10 @@ export class RegisterTeacherComponent implements OnInit {
         //console.log(result);
         this.stateRequest = result.isSuccess;
         if(result.isSuccess){
-          setTimeout(() => {
-            this.messageBinding = 'Inscripcion exitosa ya puedes ingresar';
-          }, 2000);
+          this.messageBinding = 'Registro exitoso';
         }else
         {
-          setTimeout(() => {
-            this.messageBinding = result.message;
-          }, 2000);
+          this.messageBinding = result.message;
         }
 
       });

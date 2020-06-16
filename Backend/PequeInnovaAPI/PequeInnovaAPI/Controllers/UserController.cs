@@ -9,9 +9,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PequeInnovaAPI.Controllers
 {
+    [Authorize(Roles = "Profesor, Estudiante, Administrador")]
     [Route("api/[Controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -21,7 +23,7 @@ namespace PequeInnovaAPI.Controllers
         {
             this.service = service;
         }
-
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpGet("Teachers")]
         public async Task<IActionResult> getTeachers()
         {
@@ -36,6 +38,7 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
+        [Authorize(Roles = "Administrador")]
         [HttpPut("{userId:maxlength(38)}/DeleteUser")]
         public async Task<IActionResult> deleteUser(string userId)
         {
@@ -50,7 +53,7 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
-
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpPost("Assignment")]
         public async Task<IActionResult> postAssignment([FromBody] AssignmentModel assignment)
         {
@@ -65,6 +68,7 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpGet("Assignment")]
         public async Task<IActionResult> getAssignments()
         {
@@ -79,8 +83,9 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
+        [Authorize(Roles = "Administrador")]
         [HttpPut("Assignment/{assignmentId:int}")]
-        public async Task<IActionResult> putAssignments(int assignmentId, [FromBody] AssignmentModel assignment  )
+        public async Task<IActionResult> putAssignments(int assignmentId, [FromBody] AssignmentModel assignment)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +98,7 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
-
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpGet("{userId:maxlength(38)}/Assignment")]
         public async Task<IActionResult> getAssignment(string userId)
         {
@@ -108,6 +113,7 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpGet("{userId:maxlength(38)}/Teacher")]
         public async Task<IActionResult> getTeacher(string userId)
         {
@@ -122,6 +128,7 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpGet("TeachersForAssignment")]
         public async Task<IActionResult> getTeacherForAssignment()
         {
@@ -139,7 +146,7 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Some properties are not valid");
         }
-
+        [Authorize(Roles = "Profesor, Administrador")]
         [HttpDelete("Assignment/{assignmentId:int}/DeleteAssignment")]
         public async Task<IActionResult> deleteAssignment(int assignmentId)
         {
@@ -154,7 +161,7 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
-
+        [Authorize(Roles = "Profesor, Estudiante, Administrador")]
         [HttpGet("UsersComments")]
         public async Task<IActionResult> GetUsersComments()
         {
@@ -172,7 +179,7 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Some properties are not valid");
         }
-
+        [Authorize(Roles = "Administrador")]
         [HttpGet("Students")]
         public async Task<IActionResult> GetStudents()
         {
@@ -190,7 +197,7 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Some properties are not valid");
         }
-
+        [Authorize(Roles = "Profesor, Estudiante, Administrador")]
         [HttpPost("CreateComment")]
         public async Task<IActionResult> postComments([FromBody] CommentModel comment)
         {
@@ -199,13 +206,13 @@ namespace PequeInnovaAPI.Controllers
                 var result = await service.postComment(comment);
                 if (result != null)
                 {
-                    return Created("api/",result);
+                    return Created("api/", result);
                 }
             }
 
             return BadRequest("Algo salio mal en la peticion");
         }
-
+        [Authorize(Roles = "Profesor, Estudiante, Administrador")]
         [HttpPut("{userId:maxlength(38)}/DeleteComment/{commentId:int}")]//regex(^[[a-z]]{{8}}-[[a-z]]{{4}}-[[a-z]]{{4}}-[[a-z]]{{4}}-[[a-z]]{{12}}$)
         public async Task<IActionResult> deleteComment(string userId, int commentId)
         {
@@ -221,7 +228,7 @@ namespace PequeInnovaAPI.Controllers
             return BadRequest("Algo salio mal en la peticion");
         }
 
-
+        [Authorize(Roles = "Administrador")]
         [HttpPut("UpdateStudent")]
         public async Task<IActionResult> updateStudent([FromBody] UpdateStudent student)
         {
@@ -236,7 +243,7 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
-
+        [Authorize(Roles = "Administrador")]
         [HttpPut("UpdateTeacher")]
         public async Task<IActionResult> updateTeacher([FromBody] UpdateTeacher teacher)
         {
@@ -251,7 +258,37 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
-        
+
+        [HttpPut("{userId:maxlength(38)}/SetPassword")]
+        public async Task<IActionResult> setPassword(string userId,[FromBody] SetPasswordModel newpassword)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await service.setpassword(userId, newpassword);
+                if (result)
+                {
+                    return Ok(result);
+                }
+            }
+            return Ok(false);
+
+        }
+        [HttpPut("{userId:maxlength(38)}/SetPasswordToUser")]
+        public async Task<IActionResult> setPasswordToUser(string userId, [FromBody] SetPasswordModel newpassword)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await service.setpasswordtouser(userId, newpassword);
+                if (result)
+                {
+                    return Ok(result);
+                }
+            }
+            return Ok(false);
+
+        }
+
+        [Authorize(Roles = "Profesor, Estudiante, Administrador")]
         [HttpGet("Inscriptions")]
         public async Task<IActionResult> getInscriptions()
         {
@@ -266,6 +303,7 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
+        [Authorize(Roles = "Profesor, Estudiante, Administrador")]
         [HttpGet("{userId:maxlength(38)}/InscriptionsUser")]
         public async Task<IActionResult> getInscriptionsUser(string userId)
         {
@@ -280,7 +318,7 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
-
+        [Authorize(Roles = "Profesor, Estudiante, Administrador")]
         [HttpPut("ApproveInscription/{inscriptionId:int}")]
         public async Task<IActionResult> approveInscription(int inscriptionId)
         {
@@ -295,8 +333,8 @@ namespace PequeInnovaAPI.Controllers
 
             return BadRequest("Algo salio mal en la peticion");
         }
-        
-        
+
+        [Authorize(Roles = "Profesor, Estudiante, Administrador")]
         [HttpPut("DeleteInscription/{inscriptionId:int}")]
         public async Task<IActionResult> deleteInscription(int inscriptionId)
         {
@@ -312,7 +350,7 @@ namespace PequeInnovaAPI.Controllers
             return BadRequest("Algo salio mal en la peticion");
         }
 
-
+        [Authorize(Roles = "Profesor, Estudiante, Administrador")]
         [HttpPost("CreateInscription")]
         public async Task<IActionResult> postInscription([FromBody] InscriptionModel inscription)
         {

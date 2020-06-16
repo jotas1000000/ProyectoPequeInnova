@@ -18,7 +18,7 @@ export class TeacherGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       const currentUser = this.authenticationService.currentUserValue;
       const booler = this.authenticationService.getBoolRoleUSer;
-      if (currentUser.role === 'Profesor' || currentUser.role === 'Administrador')
+      if (currentUser.role === 'Profesor' || currentUser.role === 'Administrador' ||  currentUser.role === 'administrador')
       {
         return true;
       }

@@ -54,5 +54,7 @@ namespace PequeInnovaAPI.Services
         Task<GetTeachersModel> GetTeacher(string userId);
 
         Task<bool> updateUser(string userId,RegisterStudentModel model);
+        Task<bool> setpassword(string userId, SetPasswordModel setpassword);
+        Task<bool> setpasswordtouser(string userId, SetPasswordModel setpassword);
     }
 }
