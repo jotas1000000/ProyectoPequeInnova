@@ -1,88 +1,105 @@
 <ul class="list-unstyled list-inline ">
   <li class="list-inline-item">
-    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink = "/home"> <mdb-icon fas icon="home" ></mdb-icon></a>
+    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink="/home">
+      <mdb-icon fas icon="home"></mdb-icon>
+    </a>
   </li>
   <li class="list-inline-item">
-    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink = "/areas" ><mdb-icon fas icon="book"></mdb-icon></a>
+    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink="/areas">
+      <mdb-icon fas icon="book"></mdb-icon>
+    </a>
   </li>
   <li class="list-inline-item">
-    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink = "/areas/{{areaId}}/courses" ><mdb-icon fas icon="book-open"></mdb-icon></a>
+    <a mdbBtn size="lg" color="default" class="  waves-light" mdbWavesEffect routerLink="/areas/{{areaId}}/courses">
+      <mdb-icon fas icon="book-open"></mdb-icon>
+    </a>
   </li>
   <li class="list-inline-item">
-    <a mdbBtn size="lg" color="default" class="  waves-light" disablemdbWavesEffect routerLink = "/areas/{{areaId}}/courses/{{courseId}}/lessons"><mdb-icon fas icon="pen" class="pr-1"></mdb-icon>{{courseName | slice:0:30}}</a>
+    <a mdbBtn size="lg" color="default" class="  waves-light" disablemdbWavesEffect
+      routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons">
+      <mdb-icon fas icon="pen" class="pr-1"></mdb-icon>{{courseName | slice:0:30}}
+    </a>
   </li>
- 
+
 </ul>
 
 <section class="my-4">
- 
+
   <div class="col-md-12 mb-4 text-default text-center">
     <h1 class="h1-reponsive text-uppercase font-weight-bold mb-0 pt-md-0 pt-0">
-      <strong><mdb-icon fas size= "lg" icon="check" class="pr-2"></mdb-icon>{{lessonTitle| slice:0:30}} </strong></h1>
+      <strong>
+        <mdb-icon fas size="lg" icon="check" class="pr-2"></mdb-icon>{{lessonTitle| slice:0:30}}
+      </strong></h1>
     <hr class="hr-black my-4">
-     <h2 class="text-uppercase mb-4 black-text "><strong>{{lessonDescription|slice:0:100}}</strong></h2>
- 
+    <h2 class="text-uppercase mb-4 black-text "><strong>{{lessonDescription|slice:0:100}}</strong></h2>
+
   </div>
 
   <!-- Grid row -->
-<div class = "background-container">
-  <hr class="hr-black my-4">
-<div class="media">  
+  <div class="background-container">
+    <hr class="hr-black my-4">
+    <div class="media">
 
-    <!-- Grid column -->
-    
-    <div class="col-md-10 col-lg-9 col-xl-8 mb-r">
+      <!-- Grid column -->
+
+      <div class="col-md-10 col-lg-9 col-xl-8 mb-r">
         <h4 class="card-header cyan white-text text-uppercase text-center">Preguntas</h4>
-      <!--Panel-->
-   
-      <ng-container *ngFor = "let question of questions | shuffle">
-        <div class="card card-body mb-3">
+        <!--Panel-->
+
+        <ng-container *ngFor="let question of questions | shuffle">
+          <div class="card card-body mb-3">
             <div class="media d-block d-md-flex">
               <div class="media-body text-center text-md-left ml-md-3 ml-0">
 
-                  <h3>{{question.question | slice:0:100}}</h3>
-            
-                  <ng-container *ngFor= "let answer of answers, index as i">
-                    <div *ngIf ="question.question == answer.question  ">
-                      <ng-container *ngFor = "let answer2 of answers[i].answers | shuffle, index as j">
-                        <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="defaultUnchecked{{answers[i].question}}{{answer2.item1}}{{i}}" 
-                                name="{{answers[i].question}}" (click)="checkAnswer(question.question,answer2.item2)" mdbInput>
-                                <label class="custom-control-label" for="defaultUnchecked{{answers[i].question}}{{answer2.item1}}{{i}}"><h5>{{answer2.item1}}</h5></label>
-                                <label *ngIf="answer2.item2 != true">{{answer2.item2 == true ? "bien" : "mal"}}</label>
-                           
+                <h3>{{question.question | slice:0:100}}</h3>
 
-                        </div>
-                      </ng-container>
-                    </div>
-                  </ng-container>
-                
+                <ng-container *ngFor="let answer of answers, index as i">
+                  <div *ngIf="question.question == answer.question  ">
+                    <ng-container *ngFor="let answer2 of answers[i].answers | shuffle, index as j">
+                      <div class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input"
+                          id="defaultUnchecked{{answers[i].question}}{{answer2.item1}}{{i}}"
+                          name="{{answers[i].question}}" (click)="checkAnswer(question.question,answer2.item2)"
+                          mdbInput>
+                        <label class="custom-control-label"
+                          for="defaultUnchecked{{answers[i].question}}{{answer2.item1}}{{i}}">
+                          <h5>{{answer2.item1}}</h5>
+                        </label>
+                        <label *ngIf="answer2.item2 != true">{{answer2.item2 == true ? "bien" : "mal"}}</label>
+
+
+                      </div>
+                    </ng-container>
+                  </div>
+                </ng-container>
+
               </div>
             </div>
-        </div>
-      </ng-container>
-            
-    
-  
-      <div class = "d-flex justify-content-center">
-        <a mdbBtn position="text-center" color="default" (click)= "verifyTest(); frame.show()"mdbWavesEffect >
-          <mdb-icon fas size= "lg" icon="check" class="pr-1"></mdb-icon>
-          Terminar</a>
-      </div>
-    </div>
-    
-    
-    <!-- Grid column -->
-  
-  </div>
+          </div>
+        </ng-container>
 
-  <!-- Grid row -->
-</div>
+
+
+        <div class="d-flex justify-content-center">
+          <a mdbBtn position="text-center" color="default" (click)="verifyTest(); frame.show()" mdbWavesEffect>
+            <mdb-icon fas size="lg" icon="check" class="pr-1"></mdb-icon>
+            Terminar
+          </a>
+        </div>
+      </div>
+
+
+      <!-- Grid column -->
+
+    </div>
+
+    <!-- Grid row -->
+  </div>
 </section>
 
 
-<div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
+<div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
   <ng-container *ngIf="aprovePractice == true">
     <div class="modal-dialog modal-notify modal-success" role="document">
       <!--Content-->
@@ -90,8 +107,7 @@
         <!--Header-->
         <div class="modal-header d-flex justify-content-center">
           <p class="heading lead" text-center>Curso Aprobado</p>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-            (click)="frame.hide()">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
             <span aria-hidden="true" class="white-text">&times;</span>
           </button>
         </div>
@@ -107,9 +123,9 @@
 
         <!--Footer-->
         <div class="modal-footer justify-content-center">
-          
+
           <a type="button" mdbBtn color="success" class="waves-effect" mdbWavesEffect>
-            <mdb-icon fas size= "lg" icon="pen" class="pr-1"></mdb-icon>Ir a Curso
+            <mdb-icon fas size="lg" icon="pen" class="pr-1"></mdb-icon>Ir a Curso
           </a>
         </div>
       </div>
@@ -124,12 +140,11 @@
         <!--Header-->
         <div class="modal-header d-flex justify-content-center">
           <p class="heading">Curso Reprobado</p>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-          (click)="frame.hide()">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
             <span aria-hidden="true" class="white-text">&times;</span>
           </button>
         </div>
-  
+
         <!--Body-->
         <div class="modal-body">
           <div class="text-center">
@@ -138,13 +153,14 @@
             <p> {{totalTrueQuestions}} / {{totalQuestions}} Respuestas Correctas.</p>
           </div>
         </div>
-  
+
         <!--Footer-->
         <div class="modal-footer justify-content-center">
-          
-          <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" 
-          routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons">
-            <mdb-icon fas size= "lg" icon="pen" class="pr-1"></mdb-icon>Ir a Curso</a>
+
+          <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal"
+            routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons">
+            <mdb-icon fas size="lg" icon="pen" class="pr-1"></mdb-icon>Ir a Curso
+          </a>
         </div>
       </div>
       <!--/.Content-->

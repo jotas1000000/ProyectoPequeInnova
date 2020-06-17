@@ -75,6 +75,7 @@ export class TeacherContolPageComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.authenticationService.currentUserValue;
     this.teacherService.getAllTeachersWithAssignments().subscribe(data => this.teachers = data);
+    console.log(this.teachers);
     this.mdbTable.setDataSource(this.teachers);
     this.previous = this.mdbTable.getDataSource();
     this.areaService.getAreaList().subscribe(data => this.areas = data);

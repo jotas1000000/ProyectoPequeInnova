@@ -13,6 +13,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { RegisterStudent } from 'src/app/core/models/RegisterStudent.model';
 import { formatDate } from '@angular/common';
 import { MustMatch } from 'src/app/validators/MustMatch.validator';
+import { ForcePasswordChange } from 'src/app/core/models/ForcePasswordChange';
+import { PasswordService } from 'src/app/core/services/password/password.service';
+import { User } from 'src/app/core/models/User.model';
+import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 
 
 @Component({
@@ -37,7 +41,9 @@ export class InscripctionsComponent implements OnInit {
   Birthday = new FormControl('', [Validators.required] ); //"1988-10-10T00:00:00",
   School = new FormControl('');
   Grade = new FormControl('', [Validators.required, spaceValidator] );
-/*   Password = new FormControl('', Validators.compose([
+
+  passwordForm: FormGroup;
+  NewPassword = new FormControl('', Validators.compose([
     Validators.required,
     Validators.minLength(8),
     spaceValidator,
@@ -45,10 +51,9 @@ export class InscripctionsComponent implements OnInit {
     patternValidator(/[A-Z]/),
     patternValidator(/[a-z]/),
     patternValidator(/[!@#$%&_|.]/)
-  ])); */
- /*  ConfirmPassword = new FormControl('', [Validators.required, Validators.minLength(8) , spaceValidator] );
+  ]));
+  ConfirmPassword = new FormControl('', [Validators.required, Validators.minLength(8), spaceValidator]);
 
- */
   hideRequiredControlSchool = new FormControl(false);
   floatLabelControlSchool = new FormControl('auto');
 
@@ -70,10 +75,15 @@ export class InscripctionsComponent implements OnInit {
   //actual student vars
   actualStudent : Student = new Student();  
 
+  //
+  adminUser: User;
+
+
   //inscription data
   idDeleteInscription : number;
   rowNumber: number;
   public inscription: any = [];
+  private updatePassword: ForcePasswordChange;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -81,12 +91,15 @@ export class InscripctionsComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private schoolService: SchoolService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private passwordService: PasswordService,
+    private authenticationService: AuthenticationService
     ) {
       this.buildForm();
     } 
 
   ngOnInit(): void {
+    this.adminUser = this.authenticationService.currentUserValue;
     this.inscription = null;
     this.setRouteVariables();
     this.getStudent();
@@ -127,6 +140,7 @@ export class InscripctionsComponent implements OnInit {
       }
     });
   }
+
   setDataDeleteIncription(idInscription: number, rNumber: number){
 
     this.rowNumber= rNumber;
@@ -210,23 +224,51 @@ export class InscripctionsComponent implements OnInit {
     }
   }
 
-/*   getErrorMessagePassword() {
-    if (this.Password.hasError('required')) {
+  forceChangePassword(event:Event){
+    this.updatePassword = this.passwordForm.value;
+    this.updatePassword.Id = this.userId;
+    console.log(this.updatePassword);
+    console.log(this.updatePassword.Id);
+    const bodyRequest = {
+        Id: this.userId,
+        OldPassword: '',
+        NewPassword: this.passwordForm.value.NewPassword
+    };
+    console.log(bodyRequest);
+    this.passwordService.forceChangePassword(this.adminUser.id, bodyRequest).subscribe((result) => {
+    this.stateRequest = result.isSuccess;
+    console.log(result);
+    if (result){
+      this.messageBinding = 'Contraseña cambiada correctamente';
+      this.stateRequest = true;
+      this.FunctionEscape();
+    }else
+    {
+      this.messageBinding = 'Error al cambiar contraseña, revise los datos e intente de nuevo';
+    }
+    }, error => {
+      alert('Ups algo salio mal, intente de nuevo. Si el problema persiste contactese con Soporte Tecnico!');
+    }); 
+
+  }
+  
+  getErrorMessagePassword() {
+    if (this.NewPassword.hasError('required')) {
       return 'Introduzca algun dato';
     }
-    if(this.Password.hasError('spaceValid')) {
+    if(this.NewPassword.hasError('spaceValid')) {
       return 'No se puede comenzar con espacio';
     }
-    if(this.Password.hasError('minlength')) {
+    if(this.NewPassword.hasError('minlength')) {
       return 'La contraseña debe tener minimo 8 caracteres';
     }
-    if(this.Password.hasError('patternValidator')) {
+    if(this.NewPassword.hasError('patternValidator')) {
       return 'La contrasena debe tener por lo menos un numero, una letra mayuscula, una letra minuscula, un caracter especial y no puede tener espacios';
     }
     
-  } */
+  }
 
-/*   getErrorMessageConfirmPassword() {
+  getErrorMessageConfirmPassword() {
     if (this.ConfirmPassword.hasError('required')) {
       return 'Introduzca algun dato';
     }
@@ -236,7 +278,7 @@ export class InscripctionsComponent implements OnInit {
     if(this.ConfirmPassword.hasError('minlength')) {
       return 'La contraseña debe tener minimo 8 caracteres';
     }
-  } */
+  }
 
 
   saveStudent(event: Event) {
