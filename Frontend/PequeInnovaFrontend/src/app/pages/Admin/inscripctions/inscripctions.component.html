@@ -107,7 +107,7 @@
       <button type="button" (click)="getStudent()" mdbBtn color="danger" mdbWavesEffect>Cancelar</button>
       <button [disabled]="form.invalid" type="submit" (click)="saveStudent($event)" mdbBtn color="info"
         mdbWavesEffect>Editar</button>
-       <button  type="submit" (click)="passwordModal.show()"  mdbBtn color="info"
+       <button  type="button" (click)="passwordModal.show()"  mdbBtn color="info"
         mdbWavesEffect>Editar Contraseña</button>
     </mat-card-actions>
   </mat-card>
@@ -207,7 +207,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal2.hide()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="passwordModal.hide()">
           <span aria-hidden="true">x</span>
         </button>
 
@@ -218,8 +218,7 @@
       <div class="modal-body">
         <form [formGroup]="passwordForm" (ngSubmit)="forceChangePassword($event)">
           <mat-card class="card-container">
-          
-            <mat-card-content class="card-content-container">
+             <mat-card-content class="card-content-container">
 
               
                 <mat-form-field class="input-Field">
@@ -234,21 +233,18 @@
                   <mat-error *ngIf="ConfirmPassword.invalid">{{getErrorMessageConfirmPassword()}}</mat-error>
                   <mat-error *ngIf="ConfirmPassword.errors && ConfirmPassword.errors.mustMatch">Las contraseñas deben
                     coincidir</mat-error>
-                </mat-form-field>
-              
+                </mat-form-field>           
 
 
-            </mat-card-content>
-         
+            </mat-card-content>         
           </mat-card>
+          <div class="modal-footer">
+            <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="passwordModal.hide()"
+              mdbWavesEffect>Cerrar</button>
+            <button type="button" mdbBtn color="danger" type="submit" class="relative waves-light"
+              (click)="passwordModal.hide(); " mdbWavesEffect>Aceptar</button>
+          </div>
         </form>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="basicModal2.hide()"
-          mdbWavesEffect>Cerrar</button>
-        <button type="button" mdbBtn color="danger" type="submit" class="relative waves-light"
-          (click)="passwordModal.hide(); " mdbWavesEffect>Aceptar</button>
       </div>
     </div>
   </div>

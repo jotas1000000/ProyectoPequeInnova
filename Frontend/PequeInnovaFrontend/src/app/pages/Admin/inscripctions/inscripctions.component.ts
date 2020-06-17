@@ -96,6 +96,7 @@ export class InscripctionsComponent implements OnInit {
     private authenticationService: AuthenticationService
     ) {
       this.buildForm();
+      this.buildPasswordForm();
     } 
 
   ngOnInit(): void {
@@ -152,6 +153,16 @@ export class InscripctionsComponent implements OnInit {
     this.inscription.splice(this.rowNumber, 1);
   }
 
+  private async buildPasswordForm() {
+    this.passwordForm = this.formBuilder.group({
+
+      NewPassword: this.NewPassword,
+      ConfirmPassword: this.ConfirmPassword
+
+    },{
+      validator: MustMatch('NewPassword', 'ConfirmPassword')
+    });
+  }
   
   private buildForm() {
     this.form = this.formBuilder.group({
@@ -225,16 +236,15 @@ export class InscripctionsComponent implements OnInit {
   }
 
   forceChangePassword(event:Event){
-    this.updatePassword = this.passwordForm.value;
-    this.updatePassword.Id = this.userId;
-    console.log(this.updatePassword);
-    console.log(this.updatePassword.Id);
+    //console.log(this.passwordForm);
+   /*  this.updatePassword = this.NewPassword.value;
+    this.updatePassword.Id = this.userId; */
     const bodyRequest = {
         Id: this.userId,
         OldPassword: '',
         NewPassword: this.passwordForm.value.NewPassword
     };
-    console.log(bodyRequest);
+
     this.passwordService.forceChangePassword(this.adminUser.id, bodyRequest).subscribe((result) => {
     this.stateRequest = result.isSuccess;
     console.log(result);
@@ -248,7 +258,7 @@ export class InscripctionsComponent implements OnInit {
     }
     }, error => {
       alert('Ups algo salio mal, intente de nuevo. Si el problema persiste contactese con Soporte Tecnico!');
-    }); 
+    });
 
   }
   

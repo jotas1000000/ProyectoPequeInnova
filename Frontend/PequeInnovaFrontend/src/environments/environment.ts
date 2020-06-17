@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   //apiUrl: ''
-  apiUrl: 'https://pequeinnovaapi20200611121153.azurewebsites.net/api'
+  apiUrl: 'https://localhost:44386/api'
+  //apiUrl: 'https://pequeinnovaapi20200611121153.azurewebsites.net/api'
 };
 
 /*
