@@ -65,7 +65,6 @@
                           for="defaultUnchecked{{answers[i].question}}{{answer2.item1}}{{i}}">
                           <h5>{{answer2.item1}}</h5>
                         </label>
-                        <label *ngIf="answer2.item2 != true">{{answer2.item2 == true ? "bien" : "mal"}}</label>
 
 
                       </div>
@@ -124,7 +123,7 @@
         <!--Footer-->
         <div class="modal-footer justify-content-center">
 
-          <a type="button" mdbBtn color="success" class="waves-effect" mdbWavesEffect>
+          <a type="button" mdbBtn color="success" routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons" class="waves-effect" mdbWavesEffect>
             <mdb-icon fas size="lg" icon="pen" class="pr-1"></mdb-icon>Ir a Curso
           </a>
         </div>
