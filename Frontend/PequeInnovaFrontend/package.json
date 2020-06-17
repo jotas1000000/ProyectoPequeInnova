@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
+    "@angular/youtube-player": "^9.2.4",
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@types/chart.js": "^2.9.19",
     "@types/jquery": "^3.3.38",
