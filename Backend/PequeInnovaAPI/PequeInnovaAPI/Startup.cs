@@ -58,6 +58,7 @@ namespace PequeInnovaAPI
             services.AddIdentity<ApplicationUser, IdentityRole>(options => {
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
+                //options.SignIn.RequireConfirmedEmail = true;
             }).AddEntityFrameworkStores<ApiDbContext>()
             .AddDefaultTokenProviders();
 

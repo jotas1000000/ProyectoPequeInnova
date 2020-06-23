@@ -31,7 +31,7 @@ export class LessonComponent implements OnInit {
   public courses = [];
   public areas = [];
   public lessons = [];
-  public mainLesson : any;
+  public mainLesson: any;
 
   // Route vars
   areaId: number;
@@ -44,18 +44,18 @@ export class LessonComponent implements OnInit {
   lessonName: string;
   slides: any = [];
 
-  //Lesson vars
+  // Lesson vars
   lessonPage: number;
   sanitizer2: any;
 
-  //Comment vars
-  myComment : Comment;
+  // Comment vars
+  myComment: Comment;
   newComment = '';
   placeComment: string;
   delComment: Comment;
 
 
-  //User vars
+  // User vars
   user: User = null;
   userId: string = null;
   userName: string = null;
@@ -64,7 +64,7 @@ export class LessonComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.authenticationService.currentUserValue;
     this.setUserVariables();
-    this.lessonPage=1;
+    this.lessonPage = 1;
 
     this.setRouteVariables();
     this.setCourseData();
@@ -74,43 +74,48 @@ export class LessonComponent implements OnInit {
   private setUserVariables(): void{
     this.user = this.authenticationService.currentUserValue;
     if (this.user){
-      this.userId= this.user.id;
-      this.userName= this.user.userName;
-      this.userRol= this.user.role;
+      this.userId = this.user.id;
+      this.userName = this.user.userName;
+      this.userRol = this.user.role;
     }
   }
 
   private setRouteVariables(): void {
     this.activatedRoute.params.subscribe(params => {
-      this.areaId = params['areaId'];
-      this.courseId = params['courseId'];
-      this.lessonId = params['lessonId'];
+      this.areaId = params.areaId;
+      this.courseId = params.courseId;
+      this.lessonId = params.lessonId;
       this.getLessonData();
     });
 
   }
 
   private getLessonsData(): void {
-    this.lessonsService.getLessonList(this.areaId,this.courseId)
+    this.lessonsService.getLessonList(this.areaId, this.courseId)
       .subscribe(data => this.lessons = data);
   }
 
   private getLessonsWithCommentsData(): void {
     this.lessonsService.getLessonsWithComments(this.areaId, this.courseId)
       .subscribe(data => {
+        data.forEach(l => {
+          //l.urlVideo = l.urlVideo.split('https://www.youtube.com/watch?v=')[1];
+          l.urlVideo = l.urlVideo.split('https://www.youtube.com/embed/')[1];
+        });
         this.lessons = data;
-        console.log(data[0])});
+        console.log(this.lessons);
+      });
   }
 
   getLessonData(): void {
-    this.lessonsService.getLesson(this.areaId,this.courseId,this.lessonId)
+    this.lessonsService.getLesson(this.areaId, this.courseId, this.lessonId)
       .subscribe(data => this.mainLesson = data);
   }
 
-  
+
   getTrustedYouTubeUrl(linkedVideo: Lesson) {
     return this.sanitizer2.bypassSecurityTrustResourceUrl(linkedVideo.urlVideo);
-  }    
+  }
 
   postComment(nComment: string){
     this.myComment = new Comment();
@@ -166,6 +171,6 @@ export class LessonComponent implements OnInit {
           }
         });
   }
-  
+
 
 }

@@ -69,6 +69,7 @@ import { EditTeacherComponent } from './pages/edit-teacher/edit-teacher.componen
 import { InscripctionsComponent } from './pages/Admin/inscripctions/inscripctions.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 
 @NgModule({
@@ -147,7 +148,8 @@ import {MatSelectModule} from '@angular/material/select';
 
     CardsModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    YouTubePlayerModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
