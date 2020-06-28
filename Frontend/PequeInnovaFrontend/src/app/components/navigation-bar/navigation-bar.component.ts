@@ -84,6 +84,13 @@ export class NavigationBarComponent implements OnInit {
   FunctionRegisterNavigate() {
     this.router.navigate(['./registerStudent']);
   }
+
+  navToPerfilStudent() {
+    if ((this.user.role === 'estudiante') || (this.user.role === 'Estudiante')) {
+      this.router.navigate(['./perfil']);
+    }
+  }
+
   navToMainAdmin() {
     if ((this.user.role === 'administrador') || (this.user.role === 'Administrador')) {
       this.router.navigate(['./mainAdmin']);
@@ -94,6 +101,10 @@ export class NavigationBarComponent implements OnInit {
     if (this.user.role === 'Profesor') {
       this.router.navigate(['./mainTeacher']);
     }
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 
 }

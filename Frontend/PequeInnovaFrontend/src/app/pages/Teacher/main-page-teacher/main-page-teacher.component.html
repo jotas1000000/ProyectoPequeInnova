@@ -14,8 +14,8 @@
       <div class="user userfunctions">
         <button type="button" class="user-button teacher" [disabled]="assignment.areaName === 'Sin Area'"
           (click)="NavigateToMyCourses()" mdbBtn color="primary" mdbWavesEffect>Mis Cursos</button>
-        <button type="button" class="user-button teacher"
-          (click)="passwordModal.show()" mdbBtn color="primary" mdbWavesEffect>Cambiar contraseña</button>
+        <button type="button" class="user-button teacher" (click)="passwordModal.show()" mdbBtn color="primary"
+          mdbWavesEffect>Cambiar contraseña</button>
       </div>
     </div>
   </div>
@@ -24,35 +24,37 @@
   <button mdbBtn class="buttonAreas" type="button" routerLink="/areas" color="info" rounded="true" outline="true"
     mdbWavesEffect>Areas</button>
 </div>
+<div class="background-container">
+  <hr class="hr-black my-4">
+  <div class="containerCarousel">
 
-<div class="containerCarousel">
 
+    <owl-carousel-o [options]="customOptions">
+      <ng-template carouselSlide *ngFor="let slide of areas">
 
-  <owl-carousel-o [options]="customOptions">
-    <ng-template carouselSlide *ngFor="let slide of areas">
+        <div class="card-container">
+          <div class="container-img">
+            <img [src]="slide.image" alt="Card image cap" />
+          </div>
 
-      <div class="card-container">
-        <div class="container-img">
-          <img [src]="slide.image" alt="Card image cap" />
+          <div class="card-body-elements">
+
+            <div class="card-title">
+              <p>{{slide.name | slice:0:30}}</p>
+            </div>
+
+            <div class="card-text">
+              {{slide.description | slice:0:200}}...
+            </div>
+            <div class="card-buttons">
+              <button type="button" class="card-button show" mdbBtn color="primary"
+                routerLink="/areas/{{slide.id}}/courses" mdbWavesEffect>Ver Area</button>
+            </div>
+          </div>
         </div>
-
-        <div class="card-body-elements">
-
-          <div class="card-title">
-            <p>{{slide.name | slice:0:30}}</p>
-          </div>
-
-          <div class="card-text">
-            {{slide.description | slice:0:200}}...
-          </div>
-          <div class="card-buttons">
-            <button type="button" class="card-button show" mdbBtn color="primary"
-              routerLink="/areas/{{slide.id}}/courses" mdbWavesEffect>Ver Area</button>
-          </div>
-        </div>
-      </div>
-    </ng-template>
-  </owl-carousel-o>
+      </ng-template>
+    </owl-carousel-o>
+  </div>
 </div>
 
 
@@ -88,9 +90,11 @@
 
               <div class="microContainer">
                 <mat-form-field class="input-Field">
-                  <input placeholder="Confirmar Nueva contraseña" formControlName="ConfirmPassword" matInput type="password">
+                  <input placeholder="Confirmar Nueva contraseña" formControlName="ConfirmPassword" matInput
+                    type="password">
                   <mat-error *ngIf="ConfirmPassword.invalid">{{getErrorMessageConfirmPassword()}}</mat-error>
-                  <mat-error *ngIf="ConfirmPassword.errors && ConfirmPassword.errors.mustMatch">Las contraseñas deben coincidir</mat-error>
+                  <mat-error *ngIf="ConfirmPassword.errors && ConfirmPassword.errors.mustMatch">Las contraseñas deben
+                    coincidir</mat-error>
                 </mat-form-field>
               </div>
 

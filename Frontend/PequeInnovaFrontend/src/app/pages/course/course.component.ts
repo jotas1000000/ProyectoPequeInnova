@@ -117,7 +117,7 @@ export class CourseComponent implements OnInit {
   inscriptionStudent(): void{
     this.inscription.courseId = this.courseId;
     this.inscription.userId = this.userId;
-
+    console.log(this.inscription);
     this.studentService.inscription(this.inscription).subscribe();
   }
 

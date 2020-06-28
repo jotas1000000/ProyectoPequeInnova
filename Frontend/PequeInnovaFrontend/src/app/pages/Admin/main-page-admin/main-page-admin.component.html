@@ -29,31 +29,34 @@
     outline="true" mdbWavesEffect>Areas</button>
 </div>
 
-<div class="containerCarousel">
+<div class="background-container">
+  <hr class="hr-black my-4">
+  <div class="containerCarousel">
 
-  <owl-carousel-o [options]="customOptions">
-    <ng-template carouselSlide *ngFor="let slide of areas">
+    <owl-carousel-o [options]="customOptions">
+      <ng-template carouselSlide *ngFor="let slide of areas">
 
-      <div class="card-container">
-        <div class="container-img">
-          <img [src]="slide.image" alt="Card image cap" />
+        <div class="card-container">
+          <div class="container-img">
+            <img [src]="slide.image" alt="Card image cap" />
+          </div>
+
+          <div class="card-body-elements">
+
+            <div class="card-title">
+              <p>{{slide.name | slice:0:30}}</p>
+            </div>
+
+            <div class="card-text">
+              {{slide.description | slice:0:170}}...
+            </div>
+            <div class="card-buttons">
+              <button type="button" class="card-button show" mdbBtn color="primary"
+                routerLink="/mainAdmin/areaControl/{{slide.id}}/courseControl" mdbWavesEffect>Ver Area</button>
+            </div>
+          </div>
         </div>
-
-        <div class="card-body-elements">
-
-          <div class="card-title">
-            <p>{{slide.name | slice:0:30}}</p>
-          </div>
-
-          <div class="card-text">
-            {{slide.description | slice:0:170}}...
-          </div>
-          <div class="card-buttons">
-            <button type="button" class="card-button show" mdbBtn color="primary"
-              routerLink="/mainAdmin/areaControl/{{slide.id}}/courseControl" mdbWavesEffect>Ver Area</button>
-          </div>
-        </div>
-      </div>
-    </ng-template>
-  </owl-carousel-o>
+      </ng-template>
+    </owl-carousel-o>
+  </div>
 </div>

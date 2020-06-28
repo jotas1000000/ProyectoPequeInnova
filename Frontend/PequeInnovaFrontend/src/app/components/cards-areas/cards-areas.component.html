@@ -22,7 +22,9 @@
 
   </div>
 
-<!--   <div class="background-container">
+  <div class="background-container">
+    <hr class="my-4">
+    <!--   <div class="background-container">
     <hr class="my-4">
 
     <ng-container *ngFor="let area of areas, index as i">
@@ -60,28 +62,31 @@
       </div>
     </ng-container>
   </div> -->
-  <div class="container-deck" *ngIf="areas">
-    <div class="card-container" *ngFor="let area of areas, index as i">
-      <div class="container-img">
-        <img  [src]="area.image" alt="Card image cap"/>
-      </div>
-
-      <div class="card-body-elements">
-
-        <div class="card-title">
-          <p>{{area.name | slice:0:30}}</p>
+    <div class="container-deck" *ngIf="areas">
+      <div class="card-container" *ngFor="let area of areas, index as i">
+        <div class="container-img">
+          <img [src]="area.image" alt="Card image cap" />
         </div>
 
-        <div class="card-text">
-          {{area.description | slice:0:200}}...
-        </div>
-        <div class="card-buttons">    
-          <button type="button" class="card-button show" mdbBtn color="default" routerLink="/areas/{{area.id}}" mdbWavesEffect>            <mdb-icon fas icon="book-open" class="left"></mdb-icon>Ver Area
-          </button>
-        </div>
+        <div class="card-body-elements">
 
+          <div class="card-title">
+            <p>{{area.name | slice:0:30}}</p>
+          </div>
+
+          <div class="card-text">
+            {{area.description | slice:0:200}}...
+          </div>
+          <div class="card-buttons">
+            <button type="button" class="card-button show" mdbBtn color="default" routerLink="/areas/{{area.id}}"
+              mdbWavesEffect>
+              <mdb-icon fas icon="book-open" class="left"></mdb-icon>Ver Area
+            </button>
+          </div>
+
+        </div>
       </div>
     </div>
-</div>
+  </div>
 
 </section>

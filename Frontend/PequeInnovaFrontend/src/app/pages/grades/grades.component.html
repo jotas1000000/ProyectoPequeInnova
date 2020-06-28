@@ -1,0 +1,77 @@
+<div class="teachers-navbar">
+    <button class="button-navbar" routerLink="/perfil" mdbBtn type="button" color="info" rounded="true" mdbWavesEffect>
+        <mdb-icon fas icon="hand-point-left" class="pr-1"></mdb-icon>Perfil
+    </button>
+</div>
+
+
+<div class="col-md-12 mb-4 text-default text-center">
+    <h1 class="h1-reponsive text-uppercase font-weight-bold mb-0 pt-md-0 pt-0">
+        <strong>
+            <mdb-icon fas size="lg" icon="user" class="pr-2"></mdb-icon>{{userNickName| slice:0:30}}
+        </strong>
+    </h1>
+
+</div>
+
+<div class="background-container">
+    <hr class="my-4">
+    <div class="card-group ">
+        <ng-container *ngFor="let inscription of inscriptions ">
+
+            <div class="container-deck">
+
+                <div class="card-container">
+
+                    <ng-container *ngIf="inscription.state">
+                        <div class="container-img">
+                            <img src="https://thumbs.dreamstime.com/b/premio-de-oro-la-ciencia-ejemplo-del-vector-trofeo-en-un-fondo-blanco-116798874.jpg"
+                                alt="Card image cap" />
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="!inscription.state">
+                        <div class="container-img">
+                            <img src="https://images.vexels.com/media/users/3/129811/isolated/preview/7d98621bbdeb2746a26abe146a56c9d3-classic-trophy-silhouette-by-vexels.png"
+                                alt="Card image cap" />
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="inscription.state">
+                        <div class="card-body-elements">
+
+                            <div class="card-title text-center">
+                                <p>{{inscription.areaName | slice:0:30}} - {{inscription.courseName | slice:0:30}}
+                                </p>
+                            </div>
+
+
+                            <div class="card-text text-center">
+                                APROBADO
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="!inscription.state">
+                        <div class="card-body-elements-r">
+
+                            <div class="card-title text-center">
+                                <p>{{inscription.areaName | slice:0:30}} - {{inscription.courseName | slice:0:30}}
+                                </p>
+                            </div>
+
+                            <div class="card-text text-center">
+                                REPROBADO
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+        </ng-container>
+
+    </div>
+    <br><br>
+    <hr class="my-4">
+</div>
+

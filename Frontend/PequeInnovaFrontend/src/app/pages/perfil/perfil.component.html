@@ -1,0 +1,121 @@
+<div class="container">
+    <div class="userbox" *ngIf="assignment">
+        <div class="user userphoto">
+            <img class="photo rounded-circle"
+                src="https://w7.pngwing.com/pngs/24/797/png-transparent-astronaut-space-suit-outer-space-astronaut-white-hand-computer.png"
+                alt="">
+        </div>
+        <div class="user userdata">
+            <div class="u name">
+                <p class="textUser-Nickname">{{userNickName | slice:0:25 }}</p>
+               
+            </div>
+            <div class="u name">
+                <p class="textUser">{{userLastname | slice:0:25 }}</p>
+            </div>
+            <div class="u name">
+                <p class="textUser">{{userName | slice:0:25 }}</p>
+            </div>
+            <div class="user userfunctions">
+                <button type="button" class="user-button teacher" [disabled]="assignment.areaName === 'Sin Area'"
+                    (click)="NavigateToMyGrades()" mdbBtn color="primary" mdbWavesEffect>Mis Logros</button>
+                <button type="button" class="user-button teacher" (click)="passwordModal.show()" mdbBtn color="primary"
+                    mdbWavesEffect>Cambiar contraseña</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="areas">
+    <button mdbBtn class="buttonAreas" type="button" routerLink="/areas" color="info" rounded="true" outline="true"
+        mdbWavesEffect>Areas</button>
+</div>
+<div class="background-container">
+    <hr class="hr-black my-4">
+    <div class="containerCarousel">
+
+
+        <owl-carousel-o [options]="customOptions">
+            <ng-template carouselSlide *ngFor="let slide of areas">
+
+                <div class="card-container">
+                    <div class="container-img">
+                        <img [src]="slide.image" alt="Card image cap" />
+                    </div>
+
+                    <div class="card-body-elements">
+
+                        <div class="card-title">
+                            <p>{{slide.name | slice:0:30}}</p>
+                        </div>
+
+                        <div class="card-text">
+                            {{slide.description | slice:0:200}}...
+                        </div>
+                        <div class="card-buttons">
+                            <button type="button" class="card-button show" mdbBtn color="primary"
+                                routerLink="/areas/{{slide.id}}/courses" mdbWavesEffect>Ver Area</button>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </owl-carousel-o>
+    </div>
+</div>
+
+<div mdbModal #passwordModal="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+    aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content ">
+
+            <div class="modal-body">
+                <form [formGroup]="form" (ngSubmit)="changePassword($event)">
+                    <mat-card class="card-container text-center">
+                        <mat-card-header class="justify-content-center">
+                            <mat-card-title class="text-center">Cambiar Contraseña</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content class="card-content-container">
+
+                            <div class="microContainer">
+                                <mat-form-field class="input-Field">
+                                    <input placeholder="Anterior Contraseña" formControlName="OldPassword" matInput
+                                        type="password">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="microContainer">
+                                <mat-form-field class="input-Field">
+                                    <input placeholder="Nueva Contraseña" formControlName="NewPassword" matInput
+                                        type="password">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="microContainer">
+                                <mat-form-field class="input-Field">
+                                    <input placeholder="Confirmar Nueva contraseña" formControlName="ConfirmPassword"
+                                        matInput type="password">
+                                    <mat-error *ngIf="ConfirmPassword.invalid">{{getErrorMessageConfirmPassword()}}
+                                    </mat-error>
+                                    <mat-error *ngIf="ConfirmPassword.errors && ConfirmPassword.errors.mustMatch">Las
+                                        contraseñas deben coincidir</mat-error>
+                                </mat-form-field>
+                            </div>
+
+
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <button type="button" class="btn edit-form" (click)="FunctionEscape(); passwordModal.hide()"
+                                mdbBtn color="danger" mdbWavesEffect>Cancelar</button>
+                            <button [disabled]="form.invalid" type="submit" class="btn edit-form"
+                                (click)="passwordModal.show()" mdbBtn color="info" mdbWavesEffect>Aceptar</button>
+
+                            <br>
+                            {{messageBinding}}
+                        </mat-card-actions>
+                    </mat-card>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -165,16 +165,72 @@
 
           <img src="assets\images\logos\logo_2.png" width="150" />
 
-          <p class="pt-3 mx-4">Por favor Registrese para ver las lecciones de este Curso
+          <p class="pt-3 mx-4">Por favor Inicie Sesion para ver las lecciones de este Curso
 
-            <a type="button" mdbBtn size="md" color="success" class="waves-light" routerLink="/registerStudent"mdbWavesEffect>
+            <!--      <a type="button" mdbBtn size="md" color="success" class="waves-light" routerLink="/registerStudent"mdbWavesEffect>
               <mdb-icon fas icon="user" class="pr-1" ></mdb-icon>Registrarse
+            </a> -->
+            <a type="button" mdbBtn size="md" color="success" class="waves-light"
+              (click)="frameIniciarSesion.show(); frame.hide()" mdbWavesEffect>
+              <mdb-icon fas icon="user" class="pr-1"></mdb-icon>Iniciar Sesion
             </a>
             <a type="button" mdbBtn size="md" color="success" outline="true" class="waves-light" mdbWavesEffect
-              data-dismiss="modal" (click)="frame.hide()">Aun No</a>
+              data-dismiss="modal" (click)="frame.hide()">Cancelar</a>
         </div>
       </div>
     </div>
     <!--/.Content-->
+  </div>
+</div>
+
+
+
+<div mdbModal #frameIniciarSesion="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Ingresar</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frameIniciarSesion.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
+          <input type="email" id="defaultForm-email" [formControl]="loginFormModalEmail" class="form-control" mdbInput
+            mdbValidate>
+          <label for="defaultForm-email">Escribe Tu Correo</label>
+          <mdb-error *ngIf="loginFormModalEmail.invalid && (loginFormModalEmail.dirty || loginFormModalEmail.touched)">
+            Correo No Valido
+          </mdb-error>
+          <mdb-success *ngIf="loginFormModalEmail.valid && (loginFormModalEmail.dirty || loginFormModalEmail.touched)">
+            Correo Valido
+          </mdb-success>
+        </div>
+
+        <div class="md-form mb-4">
+          <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
+          <input type="password" id="defaultForm-pass" [formControl]="loginFormModalPassword" class="form-control"
+            mdbInput mdbValidate>
+          <label for="defaultForm-pass">Escribe Tu Contraseña</label>
+          <mdb-error
+            *ngIf="loginFormModalPassword.invalid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
+            Contraseña Incorrecta
+          </mdb-error>
+          <mdb-success
+            *ngIf="loginFormModalPassword.valid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
+            Contraseña Correcta
+          </mdb-success>
+        </div>
+
+
+      </div>
+      <p class="text-center">Si no tienes Cuenta <a routerLink="/registerStudent">Registrate</a></p>
+      <div class="modal-footer d-flex justify-content-center">
+        <button mdbBtn color="default" class="waves-light" (click)='onSubmit()'
+          (click)="frameIniciarSesion.hide(); refresh();" mdbWavesEffect>Aceptar</button>
+      </div>
+    </div>
   </div>
 </div>

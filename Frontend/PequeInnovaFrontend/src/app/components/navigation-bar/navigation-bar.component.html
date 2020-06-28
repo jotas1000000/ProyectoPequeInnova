@@ -1,20 +1,22 @@
 <!--Navbar-->
 
-<mdb-navbar SideClass="mb- navbar navbar-expand-lg navbar-dark info-color-dark   scrolling-navbar" [containerInside]="false">
+<mdb-navbar SideClass="mb- navbar navbar-expand-lg navbar-dark info-color-dark   scrolling-navbar"
+  [containerInside]="false">
 
-    <!-- Navbar brand -->
-    <mdb-navbar-brand class="logo"><img src="assets/images/logos/logo_1.png" width="50"></mdb-navbar-brand>
-    
-    <!-- Collapsible content -->
-    <links>
-    
-        <!-- Links -->
-        <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-            <a class="nav-link waves-light" routerLink="/home" mdbWavesEffect>PequeInnova<span class="sr-only">(current)</span></a>
-        </li>
-    
-        <!-- Dropdown -->
+  <!-- Navbar brand -->
+  <mdb-navbar-brand class="logo"><img src="assets/images/logos/logo_1.png" width="50"></mdb-navbar-brand>
+
+  <!-- Collapsible content -->
+  <links>
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link waves-light" routerLink="/home" mdbWavesEffect>PequeInnova<span
+            class="sr-only">(current)</span></a>
+      </li>
+
+      <!-- Dropdown -->
       <!--   <li class="nav-item dropdown" dropdown>
             <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
                 Areas <span class="caret"></span></a>
@@ -26,52 +28,69 @@
             <a class="dropdown-item waves-light" mdbWavesEffect href="#">Separated link</a>
             </div>
         </li> -->
-    
-        </ul>
-        <!-- Links -->
-    
-        <ul class="navbar-nav ml-auto nav-flex-icons" *ngIf='user==null'>
-            <li class="nav-item active">
-                <a class="btn btn-outline btn-md my-sm-0" (click)="FunctionRegisterNavigate()" mdbWavesEffect ><mdb-icon fas icon="user"></mdb-icon>  Registrarse</a>
-            </li>
-            <li class="nav-item">
-            <a class="btn btn-outline btn-md my-sm-0" data-toggle="modal" data-target="#basicExample"
-            (click)="frame.show()" mdbWavesEffect><mdb-icon fas icon="users"></mdb-icon>    Ingresar</a> 
-            </li>   
-            
-        </ul>
 
-        <ul class="navbar-nav ml-auto nav-flex-icons" *ngIf='user'>
-            
-          <li class="nav-item">
-              <a class="nav-link waves-light username" mdbWavesEffect><mdb-icon fas icon=""></mdb-icon>{{nameUserCurrent}}<span class="sr-only">(current)</span></a>
-          </li>   
-          <li class="nav-item" *ngIf='(user.role==="Administrador") || (user.role==="administrador")'>
-            <a class="btn btn-outline btn-md my-sm-0" (click)="navToMainAdmin()" mdbWavesEffect ><mdb-icon fas icon="bars"></mdb-icon>  Controles de Administrador</a>
-          </li> 
-          <li class="nav-item" *ngIf='user.role==="Profesor"'>
-            <a class="btn btn-outline btn-md my-sm-0" (click)="navToMainTeacher()" mdbWavesEffect ><mdb-icon fas icon="bars"></mdb-icon>  Controles de Profesor</a>
-          </li> 
-          <li class="nav-item">
-              <a class="btn btn-outline btn-md my-sm-0" (click)="logout()" mdbWavesEffect ><mdb-icon fas icon="users"></mdb-icon>  Log Out</a>
-          </li>   
-          
-        </ul>
-    </links>
-    <br>
-    <br>
-   
-    <!-- Collapsible content -->
-    
+    </ul>
+    <!-- Links -->
+
+    <ul class="navbar-nav ml-auto nav-flex-icons" *ngIf='user==null'>
+      <li class="nav-item active">
+        <a class="btn btn-outline btn-md my-sm-0" (click)="FunctionRegisterNavigate()" mdbWavesEffect>
+          <mdb-icon fas icon="user"></mdb-icon> Registrarse
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-outline btn-md my-sm-0" data-toggle="modal" data-target="#basicExample" (click)="frame.show()"
+          mdbWavesEffect>
+          <mdb-icon fas icon="users"></mdb-icon> Ingresar
+        </a>
+      </li>
+
+    </ul>
+
+    <ul class="navbar-nav ml-auto nav-flex-icons" *ngIf='user'>
+
+      <li class="nav-item">
+        <a class="nav-link waves-light username" mdbWavesEffect>
+          <mdb-icon fas icon=""></mdb-icon>{{nameUserCurrent}}<span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item" *ngIf='(user.role==="Estudiante") || (user.role==="estudiante")'>
+        <a class="btn btn-outline btn-md my-sm-0" (click)="navToPerfilStudent()" mdbWavesEffect>
+          <mdb-icon fas icon="bars"></mdb-icon> Perfil
+        </a>
+      </li>
+      <li class="nav-item" *ngIf='(user.role==="Administrador") || (user.role==="administrador")'>
+        <a class="btn btn-outline btn-md my-sm-0" (click)="navToMainAdmin()" mdbWavesEffect>
+          <mdb-icon fas icon="bars"></mdb-icon> Controles de Administrador
+        </a>
+      </li>
+      <li class="nav-item" *ngIf='user.role==="Profesor"'>
+        <a class="btn btn-outline btn-md my-sm-0" (click)="navToMainTeacher()" mdbWavesEffect>
+          <mdb-icon fas icon="bars"></mdb-icon> Controles de Profesor
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-outline btn-md my-sm-0" (click)="logout()" mdbWavesEffect>
+          <mdb-icon fas icon="users"></mdb-icon> Log Out
+        </a>
+      </li>
+
+    </ul>
+  </links>
+  <br>
+  <br>
+
+  <!-- Collapsible content -->
+
 </mdb-navbar>
 <!--/.Navbar-->
 
 <div mdbModal #frame="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
+  aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Ingresar</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -79,37 +98,37 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
-          <input type="email" id="defaultForm-email" [formControl]="loginFormModalEmail" class="form-control"
-                 mdbInput mdbValidate>
-          <label for="defaultForm-email">Your email</label>
-          <mdb-error
-            *ngIf="loginFormModalEmail.invalid && (loginFormModalEmail.dirty || loginFormModalEmail.touched)">
-            Input invalid
+          <input type="email" id="defaultForm-email" [formControl]="loginFormModalEmail" class="form-control" mdbInput
+            mdbValidate>
+          <label for="defaultForm-email">Escribe Tu Correo</label>
+          <mdb-error *ngIf="loginFormModalEmail.invalid && (loginFormModalEmail.dirty || loginFormModalEmail.touched)">
+            Correo No Valido
           </mdb-error>
-          <mdb-success
-            *ngIf="loginFormModalEmail.valid && (loginFormModalEmail.dirty || loginFormModalEmail.touched)">Input
-            valid
+          <mdb-success *ngIf="loginFormModalEmail.valid && (loginFormModalEmail.dirty || loginFormModalEmail.touched)">
+            Correo Valido
           </mdb-success>
         </div>
 
         <div class="md-form mb-4">
           <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
           <input type="password" id="defaultForm-pass" [formControl]="loginFormModalPassword" class="form-control"
-                 mdbInput mdbValidate>
-          <label for="defaultForm-pass">Your password</label>
+            mdbInput mdbValidate>
+          <label for="defaultForm-pass">Escribe Tu Contraseña</label>
           <mdb-error
             *ngIf="loginFormModalPassword.invalid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
-            Input invalid
+            Contraseña Incorrecta
           </mdb-error>
           <mdb-success
             *ngIf="loginFormModalPassword.valid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
-            Input valid
+            Contraseña Correcta
           </mdb-success>
         </div>
 
       </div>
+      <p class="text-center">Si no tienes Cuenta <a routerLink="/registerStudent">Registrate</a></p>
       <div class="modal-footer d-flex justify-content-center">
-        <button mdbBtn color="default" class="waves-light" (click)='onSubmit()' (click)="frame.hide()" mdbWavesEffect>Login</button>
+        <button mdbBtn color="default" class="waves-light" (click)='onSubmit()' (click)="frame.hide(); refresh();"
+          mdbWavesEffect>Aceptar</button>
       </div>
     </div>
   </div>

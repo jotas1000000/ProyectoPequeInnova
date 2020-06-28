@@ -69,6 +69,8 @@ import { EditTeacherComponent } from './pages/edit-teacher/edit-teacher.componen
 import { InscripctionsComponent } from './pages/Admin/inscripctions/inscripctions.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import { GradesComponent } from './pages/grades/grades.component';
 
 
 @NgModule({
@@ -112,7 +114,9 @@ import {MatSelectModule} from '@angular/material/select';
     EditCourseTeacherComponent,
     StudentControlComponent,
     EditTeacherComponent,
-    InscripctionsComponent
+    InscripctionsComponent,
+    PerfilComponent,
+    GradesComponent
   ],
   imports: [
     BrowserModule,

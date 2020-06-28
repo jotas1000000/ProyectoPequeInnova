@@ -32,12 +32,15 @@ import {EditCourseTeacherComponent} from './pages/Teacher/edit-course-teacher/ed
 import { EditTeacherComponent } from './pages/edit-teacher/edit-teacher.component';
 import { StudentControlComponent } from './pages/Admin/student-control/student-control.component';
 import { InscripctionsComponent } from './pages/Admin/inscripctions/inscripctions.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import { GradesComponent } from './pages/grades/grades.component';
 
 const routes: Routes = [
   //{ path: 'register', component:RegisterStudentComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent },
-
+  { path: 'perfil', component: PerfilComponent },
+  { path: 'grades', component: GradesComponent },
   { path: 'areas', component: AreasComponent},
   { path: 'areas/:areaId/courses', component:  AreaComponent},
   { path: 'areas/:areaId/courses/:courseId/lessons', component:  CourseComponent, canActivate: [StudentGuard]},

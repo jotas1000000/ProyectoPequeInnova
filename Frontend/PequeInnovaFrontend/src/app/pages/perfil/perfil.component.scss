@@ -46,7 +46,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    background: rgb(255,187,51);
+    background:  rgb(73, 204, 187);
     height: 100%;
     border-radius: 35px;
     box-shadow: -6px 1px 7px -3px rgba(189,178,189,1);
@@ -65,11 +65,25 @@
 }
 
 p.textUser{
+    text-transform: uppercase;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 180%;
+    letter-spacing: 1px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 900;
-    font-size: 20px;
+}
+p.textUser-Nickname{
+    text-transform: uppercase;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 220%;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    color: rgb(230, 230, 230) !important;
 }
 
 .user.userfunctions{
@@ -226,7 +240,7 @@ p.textUser{
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
-        background: rgb(255,187,51);
+        background:  rgb(73, 204, 187);
         height: 50%;
         border-radius: 35px;
         box-shadow: -6px 1px 7px -3px rgba(189,178,189,1);
@@ -295,7 +309,7 @@ p.textUser{
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
-        background: rgb(255,187,51);
+        background:rgb(73, 204, 187);
         height: 50%;
         border-radius: 35px;
         box-shadow: -6px 1px 7px -3px rgba(189,178,189,1);

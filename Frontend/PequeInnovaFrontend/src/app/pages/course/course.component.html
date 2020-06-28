@@ -141,7 +141,9 @@
 
                     <a class="dark-grey-text text-center">{{lesson.description | slice:0:100}}</a>
                   </div>
-                  <a routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lesson.id}}/theoretical">
+                  <a 
+                  (click)= "inscriptionStudent()"
+                  routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lesson.id}}/theoretical">
                     
                   </a>
                 </div>
@@ -181,6 +183,7 @@
         <!-- Button Realizae Prueba -->
         <div class="d-flex justify-content-center">
           <a mdbBtn color="pink" mdbWavesEffect
+          (click)= "inscriptionStudent()"
             routerLink="/areas/{{areaId}}/courses/{{courseId}}/lessons/{{lesson.id}}/practice">
             <mdb-icon fas icon="check" class="pr-1"></mdb-icon>Realizar Prueba</a>
         </div>
