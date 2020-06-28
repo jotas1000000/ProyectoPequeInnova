@@ -71,6 +71,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { GradesComponent } from './pages/grades/grades.component';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 
 @NgModule({
@@ -151,7 +152,8 @@ import { GradesComponent } from './pages/grades/grades.component';
 
     CardsModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    YouTubePlayerModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

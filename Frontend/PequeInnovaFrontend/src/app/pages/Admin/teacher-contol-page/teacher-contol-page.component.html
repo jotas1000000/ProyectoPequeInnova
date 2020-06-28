@@ -38,7 +38,7 @@
           <!-- <td>{{el.Functions}}</td> -->
           <td class="field-functions">
             <button mdbBtn color="" size="sm" routerLink="/editTeacher/{{el.id}}" mdbWavesEffect type="button" class="button-color">Editar</button>
-            <button mdbBtn color="" size="sm" (click)="passwordModal.show()" mdbWavesEffect type="button" class="button-color">Cambiar Contraseña</button>
+            <button mdbBtn color="" size="sm" (click)="passwordModal.show();resetForm()" mdbWavesEffect type="button" class="button-color">Cambiar Contraseña</button>
             <!-- <button mdbBtn color="" size="sm" (click)="assignmentModal.show();updateAssignmentModal(el.id, el.assignmentId);updateAssignmentForm(el.areaId)" mdbWavesEffect type="button" class="button-color">Asignacion</button> -->
             <button mdbBtn color="danger" size="sm" (click)="deleteTeacherModal.show()" mdbWavesEffect type="button" class="">Eliminar</button>
           </td>
@@ -111,23 +111,25 @@
         </button>
         <h4 class="modal-title w-100" id="myModalLabel">Cambiar contraseña</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" *ngIf="passwordForm">
         <form [formGroup]="passwordForm" (ngSubmit)="forceChangePassword($event)">
           <mat-card class="card-container">
             <mat-card-header>
-              <mat-card-title>Editar Maestro</mat-card-title>
+              <mat-card-title>Escriba la nueva contraseña</mat-card-title>
             </mat-card-header>
             <mat-card-content class="card-content-container">
 
               <div class="microContainer">
-                <mat-form-field class="input-Field">
-                  <input placeholder="Nueva Contraseña" formControlName="NewPassword" matInput type="password">
+                <mat-form-field class="input-Field" appearance="outline">
+                  <mat-label>Contraseña</mat-label>
+                  <input placeholder="Nueva Contraseña" [formControl]="this.NewPassword" matInput type="password" autocomplete="off">
                 </mat-form-field>
               </div>
 
               <div class="microContainer">
-                <mat-form-field class="input-Field">
-                  <input placeholder="Confirmar Nueva contraseña" formControlName="ConfirmPassword" matInput type="password">
+                <mat-form-field class="input-Field" appearance="outline">
+                  <mat-label>Confirmar Contraseña</mat-label>
+                  <input placeholder="Confirmar Nueva contraseña" [formControl]="this.ConfirmPassword" matInput type="password" autocomplete="off">
                   <mat-error *ngIf="ConfirmPassword.invalid">{{getErrorMessageConfirmPassword()}}</mat-error>
                   <mat-error *ngIf="ConfirmPassword.errors && ConfirmPassword.errors.mustMatch">Las contraseñas deben coincidir</mat-error>
                 </mat-form-field>
