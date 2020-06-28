@@ -213,8 +213,8 @@ export class RegisterComponent implements OnInit {
     student.Age = 10;
     student.Uid = '123';
 
-    console.log(student);
-  }
+/*     console.log(student);
+ */  }
   FunctionEscape(){
     this.router.navigate(['./home']);
   }

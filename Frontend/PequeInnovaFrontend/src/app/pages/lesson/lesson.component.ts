@@ -30,7 +30,7 @@ export class LessonComponent implements OnInit {
 
   public courses = [];
   public areas = [];
-  public lessons = [];
+  public lessons;
   public mainLesson: any;
 
   // Route vars
@@ -99,11 +99,15 @@ export class LessonComponent implements OnInit {
     this.lessonsService.getLessonsWithComments(this.areaId, this.courseId)
       .subscribe(data => {
         data.forEach(l => {
-          //l.urlVideo = l.urlVideo.split('https://www.youtube.com/watch?v=')[1];
-          l.urlVideo = l.urlVideo.split('https://www.youtube.com/embed/')[1];
+          l.urlVideo = l.urlVideo.split('https://youtu.be/')[1];
         });
-        this.lessons = data;
-        console.log(this.lessons);
+        if ( this.lessons == null) {
+          this.lessons = data;
+        } else {
+          for (let i = 0; i < this.lessons.length ; i++) {
+            this.lessons[i].comments = data[i].comments;
+          }
+        }
       });
   }
 
@@ -150,7 +154,7 @@ export class LessonComponent implements OnInit {
       .subscribe(data => {
         this.courses = data;
         for (const course of data) {
-          if (course.id == this.courseId) {
+          if (course.id === this.courseId) {
             this.courseName = course.name;
             break;
           }
@@ -164,7 +168,7 @@ export class LessonComponent implements OnInit {
       .subscribe(data => {
           this.areas = data;
           for (const area of data) {
-            if (area.id == this.areaId) {
+            if (area.id === this.areaId) {
               this.areaName = area.name;
               break;
             }

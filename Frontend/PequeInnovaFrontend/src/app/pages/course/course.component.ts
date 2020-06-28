@@ -122,9 +122,10 @@ export class CourseComponent implements OnInit {
   }
 
   getThumb(lesson):string{
-    var thumb = lesson.urlVideo.slice(30)
+    //var thumb = lesson.urlVideo.slice(30)
+    var thumb = lesson.urlVideo.split('https://youtu.be/')[1];
     var url = 'http://img.youtube.com/vi/' + thumb + '/maxresdefault.jpg';
-    return url
+    return url;
   }
 
   see(){

@@ -75,8 +75,8 @@ export class TeacherContolPageComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.authenticationService.currentUserValue;
     this.teacherService.getAllTeachersWithAssignments().subscribe(data => this.teachers = data);
-    console.log(this.teachers);
-    this.mdbTable.setDataSource(this.teachers);
+/*     console.log(this.teachers);
+ */ this.mdbTable.setDataSource(this.teachers);
     this.previous = this.mdbTable.getDataSource();
     this.areaService.getAreaList().subscribe(data => this.areas = data);
   }
@@ -123,6 +123,7 @@ export class TeacherContolPageComponent implements OnInit {
   }
 
   forceChangePassword(event:Event){
+    event.preventDefault();
     this.updatePassword = this.passwordForm.value;
     this.updatePassword.Id = this.current_teacher;
     const bodyRequest = {
@@ -173,6 +174,11 @@ export class TeacherContolPageComponent implements OnInit {
     if(this.ConfirmPassword.hasError('minlength')) {
       return 'La contraseña debe tener minimo 8 caracteres';
     }
+  }
+
+  resetForm() {
+    this.passwordForm.reset();
+    this.ConfirmPassword.setValue('');
   }
  
 }
